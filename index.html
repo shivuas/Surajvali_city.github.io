@@ -3,68 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio</title>
+    <title>My Portfolio</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-<header>
-      <img id="logo" src="./images/logo.png" />
-      <div id="buttons">
-        <button id="buttom">Home</button>
-        <button id="About">About</button>
-        <button id="Saish">Saish</button>
-        <button id="Shivaraj">Shivaraj</button>
-        <button id="Sohan">Sohan</button>
-        <button id="Pushkar">Pushkar</button>
-      </div>
+
+    <!-- Navbar -->
+    <header>
+        <h2 class="logo">Portfolio<span>.</span></h2>
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#projects">Projects</a>
+            <a href="#contact">Contact</a>
+        </nav>
     </header>
 
-    <section>
-        <h2>🛠️ Projects</h2>
-        <ul>
-            <li><strong>Project 1</strong>: A short description of your project1.</li>
-            <li><strong>Project 2</strong>: A short description of another project2.</li>
-        </ul>
-
-        <h2>🚀 Skills</h2>
-        <ul>
-            <li>C++, Python, JavaScript</li>
-            <li>Data Structures and Algorithms</li>
-            <li>Web Development (React.js, Node.js)</li>
-        </ul>
-
-        <h2>🌐 Find Me Online</h2>
-        <ul>
-            <li><a href="https://github.com/your-github-username" target="_blank">GitHub</a></li>
-            <li><a href="https://linkedin.com/in/your-linkedin-profile" target="_blank">LinkedIn</a></li>
-        </ul>
-
-        <h2>Portfolio Topic</h2>
-        <dl>
-            <dt>Course Name</dt>
-            <dd>Algorithmic Problem Solving</dd>
-
-            <dt>Course Code</dt>
-            <dd>Course Code Placeholder</dd>
-
-            <dt>Name</dt>
-            <dd>Your Name</dd>
-
-            <dt>SRN</dt>
-            <dd>Your SRN</dd>
-
-            <dt>Course Instructor</dt>
-            <dd>Instructor Name Placeholder</dd>
-
-            <dt>University</dt>
-            <dd>Your University Name</dd>
-
-            <dt>Portfolio Topic/Domain</dt>
-            <dd>Google</dd>
-        </dl>
-
-        <blockquote>“The only way to do great work is to love what you do.” – Steve Jobs</blockquote>
+    <!-- Hero Section -->
+    <section class="home" id="home">
+        <div class="content">
+            <h1>Hello, I'm <span>Your Name</span></h1>
+            <p>A Passionate Web Developer & Designer</p>
+            <a href="#projects" class="btn">View My Work</a>
+            <a href="#contact" class="btn outline">Hire Me</a>
+        </div>
+        <div class="hero-img"></div>
     </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <h2 class="heading">About Me</h2>
+        <p>
+            I am a web developer skilled in HTML, CSS, JavaScript, responsive UI design and modern front-end development. 
+            I love turning ideas into beautiful, interactive websites & applications.
+        </p>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="projects" id="projects">
+        <h2 class="heading">My Projects</h2>
+
+        <div class="project-grid">
+            <div class="box">Project 1</div>
+            <div class="box">Project 2</div>
+            <div class="box">Project 3</div>
+            <div class="box">Project 4</div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="contact" id="contact">
+        <h2 class="heading">Contact Me</h2>
+        <p>Let's work together — Mail me at <strong>youremail@gmail.com</strong></p>
+        <a href="mailto:youremail@gmail.com" class="btn">Send Email</a>
+    </section>
+
+    <footer>
+        © 2025 Portfolio | Designed by You
+    </footer>
+
 </body>
 </html>
