@@ -1,125 +1,55 @@
-*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins, sans-serif;}
-
-body{background:#0d1117;color:#eaeaea;}
-
-/* Navbar */
-header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:22px 8%;
-    background:#141920;
-    position:sticky;top:0;width:100%;
-    z-index:10;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Poppins",
+    sans-serif;
 }
 
-.logo{
-    font-size:26px;font-weight:600;
-}
-.logo span{color:#00e0ff;}
-
-nav a{
-    margin-left:30px;
-    color:#eaeaea;
-    text-decoration:none;
-    font-size:16px;
-    transition:.3s;
-}
-nav a:hover{color:#00e0ff;}
-
-/* Home Section */
-.home{
-    height:90vh;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:0 8%;
+body {
+  background-color: #bfbfbf;
 }
 
-.content h1{
-    font-size:48px;
-    margin-bottom:10px;
-}
-.content h1 span{color:#00e0ff;}
-
-.content p{
-    font-size:20px;
-    margin-bottom:30px;
-    color:#c5c5c5;
+/* MAIN GRID WRAPPER */
+.fullPage {
+  color: black;
+  min-height: 100vh; /* full screen height */
+  display: grid;
+  grid-template-rows: 10fr 50fr; /* 2 rows */
+  grid-template-columns: 1fr 7fr 1fr; /* 3 columns */
+  background-color: #dddcdc;
 }
 
-.btn{
-    display:inline-block;
-    padding:12px 28px;
-    margin-right:15px;
-    border-radius:5px;
-    background:#00e0ff;
-    color:#0d1117;
-    text-decoration:none;
-    font-weight:600;
-}
-.btn.outline{
-    background:transparent;
-    border:2px solid #00e0ff;
-    color:#00e0ff;
-}
-.btn:hover{transform:scale(1.05);}
-
-/* Hero Right Image Placeholder */
-.hero-img{
-    width:340px;height:340px;
-    background:#151b23;
-    border-radius:50%;
-    border:3px solid #00e0ff;
+/* TOP CENTERED BAR (ROW 1, COL 2) */
+.fullPage .Course {
+  grid-area: 1 / 2 / 2 / 3; /* row-start / col-start / row-end / col-end */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f5ba13;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
 }
 
-/* Section Headings */
-.heading{
-    font-size:30px;
-    text-align:center;
-    margin-bottom:20px;
-    color:#00e0ff;
-    margin-top:60px;
+.fullPage .Course p {
+  font-size: 20px;
+  font-weight: 600;
 }
 
-/* About Section */
-.about p{
-    text-align:center;
-    font-size:18px;
-    width:70%;
-    margin:auto;
-    color:#c6c6c6;
+/* MAIN CONTENT (ROW 2, COL 2) */
+.fullPage .content {
+  grid-area: 2 / 2 / 3 / 3;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 12px;
 }
 
-/* Projects */
-.project-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:20px;
-    padding:30px 10%;
-}
-.box{
-    background:#151b23;
-    padding:45px;
-    text-align:center;
-    border-radius:10px;
-    font-size:20px;
-    border:2px solid #00e0ff;
-    transition:.3s;
-}
-.box:hover{
-    background:#00e0ff;
-    color:#000;
-    transform:scale(1.05);
+.fullPage .content h2 {
+  font-size: 28px;
 }
 
-/* Contact */
-.contact{text-align:center;padding-bottom:50px;}
-.contact p{font-size:18px;margin-bottom:20px;}
-
-/* Footer */
-footer{
-    text-align:center;
-    padding:20px;
-    background:#141920;
+.fullPage .content p {
+  font-size: 16px;
+  line-height: 1.5;
 }
