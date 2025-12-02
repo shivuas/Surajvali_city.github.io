@@ -27,6 +27,12 @@ body {
   display: block;
 }
 
+.project-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
 /* NAV */
 .nav {
   position: fixed;
@@ -291,7 +297,7 @@ body {
   background: linear-gradient(135deg, #bae6fd, #a7f3d0);
 }
 
-.project a {
+.view-link {
   margin-top: auto;
   text-decoration: none;
   color: var(--accent);
