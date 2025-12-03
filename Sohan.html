@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Surajvali City – Business Cases</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --primary: #0f172a;
+      --accent: #0ea5e9;
+      --muted: #6b7280;
+      --card: #ffffff;
+      --bg-gradient: linear-gradient(45deg, #f9fafb 0%, #e0f2fe 30%, #e0f7f4 65%, #fce7f3 100%);
+      --shadow-soft: 0 8px 24px rgba(148, 163, 184, 0.3);
+      --shadow-strong: 0 18px 40px rgba(148, 163, 184, 0.8);
+    }
+
+    html[data-theme='dark'] {
+      --primary: #e5e7eb;
+      --accent: #38bdf8;
+      --muted: #9ca3af;
+      --card: #020617;
+      --bg-gradient: radial-gradient(circle at top, #020617 0%, #020617 40%, #020617 100%);
+      --shadow-soft: 0 8px 24px rgba(15, 23, 42, 0.9);
+      --shadow-strong: 0 18px 40px rgba(15, 23, 42, 0.95);
+    }
+
+    * {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial;
+      background: var(--bg-gradient);
+      background-attachment: fixed;
+      color: var(--primary);
+      transition: background 0.4s ease, color 0.3s ease;
+    }
+
+    /* NAV */
+    .nav {
+      position: fixed;
+      top: 16px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-10px);
+      width: 92%;
+      max-width: 1100px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      background: rgba(15, 23, 42, 0.05);
+      backdrop-filter: blur(18px) saturate(140%);
+      -webkit-backdrop-filter: blur(18px) saturate(140%);
+      padding: 10px 18px;
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.45);
+      box-shadow: var(--shadow-soft);
+      z-index: 50;
+      opacity: 0;
+      animation: nav-drop 0.6s ease-out forwards;
+    }
+
+    @keyframes nav-drop {
+      to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: radial-gradient(circle at 20% 20%, #f9fafb, #0ea5e9 50%, #22c55e 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #f9fafb;
+      font-weight: 700;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .logo::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, transparent 0%, rgba(255, 255, 255, 0.6) 40%, transparent 80%);
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+
+    .logo:hover::after {
+      opacity: 1;
+      transform: translateX(100%);
+      transition: transform 0.7s ease;
+    }
+
+    .brand-title {
+      font-weight: 700;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+      position: relative;
+      font-size: 14px;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -3px;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #0ea5e9, #22c55e);
+      transition: width 0.25s ease;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    /* Dark mode toggle */
+    .theme-toggle {
+      border: 0;
+      background: rgba(148, 163, 184, 0.2);
+      color: var(--primary);
+      border-radius: 999px;
+      padding: 6px 10px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+    }
+
+    .theme-toggle:hover {
+      background: rgba(148, 163, 184, 0.35);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(15, 23, 42, 0.25);
+    }
+
+    .theme-toggle:active {
+      transform: translateY(0);
+      box-shadow: none;
+    }
+
+    /* HERO */
+    .hero {
+      background: rgba(255, 255, 255, 0.85);
+      border-radius: 24px;
+      margin-top: 90px;
+      padding: 60px 20px;
+      max-width: 1100px;
+      margin-left: auto;
+      margin-right: auto;
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 36px;
+      align-items: center;
+      box-shadow: var(--shadow-strong);
+      position: relative;
+      overflow: hidden;
+      will-change: transform;
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    html[data-theme='dark'] .hero {
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      width: 260px;
+      height: 260px;
+      border-radius: 999px;
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.18), transparent 60%);
+      top: -80px;
+      right: -40px;
+      filter: blur(1px);
+      pointer-events: none;
+    }
+
+    .hero-left h1 {
+      font-size: 28px;
+      margin: 0 0 12px;
+      line-height: 1.3;
+    }
+
+    .hero-left p {
+      margin: 0 0 18px;
+      color: var(--muted);
+    }
+
+    .hero-cta {
+      margin-top: 18px;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .cta {
+      background: var(--accent);
+      color: #f9fafb;
+      padding: 8px 14px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: 0 12px 24px rgba(56, 189, 248, 0.4);
+      transform: translateY(0);
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .cta:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 16px 32px rgba(56, 189, 248, 0.55);
+    }
+
+    .link-primary {
+      color: var(--accent);
+      font-weight: 700;
+      text-decoration: none;
+      position: relative;
+    }
+
+    .link-primary::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -3px;
+      width: 100%;
+      height: 1.5px;
+      background: currentColor;
+      transform-origin: left;
+      transform: scaleX(0.4);
+      opacity: 0.7;
+      transition: transform 0.2s ease;
+    }
+
+    .link-primary:hover::after {
+      transform: scaleX(1);
+    }
+
+    /* PROFILE CARD */
+    .profile-card {
+      background: linear-gradient(145deg, #ffffff, #f9fafb);
+      border-radius: 20px;
+      padding: 18px;
+      box-shadow: var(--shadow-strong);
+      border: 1px solid rgba(209, 213, 219, 0.8);
+      transition: background 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
+    }
+
+    html[data-theme='dark'] .profile-card {
+      background: linear-gradient(145deg, #020617, #0b1120);
+      border-color: rgba(30, 64, 175, 0.9);
+    }
+
+    .profile-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .profile-top {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .avatar {
+      width: 84px;
+      height: 84px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #38bdf8, #a855f7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #f9fafb;
+      font-size: 28px;
+      font-weight: 700;
+    }
+
+    .profile-name {
+      font-weight: 700;
+    }
+
+    .profile-stats {
+      display: flex;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .profile-stats .stat {
+      font-weight: 700;
+    }
+
+    .profile-links {
+      margin-top: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .links-row {
+      display: flex;
+      gap: 8px;
+    }
+
+    .links-row a {
+      text-decoration: none;
+      color: #0ea5e9;
+      font-weight: 700;
+    }
+
+    /* SECTIONS */
+    .section {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 32px 20px;
+      border-radius: 24px;
+      backdrop-filter: blur(4px);
+      background: rgba(255, 255, 255, 0.9);
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    html[data-theme='dark'] .section {
+      background: rgba(15, 23, 42, 0.92);
+    }
+
+    .section h2 {
+      margin: 0 0 18px;
+    }
+
+    /* CASES LAYOUT */
+    .cases-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      gap: 20px;
+      align-items: flex-start;
+    }
+
+    .cases-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-height: 600px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    /* TAB-LIKE LINKS */
+    .case-tab {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--primary);
+      padding: 10px 14px;
+    }
+
+    .case-tab-label {
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    /* CARD BASE */
+    .project {
+      background: var(--card);
+      padding: 12px 14px;
+      border-radius: 999px;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(209, 213, 219, 0.9);
+      transform: translateY(0);
+      transition:
+        transform 0.22s ease,
+        box-shadow 0.22s ease,
+        border-color 0.22s ease,
+        background 0.22s ease;
+    }
+
+    html[data-theme='dark'] .project {
+      border-color: rgba(30, 64, 175, 0.8);
+    }
+
+    .project::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.14), transparent 55%);
+      opacity: 0;
+      transition: opacity 0.22s ease;
+      pointer-events: none;
+    }
+
+    .project:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-strong);
+      border-color: rgba(59, 130, 246, 0.9);
+    }
+
+    .project:hover::before {
+      opacity: 1;
+    }
+
+    .case-item {
+      cursor: pointer;
+      border-left: 3px solid transparent;
+      transition: border-color 0.2s ease;
+    }
+
+    .case-item:hover {
+      border-left-color: var(--accent);
+    }
+
+    .case-item.active {
+      border-left-color: var(--accent);
+    }
+
+    /* THUMB */
+    .thumb {
+      height: 32px;
+      width: 32px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #e0f2fe, #e0f7f4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 13px;
+      color: #0f172a;
+      transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        filter 0.25s ease,
+        background 0.25s ease;
+    }
+
+    .project:hover .thumb {
+      transform: scale(1.06) translateY(-1px);
+      box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
+      filter: saturate(1.05) brightness(1.05);
+    }
+
+    /* PREVIEW */
+    .case-preview {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 18px;
+      box-shadow: var(--shadow-strong);
+      border: 1px solid rgba(209, 213, 219, 0.9);
+      min-height: 260px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    html[data-theme='dark'] .case-preview {
+      border-color: rgba(30, 64, 175, 0.8);
+    }
+
+    .preview-columns {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .preview-block h4 {
+      margin: 0 0 6px;
+      font-size: 14px;
+    }
+
+    #preview-algorithm {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    /* GENERIC CARD */
+    .card {
+      background: var(--card);
+      padding: 18px;
+      border-radius: 12px;
+      box-shadow: var(--shadow-strong);
+      border: 1px solid rgba(209, 213, 219, 0.9);
+      transition: background 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
+    }
+
+    html[data-theme='dark'] .card {
+      border-color: rgba(30, 64, 175, 0.8);
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+    }
+
+    /* FOOTER */
+    .footer {
+      max-width: 1100px;
+      margin: 30px auto 40px;
+      text-align: center;
+      padding: 0 20px;
+      color: var(--muted);
+    }
+
+    /* UTILITIES */
+    .muted {
+      color: var(--muted);
+    }
+
+    .small {
+      font-size: 13px;
+    }
+
+    .info-bold {
+      font-weight: 700;
+    }
+
+    /* Reveal animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .reveal-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Responsive */
+    @media (max-width: 980px) {
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        padding-top: 60px;
+      }
+
+      .cases-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .preview-columns {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .nav-links a {
+        display: none;
+      }
+
+      .theme-toggle {
+        display: inline-flex;
+      }
+
+      .hero-left h1 {
+        font-size: 22px;
+      }
+
+      .profile-card {
+        order: -1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="brand">
+      <div class="logo">SC</div>
+      <div>
+        <div class="brand-title">Business Cases Document</div>
+        <div class="small muted">Transport & Energy Business Cases</div>
+      </div>
+    </div>
+    <div class="nav-links">
+      <a href="#overview">Overview</a>
+      <a href="#cases">Business Cases</a>
+      <a href="#about">About</a>
+
+      <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+        <span class="theme-icon">🌞</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header id="overview" class="hero">
+    <div class="hero-left">
+      <h1>Surajvali City – Transport & Energy Business Cases</h1>
+      <p class="muted">
+        A structured portfolio of 10 integrated transport and energy initiatives for Surajvali City, focusing on congestion reduction, clean mobility, and low‑carbon infrastructure.
+      </p>
+      <div class="hero-cta">
+        <a class="cta" href="#cases">View All Cases</a>
+      </div>
+    </div>
+    <aside class="profile-card">
+      <div class="profile-top">
+        <div class="avatar">SO</div>
+        <div>
+          <div class="profile-name">Sohan</div>
+          <div class="small muted">Transport & Energy Portfolio</div>
+        </div>
+      </div>
+      <div class="profile-stats">
+        <div>
+          <div class="small muted">Total Cases</div>
+          <div class="stat">10</div>
+        </div>
+        <div>
+          <div class="small muted">Focus Areas</div>
+          <div class="stat">Mobility & Energy</div>
+        </div>
+      </div>
+      <div class="profile-links">
+        <div class="small muted">Actions</div>
+        <div class="links-row">
+          <a href="#cases">Jump to Index</a>
+        </div>
+      </div>
+    </aside>
+  </header>
+
+  <!-- CASES -->
+  <section id="cases" class="section">
+    <h2>🧭 Case Index</h2>
+    <p class="muted small">
+      High‑level index of all 10 transportation and energy business cases compiled for Surajvali City.
+    </p>
+
+    <div class="cases-layout">
+      <!-- LEFT: small tabs (no href yet; add href if you want true new pages) -->
+      <div class="cases-list">
+        <!-- 1 -->
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          id="case1"
+          class="project case-item case-tab reveal"
+          data-title="Smart Traffic Management & Signal Optimization"
+          data-study="Uses adaptive traffic control, GPS data, and an integrated control center to reduce corridor congestion, fuel use, and incident delay on priority freight and commuter routes."
+          data-algorithm="Diagnose baseline congestion and delays on key corridors.;Instrument intersections and fleets with sensors and GPS data feeds.;Ingest live data into a traffic control center and analytics engine.;Run optimization to generate adaptive signal plans by time of day and demand.;Implement freight and emergency-vehicle priority rules on critical links.;Continuously monitor KPIs and refine timing plans through feedback loops.">
+          <div class="thumb">1</div>
+          <span class="case-tab-label">Smart Traffic Management & Signal Optimization</span>
+        </a>
+
+        <!-- 2 -->
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          id="case2"
+          class="project case-item case-tab reveal"
+          data-title="High‑Capacity BRT + Last‑Mile Electric Shuttle Network"
+          data-study="Creates a BRT spine on high-demand corridors with electric shuttle feeders linking housing and employment clusters to reduce private vehicle dependence."
+          data-algorithm="Map current and projected travel demand between housing, industrial, and commercial hubs.;Select and design priority BRT corridors and dedicated lanes.;Plan last-mile e-shuttle routes and depot locations for housing and worker clusters.;Procure electric fleets, charging infrastructure, and smart ticketing systems.;Launch integrated BRT + feeder services with unified fares and real-time information.;Track ridership, load factors, and mode shift and then adjust route and frequency.">
+          <div class="thumb">2</div>
+          <span class="case-tab-label">High‑Capacity BRT + Last‑Mile Electric Shuttle Network</span>
+        </a>
+
+        <!-- 3 -->
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          id="case3"
+          class="project case-item case-tab reveal"
+          data-title="Freight & Port‑Linked Green Logistics Corridor"
+          data-study="Separates heavy freight flows from passenger traffic and introduces cleaner logistics assets to reduce diesel use, travel time, and emissions along port‑linked corridors."
+          data-algorithm="Identify freight-intensive corridors, bottlenecks, and conflict points with passenger traffic.;Design dedicated freight lanes and grade-separated connections where feasible.;Develop rail-linked logistics parks, consolidation hubs, and truck rest areas.;Introduce electric and LNG trucks for short-haul drayage and yard operations.;Deploy a digital freight management and tracking platform across operators.;Monitor corridor speeds, fuel use, and emissions and refine infrastructure phasing.">
+          <div class="thumb">3</div>
+          <span class="case-tab-label">Freight & Port‑Linked Green Logistics Corridor</span>
+        </a>
+
+        <!-- 4 -->
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          id="case4"
+          class="project case-item case-tab reveal"
+          data-title="EV Charging & Smart Parking Network"
+          data-study="Deploys fast and destination charging together with digital parking management to support large‑scale EV adoption and reduce cruising time for parking in key zones."
+          data-algorithm="Analyse present and future EV demand hotspots and parking stress areas.;Define a citywide hierarchy of fast, semi-fast, and slow charging locations.;Design the smart parking platform for reservations, dynamic pricing, and payment.;Install chargers and sensors in public, commercial, and residential car parks.;Integrate parking and charging data into a single user-facing app.;Use data analytics to rebalance capacity, tariffs, and enforcement policies.">
+          <div class="thumb">4</div>
+          <span class="case-tab-label">EV Charging & Smart Parking Network</span>
+        </a>
+
+        <!-- 5 -->
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          id="case5"
+          class="project case-item case-tab reveal"
+          data-title="Road Asset Management & Pavement Lifecycle Program"
+          data-study="Implements data‑driven condition monitoring and preventive maintenance to extend pavement life on freight‑heavy corridors and reduce long‑term operating costs."
+          data-algorithm="Survey existing pavement condition and traffic loading on the road network.;Deploy sensors, visual inspections, and periodic structural testing on key segments.;Develop a lifecycle cost model and prioritize segments for preventive interventions.;Specify warm-mix, recycled asphalt, and improved structures suited to freight loads.;Implement annual maintenance and rehabilitation programs based on condition triggers.;Continuously update the asset database and funding needs using performance data.">
+          <div class="thumb">5</div>
+          <span class="case-tab-label">Road Asset Management & Pavement Lifecycle Program</span>
+        </a>
+
+        <!-- 6 -->
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          id="case6"
+          class="project case-item case-tab reveal"
+          data-title="Airport Multi‑Modal Low‑Carbon Mobility Hub"
+          data-study="Transforms the airport into a connected, low‑carbon node through clean apron fleets, strong rail/metro links, and on‑site renewable energy supply."
+          data-algorithm="Analyse current airport access modes, peak flows, and on-site energy usage.;Plan and phase high-capacity rail or metro connections with coordinated timetables.;Electrify apron buses, ground support equipment, and service vehicles.;Design and install a solar-powered microgrid with storage to serve terminal loads.;Integrate ticketing, wayfinding, and information for all airport access modes.;Monitor access mode share, energy mix, and emissions to guide further upgrades.">
+          <div class="thumb">6</div>
+          <span class="case-tab-label">Airport Multi‑Modal Low‑Carbon Mobility Hub</span>
+        </a>
+
+        <!-- 7 -->
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          id="case7"
+          class="project case-item case-tab reveal"
+          data-title="Smart Streetlight & Road Lighting Energy Grid"
+          data-study="Modernizes road lighting through LEDs, adaptive dimming, and solar‑battery units to cut electricity consumption and maintenance costs while improving safety."
+          data-algorithm="Inventory all existing streetlights, circuits, and energy consumption.;Design LED retrofit packages, smart controllers, and communication systems.;Prioritise corridors and intersections for adaptive dimming based on traffic patterns.;Install central and segment-level control systems to manage brightness and schedules.;Integrate solar-powered or hybrid units in off-grid or high-cost areas.;Track energy savings, outage rates, and safety indicators and refine lighting policies.">
+          <div class="thumb">7</div>
+          <span class="case-tab-label">Smart Streetlight & Road Lighting Energy Grid</span>
+        </a>
+
+        <!-- 8 -->
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          id="case8"
+          class="project case-item case-tab reveal"
+          data-title="Rooftop Solar & EV‑Ready Community Microgrids"
+          data-study="Equips priority housing and worker clusters with rooftop solar, storage, and microgrid controls to raise local renewable share and support EV charging."
+          data-algorithm="Identify residential and worker clusters with high energy and EV charging demand.;Assess rooftop potential, load profiles, and grid constraints for each cluster.;Design rooftop PV systems, batteries, and microgrid control architecture.;Implement EV-ready wiring standards and shared charging points within the microgrid.;Connect to utility grid with net-metering and protection schemes.;Monitor generation, consumption, and EV loads to optimize dispatch and tariffs.">
+          <div class="thumb">8</div>
+          <span class="case-tab-label">Rooftop Solar & EV‑Ready Community Microgrids</span>
+        </a>
+
+        <!-- 9 -->
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          id="case9"
+          class="project case-item case-tab reveal"
+          data-title="Textile Industry Energy Efficiency & Waste‑Heat Recovery"
+          data-study="Improves energy performance of textile clusters through process optimization, waste‑heat recovery, and electrified intra‑plant logistics."
+          data-algorithm="Benchmark baseline energy use, process efficiencies, and logistics flows in textile units.;Identify high-temperature and high-flow processes suitable for waste-heat recovery.;Design heat exchangers, heat recovery boilers, and distribution systems.;Electrify internal material handling with e-tuggers and automated systems.;Offer technical assistance and incentives for firms to adopt selected measures.;Track energy savings, payback periods, and emissions reductions across the cluster.">
+          <div class="thumb">9</div>
+          <span class="case-tab-label">Textile Industry Energy Efficiency & Waste‑Heat Recovery</span>
+        </a>
+
+        <!-- 10 -->
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          id="case10"
+          class="project case-item case-tab reveal"
+          data-title="Mobility Data Platform & MaaS"
+          data-study="Builds a unified data, analytics, and ticketing layer so that multiple modes, routes, and energy systems can be coordinated through Mobility‑as‑a‑Service."
+          data-algorithm="Map all data sources across public transport, roads, parking, logistics, and energy.;Define common data standards, APIs, and governance for the mobility data platform.;Develop a central analytics engine for demand forecasting, routing, and energy optimization.;Create a MaaS app with trip planning, booking, and integrated payment features.;Onboard public and private operators onto the platform with service-level rules.;Use platform insights to adjust routes, tariffs, and infrastructure investments.">
+          <div class="thumb">10</div>
+          <span class="case-tab-label">Mobility Data Platform & MaaS</span>
+        </a>
+      </div>
+
+      <!-- RIGHT: preview -->
+      <aside class="case-preview">
+        <h3 id="preview-title">Select a business case</h3>
+        <div class="preview-columns">
+          <div class="preview-block">
+            <h4>Study / Overview</h4>
+            <p id="preview-study" class="small muted">
+              Click on any business case tab on the left to see its study summary here.
+            </p>
+          </div>
+          <div class="preview-block">
+            <h4>Algorithm / Steps</h4>
+            <ol id="preview-algorithm" class="small">
+              <li>Select a case from the left panel.</li>
+              <li>The implementation steps will appear here.</li>
+            </ol>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="section reveal">
+    <h2>ℹ️ About This Portfolio</h2>
+    <div class="card">
+      <p class="muted small">
+        This individual portfolio compiles 10 transportation and energy business cases derived from Surajvali City development data, charts, and infrastructure plans.
+      </p>
+      <p class="muted small">
+        Each case is structured around a clear problem statement, objective, solution summary, and budget range to support decision‑making and future funding proposals.
+      </p>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="section reveal">
+    <div class="card about-course">
+      <h3>Document Summary</h3>
+      <p class="small muted">
+        This document compiles all 10 transportation and energy‑focused business cases derived from the Surajvali City development work.
+      </p>
+      <div class="small muted">Scope</div>
+      <div class="info-bold">Transport & Energy Systems</div>
+      <div class="small muted">Use</div>
+      <div class="info-bold">Planning, investment pitches, and reporting</div>
+      <div class="small muted">Next Steps</div>
+      <div class="info-bold">Convert to PDF or extend to a full report as needed</div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <small>© <span id="year"></span> Surajvali City Business Cases • All rights reserved</small>
+  </footer>
+
+  <script>
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach((a) => {
+      a.addEventListener('click', (e) => {
+        const href = a.getAttribute('href');
+        if (href && href.length > 1) {
+          e.preventDefault();
+          const target = document.querySelector(href);
+          if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    // Dark mode toggle
+    const htmlEl = document.documentElement;
+    const toggleBtn = document.getElementById('theme-toggle');
+    const iconSpan = toggleBtn.querySelector('.theme-icon');
+
+    function setTheme(theme) {
+      htmlEl.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+      iconSpan.textContent = theme === 'dark' ? '🌙' : '🌞';
+      toggleBtn.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+    }
+
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      setTheme(savedTheme);
+    } else {
+      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      setTheme(prefersDark ? 'dark' : 'light');
+    }
+
+    toggleBtn.addEventListener('click', () => {
+      const current = htmlEl.getAttribute('data-theme');
+      setTheme(current === 'dark' ? 'light' : 'dark');
+    });
+
+    // Scroll reveal
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('reveal-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+
+    // Parallax hero
+    window.addEventListener('scroll', () => {
+      const hero = document.querySelector('.hero');
+      if (!hero) return;
+      const offset = window.scrollY * 0.15;
+      hero.style.transform = `translateY(${offset}px)`;
+    });
+
+    // Preview logic
+    const caseItems = document.querySelectorAll('.case-item');
+    const previewTitle = document.getElementById('preview-title');
+    const previewStudy = document.getElementById('preview-study');
+    const previewAlgoList = document.getElementById('preview-algorithm');
+
+    function setPreviewFromElement(el) {
+      const title = el.getAttribute('data-title');
+      const study = el.getAttribute('data-study');
+      const algorithmText = el.getAttribute('data-algorithm') || '';
+
+      previewTitle.textContent = title;
+      previewStudy.textContent = study;
+
+      previewAlgoList.innerHTML = '';
+      const steps = algorithmText.split(/[;]+/).map(s => s.trim()).filter(Boolean);
+      steps.forEach(step => {
+        const li = document.createElement('li');
+        li.textContent = step;
+        previewAlgoList.appendChild(li);
+      });
+
+      caseItems.forEach(ci => ci.classList.remove('active'));
+      el.classList.add('active');
+    }
+
+    caseItems.forEach(item => {
+      item.addEventListener('click', () => {
+        setPreviewFromElement(item);
+      });
+    });
+
+    if (caseItems.length > 0) {
+      setPreviewFromElement(caseItems[0]);
+    }
+  </script>
+</body>
+</html>
