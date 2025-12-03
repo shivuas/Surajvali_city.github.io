@@ -44,6 +44,31 @@
       padding: 18px;
       border: 1px solid var(--card-border);
     }
+    
+    .home {
+  min-width: 70px;
+  min-height: 50px;
+  position: fixed;
+  top: 20px;
+
+  /* keep it aligned to the sidebar on large screens,
+     but never go left of the sidebar padding on small screens */
+  left: max(18px, calc((100vw - 1200px) / 2 + 18px));
+
+  font-size: 20px;
+  padding: 10px 8px;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  border-radius: 10px;
+  border: 3px #061c42 solid;
+  color: black;
+  font-weight: 600;
+  z-index: 1200;      /* make sure it sits above other content */
+  display: block;
+  box-shadow: 0 6px 18px rgba(2,8,20,0.6);
+}
+
+
+
 
     .brand {
       display: flex;
@@ -218,12 +243,21 @@
       .hero {
         height: 180px
       }
+      @media (max-width: 800px) {
+  .home {
+    left: 18px;   /* same padding as .app */
+    top: 12px;    /* tuck it a little higher on small screens */
+    padding: 8px 6px;
+    min-width: 62px;
+  }
+}
+
     }
   </style>
 </head>
 
 <body>
-  <a href='https://shivuas.github.io/Surajvali_city.github.io/' style="text-decoration:none;" ><div class='logo'>Home</div></a>
+  <a href='https://shivuas.github.io/Surajvali_city.github.io/' style="text-decoration:none;" ><div class='home'>Home</div></a>
   <div class="app">
     <aside class="sidebar">
       <div class="brand">
