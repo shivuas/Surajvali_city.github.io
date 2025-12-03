@@ -25,8 +25,8 @@
     th,td{padding:8px 10px;text-align:left}
     th{font-weight:600;border-bottom:2px solid rgba(255,255,255,0.03);background:transparent}
     td{border-bottom:1px dashed rgba(255,255,255,0.03)}
-
-    .editable{background:transparent;border:0;outline:0;color:inherit;width:100%;display:inline-block}
+    
+    /* Removed .editable class as it is no longer needed */
     .note{color:var(--muted);font-size:13px;margin-top:8px}
 
     @media(max-width:820px){.grid-cards{grid-template-columns:1fr}}
@@ -39,44 +39,43 @@
       <div class="note">Map first, then zone explanation, analysis photo, and separate tables for each factor (population, budget, land use, etc.).</div>
     </header>
 
-    <!-- MAP IMAGE -->
     <section class="photo-full" aria-labelledby="map-title">
       <h2 id="map-title">Master Plan Map</h2>
-      <img src="./cityphoto/citymap.jpg" alt="Master plan map">
+      <img src="./cityphoto/citymap.png" alt="Master plan map">
       <div class="note">Labels: Residential Area, Industrial Area, IT Hub, Parks, Railway, Salt Farming, Airport.</div>
     </section>
 
-    <!-- MAP EXPLANATION -->
     <section class="section" aria-labelledby="map-explain">
       <h2 id="map-explain">Map — Zones & Descriptions</h2>
       <p class="note">Single table showing all map zones together.</p>
       <table>
         <thead>
-          <tr><th>Map Zone</th><th>Key Features</th></tr>
+          <tr>
+            <th style="width:30%">Map Zone</th>
+            <th>Key Features</th>
+          </tr>
         </thead>
         <tbody>
-          <tr><td contenteditable class="editable">Residential Area</td><td contenteditable class="editable">High-density housing blocks, parks, schools</td></tr>
-          <tr><td contenteditable class="editable">Industrial Area</td><td contenteditable class="editable">Manufacturing, logistics, buffer zone</td></tr>
-          <tr><td contenteditable class="editable">IT Hub</td><td contenteditable class="editable">Office parks, tech zone, co-working spaces</td></tr>
-          <tr><td contenteditable class="editable">Parks & Open Space</td><td contenteditable class="editable">Central park, lake, walking trails</td></tr>
-          <tr><td contenteditable class="editable">Transport Corridors</td><td contenteditable class="editable">Radial roads, ring roads, railway</td></tr>
-          <tr><td contenteditable class="editable">Airport</td><td contenteditable class="editable">Regional airport near logistics zone</td></tr>
-          <tr><td contenteditable class="editable">Salt Farming</td><td contenteditable class="editable">Coastal salt pans, ecological buffer</td></tr>
+          <tr><td>Residential Area</td><td>High-density housing blocks, local parks, schools</td></tr>
+          <tr><td>Industrial Area</td><td>Manufacturing and logistics, buffer with greenbelt</td></tr>
+          <tr><td>IT Hub</td><td>Office campus, tech parks, co-working spaces</td></tr>
+          <tr><td>Parks & Open Space</td><td>Central park, pocket parks, walking trails, lake reservoir</td></tr>
+          <tr><td>Transport Corridors</td><td>Major radial roads, ring road, rail link and station</td></tr>
+          <tr><td>Airport</td><td>Regional airport adjacent to industrial/logistics zone</td></tr>
+          <tr><td>Salt Farming</td><td>Coastal salt pans, low-intensity use, ecological buffer</td></tr>
         </tbody>
       </table>
     </section>
 
-    <!-- ANALYSIS PHOTO -->
     <section class="photo-full" aria-labelledby="analysis-title">
       <h2 id="analysis-title">Analysis Photosheet</h2>
       <img src="./cityphoto/cityplan.jpg" alt="Analysis photosheet">
       <div class="note">Contains handwritten data: population estimates, inflation/deflation table, sustainability notes, land use allocation pie chart, and budgets.</div>
     </section>
 
-    <!-- Separate tables for each factor -->
     <section class="section" aria-labelledby="analysis-data">
       <h2 id="analysis-data">Analysis Data — Structured Tables</h2>
-      <p class="note">Each factor has its own card and table for clarity. Edit inline and save.</p>
+      <p class="note">Each factor has its own card and table for clarity.</p>
 
       <div class="grid-cards" style="margin-top:12px">
 
@@ -84,10 +83,9 @@
           <h3>Population</h3>
           <table>
             <tbody>
-              <tr><th>Estimated population (year)</th><td contenteditable class="editable">[e.g., 3.2 M]</td></tr>
-              <tr><th>Population growth rate</th><td contenteditable class="editable">[e.g., 2.5%]</td></tr>
-              <tr><th>Total households</th><td contenteditable class="editable">[value]</td></tr>
-              <tr><th>Density (per sq.km)</th><td contenteditable class="editable">[value]</td></tr>
+              <tr><th>Estimated population (year)</th><td>3.82 M</td></tr>
+              <tr><th>Population growth rate</th><td>1.1%</td></tr>
+              <tr><th>Density (per sq.km)</th><td>35,000</td></tr>
             </tbody>
           </table>
         </div>
@@ -96,11 +94,11 @@
           <h3>Economic / Budget</h3>
           <table>
             <tbody>
-              <tr><th>Total budget</th><td contenteditable class="editable">[e.g., 432.4 K crores]</td></tr>
-              <tr><th>Transport allocation</th><td contenteditable class="editable">[value]</td></tr>
-              <tr><th>Housing allocation</th><td contenteditable class="editable">[value]</td></tr>
-              <tr><th>Utilities allocation</th><td contenteditable class="editable">[value]</td></tr>
-              <tr><th>Other allocations</th><td contenteditable class="editable">[notes]</td></tr>
+              <tr><th>Total budget</th><td>9.2 L crores</td></tr>
+              <tr><th>Residential and Community</th><td>432.4 K crores</td></tr>
+              <tr><th>Infrastructure and connectivity</th><td>243.4 K crores</td></tr>
+              <tr><th>Roads and water management</th><td>224 K crores</td></tr>
+              <tr><th>Economic and Industrial development</th><td>244 K crores</td></tr>
             </tbody>
           </table>
         </div>
@@ -108,13 +106,20 @@
         <div class="card">
           <h3>Inflation / Deflation</h3>
           <table>
-            <thead><tr><th>Year</th><th>Value</th></tr></thead>
+            <thead><tr><th>Year</th><th>Low (1.5% / year)</th><th>Baseline (3.0% /year)</th><th>High (5.0% / year)</th></tr></thead>
             <tbody>
-              <tr><td contenteditable class="editable">2020</td><td contenteditable class="editable">1.00</td></tr>
-              <tr><td contenteditable class="editable">2021</td><td contenteditable class="editable">1.05</td></tr>
-              <tr><td contenteditable class="editable">2022</td><td contenteditable class="editable">1.08</td></tr>
-              <tr><td contenteditable class="editable">2023</td><td contenteditable class="editable">1.10</td></tr>
-              <tr><td contenteditable class="editable">2024</td><td contenteditable class="editable">1.12</td></tr>
+              <tr><td>2025</td><td>1.000</td><td>1.000</td><td>1.000</td></tr>
+              <tr><td>2026</td><td>1.015</td><td>1.030</td><td>1.050</td></tr>
+              <tr><td>2027</td><td>1.030</td><td>1.061</td><td>1.103</td></tr>
+              <tr><td>2028</td><td>1.046</td><td>1.093</td><td>1.158</td></tr>
+              <tr><td>2029</td><td>1.062</td><td>1.126</td><td>1.216</td></tr>
+              <tr><td>2030</td><td>1.078</td><td>1.160</td><td>1.276</td></tr>
+              <tr><td>2031</td><td>1.094</td><td>1.195</td><td>1.307</td></tr>
+              <tr><td>2032</td><td>1.111</td><td>1.231</td><td>1.407</td></tr>
+              <tr><td>2033</td><td>1.127</td><td>1.268</td><td>1.477</td></tr>
+              <tr><td>2034</td><td>1.144</td><td>1.306</td><td>1.551</td></tr>
+              <tr><td>2035</td><td>1.161</td><td>1.344</td><td>1.629</td></tr>
+              <tr><td>Total</td><td>+16%</td><td>+34.4%</td><td>+62.9%</td></tr>
             </tbody>
           </table>
         </div>
@@ -123,12 +128,13 @@
           <h3>Land Use Allocation</h3>
           <table>
             <tbody>
-              <tr><th>Residential</th><td contenteditable class="editable">[e.g., 35%]</td></tr>
-              <tr><th>Industrial</th><td contenteditable class="editable">[e.g., 12%]</td></tr>
-              <tr><th>IT / Commercial</th><td contenteditable class="editable">[e.g., 15%]</td></tr>
-              <tr><th>Parks & Open Space</th><td contenteditable class="editable">[e.g., 10%]</td></tr>
-              <tr><th>Transport / Roads</th><td contenteditable class="editable">[e.g., 18%]</td></tr>
-              <tr><th>Utilities / Services</th><td contenteditable class="editable">[e.g., 10%]</td></tr>
+              <tr><th>Residential</th><td>~32%</td></tr>
+              <tr><th>Worker housing</th><td>~20%</td></tr>
+              <tr><th>Industries and logistics</th><td>~12%</td></tr>
+              <tr><th>Investor/ Commercial/ IT</th><td>~5%</td></tr>
+              <tr><th>Transit corridoes(Roads, rail...)</th><td>~26%</td></tr>
+              <tr><th>International airport</th><td>~4%</td></tr>
+              <tr><th>Park/ Utilities/ Public</th><td>~1%</td></tr>
             </tbody>
           </table>
         </div>
@@ -137,17 +143,16 @@
           <h3>Sustainability</h3>
           <table>
             <tbody>
-              <tr><th>Renewable energy</th><td contenteditable class="editable">Solar + wind integration</td></tr>
-              <tr><th>Water management</th><td contenteditable class="editable">Rainwater harvesting, lake reservoir</td></tr>
-              <tr><th>Green corridors</th><td contenteditable class="editable">Parks, urban forests, pedestrian priority</td></tr>
-              <tr><th>Waste management</th><td contenteditable class="editable">Zoned collection + processing</td></tr>
+              <tr><th>Renewable energy</th><td>Solar + wind integration</td></tr>
+              <tr><th>Water management</th><td>Rainwater harvesting, lake reservoir</td></tr>
+              <tr><th>Green corridors</th><td>Parks, urban forests, pedestrian priority</td></tr>
+              <tr><th>Waste management</th><td>Zoned collection + processing</td></tr>
             </tbody>
           </table>
         </div>
 
       </div>
 
-      <div class="note" style="margin-top:12px">Tip: Double-click to edit any cell. If you'd like the cards to show numeric badges or small charts (pie for land use, sparkline for inflation), I can add them.</div>
     </section>
 
     <footer style="text-align:center;color:var(--muted);font-size:13px">
