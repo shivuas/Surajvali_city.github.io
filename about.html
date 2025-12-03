@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>New City Planning — Project</title>
+  <style>
+    :root{--bg:#0f1724;--card:#0b1220;--accent:#06b6d4;--muted:#94a3b8;--border:rgba(255,255,255,0.06);color-scheme:dark}
+    body{font-family:Inter,system-ui,Segoe UI,Roboto,Arial,Helvetica;color:#e6eef6;background:linear-gradient(180deg,#071023,#081026);margin:0;padding:32px}
+    .container{max-width:940px;margin:0 auto}
+    header{display:flex;gap:12px;align-items:center;margin-bottom:18px}
+    header h1{font-size:22px;margin:0}
+
+    .photo-full{background:rgba(255,255,255,0.02);border:1px solid var(--border);padding:10px;border-radius:8px;margin-bottom:18px}
+    .photo-full img{width:100%;height:auto;object-fit:cover;border-radius:6px;display:block}
+
+    .section{background:rgba(255,255,255,0.02);padding:18px;border-radius:10px;margin-bottom:18px;border:1px solid var(--border)}
+
+    /* New table/card styles */
+    .grid-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.012), rgba(255,255,255,0.008));border:1px solid var(--border);padding:12px;border-radius:10px;box-shadow:0 6px 18px rgba(2,6,23,0.6)}
+    .card h3{margin:0 0 8px 0;font-size:16px;color:var(--accent)}
+
+    table{width:100%;border-collapse:collapse;color:#dbeafe;font-size:14px}
+    th,td{padding:8px 10px;text-align:left}
+    th{font-weight:600;border-bottom:2px solid rgba(255,255,255,0.03);background:transparent}
+    td{border-bottom:1px dashed rgba(255,255,255,0.03)}
+
+    .editable{background:transparent;border:0;outline:0;color:inherit;width:100%;display:inline-block}
+    .note{color:var(--muted);font-size:13px;margin-top:8px}
+
+    @media(max-width:820px){.grid-cards{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>New City Planning — Project Overview</h1>
+      <div class="note">Map first, then zone explanation, analysis photo, and separate tables for each factor (population, budget, land use, etc.).</div>
+    </header>
+
+    <!-- MAP IMAGE -->
+    <section class="photo-full" aria-labelledby="map-title">
+      <h2 id="map-title">Master Plan Map</h2>
+      <img src="/mnt/data/8f03cb67-14b7-4015-a294-2ea3817ffe01.png" alt="Master plan map">
+      <div class="note">Labels: Residential Area, Industrial Area, IT Hub, Parks, Railway, Salt Farming, Airport.</div>
+    </section>
+
+    <!-- MAP EXPLANATION -->
+    <section class="section" aria-labelledby="map-explain">
+      <h2 id="map-explain">Map — Zones & Descriptions</h2>
+      <p class="note">Below are the zones identified on the map. Edit descriptions inline.</p>
+      <div class="grid-cards" style="margin-top:12px">
+        <div class="card">
+          <h3>Residential Area</h3>
+          <table>
+            <tbody>
+              <tr><th>Key features</th><td contenteditable class="editable">High-density housing blocks, local parks, schools</td></tr>
+              <tr><th>Area / %</th><td contenteditable class="editable">[area or %]</td></tr>
+              <tr><th>Notes</th><td contenteditable class="editable">[e.g., phasing, housing mix]</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="card">
+          <h3>Industrial Area</h3>
+          <table>
+            <tbody>
+              <tr><th>Key features</th><td contenteditable class="editable">Manufacturing and logistics, buffer with greenbelt</td></tr>
+              <tr><th>Area / %</th><td contenteditable class="editable">[area or %]</td></tr>
+              <tr><th>Notes</th><td contenteditable class="editable">[e.g., noise buffer]</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="card">
+          <h3>IT Hub</h3>
+          <table>
+            <tbody>
+              <tr><th>Key features</th><td contenteditable class="editable">Office campus, tech parks, co-working spaces</td></tr>
+              <tr><th>Area / %</th><td contenteditable class="editable">[area or %]</td></tr>
+              <tr><th>Notes</th><td contenteditable class="editable">[connectivity, last-mile]</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="card">
+          <h3>Parks & Open Space</h3>
+          <table>
+            <tbody>
+              <tr><th>Key features</th><td contenteditable class="editable">Central park, pocket parks, walking trails, lake reservoir</td></tr>
+              <tr><th>Area / %</th><td contenteditable class="editable">[area or %]</td></tr>
+              <tr><th>Notes</th><td contenteditable class="editable">[biodiversity, stormwater]</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="card">
+          <h3>Transport Corridors</h3>
+          <table>
+            <tbody>
+              <tr><th>Key features</th><td contenteditable class="editable">Major radial roads, ring road, rail link and station</td></tr>
+              <tr><th>Length / Notes</th><td contenteditable class="editable">[length / phasing]</td></tr>
+              <tr><th>Notes</th><td contenteditable class="editable">[e.g., bus lanes, cycle tracks]</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="card">
+          <h3>Airport</h3>
+          <table>
+            <tbody>
+              <tr><th>Key features</th><td contenteditable class="editable">Regional airport adjacent to industrial/logistics zone</td></tr>
+              <tr><th>Area / Notes</th><td contenteditable class="editable">[runway, terminals]</td></tr>
+              <tr><th>Notes</th><td contenteditable class="editable">[future expansion]</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="card">
+          <h3>Salt Farming</h3>
+          <table>
+            <tbody>
+              <tr><th>Key features</th><td contenteditable class="editable">Coastal salt pans, low-intensity use, ecological buffer</td></tr>
+              <tr><th>Area / Notes</th><td contenteditable class="editable">[notes]</td></tr>
+              <tr><th>Notes</th><td contenteditable class="editable">[seasonality]</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ANALYSIS PHOTO -->
+    <section class="photo-full" aria-labelledby="analysis-title">
+      <h2 id="analysis-title">Analysis Photosheet</h2>
+      <img src="/mnt/data/52841ca5-31c3-4d92-ae55-0f8cb06d39b4.jpg" alt="Analysis photosheet">
+      <div class="note">Contains handwritten data: population estimates, inflation/deflation table, sustainability notes, land use allocation pie chart, and budgets.</div>
+    </section>
+
+    <!-- Separate tables for each factor -->
+    <section class="section" aria-labelledby="analysis-data">
+      <h2 id="analysis-data">Analysis Data — Structured Tables</h2>
+      <p class="note">Each factor has its own card and table for clarity. Edit inline and save.</p>
+
+      <div class="grid-cards" style="margin-top:12px">
+
+        <div class="card">
+          <h3>Population</h3>
+          <table>
+            <tbody>
+              <tr><th>Estimated population (year)</th><td contenteditable class="editable">[e.g., 3.2 M]</td></tr>
+              <tr><th>Population growth rate</th><td contenteditable class="editable">[e.g., 2.5%]</td></tr>
+              <tr><th>Total households</th><td contenteditable class="editable">[value]</td></tr>
+              <tr><th>Density (per sq.km)</th><td contenteditable class="editable">[value]</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="card">
+          <h3>Economic / Budget</h3>
+          <table>
+            <tbody>
+              <tr><th>Total budget</th><td contenteditable class="editable">[e.g., 432.4 K crores]</td></tr>
+              <tr><th>Transport allocation</th><td contenteditable class="editable">[value]</td></tr>
+              <tr><th>Housing allocation</th><td contenteditable class="editable">[value]</td></tr>
+              <tr><th>Utilities allocation</th><td contenteditable class="editable">[value]</td></tr>
+              <tr><th>Other allocations</th><td contenteditable class="editable">[notes]</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="card">
+          <h3>Inflation / Deflation</h3>
+          <table>
+            <thead><tr><th>Year</th><th>Value</th></tr></thead>
+            <tbody>
+              <tr><td contenteditable class="editable">2020</td><td contenteditable class="editable">1.00</td></tr>
+              <tr><td contenteditable class="editable">2021</td><td contenteditable class="editable">1.05</td></tr>
+              <tr><td contenteditable class="editable">2022</td><td contenteditable class="editable">1.08</td></tr>
+              <tr><td contenteditable class="editable">2023</td><td contenteditable class="editable">1.10</td></tr>
+              <tr><td contenteditable class="editable">2024</td><td contenteditable class="editable">1.12</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="card">
+          <h3>Land Use Allocation</h3>
+          <table>
+            <tbody>
+              <tr><th>Residential</th><td contenteditable class="editable">[e.g., 35%]</td></tr>
+              <tr><th>Industrial</th><td contenteditable class="editable">[e.g., 12%]</td></tr>
+              <tr><th>IT / Commercial</th><td contenteditable class="editable">[e.g., 15%]</td></tr>
+              <tr><th>Parks & Open Space</th><td contenteditable class="editable">[e.g., 10%]</td></tr>
+              <tr><th>Transport / Roads</th><td contenteditable class="editable">[e.g., 18%]</td></tr>
+              <tr><th>Utilities / Services</th><td contenteditable class="editable">[e.g., 10%]</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="card">
+          <h3>Sustainability</h3>
+          <table>
+            <tbody>
+              <tr><th>Renewable energy</th><td contenteditable class="editable">Solar + wind integration</td></tr>
+              <tr><th>Water management</th><td contenteditable class="editable">Rainwater harvesting, lake reservoir</td></tr>
+              <tr><th>Green corridors</th><td contenteditable class="editable">Parks, urban forests, pedestrian priority</td></tr>
+              <tr><th>Waste management</th><td contenteditable class="editable">Zoned collection + processing</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+      <div class="note" style="margin-top:12px">Tip: Double-click to edit any cell. If you'd like the cards to show numeric badges or small charts (pie for land use, sparkline for inflation), I can add them.</div>
+    </section>
+
+    <footer style="text-align:center;color:var(--muted);font-size:13px">
+      Designed for your GitHub portfolio — when ready I can autofill values from the photos for you.
+    </footer>
+  </div>
+</body>
+</html>
