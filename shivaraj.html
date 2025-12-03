@@ -168,9 +168,16 @@
       background: linear-gradient(90deg, #081827, #0b1f2f);
       display: flex;
       align-items: center;
-      justify-content: center
+      justify-content: center;
+      background:transparent;
     }
 
+    .hero .images{
+      width: 100%;
+      height: 100%;
+      object-fit:contain;
+
+      }
     .hero img {
       width: 100%;
       height: 100%;
@@ -247,8 +254,9 @@
       }
 
       .hero {
-        height: 180px
+        height: 400px;
       }
+      
 
       @media (max-width: 800px) {
         .home {
@@ -303,6 +311,7 @@
         zone: 'School',
         title: 'Going from one destination to another in large Campus',
         photo: './shivaraj/Dijkstra.jpg',
+        phototitle:'Dijkstra Algorithm',
         problem: `In a complex school or universities, a parent who visits once in a while will face issue to walk across department building
         , canteens, seminar halls, hostels, and other venues. There are situations where a parent want to visit a particular venue in a very short path and time
         but there could bea situations where parent wants to visit certain venue with his child not in very short span of time, as he wants to spend time with child and also
@@ -319,6 +328,7 @@
         zone: 'School',
         title: 'Wiring and adding fiber cable to whole campur efficiently.',
         photo: './shivaraj/Kruskal.png',
+        phototitle:'Kruskal Algorithm',
         problem: `A large campus needs to be wired and have fiber cables for wifi, but without proper planning, the cost or weight of the cables can become very high and useless.
     In here just using tree structure will be not efficient as it may lead to long cables and can cut the whole system if one edge gets disconnected.
     Using Graph structure alone can be also inefficient as it also lead to long cables and high cost, but it can reduce the dependecy of one edge on othere node.`,
@@ -333,6 +343,7 @@
         zone: 'School',
         title: 'Searching for particular topic on digital library provide by school',
         photo: './shivaraj/KMP.png',
+        phototitle:'Knuth-Morris-Pratt (KMP) Algorithm',
         problem: `In this new era of technology, schools and universities are providing digital libraries for students to access books and research papers online.
     However, in the digital book or research paper if a student want to search for particular keyword or topic then without prior knowledge of the topic it can be hard to find the topic or keyword in the book with a small font size
     letters.`,
@@ -350,6 +361,7 @@
         zone: 'School',
         title: 'Water from Syntax to every section of School or University without getting blocked',
         photo: './shivaraj/Graph.webp',
+        phototitle:'Graph Algorithm',
         problem: `In general School or Universitites which are large and have water sytsem for drinking, washroom all connected from Top floor Syntax, 
     the problem is that single pipe burst or blockage in any section will disconnect the whole section from water supply causing inconvenience to students and staff.`,
         solution: `The problem is caused because it the water sysetm is designed in tree structure, where if higher level node gets disrupted then all the child
@@ -363,6 +375,7 @@
         zone: 'School',
         title: 'Library shelves are disorganized — books hard to find',
         photo: '',
+        phototitle:'',
         problem: `School library lacks ordering, so students waste time searching shelves during library hour.`,
         solution: `Adopt a deterministic shelf order (category → author → year) and relabel shelves; maintain a small index map at entrance.`,
         algos: ['Sorting', 'Trie (for search)'],
@@ -372,7 +385,8 @@
         id: 'p6',
         zone: 'IT Park',
         title: 'Implementing smart emergency exit in building complex from any floor',
-        photo: '',
+        photo: './shivaraj/bfs.jpg',
+        phototitle:'BFS (Graph Algorithm)',
         problem: `The IT buildings are large and mainly have high electrical equipment, in case of emergency like fire or earthquake, people from higher floors find it hard to exit quickly
         as they have to do down multiple floors and then exit through main door which could be crowded and could have been on fire or blocked.
         This can lead to casualties and injuries.  `,
@@ -388,6 +402,7 @@
         zone: 'IT Park',
         title: 'EV chargers at northwest corner are overcrowded',
         photo: '',
+        phototitle:'',
         problem: `Several chargers are clustered causing long waiting times while other chargers remain unused.`,
         solution: `Rebalance charger locations by clustering parking demand and add a reservation token system.`,
         algos: ['Graph clustering', 'Sorting'],
@@ -398,6 +413,7 @@
         zone: 'IT Park',
         title: 'Garbage trucks follow inefficient pickup routes',
         photo: '',
+        phototitle:'',
         problem: `The daily cleaner route is long and doubles back multiple times, increasing fuel and time.`,
         solution: `Recompute an efficient route that connects all bins using shortest-path distances and a greedy tour heuristic.`,
         algos: ['Dijkstra', 'Sorting (greedy TSP approx)'],
@@ -408,6 +424,7 @@
         zone: 'IT Park',
         title: 'One pipe burst disconnects a whole block of offices',
         photo: '',
+        phototitle:'',
         problem: `A single failure in the feed line causes many offices to lose water (single point-of-failure).`,
         solution: `Detect bridge edges in the network and add redundant loops; reorganize into ring topology where possible.`,
         algos: ['Graph algorithms', 'Kruskal'],
@@ -418,6 +435,7 @@
         zone: 'IT Park',
         title: 'Food court stall queues form long lines and block walkway',
         photo: '',
+        phototitle:'',
         problem: `A popular stall leads to queuing that blocks the main walkway and creates congestion.`,
         solution: `Redistribute stalls, increase service capacity, and introduce virtual token queuing (SMS/app).`,
         algos: ['BFS (flow)', 'Sorting'],
@@ -461,7 +479,11 @@
       </div>
     </div>
 
-    <div class="hero">${p.photo ? `<img src="${p.photo}" alt="photo">` : `<svg width="100%" height="100%" viewBox="0 0 600 260" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#0b2740"/><stop offset="1" stop-color="#083241"/></linearGradient></defs><rect width="100%" height="100%" fill="url(#g)"/><text x="50%" y="50%" fill="#8fbfd6" font-size="20" text-anchor="middle" dominant-baseline="middle">Replace this with your photo</text></svg>`}</div>
+    
+    <div class="hero">${p.photo ? `<img class="images" src="${p.photo}" alt="photo" style="object-fit:contain;"> <h1 style="color:white; background-color:transparent; font-size:15px; padding:0px 0px 0px 5px;">${p.phototitle}</h1> ` : `<svg width="100%" height="100%" viewBox="0 0 600 260" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#0b2740"/>
+      <stop offset="1" stop-color="#083241"/></linearGradient></defs><rect width="100%" height="100%" fill="url(#g)"/><text x="50%" y="50%" fill="#8fbfd6" font-size="20" text-anchor="middle" dominant-baseline="middle">Replace this with your photo</text></svg>`}
+      </div>
+      
 
     <div class="block"><strong>1. Problem</strong><p style="margin-top:10px">${escapeHtml(p.problem)}</p></div>
 
@@ -519,11 +541,12 @@ pre{background:#071827;padding:12px;border-radius:8px;overflow:auto}</style>
 <body><div class="wrap">
 <h1>${escapeHtml(p.title)}</h1>
 <div style="color:#98a6b8">${escapeHtml(p.zone)}</div>
+
 <div class="hero">${p.photo ? `<img src=${p.photo} style="width:100%;height:100%;object-fit:cover;border-radius:10px">` : '<div style="color:#8fbfd6">Replace with your photo</div>'}</div>
+
 <h2>1. Problem</h2><p>${escapeHtml(p.problem)}</p>
 <h2>2. Solution</h2><p>${escapeHtml(p.solution)}</p>
 <h2>3. Algorithms</h2><p>${p.algos.join(', ')}</p>
-<h2>4. Code Snippet</h2><pre>${escapeHtml(p.codeSnippet || '// add your code here')}</pre>
 </div>
 </body>
 </html>`;
