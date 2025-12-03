@@ -47,20 +47,21 @@
     
     .home {
   min-width: 70px;
-  min-height: 50px;
+  min-height: 40px;
   position: absolute;
   top: 10px;
 
   /* keep it aligned to the sidebar on large screens,
      but never go left of the sidebar padding on small screens */
   left: max(18px, calc((100vw - 1200px) / 2 + 18px));
-  font-size: 20px;
-  padding: 10px 8px;
+  font-size: 18px;
+  padding: 6px 3px 3px 7px;
   background: linear-gradient(135deg, var(--accent), var(--accent2));
   border-radius: 10px;
+  margin:0px 0px 0px 10px;
   border: 3px #061c42 solid;
   color: black;
-  font-weight: 600;
+  font-weight: 700;
   z-index: 1200;      /* make sure it sits above other content */
   display: block;
   box-shadow: 0 6px 18px rgba(2,8,20,0.6);
@@ -289,14 +290,17 @@
       {
         id: 'p1',
         zone: 'School',
-        title: 'Water from Syntax to every section of School or University without getting blocked',
+        title: 'Going from one destination to another in large Campus',
         photo: '',
-        problem: `In general School or Universitites which are large and have water sytsem for drinking, washroom all connected from Top floor Syntax, 
-    the problem is that single pipe burst or blockage in any section will disconnect the whole section from water supply causing inconvenience to students and staff.`,
-        solution: `The problem is caused because it the water sysetm is designed in tree structure, where if higher level node gets disrupted then all the child
-    node gets disconnected. To solve this we can use Graph structure instead of tree structure, where a single corner or node is connected to more than one edge or pipe.
-    By this way if one edge or pipe get's blocked or burst, we can still run water through alternate pipes or edges.`,
-        algos: ['Graph algorithms'],
+        problem: `In a complex school or universities, a parent who visits once in a while will face issue to walk across department building
+        , canteens, seminar halls, hostels, and other venues. There are situations where a parent want to visit a particular venue in a very short path and time
+        but there could bea situations where parent wants to visit certain venue with his child not in very short span of time, as he wants to spend time with child and also
+        want to visit the venue(in longest distance)`,
+        solution: `This particular problem can be solved using Dijkstra's algorithm for both shortest and longest path. Usually Dijkstra gives shortest path
+        with condition -- dist[u]+cost[v][u] < dist[v] , this condtion can be use to find the shortest path between two point through different paths. But for the longest
+        path one can change condition to --  dist[u]+cost[v][u] > dist[v], in Dijkstra's algorithm changing this condition along with min value will give the longest path
+        between two point through other paths.`,
+        algos: ['Dijkstra', 'Longest Dijkstra(modified Dijkstra)'],
         codeSnippet: `// After removing blocked edge, test connectivity via BFS\nfunction bfs(graph, source){ /* ... */ }\n// Run Dijkstra for best pressure-loss path`
       },
       {
@@ -333,11 +337,14 @@
       {
         id: 'p4',
         zone: 'School',
-        title: 'Students take unsafe shortcuts through service alleys',
+        title: 'Water from Syntax to every section of School or University without getting blocked',
         photo: '',
-        problem: `To save time, students cut across service alleys which lack proper lighting and visibility.`,
-        solution: `Create safe, well-lit pedestrian shortcuts or block unsafe paths and provide official short paths with signage.`,
-        algos: ['Dijkstra', 'Graph analysis', 'Sorting'],
+        problem: `In general School or Universitites which are large and have water sytsem for drinking, washroom all connected from Top floor Syntax, 
+    the problem is that single pipe burst or blockage in any section will disconnect the whole section from water supply causing inconvenience to students and staff.`,
+        solution: `The problem is caused because it the water sysetm is designed in tree structure, where if higher level node gets disrupted then all the child
+    node gets disconnected. To solve this we can use Graph structure instead of tree structure, where a single corner or node is connected to more than one edge or pipe.
+    By this way if one edge or pipe get's blocked or burst, we can still run water through alternate pipes or edges.`,
+        algos: ['Graph algorithms'],
         codeSnippet: `// Compare shortest 'official' vs 'actual' path lengths; if ratio > threshold add new edge.`
       },
       {
@@ -353,11 +360,16 @@
       {
         id: 'p6',
         zone: 'IT Park',
-        title: 'Parking lanes get jammed during 6:00–9:00',
+        title: 'Implementing smart emergency exit in building complex from any floor',
         photo: '',
-        problem: `Drivers circle the lot for several minutes and block through lanes, causing spillover onto main road.`,
-        solution: `Reconfigure lanes to one-way, use guided nearest-slot routing and add dynamic signage to show open sections.`,
-        algos: ['BFS', 'Dijkstra'],
+        problem: `The IT buildings are large and mainly have high electrical equipment, in case of emergency like fire or earthquake, people from higher floors find it hard to exit quickly
+        as they have to do down multiple floors and then exit through main door which could be crowded and could have been on fire or blocked.
+        This can lead to casualties and injuries.  `,
+        solution: `To solve this problem we can use Graph algorithm for multiple exits and BFS for finding nearest exit from any floor.
+        Why BFS over DFS? Let's imagine a situation where fire broke out on floor 5 and there are emergencies exits on floor 3, 6, 15, and people are on floor - 12
+        if a smart device uses DFS it may suggest exit from floor 5 as it search in depth first manner, but in the given case the nearest emergency exit at floor 15, but if the device uses BFS
+        it will suggest exit from floor 15 as it search in Layer by layer manner. Hence BFS if better solution for this problem.`,
+        algos: ['BFS'],
         codeSnippet: `// Find nearest free slot via BFS on lane graph; compute driving path by Dijkstra.`
       },
       {
