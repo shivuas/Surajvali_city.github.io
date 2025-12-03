@@ -1,11 +1,512 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<title>About Me</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>City Problems — Sample 10 Pages</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #041025;
+      --panel: #071428;
+      --muted: #98a6b8;
+      --accent: #7c3aed;
+      --accent2: #06b6d4;
+      --card-border: rgba(255, 255, 255, 0.04);
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: Inter, system-ui, Segoe UI, Roboto, Arial
+    }
+
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      background: linear-gradient(180deg, #021021 0%, #041025 100%);
+      color: #eaf2ff
+    }
+
+    .app {
+      max-width: 1200px;
+      margin: 28px auto;
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 20px;
+      padding: 18px
+    }
+
+    .sidebar {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.01), rgba(255, 255, 255, 0.01));
+      border-radius: 12px;
+      padding: 18px;
+      border: 1px solid var(--card-border);
+    }
+
+    .brand {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 12px
+    }
+
+    .logo {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: #021
+    }
+
+    .muted {
+      color: var(--muted);
+      font-size: 13px
+    }
+
+    .list {
+      margin-top: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-height: 72vh;
+      overflow: auto;
+      padding-right: 6px
+    }
+
+    .navitem {
+      padding: 10px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.015);
+      cursor: pointer;
+      border: 1px solid rgba(255, 255, 255, 0.02)
+    }
+
+    .navitem.active {
+      background: linear-gradient(90deg, rgba(124, 58, 237, 0.18), rgba(6, 182, 212, 0.12));
+      border-color: rgba(255, 255, 255, 0.06);
+      
+    }
+
+    .navitem h4 {
+      margin: 0 0 6px 0;
+      font-size: 14px
+    }
+
+    .navitem p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 12px
+    }
+
+    .detail {
+      padding: 24px;
+      border-radius: 12px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.01), rgba(255, 255, 255, 0.01));
+      border: 1px solid var(--card-border);
+      min-height: 72vh;
+      overflow: auto
+    }
+
+    .top {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px
+    }
+
+    .title h1 {
+      margin: 0;
+      font-size: 22px
+    }
+
+    .badge {
+      padding: 6px 10px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.02);
+      color: var(--muted);
+      font-weight: 700;
+      border: 1px solid rgba(255, 255, 255, 0.03)
+    }
+
+    .hero {
+      width: 100%;
+      height: 260px;
+      margin-top: 14px;
+      border-radius: 10px;
+      overflow: hidden;
+      background: linear-gradient(90deg, #081827, #0b1f2f);
+      display: flex;
+      align-items: center;
+      justify-content: center
+    }
+
+    .hero img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover
+    }
+
+    .block {
+      margin-top: 14px;
+      padding: 14px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.03)
+    }
+
+    .algos {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 8px
+    }
+
+    .algo {
+      padding: 8px 10px;
+      border-radius: 8px;
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      color: var(--muted);
+      font-weight: 700
+    }
+
+    .actions {
+      display: flex;
+      gap: 8px;
+      margin-left: auto
+    }
+
+    .btn {
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      padding: 8px 12px;
+      border-radius: 10px;
+      border: none;
+      color: #021;
+      font-weight: 700;
+      cursor: pointer
+    }
+
+    .ghost {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      padding: 8px 10px;
+      border-radius: 8px;
+      color: var(--muted);
+      cursor: pointer
+    }
+
+    pre.code {
+      background: #071827;
+      padding: 12px;
+      border-radius: 8px;
+      overflow: auto;
+      color: #cfeffd;
+      margin: 0
+    }
+
+    @media (max-width:800px) {
+      .app {
+        grid-template-columns: 1fr;
+        padding: 12px;
+      }
+
+      .hero {
+        height: 180px
+      }
+    }
+  </style>
 </head>
+
 <body>
-<h1>About Me</h1>
-<p>This is the about me page. </p>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="logo">CP</div>
+        <div>
+          <div style="font-weight:700">City — Problems (Sample)</div>
+          <div class="muted">10 pages — editable HTML</div>
+        </div>
+      </div>
+
+      <div class="muted" style="margin-bottom:8px">Click any problem to open its detail page. Edit the HTML to change
+        content or replace images.</div>
+
+      <div class="list" id="nav">
+        <!-- nav items inserted by JS -->
+      </div>
+    </aside>
+
+    <main class="detail" id="detail">
+      <!-- detail content injected here -->
+    </main>
+  </div>
+
+  <script>
+    /*
+      Single-file static pages: replace content inside `pages` array if you want to edit later.
+      Each page has: id, zone, title, photo (data URL or external URL), problem, solution, algos (array), codeSnippet (optional)
+    */
+    const pages = [
+      {
+        id: 'p1',
+        zone: 'School',
+        title: 'Water from Syntax to every section of School or University without getting blocked',
+        photo: '',
+        problem: `In general School or Universitites which are large and have water sytsem for drinking, washroom all connected from Top floor Syntax, 
+    the problem is that single pipe burst or blockage in any section will disconnect the whole section from water supply causing inconvenience to students and staff.`,
+        solution: `The problem is caused because it the water sysetm is designed in tree structure, where if higher level node gets disrupted then all the child
+    node gets disconnected. To solve this we can use Graph structure instead of tree structure, where a single corner or node is connected to more than one edge or pipe.
+    By this way if one edge or pipe get's blocked or burst, we can still run water through alternate pipes or edges.`,
+        algos: ['Graph algorithms'],
+        codeSnippet: `// After removing blocked edge, test connectivity via BFS\nfunction bfs(graph, source){ /* ... */ }\n// Run Dijkstra for best pressure-loss path`
+      },
+      {
+        id: 'p2',
+        zone: 'School',
+        title: 'Wiring and adding fiber cable to whole campur efficiently.',
+        photo: '',
+        problem: `A large campus needs to be wired and have fiber cables for wifi, but without proper planning, the cost or weight of the cables can become very high and useless.
+    In here just using tree structure will be not efficient as it may lead to long cables and can cut the whole system if one edge gets disconnected.
+    Using Graph structure alone can be also inefficient as it also lead to long cables and high cost, but it can reduce the dependecy of one edge on othere node.`,
+        solution: `As seen in the problem part, using Graph alone is ineffiecient. So to solve this we can use Kruskal's along with Graph algorithms. the method here is first create
+    a cheapest spanning tree using Kruskal's algorithm, then taking the edges which were neglected by kruskal's algorithm and adding them back in same order until all the nodes have atleast 1 edge
+    connected to it. By this way we can reduce the weight of cables used overall and also reduce dependecy of one edge on other single edge.`,
+        algos: ["Kruskal's algorithm", 'Graph algorithms'],
+        codeSnippet: `// Simulate arrival as BFS layers; find nodes with high visit counts -> bottlenecks`
+      },
+      {
+        id: 'p3',
+        zone: 'School',
+        title: 'Searching for particular topic on digital library provide by school',
+        photo: '',
+        problem: `In this new era of technology, schools and universities are providing digital libraries for students to access books and research papers online.
+    However, in the digital book or research paper if a student want to search for particular keyword or topic then without prior knowledge of the topic it can be hard to find the topic or keyword in the book with a small font size
+    letters.`,
+        solution: `To solve this problem we have there method BFSS, Knuth-Morris-Pratt algorithm and Rabin karp algorithm. But only KMP is efficient among these three algorithms.
+    BFSS will search for each character one by one which is inefficient and have O(n) time complexity = N*M where N is the length of pattern and M is the length of text.
+    Rabin karp algorithm uses hashing technique and have to compute modulus which is not efficient for large book or library, but it can lead to collision and false match. and has time complexity O(n)= N*M.
+
+    The best among these three is KMP algorithm, this is different from BFSS as BFSS will transverse through each character one by one, KMP checks the first character and if it doesn't matches then it will shift by K-pi(K-1) places and check again.
+    It has time complexity O(n)=N always where N is the length of pattern.`,
+        algos: ['Knuth-Morris-Pratt (KMP)'],
+        codeSnippet: `// Model floors as tree; compute path 'cost' to each floor; identify long paths.`
+      },
+      {
+        id: 'p4',
+        zone: 'School',
+        title: 'Students take unsafe shortcuts through service alleys',
+        photo: '',
+        problem: `To save time, students cut across service alleys which lack proper lighting and visibility.`,
+        solution: `Create safe, well-lit pedestrian shortcuts or block unsafe paths and provide official short paths with signage.`,
+        algos: ['Dijkstra', 'Graph analysis', 'Sorting'],
+        codeSnippet: `// Compare shortest 'official' vs 'actual' path lengths; if ratio > threshold add new edge.`
+      },
+      {
+        id: 'p5',
+        zone: 'School',
+        title: 'Library shelves are disorganized — books hard to find',
+        photo: '',
+        problem: `School library lacks ordering, so students waste time searching shelves during library hour.`,
+        solution: `Adopt a deterministic shelf order (category → author → year) and relabel shelves; maintain a small index map at entrance.`,
+        algos: ['Sorting', 'Trie (for search)'],
+        codeSnippet: `// Multi-key sort: category, author, year\nbooks.sort((a,b)=> /* compare category, then author, then year */ );`
+      },
+      {
+        id: 'p6',
+        zone: 'IT Park',
+        title: 'Parking lanes get jammed during 6:00–9:00',
+        photo: '',
+        problem: `Drivers circle the lot for several minutes and block through lanes, causing spillover onto main road.`,
+        solution: `Reconfigure lanes to one-way, use guided nearest-slot routing and add dynamic signage to show open sections.`,
+        algos: ['BFS', 'Dijkstra'],
+        codeSnippet: `// Find nearest free slot via BFS on lane graph; compute driving path by Dijkstra.`
+      },
+      {
+        id: 'p7',
+        zone: 'IT Park',
+        title: 'EV chargers at northwest corner are overcrowded',
+        photo: '',
+        problem: `Several chargers are clustered causing long waiting times while other chargers remain unused.`,
+        solution: `Rebalance charger locations by clustering parking demand and add a reservation token system.`,
+        algos: ['Graph clustering', 'Sorting'],
+        codeSnippet: `// Cluster parking nodes by demand, rank candidate charger sites by distance`
+      },
+      {
+        id: 'p8',
+        zone: 'IT Park',
+        title: 'Garbage trucks follow inefficient pickup routes',
+        photo: '',
+        problem: `The daily cleaner route is long and doubles back multiple times, increasing fuel and time.`,
+        solution: `Recompute an efficient route that connects all bins using shortest-path distances and a greedy tour heuristic.`,
+        algos: ['Dijkstra', 'Sorting (greedy TSP approx)'],
+        codeSnippet: `// Build pairwise shortest distances (Dijkstra), then run greedy traversal to approximate route`
+      },
+      {
+        id: 'p9',
+        zone: 'IT Park',
+        title: 'One pipe burst disconnects a whole block of offices',
+        photo: '',
+        problem: `A single failure in the feed line causes many offices to lose water (single point-of-failure).`,
+        solution: `Detect bridge edges in the network and add redundant loops; reorganize into ring topology where possible.`,
+        algos: ['Graph algorithms', 'Kruskal'],
+        codeSnippet: `// Run bridge-detection (DFS) and compute MST/Kruskal to plan rewiring`
+      },
+      {
+        id: 'p10',
+        zone: 'IT Park',
+        title: 'Food court stall queues form long lines and block walkway',
+        photo: '',
+        problem: `A popular stall leads to queuing that blocks the main walkway and creates congestion.`,
+        solution: `Redistribute stalls, increase service capacity, and introduce virtual token queuing (SMS/app).`,
+        algos: ['BFS (flow)', 'Sorting'],
+        codeSnippet: `// Simulate arrivals and queue growth using BFS layers; rank stalls by throughput`
+      }
+    ];
+
+    // helper to create nav and details
+    const nav = document.getElementById('nav');
+    const detail = document.getElementById('detail');
+
+    function makeNav() {
+      nav.innerHTML = '';
+      pages.forEach((p, i) => {
+        const d = document.createElement('div');
+        d.className = 'navitem';
+        d.dataset.id = p.id;
+        d.innerHTML = `<h4>${p.title}</h4><p>${p.zone} • ${p.algos.join(', ')}</p>`;
+        d.onclick = () => { select(p.id); };
+        nav.appendChild(d);
+      });
+    }
+
+    function select(id) {
+      // set active
+      Array.from(nav.children).forEach(n => n.classList.toggle('active', n.dataset.id === id));
+      const p = pages.find(x => x.id === id);
+      if (!p) return;
+      // render detail page like the screenshot style
+      detail.innerHTML = `
+    <div class="top">
+      <div class="title">
+        <h1>${escapeHtml(p.title)}</h1>
+        <div style="display:flex;gap:12px;align-items:center;margin-top:10px">
+          <div class="badge">${escapeHtml(p.zone)}</div>
+          <div class="muted" style="font-size:13px">Sample project page — edit this HTML to change content</div>
+        </div>
+      </div>
+      <div class="actions">
+        <button class="ghost" onclick="editHtml('${p.id}')">Edit in file</button>
+        <button class="btn" onclick="viewCode('${p.id}')">View code</button>
+      </div>
+    </div>
+
+    <div class="hero">${p.photo ? `<img src="${p.photo}" alt="photo">` : `<svg width="100%" height="100%" viewBox="0 0 600 260" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#0b2740"/><stop offset="1" stop-color="#083241"/></linearGradient></defs><rect width="100%" height="100%" fill="url(#g)"/><text x="50%" y="50%" fill="#8fbfd6" font-size="20" text-anchor="middle" dominant-baseline="middle">Replace this with your photo</text></svg>`}</div>
+
+    <div class="block"><strong>1. Problem</strong><p style="margin-top:10px">${escapeHtml(p.problem)}</p></div>
+
+    <div class="block"><strong>2. Practical Solution</strong><p style="margin-top:10px" class="muted">${escapeHtml(p.solution)}</p></div>
+
+    <div class="block"><strong>3. Algorithm(s) used</strong>
+      <div class="algos">${p.algos.map(a => `<div class="algo">${a}</div>`).join('')}</div>
+    </div>
+
+    <div class="block"><strong>4. Implementation note / snippet</strong>
+      <pre class="code">${escapeHtml(p.codeSnippet || '// add your code here')}</pre>
+    </div>
+
+    <div style="margin-top:16px;display:flex;gap:10px">
+      <a class="btn" href="#${p.id}" onclick="copyLink(event,'${p.id}')">Share link</a>
+      <button class="ghost" onclick="downloadHTML('${p.id}')">Download page (HTML)</button>
+      <button class="ghost" onclick="openEditModal('${p.id}')">Quick edit (local)</button>
+    </div>
+  `;
+      // set URL hash for share
+      location.hash = id;
+    }
+
+    function escapeHtml(s) { return (s || '').toString().replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;'); }
+
+    function viewCode(id) {
+      const p = pages.find(x => x.id === id);
+      alert('Algorithms: ' + p.algos.join(', ') + "\\n\\nOpen this file and edit the code snippet or add your implementation.");
+    }
+
+    function copyLink(e, id) {
+      e.preventDefault();
+      const url = location.href.split('#')[0] + '#' + id;
+      navigator.clipboard?.writeText(url).then(() => alert('Link copied to clipboard'));
+    }
+
+    // export a single page as static html file for upload
+    function downloadHTML(id) {
+      const p = pages.find(x => x.id === id);
+      if (!p) return;
+      const html = buildStandaloneHTML(p);
+      const blob = new Blob([html], { type: 'text/html' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = (p.title.replaceAll(/[^a-z0-9]+/ig, '_').slice(0, 60) || 'page') + '.html';
+      a.click();
+      URL.revokeObjectURL(a.href);
+    }
+
+    function buildStandaloneHTML(p) {
+      // minimal standalone page with same styling and content
+      return `<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${escapeHtml(p.title)}</title>
+<style>body{font-family:Inter,system-ui,Arial;background:#041025;color:#eaf2ff;padding:28px} .wrap{max-width:900px;margin:0 auto} h1{font-size:24px} .hero{height:300px;background:#082734;margin-top:12px;border-radius:10px;display:flex;align-items:center;justify-content:center} pre{background:#071827;padding:12px;border-radius:8px;overflow:auto}</style>
+</head><body><div class="wrap">
+<h1>${escapeHtml(p.title)}</h1>
+<div style="color:#98a6b8">${escapeHtml(p.zone)}</div>
+<div class="hero">${p.photo ? '<img src="' + p.photo + '" style="width:100%;height:100%;object-fit:cover;border-radius:10px">' : '<div style="color:#8fbfd6">Replace with your photo</div>'}</div>
+<h2>1. Problem</h2><p>${escapeHtml(p.problem)}</p>
+<h2>2. Solution</h2><p>${escapeHtml(p.solution)}</p>
+<h2>3. Algorithms</h2><p>${p.algos.join(', ')}</p>
+<h2>4. Code Snippet</h2><pre>${escapeHtml(p.codeSnippet || '// add your code here')}</pre>
+</div></body></html>`;
+    }
+
+    // quick local edit modal (simple prompt-based editing)
+    function openEditModal(id) {
+      const p = pages.find(x => x.id === id);
+      if (!p) return;
+      const t = prompt('Edit title', p.title);
+      if (t === null) return;
+      p.title = t;
+      const prob = prompt('Edit problem (short)', p.problem);
+      if (prob !== null) p.problem = prob;
+      const sol = prompt('Edit solution (short)', p.solution);
+      if (sol !== null) p.solution = sol;
+      renderNavAndMaybeOpen(id);
+    }
+
+    function editHtml(id) { alert('To edit content permanently, open this file in a text editor and change the content inside the "pages" array.'); }
+
+    function renderNavAndMaybeOpen(hashId) {
+      makeNav();
+      if (location.hash) {
+        select(location.hash.slice(1));
+      } else {
+        select(hashId || pages[0].id);
+      }
+    }
+
+    // on load: render nav and open hash or first page
+    window.addEventListener('load', () => {
+      makeNav();
+      const h = location.hash ? location.hash.slice(1) : pages[0].id;
+      select(h);
+    });
+
+    // allow copy link behavior if user clicks a link with hash
+    if (location.hash) { window.addEventListener('load', () => select(location.hash.slice(1))); }
+
+  </script>
 </body>
+
 </html>
