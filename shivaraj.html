@@ -300,7 +300,7 @@
         with condition -- dist[u]+cost[v][u] < dist[v] , this condtion can be use to find the shortest path between two point through different paths. But for the longest
         path one can change condition to --  dist[u]+cost[v][u] > dist[v], in Dijkstra's algorithm changing this condition along with min value will give the longest path
         between two point through other paths.`,
-        algos: ['Dijkstra', 'Longest Dijkstra(modified)'],
+        algos: ['Dijkstra', 'Longest Dijkstra(modified Dijkstra)'],
         codeSnippet: `// After removing blocked edge, test connectivity via BFS\nfunction bfs(graph, source){ /* ... */ }\n// Run Dijkstra for best pressure-loss path`
       },
       {
@@ -360,11 +360,16 @@
       {
         id: 'p6',
         zone: 'IT Park',
-        title: 'Parking lanes get jammed during 6:00–9:00',
+        title: 'Implementing smart emergency exit in building complex from any floor',
         photo: '',
-        problem: `Drivers circle the lot for several minutes and block through lanes, causing spillover onto main road.`,
-        solution: `Reconfigure lanes to one-way, use guided nearest-slot routing and add dynamic signage to show open sections.`,
-        algos: ['BFS', 'Dijkstra'],
+        problem: `The IT buildings are large and mainly have high electrical equipment, in case of emergency like fire or earthquake, people from higher floors find it hard to exit quickly
+        as they have to do down multiple floors and then exit through main door which could be crowded and could have been on fire or blocked.
+        This can lead to casualties and injuries.  `,
+        solution: `To solve this problem we can use Graph algorithm for multiple exits and BFS for finding nearest exit from any floor.
+        Why BFS over DFS? Let's imagine a situation where fire broke out on floor 5 and there are emergencies exits on floor 3, 6, 15, and people are on floor - 12
+        if a smart device uses DFS it may suggest exit from floor 5 as it search in depth first manner, but in the given case the nearest emergency exit at floor 15, but if the device uses BFS
+        it will suggest exit from floor 15 as it search in Layer by layer manner. Hence BFS if better solution for this problem.`,
+        algos: ['BFS'],
         codeSnippet: `// Find nearest free slot via BFS on lane graph; compute driving path by Dijkstra.`
       },
       {
