@@ -289,14 +289,17 @@
       {
         id: 'p1',
         zone: 'School',
-        title: 'Water from Syntax to every section of School or University without getting blocked',
+        title: 'Going from one destination to another in large Campus',
         photo: '',
-        problem: `In general School or Universitites which are large and have water sytsem for drinking, washroom all connected from Top floor Syntax, 
-    the problem is that single pipe burst or blockage in any section will disconnect the whole section from water supply causing inconvenience to students and staff.`,
-        solution: `The problem is caused because it the water sysetm is designed in tree structure, where if higher level node gets disrupted then all the child
-    node gets disconnected. To solve this we can use Graph structure instead of tree structure, where a single corner or node is connected to more than one edge or pipe.
-    By this way if one edge or pipe get's blocked or burst, we can still run water through alternate pipes or edges.`,
-        algos: ['Graph algorithms'],
+        problem: `In a complex school or universities, a parent who visits once in a while will face issue to walk across department building
+        , canteens, seminar halls, hostels, and other venues. There are situations where a parent want to visit a particular venue in a very short path and time
+        but there could bea situations where parent wants to visit certain venue with his child not in very short span of time, as he wants to spend time with child and also
+        want to visit the venue(in longest distance)`,
+        solution: `This particular problem can be solved using Dijkstra's algorithm for both shortest and longest path. Usually Dijkstra gives shortest path
+        with condition -- dist[u]+cost[v][u] < dist[v] , this condtion can be use to find the shortest path between two point through different paths. But for the longest
+        path one can change condition to --  dist[u]+cost[v][u] > dist[v], in Dijkstra's algorithm changing this condition along with min value will give the longest path
+        between two point through other paths.`,
+        algos: ['Dijkstra', 'Longest Dijkstra(modified)'],
         codeSnippet: `// After removing blocked edge, test connectivity via BFS\nfunction bfs(graph, source){ /* ... */ }\n// Run Dijkstra for best pressure-loss path`
       },
       {
@@ -333,11 +336,14 @@
       {
         id: 'p4',
         zone: 'School',
-        title: 'Students take unsafe shortcuts through service alleys',
+        title: 'Water from Syntax to every section of School or University without getting blocked',
         photo: '',
-        problem: `To save time, students cut across service alleys which lack proper lighting and visibility.`,
-        solution: `Create safe, well-lit pedestrian shortcuts or block unsafe paths and provide official short paths with signage.`,
-        algos: ['Dijkstra', 'Graph analysis', 'Sorting'],
+        problem: `In general School or Universitites which are large and have water sytsem for drinking, washroom all connected from Top floor Syntax, 
+    the problem is that single pipe burst or blockage in any section will disconnect the whole section from water supply causing inconvenience to students and staff.`,
+        solution: `The problem is caused because it the water sysetm is designed in tree structure, where if higher level node gets disrupted then all the child
+    node gets disconnected. To solve this we can use Graph structure instead of tree structure, where a single corner or node is connected to more than one edge or pipe.
+    By this way if one edge or pipe get's blocked or burst, we can still run water through alternate pipes or edges.`,
+        algos: ['Graph algorithms'],
         codeSnippet: `// Compare shortest 'official' vs 'actual' path lengths; if ratio > threshold add new edge.`
       },
       {
