@@ -44,28 +44,29 @@
       padding: 18px;
       border: 1px solid var(--card-border);
     }
-    
-    .home {
-  min-width: 70px;
-  min-height: 40px;
-  position: absolute;
-  top: 10px;
 
-  /* keep it aligned to the sidebar on large screens,
+    .home {
+      min-width: 70px;
+      min-height: 40px;
+      position: absolute;
+      top: 10px;
+
+      /* keep it aligned to the sidebar on large screens,
      but never go left of the sidebar padding on small screens */
-  left: max(18px, calc((100vw - 1200px) / 2 + 18px));
-  font-size: 18px;
-  padding: 6px 3px 3px 7px;
-  background: linear-gradient(135deg, var(--accent), var(--accent2));
-  border-radius: 10px;
-  margin:0px 0px 0px 10px;
-  border: 3px #061c42 solid;
-  color: black;
-  font-weight: 700;
-  z-index: 1200;      /* make sure it sits above other content */
-  display: block;
-  box-shadow: 0 6px 18px rgba(2,8,20,0.6);
-}
+      left: max(18px, calc((100vw - 1200px) / 2 + 18px));
+      font-size: 18px;
+      padding: 6px 3px 3px 7px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      border-radius: 10px;
+      margin: 0px 0px 0px 10px;
+      border: 3px #061c42 solid;
+      color: black;
+      font-weight: 700;
+      z-index: 1200;
+      /* make sure it sits above other content */
+      display: block;
+      box-shadow: 0 6px 18px rgba(2, 8, 20, 0.6);
+    }
 
 
 
@@ -115,7 +116,7 @@
     .navitem.active {
       background: linear-gradient(90deg, rgba(124, 58, 237, 0.18), rgba(6, 182, 212, 0.12));
       border-color: rgba(255, 255, 255, 0.06);
-      
+
     }
 
     .navitem h4 {
@@ -213,9 +214,14 @@
       border: none;
       color: #021;
       font-weight: 700;
-      cursor: pointer
+      cursor: pointer;
+      transition: border-radius 0.4s ease, transform 0.4s ease;
     }
-
+    .btn:hover {
+      transform: translateY(-4px) scale(1.01);
+    box-shadow: 0 1px 4px rgba(148, 163, 184, 0.5);
+    border-color: rgba(59, 130, 246, 0.4);
+    }
     .ghost {
       background: transparent;
       border: 1px solid rgba(255, 255, 255, 0.04);
@@ -243,21 +249,26 @@
       .hero {
         height: 180px
       }
+
       @media (max-width: 800px) {
-  .home {
-    left: 18px;   /* same padding as .app */
-    top: 12px;    /* tuck it a little higher on small screens */
-    padding: 8px 6px;
-    min-width: 62px;
-  }
-}
+        .home {
+          left: 18px;
+          /* same padding as .app */
+          top: 12px;
+          /* tuck it a little higher on small screens */
+          padding: 8px 6px;
+          min-width: 62px;
+        }
+      }
 
     }
   </style>
 </head>
 
 <body>
-  <a href='https://shivuas.github.io/Surajvali_city.github.io/' style="text-decoration:none;" ><div class='home'>Home</div></a>
+  <a href='https://shivuas.github.io/Surajvali_city.github.io/' style="text-decoration:none;">
+    <div class='home btn'>Home</div>
+  </a>
   <div class="app">
     <aside class="sidebar">
       <div class="brand">
@@ -442,11 +453,10 @@
         <h1>${escapeHtml(p.title)}</h1>
         <div style="display:flex;gap:12px;align-items:center;margin-top:10px">
           <div class="badge">${escapeHtml(p.zone)}</div>
-          <div class="muted" style="font-size:13px">Sample project page — edit this HTML to change content</div>
+          
         </div>
       </div>
       <div class="actions">
-        <button class="ghost" onclick="editHtml('${p.id}')">Edit in file</button>
         <button class="btn" onclick="viewCode('${p.id}')">View code</button>
       </div>
     </div>
@@ -461,15 +471,11 @@
       <div class="algos">${p.algos.map(a => `<div class="algo">${a}</div>`).join('')}</div>
     </div>
 
-    <div class="block"><strong>4. Implementation note / snippet</strong>
-      <pre class="code">${escapeHtml(p.codeSnippet || '// add your code here')}</pre>
-    </div>
+    
 
     <div style="margin-top:16px;display:flex;gap:10px">
-      <a class="btn" href="#${p.id}" onclick="copyLink(event,'${p.id}')">Share link</a>
-      <button class="ghost" onclick="downloadHTML('${p.id}')">Download page (HTML)</button>
-      <button class="ghost" onclick="openEditModal('${p.id}')">Quick edit (local)</button>
-    </div>
+      <a class="btn" href="#${p.id}" style="text-decoration:none;" onclick="copyLink(event,'${p.id}')">Share link</a>
+      </div>
   `;
       // set URL hash for share
       location.hash = id;
@@ -504,9 +510,13 @@
     function buildStandaloneHTML(p) {
       // minimal standalone page with same styling and content
       return `<!doctype html>
-<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${escapeHtml(p.title)}</title>
-<style>body{font-family:Inter,system-ui,Arial;background:#041025;color:#eaf2ff;padding:28px} .wrap{max-width:900px;margin:0 auto} h1{font-size:24px} .hero{height:300px;background:#082734;margin-top:12px;border-radius:10px;display:flex;align-items:center;justify-content:center} pre{background:#071827;padding:12px;border-radius:8px;overflow:auto}</style>
-</head><body><div class="wrap">
+<html>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${escapeHtml(p.title)}</title>
+<style>body{font-family:Inter,system-ui,Arial;background:#041025;color:#eaf2ff;padding:28px} 
+.wrap{max-width:900px;margin:0 auto} h1{font-size:24px} .hero{height:300px;background:#082734;margin-top:12px;border-radius:10px;display:flex;align-items:center;justify-content:center} 
+pre{background:#071827;padding:12px;border-radius:8px;overflow:auto}</style>
+</head>
+<body><div class="wrap">
 <h1>${escapeHtml(p.title)}</h1>
 <div style="color:#98a6b8">${escapeHtml(p.zone)}</div>
 <div class="hero">${p.photo ? '<img src="' + p.photo + '" style="width:100%;height:100%;object-fit:cover;border-radius:10px">' : '<div style="color:#8fbfd6">Replace with your photo</div>'}</div>
@@ -514,7 +524,9 @@
 <h2>2. Solution</h2><p>${escapeHtml(p.solution)}</p>
 <h2>3. Algorithms</h2><p>${p.algos.join(', ')}</p>
 <h2>4. Code Snippet</h2><pre>${escapeHtml(p.codeSnippet || '// add your code here')}</pre>
-</div></body></html>`;
+</div>
+</body>
+</html>`;
     }
 
     // quick local edit modal (simple prompt-based editing)
