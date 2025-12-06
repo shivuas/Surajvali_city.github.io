@@ -455,8 +455,9 @@
       </div>
     </div>
 
-    <div class="hero">${p.photo ? `<img src="${p.photo}" alt="photo">` : `<svg width="100%" height="100%" viewBox="0 0 600 260" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#0b2740"/><stop offset="1" stop-color="#083241"/></linearGradient></defs><rect width="100%" height="100%" fill="url(#g)"/><text x="50%" y="50%" fill="#8fbfd6" font-size="20" text-anchor="middle" dominant-baseline="middle">Replace this with your photo</text></svg>`}</div>
-
+    <div class="hero">${p.photo ? `<img class="images" src="${p.photo}" alt="photo" style="object-fit:contain;"> <h1 style="color:white; background-color:transparent; font-size:15px; padding:0px 0px 0px 5px;">${p.phototitle}</h1> ` : `<svg width="100%" height="100%" viewBox="0 0 600 260" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#0b2740"/>
+      <stop offset="1" stop-color="#083241"/></linearGradient></defs><rect width="100%" height="100%" fill="url(#g)"/><text x="50%" y="50%" fill="#8fbfd6" font-size="20" text-anchor="middle" dominant-baseline="middle">Replace this with your photo</text></svg>`}
+      </div>
     <div class="block"><strong>1. Problem</strong><p style="margin-top:10px">${escapeHtml(p.problem)}</p></div>
 
     <div class="block"><strong>2. Practical Solution</strong><p style="margin-top:10px" class="muted">${escapeHtml(p.solution)}</p></div>
