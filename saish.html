@@ -168,9 +168,16 @@
       background: linear-gradient(90deg, #081827, #0b1f2f);
       display: flex;
       align-items: center;
-      justify-content: center
+      justify-content: center;
+      background:transparent;
     }
 
+    .hero .images{
+      width: 100%;
+      height: 100%;
+      object-fit:contain;
+
+      }
     .hero img {
       width: 100%;
       height: 100%;
@@ -247,8 +254,9 @@
       }
 
       .hero {
-        height: 180px
+        height: 400px;
       }
+      
 
       @media (max-width: 800px) {
         .home {
@@ -279,8 +287,7 @@
         </div>
       </div>
 
-      <div class="muted" style="margin-bottom:8px">Click any problem to open its detail page.
-      </div>
+      <div class="muted" style="margin-bottom:8px">Click any problem to open its detail page.</div>
 
       <div class="list" id="nav">
         <!-- nav items inserted by JS -->
@@ -303,6 +310,7 @@
         zone: 'Salt Field',
         title: 'Weather Impact Prediction for Salt Farming',
         photo: './saish/Rabin-Karp.jpg',
+        phototitle:'Rabin-Karp',
         problem: `Salt farmers face sudden weather changes like rain or cyclones that can damage large parts of their salt pans. They often receive general weather alerts but do not know exactly which of their pans will be affected or how much area may be lost. This lack of clear, localized impact prediction leads to unnecessary losses. The problem is the absence of a system that warns farmers early and tells them how much of their pan area is at risk if no action is taken.`,
         solution: `The solution is a weather-impact tool that detects dangerous weather patterns using sensor data and identifies which pans lie in the affected zone. By analyzing the pan layout with tree structures and simple algorithms, it calculates the total area that may be damaged and alerts the farmer in advance. This gives a clear, easy-to-understand report showing how much of the salt pan will be affected, helping farmers take timely protective actions.`,
         algos: ['Rabin-Karp Algorithm', 'Tree-based Spatial Index(QuadTree)','Graph Algorithms (BFS)'],
@@ -311,22 +319,25 @@
       {
         id: 'p2',
         zone: 'Salt Godown',
-        title: 'Moisture-Safe Storage Planning.',
-        photo: './shivaraj/Dijkstra.jpg',
+        title: 'Moisture-Safe Storage Planning.' ,
+        photo: './shivaraj/Dikjstra.png',
+        phototitle:'Dijkstra Algorithm',
         problem: `Salt farmers struggle to know how long freshly produced salt can safely remain in the open before moisture begins to damage it. 
         With multiple heaps ready at different times and several storage locations at varying distances, farmers often cannot decide which heap should be moved first or where it should be stored.
         Without a systematic way to track exposure time and choose the fastest or cheapest storage option, significant salt loss occurs due to moisture absorption and inefficient transport decisions.`,
+
         solution: `The system records when each salt heap was produced and calculates how long it can safely remain exposed before moisture affects it.
         Based on this, the system assigns a risk score to each heap and sorts them so the most urgent ones are moved first.
         The layout of the farm—including heaps, paths, and storage points—is modeled as a graph, and Dijkstra’s algorithm is used to find the fastest or lowest-cost route from each heap to the available storage locations. The system then recommends the best destination for each heap and creates a prioritized movement plan, ensuring salt is transferred to storage in the most efficient and protective way possible.`,
-        algos: ["Dijkstra's algorithm",],
+        algos: ["Dijkstra's algorithm"],
         codeSnippet: `// Simulate arrival as BFS layers; find nodes with high visit counts -> bottlenecks`
       },
       {
         id: 'p3',
         zone: 'School',
         title: 'Searching for particular topic on digital library provide by school',
-        photo: '',
+        photo: './shivaraj/KMP.png',
+        phototitle:'Knuth-Morris-Pratt (KMP) Algorithm',
         problem: `In this new era of technology, schools and universities are providing digital libraries for students to access books and research papers online.
     However, in the digital book or research paper if a student want to search for particular keyword or topic then without prior knowledge of the topic it can be hard to find the topic or keyword in the book with a small font size
     letters.`,
@@ -343,7 +354,8 @@
         id: 'p4',
         zone: 'School',
         title: 'Water from Syntax to every section of School or University without getting blocked',
-        photo: '',
+        photo: './shivaraj/Graph.webp',
+        phototitle:'Graph Algorithm',
         problem: `In general School or Universitites which are large and have water sytsem for drinking, washroom all connected from Top floor Syntax, 
     the problem is that single pipe burst or blockage in any section will disconnect the whole section from water supply causing inconvenience to students and staff.`,
         solution: `The problem is caused because it the water sysetm is designed in tree structure, where if higher level node gets disrupted then all the child
@@ -357,6 +369,7 @@
         zone: 'School',
         title: 'Library shelves are disorganized — books hard to find',
         photo: '',
+        phototitle:'',
         problem: `School library lacks ordering, so students waste time searching shelves during library hour.`,
         solution: `Adopt a deterministic shelf order (category → author → year) and relabel shelves; maintain a small index map at entrance.`,
         algos: ['Sorting', 'Trie (for search)'],
@@ -366,7 +379,8 @@
         id: 'p6',
         zone: 'IT Park',
         title: 'Implementing smart emergency exit in building complex from any floor',
-        photo: '',
+        photo: './shivaraj/bfs.jpg',
+        phototitle:'BFS (Graph Algorithm)',
         problem: `The IT buildings are large and mainly have high electrical equipment, in case of emergency like fire or earthquake, people from higher floors find it hard to exit quickly
         as they have to do down multiple floors and then exit through main door which could be crowded and could have been on fire or blocked.
         This can lead to casualties and injuries.  `,
@@ -382,6 +396,7 @@
         zone: 'IT Park',
         title: 'EV chargers at northwest corner are overcrowded',
         photo: '',
+        phototitle:'',
         problem: `Several chargers are clustered causing long waiting times while other chargers remain unused.`,
         solution: `Rebalance charger locations by clustering parking demand and add a reservation token system.`,
         algos: ['Graph clustering', 'Sorting'],
@@ -392,6 +407,7 @@
         zone: 'IT Park',
         title: 'Garbage trucks follow inefficient pickup routes',
         photo: '',
+        phototitle:'',
         problem: `The daily cleaner route is long and doubles back multiple times, increasing fuel and time.`,
         solution: `Recompute an efficient route that connects all bins using shortest-path distances and a greedy tour heuristic.`,
         algos: ['Dijkstra', 'Sorting (greedy TSP approx)'],
@@ -402,6 +418,7 @@
         zone: 'IT Park',
         title: 'One pipe burst disconnects a whole block of offices',
         photo: '',
+        phototitle:'',
         problem: `A single failure in the feed line causes many offices to lose water (single point-of-failure).`,
         solution: `Detect bridge edges in the network and add redundant loops; reorganize into ring topology where possible.`,
         algos: ['Graph algorithms', 'Kruskal'],
@@ -412,6 +429,7 @@
         zone: 'IT Park',
         title: 'Food court stall queues form long lines and block walkway',
         photo: '',
+        phototitle:'',
         problem: `A popular stall leads to queuing that blocks the main walkway and creates congestion.`,
         solution: `Redistribute stalls, increase service capacity, and introduce virtual token queuing (SMS/app).`,
         algos: ['BFS (flow)', 'Sorting'],
@@ -455,9 +473,12 @@
       </div>
     </div>
 
+    
     <div class="hero">${p.photo ? `<img class="images" src="${p.photo}" alt="photo" style="object-fit:contain;"> <h1 style="color:white; background-color:transparent; font-size:15px; padding:0px 0px 0px 5px;">${p.phototitle}</h1> ` : `<svg width="100%" height="100%" viewBox="0 0 600 260" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#0b2740"/>
       <stop offset="1" stop-color="#083241"/></linearGradient></defs><rect width="100%" height="100%" fill="url(#g)"/><text x="50%" y="50%" fill="#8fbfd6" font-size="20" text-anchor="middle" dominant-baseline="middle">Replace this with your photo</text></svg>`}
       </div>
+      
+
     <div class="block"><strong>1. Problem</strong><p style="margin-top:10px">${escapeHtml(p.problem)}</p></div>
 
     <div class="block"><strong>2. Practical Solution</strong><p style="margin-top:10px" class="muted">${escapeHtml(p.solution)}</p></div>
@@ -514,12 +535,12 @@ pre{background:#071827;padding:12px;border-radius:8px;overflow:auto}</style>
 <body><div class="wrap">
 <h1>${escapeHtml(p.title)}</h1>
 <div style="color:#98a6b8">${escapeHtml(p.zone)}</div>
-<div class="hero">${p.photo ? `<img class="images" src="${p.photo}" alt="photo" style="object-fit:contain;"> <h1 style="color:white; background-color:transparent; font-size:15px; padding:0px 0px 0px 5px;">${p.phototitle}</h1> ` : `<svg width="100%" height="100%" viewBox="0 0 600 260" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#0b2740"/>
-      <stop offset="1" stop-color="#083241"/></linearGradient></defs><rect width="100%" height="100%" fill="url(#g)"/><text x="50%" y="50%" fill="#8fbfd6" font-size="20" text-anchor="middle" dominant-baseline="middle">Replace this with your photo</text></svg>`}
-      </div><h2>1. Problem</h2><p>${escapeHtml(p.problem)}</p>
+
+<div class="hero">${p.photo ? `<img src=${p.photo} style="width:100%;height:100%;object-fit:cover;border-radius:10px">` : '<div style="color:#8fbfd6">Replace with your photo</div>'}</div>
+
+<h2>1. Problem</h2><p>${escapeHtml(p.problem)}</p>
 <h2>2. Solution</h2><p>${escapeHtml(p.solution)}</p>
 <h2>3. Algorithms</h2><p>${p.algos.join(', ')}</p>
-<h2>4. Code Snippet</h2><pre>${escapeHtml(p.codeSnippet || '// add your code here')}</pre>
 </div>
 </body>
 </html>`;
