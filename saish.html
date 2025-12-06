@@ -274,13 +274,13 @@
       <div class="brand">
         <div class="logo">CP</div>
         <div>
-          <div style="font-weight:700">City — Problems (Sample)</div>
-          <div class="muted">10 pages — editable HTML</div>
+          <div style="font-weight:700">City — Problems </div>
+          <div class="muted">Problems related to Salt farming and residential area</div>
         </div>
       </div>
 
-      <div class="muted" style="margin-bottom:8px">Click any problem to open its detail page. Edit the HTML to change
-        content or replace images.</div>
+      <div class="muted" style="margin-bottom:8px">Click any problem to open its detail page.
+      </div>
 
       <div class="list" id="nav">
         <!-- nav items inserted by JS -->
@@ -300,18 +300,12 @@
     const pages = [
       {
         id: 'p1',
-        zone: 'School',
-        title: 'Going from one destination to another in large Campus',
+        zone: 'Salt Field',
+        title: 'Weather Impact Prediction for Salt Farming',
         photo: '',
-        problem: `In a complex school or universities, a parent who visits once in a while will face issue to walk across department building
-        , canteens, seminar halls, hostels, and other venues. There are situations where a parent want to visit a particular venue in a very short path and time
-        but there could bea situations where parent wants to visit certain venue with his child not in very short span of time, as he wants to spend time with child and also
-        want to visit the venue(in longest distance)`,
-        solution: `This particular problem can be solved using Dijkstra's algorithm for both shortest and longest path. Usually Dijkstra gives shortest path
-        with condition -- dist[u]+cost[v][u] < dist[v] , this condtion can be use to find the shortest path between two point through different paths. But for the longest
-        path one can change condition to --  dist[u]+cost[v][u] > dist[v], in Dijkstra's algorithm changing this condition along with min value will give the longest path
-        between two point through other paths.`,
-        algos: ['Dijkstra', 'Longest Dijkstra(modified Dijkstra)'],
+        problem: `Salt farmers face sudden weather changes like rain or cyclones that can damage large parts of their salt pans. They often receive general weather alerts but do not know exactly which of their pans will be affected or how much area may be lost. This lack of clear, localized impact prediction leads to unnecessary losses. The problem is the absence of a system that warns farmers early and tells them how much of their pan area is at risk if no action is taken.`,
+        solution: `The solution is a weather-impact tool that detects dangerous weather patterns using sensor data and identifies which pans lie in the affected zone. By analyzing the pan layout with tree structures and simple algorithms, it calculates the total area that may be damaged and alerts the farmer in advance. This gives a clear, easy-to-understand report showing how much of the salt pan will be affected, helping farmers take timely protective actions.`,
+        algos: ['Rabin-Karp Algorithm', 'Tree-based Spatial Index(QuadTree)','Graph Algorithms (BFS)'],
         codeSnippet: `// After removing blocked edge, test connectivity via BFS\nfunction bfs(graph, source){ /* ... */ }\n// Run Dijkstra for best pressure-loss path`
       },
       {
