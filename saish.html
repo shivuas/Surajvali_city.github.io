@@ -310,16 +310,16 @@
       },
       {
         id: 'p2',
-        zone: 'School',
-        title: 'Wiring and adding fiber cable to whole campur efficiently.',
+        zone: 'Salt Godown',
+        title: 'Moisture-Safe Storage Planning.',
         photo: '',
-        problem: `A large campus needs to be wired and have fiber cables for wifi, but without proper planning, the cost or weight of the cables can become very high and useless.
-    In here just using tree structure will be not efficient as it may lead to long cables and can cut the whole system if one edge gets disconnected.
-    Using Graph structure alone can be also inefficient as it also lead to long cables and high cost, but it can reduce the dependecy of one edge on othere node.`,
-        solution: `As seen in the problem part, using Graph alone is ineffiecient. So to solve this we can use Kruskal's along with Graph algorithms. the method here is first create
-    a cheapest spanning tree using Kruskal's algorithm, then taking the edges which were neglected by kruskal's algorithm and adding them back in same order until all the nodes have atleast 1 edge
-    connected to it. By this way we can reduce the weight of cables used overall and also reduce dependecy of one edge on other single edge.`,
-        algos: ["Kruskal's algorithm", 'Graph algorithms'],
+        problem: `Salt farmers struggle to know how long freshly produced salt can safely remain in the open before moisture begins to damage it. 
+        With multiple heaps ready at different times and several storage locations at varying distances, farmers often cannot decide which heap should be moved first or where it should be stored.
+        Without a systematic way to track exposure time and choose the fastest or cheapest storage option, significant salt loss occurs due to moisture absorption and inefficient transport decisions.`,
+        solution: `The system records when each salt heap was produced and calculates how long it can safely remain exposed before moisture affects it.
+        Based on this, the system assigns a risk score to each heap and sorts them so the most urgent ones are moved first.
+        The layout of the farm—including heaps, paths, and storage points—is modeled as a graph, and Dijkstra’s algorithm is used to find the fastest or lowest-cost route from each heap to the available storage locations. The system then recommends the best destination for each heap and creates a prioritized movement plan, ensuring salt is transferred to storage in the most efficient and protective way possible.`,
+        algos: ["Dijkstra's algorithm",],
         codeSnippet: `// Simulate arrival as BFS layers; find nodes with high visit counts -> bottlenecks`
       },
       {
