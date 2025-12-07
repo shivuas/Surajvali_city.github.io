@@ -994,7 +994,7 @@ function dijkstra(adj, src) {
 
       const left = document.createElement("div");
       left.className = "problem-name";
-      left.textContent = #${p.number} · ${p.title};
+      left.textContent = `#${p.number} · ${p.title}`;
 
       const right = document.createElement("div");
       right.className = "problem-tag";
@@ -1015,7 +1015,7 @@ function dijkstra(adj, src) {
 
   function renderProblem(problem) {
     const sdgHtml = problem.sdgs
-      .map(s => <span class="sdg-chip">${s}</span>)
+      .map(s => `<span class="sdg-chip">${s}</span>`)
       .join("");
 
     viewEl.innerHTML = `
@@ -1084,7 +1084,7 @@ function dijkstra(adj, src) {
         const text = codeBlock.innerText;
         navigator.clipboard?.writeText(text).then(
           () => { copyBtn.textContent = "✅ Copied"; },
-          () => { copyBtn.textContent = "⚠ Failed"; }
+          () => { copyBtn.textContent = "⚠️ Failed"; }
         );
         setTimeout(() => (copyBtn.innerHTML = '<span>📋</span> Copy Code'), 1200);
       });
