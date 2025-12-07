@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Algorithms Portfolio | Your Name</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --bg: #020617;
+      --bg-alt: #020617;
+      --surface: #020617;
+      --border-subtle: #1f2937;
+      --border-strong: #374151;
+      --accent: #f97316;
+      --accent-soft: rgba(249, 115, 22, 0.16);
+      --text: #f9fafb;
+      --muted: #9ca3af;
+      --radius-lg: 18px;
+      --radius-xl: 22px;
+      --shadow-soft: 0 20px 40px rgba(0, 0, 0, 0.45);
+      --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --font-mono: "Fira Code", Consolas, Menlo, monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-sans);
+      background: radial-gradient(circle at top, #020617 0, #000000 55%, #020617 100%);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .app {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(18px);
+      background: linear-gradient(to right, rgba(15,23,42,0.96), rgba(15,23,42,0.92));
+      border-bottom: 1px solid rgba(75, 85, 99, 0.8);
+    }
+
+    .nav {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-circle {
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      background: conic-gradient(from 180deg, #f97316, #38bdf8, #8b5cf6, #f97316);
+      padding: 2px;
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.8);
+    }
+
+    .logo-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: inherit;
+      background: #020617;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--accent);
+    }
+
+    .nav-title {
+      display: flex;
+      flex-direction: column;
+      font-size: 13px;
+    }
+
+    .nav-title span:first-child {
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .nav-title span:last-child {
+      font-weight: 600;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .nav-links a {
+      padding: 4px 8px;
+      border-radius: 999px;
+      color: var(--muted);
+    }
+
+    .nav-links a:hover {
+      background: rgba(30, 64, 175, 0.25);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .nav-pill {
+      border-radius: 999px;
+      border: 1px solid rgba(249, 115, 22, 0.4);
+      padding: 5px 11px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: radial-gradient(circle at 0 0, rgba(249, 115, 22, 0.22), transparent 55%);
+      font-size: 11px;
+      color: var(--accent);
+      cursor: pointer;
+    }
+
+    .nav-pill span.icon {
+      font-size: 14px;
+    }
+
+    main {
+      flex: 1;
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 18px 16px 40px;
+      display: grid;
+      grid-template-columns: 270px minmax(0, 1fr);
+      gap: 18px;
+      align-items: flex-start;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      border-radius: var(--radius-xl);
+      background: radial-gradient(circle at top, rgba(15,23,42,0.95), #020617);
+      border: 1px solid var(--border-strong);
+      box-shadow: var(--shadow-soft);
+      padding: 14px 12px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .sidebar-header {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .sidebar-header strong {
+      color: #e5e7eb;
+      font-size: 13px;
+    }
+
+    .problem-list {
+      list-style: none;
+      padding: 0;
+      margin: 4px 0 0;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      max-height: 480px;
+      overflow: auto;
+      scrollbar-width: thin;
+      scrollbar-color: #4b5563 transparent;
+    }
+
+    .problem-list::-webkit-scrollbar {
+      width: 5px;
+    }
+    .problem-list::-webkit-scrollbar-thumb {
+      background: #4b5563;
+      border-radius: 999px;
+    }
+
+    .problem-item {
+      border-radius: 12px;
+      border: 1px solid var(--border-subtle);
+      background: rgba(15,23,42,0.92);
+      padding: 7px 8px;
+      font-size: 12px;
+      color: var(--muted);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      gap: 6px;
+      align-items: center;
+      transition: border 0.12s, background 0.12s, transform 0.08s;
+    }
+
+    .problem-item:hover {
+      border-color: rgba(96, 165, 250, 0.9);
+      background: rgba(15, 23, 42, 1);
+      transform: translateY(-1px);
+    }
+
+    .problem-item.active {
+      border-color: var(--accent);
+      background: rgba(15, 23, 42, 1);
+      color: #e5e7eb;
+    }
+
+    .problem-name {
+      flex: 1;
+    }
+
+    .problem-tag {
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .sidebar-footer {
+      margin-top: 4px;
+      font-size: 11px;
+      color: var(--muted);
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 6px;
+    }
+
+    /* Main problem view */
+    .problem-view {
+      border-radius: var(--radius-xl);
+      background: radial-gradient(circle at top left, rgba(15,23,42,0.95), #020617);
+      border: 1px solid var(--border-strong);
+      box-shadow: var(--shadow-soft);
+      padding: 14px 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .crumbs {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .crumbs span {
+      color: #e5e7eb;
+    }
+
+    .problem-header-main {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .problem-title-block {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .problem-id-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 7px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .problem-title-block h1 {
+      font-size: 20px;
+      margin: 0;
+    }
+
+    .problem-meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .problem-meta-row strong {
+      color: #e5e7eb;
+      font-weight: 500;
+    }
+
+    .algo-chip {
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(96, 165, 250, 0.9);
+      font-size: 11px;
+      color: #bfdbfe;
+      background: rgba(15, 23, 42, 0.96);
+    }
+
+    .sdg-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 3px;
+    }
+
+    .sdg-chip {
+      font-size: 10px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(45, 212, 191, 0.8);
+      background: rgba(15, 23, 42, 0.98);
+      color: #a7f3d0;
+    }
+
+    .problem-actions-main {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .btn-sm {
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.8);
+      padding: 5px 10px;
+      font-size: 11px;
+      color: var(--muted);
+      background: rgba(15, 23, 42, 0.9);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .btn-sm:hover {
+      background: rgba(15, 23, 42, 1);
+      color: #e5e7eb;
+    }
+
+    .content-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 12px;
+      align-items: stretch;
+    }
+
+    .card {
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-subtle);
+      background: rgba(15, 23, 42, 0.98);
+      padding: 10px 10px 9px;
+      font-size: 13px;
+      color: var(--muted);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .card-header {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .card-header span.label {
+      font-weight: 500;
+      color: #e5e7eb;
+      text-transform: none;
+      letter-spacing: 0;
+      font-size: 12px;
+    }
+
+    .card-body {
+      font-size: 12px;
+      line-height: 1.55;
+    }
+
+    .code-card {
+      font-family: var(--font-mono);
+    }
+
+    pre {
+      margin: 4px 0 0;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      max-height: 260px;
+      overflow: auto;
+      scrollbar-width: thin;
+      scrollbar-color: #4b5563 transparent;
+    }
+
+    pre::-webkit-scrollbar {
+      width: 5px;
+    }
+    pre::-webkit-scrollbar-thumb {
+      background: #4b5563;
+      border-radius: 999px;
+    }
+
+    .photo-wrapper {
+      position: relative;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid rgba(75, 85, 99, 0.9);
+      min-height: 150px;
+      background: radial-gradient(circle at top, rgba(15,23,42,0.95), #020617);
+    }
+
+    .photo-wrapper img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.9;
+    }
+
+    .photo-overlay {
+      position: relative;
+      padding: 8px 8px 6px;
+      background: linear-gradient(to top, rgba(2,6,23,0.96), transparent 70%);
+      font-size: 11px;
+      color: #e5e7eb;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 6px;
+      margin-top: auto;
+    }
+
+    .photo-caption-sub {
+      color: var(--muted);
+      font-size: 10px;
+    }
+
+    .photo-tag {
+      font-size: 10px;
+      padding: 3px 7px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.9);
+      background: rgba(15,23,42,0.96);
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    footer {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 6px 16px 18px;
+      border-top: 1px solid var(--border-subtle);
+      font-size: 11px;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    footer span.highlight {
+      color: #e5e7eb;
+    }
+
+    @media (max-width: 900px) {
+      main {
+        grid-template-columns: minmax(0,1fr);
+      }
+      .sidebar {
+        order: -1;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .content-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .nav-links {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="nav">
+      <div class="nav-left">
+        <div class="logo-circle">
+          <div class="logo-inner">YN</div>
+        </div>
+        <div class="nav-title">
+          <span>Algorithm Notebook</span>
+          <span>Your Name</span>
+        </div>
+      </div>
+      <div class="nav-links">
+        <a href="https://prajwalbiradar2006.github.io/citydesignproject.github.io/#">
+        <button class="nav-pill" id="glowToggle">
+          <span class="icon">🏠</span>
+          <span>Home</span>
+        </button>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <strong>10 Problems</strong><br />
+        Click a problem to open its dedicated page.
+      </div>
+      <ul class="problem-list" id="problemList">
+        <!-- Filled by JS -->
+      </ul>
+      <div class="sidebar-footer">
+        Tip: Each problem page shows<br />
+        <strong>Problem · Solution · SDG · Photo · Code</strong>.
+      </div>
+    </aside>
+
+    <!-- MAIN PROBLEM VIEW -->
+    <section class="problem-view" id="problemView">
+      <!-- Filled by JS -->
+    </section>
+  </main>
+
+  <footer>
+    <span>© <span class="highlight">Your Name</span> · Algorithms Portfolio</span>
+    <span>Hosted on <span class="highlight">GitHub Pages</span>.</span>
+  </footer>
+</div>
+
+<script>
+  // ==== DATA: 10 PROBLEMS ====
+  const problems = [
+    {
+      id: "two-sum",
+      number: 1,
+      title: "Two Sum",
+      categoryTag: "Hashing",
+      shortTag: "Hash Map",
+      time: "O(n)",
+      space: "O(n)",
+      algorithm: "Hash Map (value → index)",
+      sdgs: [
+        "SDG 9: Industry, Innovation and Infrastructure",
+        "SDG 12: Responsible Consumption and Production"
+      ],
+      problemText:
+        "Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target. Assume exactly one solution and you may not use the same element twice.",
+      solutionText:
+        "We iterate the array once while maintaining a hash map from value to index. For each element x at index i we compute need = target − x. If need is already in the map, we immediately return the pair (map[need], i). Otherwise we store x in the map. This gives linear time and uses extra space for the map.",
+      photo: {
+        src: "images/two-sum.png",
+        alt: "Visualising pairs that sum to a target on a number line.",
+        label: "Number line insight",
+        caption: "Highlighting pairs whose sum hits the target."
+      },
+      code: `function twoSum(nums, target) {
+  const mp = new Map(); // value -> index
+  for (let i = 0; i < nums.length; i++) {
+    const need = target - nums[i];
+    if (mp.has(need)) {
+      return [mp.get(need), i];
+    }
+    mp.set(nums[i], i);
+  }
+  return []; // should not happen if input guarantees a solution
+}`,
+ 
+    },
+    {
+      id: "merge-sort",
+      number: 2,
+      title: "Stable Array Sorting",
+      categoryTag: "Sorting",
+      shortTag: "Merge Sort",
+      time: "O(n log n)",
+      space: "O(n)",
+      algorithm: "Merge Sort (divide & conquer, stable)",
+      sdgs: [
+        "SDG 9: Industry, Innovation and Infrastructure",
+        "SDG 8: Decent Work and Economic Growth"
+      ],
+      problemText:
+        "Sort an array of integers in non-decreasing order with a stable algorithm (elements with equal keys keep their relative order).",
+      solutionText:
+        "We use merge sort. Recursively split the array into two halves, sort each half, and then merge them. During merge, when we see equal elements we always take from the left subarray first. That preserves stability. The recursion depth is O(log n) and each level merges O(n) elements.",
+      photo: {
+        src: "images/merge-sort.png",
+        alt: "Illustration of merge sort splitting and merging arrays.",
+        label: "Divide & conquer",
+        caption: "Splitting the problem until the base case is trivial."
+      },
+      code: `function mergeSort(arr) {
+  if (arr.length <= 1) return arr;
+  const mid = Math.floor(arr.length / 2);
+  const left = mergeSort(arr.slice(0, mid));
+  const right = mergeSort(arr.slice(mid));
+  return merge(left, right);
+}
+
+function merge(a, b) {
+  const res = [];
+  let i = 0, j = 0;
+  while (i < a.length && j < b.length) {
+    if (a[i] <= b[j]) {
+      res.push(a[i++]);   // stable when equal
+    } else {
+      res.push(b[j++]);
+    }
+  }
+  return res.concat(a.slice(i), b.slice(j));
+}`,
+ 
+    },
+    {
+      id: "binary-search",
+      number: 3,
+      title: "Binary Search in Sorted Array",
+      categoryTag: "Searching",
+      shortTag: "Binary Search",
+      time: "O(log n)",
+      space: "O(1)",
+      algorithm: "Iterative binary search",
+      sdgs: [
+        "SDG 4: Quality Education",
+        "SDG 9: Industry, Innovation and Infrastructure"
+      ],
+      problemText:
+        "Given a sorted array of integers and a target value, return its index if found, otherwise return −1.",
+      solutionText:
+        "Maintain two pointers lo and hi. Repeatedly pick mid = floor((lo + hi)/2). If arr[mid] equals target we return mid. If arr[mid] is smaller, we search in the right half; otherwise in the left half. When lo crosses hi the element is absent.",
+      photo: {
+        src: "images/binary-search.png",
+        alt: "Binary search narrowing the search interval.",
+        label: "Halving the search space",
+        caption: "Each step discards half of the remaining interval."
+      },
+      code: `function binarySearch(arr, target) {
+  let lo = 0, hi = arr.length - 1;
+  while (lo <= hi) {
+    const mid = lo + Math.floor((hi - lo) / 2);
+    if (arr[mid] === target) return mid;
+    if (arr[mid] < target) lo = mid + 1;
+    else hi = mid - 1;
+  }
+  return -1;
+}`,
+ 
+    },
+    {
+      id: "dijkstra",
+      number: 4,
+      title: "Shortest Path in Weighted Graph",
+      categoryTag: "Graph",
+      shortTag: "Dijkstra",
+      time: "O((V+E) log V) using a heap",
+      space: "O(V)",
+      algorithm: "Dijkstra's algorithm with priority queue",
+      sdgs: [
+        "SDG 11: Sustainable Cities and Communities",
+        "SDG 9: Industry, Innovation and Infrastructure"
+      ],
+      problemText:
+        "Given a directed graph with non-negative edge weights and a source vertex, compute the minimum distance from the source to every other vertex.",
+      solutionText:
+        "We maintain a distance array initialised to ∞ except dist[src] = 0. A min-priority queue (distance, node) always picks the vertex with the smallest tentative distance. For each extracted node we relax all outgoing edges. If we find a shorter path to a neighbour, we update dist and push the new pair into the queue.",
+      photo: {
+        src: "images/dijkstra.png",
+        alt: "Graph with highlighted shortest path tree.",
+        label: "Routing network",
+        caption: "Model for optimising routes in transportation or networks."
+      },
+      code: `// adj[u] = array of { v, w } edges
+function dijkstra(adj, src) {
+  const n = adj.length;
+  const dist = Array(n).fill(Infinity);
+  dist[src] = 0;
+
+  const pq = []; // simple priority queue via sorting (demo)
+  pq.push([0, src]);
+
+  while (pq.length) {
+    pq.sort((a, b) => a[0] - b[0]);
+    const [d, u] = pq.shift();
+    if (d !== dist[u]) continue;
+
+    for (const { v, w } of adj[u]) {
+      if (dist[v] > d + w) {
+        dist[v] = d + w;
+        pq.push([dist[v], v]);
+      }
+    }
+  }
+  return dist;
+}`,
+ 
+    },
+    {
+      id: "kadane",
+      number: 5,
+      title: "Maximum Subarray Sum",
+      categoryTag: "DP",
+      shortTag: "Kadane",
+      time: "O(n)",
+      space: "O(1)",
+      algorithm: "Kadane's algorithm (DP over prefix)",
+      sdgs: [
+        "SDG 8: Decent Work and Economic Growth",
+        "SDG 9: Industry, Innovation and Infrastructure"
+      ],
+      problemText:
+        "Given an array of positive and negative integers, find the maximum possible sum of a contiguous subarray.",
+      solutionText:
+        "We maintain current sum cur and best answer best. At each element x we decide whether to start a new subarray at x (cur = x) or extend the previous one (cur = cur + x). best is updated as max(best, cur) every step. This is essentially DP with state = best sum ending at position i.",
+      photo: {
+        src: "images/kadane.png",
+        alt: "Plot of an array with the best subarray highlighted.",
+        label: "Signal window",
+        caption: "Picking the most profitable contiguous interval."
+      },
+      code: `function maxSubArray(nums) {
+  let best = -Infinity;
+  let cur = 0;
+  for (const x of nums) {
+    cur = Math.max(x, cur + x);
+    best = Math.max(best, cur);
+  }
+  return best;
+}`,
+ 
+    },
+    {
+      id: "bfs-unweighted",
+      number: 6,
+      title: "Shortest Path in Unweighted Graph",
+      categoryTag: "Graph",
+      shortTag: "BFS",
+      time: "O(V + E)",
+      space: "O(V)",
+      algorithm: "Breadth-First Search",
+      sdgs: [
+        "SDG 11: Sustainable Cities and Communities",
+        "SDG 9: Industry, Innovation and Infrastructure"
+      ],
+      problemText:
+        "Given an unweighted graph and a source node, compute the minimum number of edges required to reach every other node.",
+      solutionText:
+        "For unweighted graphs, BFS from the source explores nodes in layers. We set dist[src] = 0, push src into a queue and expand neighbours. When visiting a node for the first time, we assign dist[neigh] = dist[cur] + 1 and push it. When the queue empties, dist holds the shortest path length in edges.",
+      photo: {
+        src: "images/bfs.png",
+        alt: "BFS frontier expanding layer by layer.",
+        label: "Wave expansion",
+        caption: "Layered exploration of reachable nodes."
+      },
+      code: `function bfsShortest(adj, src) {
+  const n = adj.length;
+  const dist = Array(n).fill(-1);
+  const q = [];
+  q.push(src);
+  dist[src] = 0;
+
+  while (q.length) {
+    const u = q.shift();
+    for (const v of adj[u]) {
+      if (dist[v] === -1) {
+        dist[v] = dist[u] + 1;
+        q.push(v);
+      }
+    }
+  }
+  return dist;
+}`,
+ 
+    },
+    {
+      id: "cycle-directed",
+      number: 7,
+      title: "Cycle Detection in Directed Graph",
+      categoryTag: "Graph",
+      shortTag: "DFS + stack",
+      time: "O(V + E)",
+      space: "O(V)",
+      algorithm: "DFS with recursion stack",
+      sdgs: [
+        "SDG 4: Quality Education",
+        "SDG 16: Peace, Justice and Strong Institutions"
+      ],
+      problemText:
+        "Given a directed graph, determine if it contains a cycle. This is used, for example, to detect invalid prerequisite structures.",
+      solutionText:
+        "We run DFS and track two arrays: visited and inStack. When we start exploring a node, we mark it visited and inStack. During DFS, if we ever see an edge to a node that is currently inStack, we have a back-edge and thus a cycle. When we finish a node, we remove it from inStack.",
+      photo: {
+        src: "images/cycle.png",
+        alt: "Directed graph with a cycle highlighted.",
+        label: "Dependency loop",
+        caption: "Detecting circular dependencies in task graphs."
+      },
+      code: `function hasCycleDirected(adj) {
+  const n = adj.length;
+  const vis = Array(n).fill(false);
+  const inStack = Array(n).fill(false);
+
+  function dfs(u) {
+    vis[u] = true;
+    inStack[u] = true;
+    for (const v of adj[u]) {
+      if (!vis[v] && dfs(v)) return true;
+      if (inStack[v]) return true;
+    }
+    inStack[u] = false;
+    return false;
+  }
+
+  for (let i = 0; i < n; i++) {
+    if (!vis[i] && dfs(i)) return true;
+  }
+  return false;
+}`,
+ 
+    },
+    {
+      id: "lis",
+      number: 8,
+      title: "Longest Increasing Subsequence",
+      categoryTag: "DP",
+      shortTag: "LIS",
+      time: "O(n log n)",
+      space: "O(n)",
+      algorithm: "Patience sorting + binary search",
+      sdgs: [
+        "SDG 4: Quality Education",
+        "SDG 9: Industry, Innovation and Infrastructure"
+      ],
+      problemText:
+        "Given an array of integers, find the length of the longest strictly increasing subsequence (not necessarily contiguous).",
+      solutionText:
+        "We maintain an array tails where tails[k] is the smallest possible tail value of an increasing subsequence of length k+1. For each x, we binary-search the first position pos in tails where tails[pos] ≥ x and set tails[pos] = x. If no such position exists, we append x. The length of tails after processing all elements is the LIS length.",
+      photo: {
+        src: "images/lis.png",
+        alt: "Cards being placed in piles, analogy to patience sorting.",
+        label: "Patience sorting",
+        caption: "Rearranging piles to track the best possible tails."
+      },
+      code: `function lengthOfLIS(nums) {
+  const tails = [];
+  for (const x of nums) {
+    let lo = 0, hi = tails.length;
+    while (lo < hi) {
+      const mid = (lo + hi) >> 1;
+      if (tails[mid] < x) lo = mid + 1;
+      else hi = mid;
+    }
+    tails[lo] = x;
+  }
+  return tails.length;
+}`,
+ 
+    },
+    {
+      id: "knapsack",
+      number: 9,
+      title: "0/1 Knapsack",
+      categoryTag: "DP",
+      shortTag: "Knapsack",
+      time: "O(n·W)",
+      space: "O(W)",
+      algorithm: "1D DP over capacity",
+      sdgs: [
+        "SDG 12: Responsible Consumption and Production",
+        "SDG 8: Decent Work and Economic Growth"
+      ],
+      problemText:
+        "Given weights and values of n items, and a maximum capacity W, choose a subset of items with maximum total value such that total weight does not exceed W. Each item can be taken at most once.",
+      solutionText:
+        "We use DP on capacity. Let dp[w] be the maximum value achievable with capacity w. For each item i we iterate w from W down to weight[i]. At each step we consider taking the item: dp[w] = max(dp[w], dp[w − weight[i]] + value[i]). Backward iteration ensures each item is used at most once.",
+      photo: {
+        src: "images/knapsack.png",
+        alt: "Backpack with items representing weights and values.",
+        label: "Resource allocation",
+        caption: "Choosing the most valuable subset under constraints."
+      },
+      code: `function knapSack(cap, wt, val) {
+  const dp = Array(cap + 1).fill(0);
+  for (let i = 0; i < wt.length; i++) {
+    for (let w = cap; w >= wt[i]; w--) {
+      dp[w] = Math.max(dp[w], dp[w - wt[i]] + val[i]);
+    }
+  }
+  return dp[cap];
+}`,
+ 
+    },
+    {
+      id: "dsu-components",
+      number: 10,
+      title: "Connected Components (Union–Find)",
+      categoryTag: "DSU",
+      shortTag: "Union–Find",
+      time: "≈O(α(n)) per op",
+      space: "O(n)",
+      algorithm: "Disjoint Set Union (Union–Find)",
+      sdgs: [
+        "SDG 9: Industry, Innovation and Infrastructure",
+        "SDG 11: Sustainable Cities and Communities"
+      ],
+      problemText:
+        "Given n nodes labelled 0 to n − 1 and a list of undirected edges, count the number of connected components.",
+      solutionText:
+        "We initialise each node as its own parent. For every edge (u, v) we union their sets. Union-by-rank and path compression keep trees shallow. At the end, we count how many distinct roots exist; that number equals the number of connected components.",
+      photo: {
+        src: "images/dsu.png",
+        alt: "Clusters of nodes being merged by union operations.",
+        label: "Clusters merging",
+        caption: "Tracking which nodes belong to the same component."
+      },
+      code: `function countComponents(n, edges) {
+  const parent = Array.from({ length: n }, (_, i) => i);
+  const rank = Array(n).fill(0);
+
+  function find(x) {
+    if (parent[x] !== x) parent[x] = find(parent[x]);
+    return parent[x];
+  }
+
+  function unite(a, b) {
+    a = find(a);
+    b = find(b);
+    if (a === b) return;
+    if (rank[a] < rank[b]) [a, b] = [b, a];
+    parent[b] = a;
+    if (rank[a] === rank[b]) rank[a]++;
+  }
+
+  for (const [u, v] of edges) {
+    unite(u, v);
+  }
+
+  const roots = new Set();
+  for (let i = 0; i < n; i++) {
+    roots.add(find(i));
+  }
+  return roots.size;
+}`,
+ 
+    }
+  ];
+
+  // ==== RENDER SIDEBAR ====
+  const problemListEl = document.getElementById("problemList");
+  function renderSidebar(activeId) {
+    problemListEl.innerHTML = "";
+    problems.forEach(p => {
+      const li = document.createElement("li");
+      li.className = "problem-item" + (p.id === activeId ? " active" : "");
+      li.dataset.id = p.id;
+
+      const left = document.createElement("div");
+      left.className = "problem-name";
+      left.textContent = #${p.number} · ${p.title};
+
+      const right = document.createElement("div");
+      right.className = "problem-tag";
+      right.textContent = p.shortTag;
+
+      li.appendChild(left);
+      li.appendChild(right);
+      li.addEventListener("click", () => {
+        setActiveProblem(p.id, true);
+      });
+
+      problemListEl.appendChild(li);
+    });
+  }
+
+  // ==== RENDER MAIN PROBLEM PAGE ====
+  const viewEl = document.getElementById("problemView");
+
+  function renderProblem(problem) {
+    const sdgHtml = problem.sdgs
+      .map(s => <span class="sdg-chip">${s}</span>)
+      .join("");
+
+    viewEl.innerHTML = `
+      <div class="crumbs">
+        Algorithms / <span>Problem #${problem.number}</span>
+      </div>
+
+      <div class="problem-header-main">
+        <div class="problem-title-block">
+          <div class="problem-id-pill">
+            <span>Problem #${problem.number}</span>
+          </div>
+          <h1>${problem.title}</h1>
+          <div class="problem-meta-row">
+            <span class="algo-chip">${problem.algorithm}</span>
+            
+            <span><strong>Time:</strong> ${problem.time}</span>
+            <span><strong>Space:</strong> ${problem.space}</span>
+          </div>
+          <div class="sdg-chips">
+            ${sdgHtml}
+          </div>
+        </div>
+
+        
+      </div>
+
+      <div class="content-grid">
+        <div class="card">
+          <div class="card-header">
+            <span>Problem &amp; Solution</span>
+            <span class="label">Explanation</span>
+          </div>
+          <div class="card-body">
+            <strong>Problem:</strong><br />
+            <span>${problem.problemText}</span>
+            <br /><br />
+            <strong>High-level Solution:</strong><br />
+            <span>${problem.solutionText}</span>
+          </div>
+        </div>
+
+        
+
+      <div class="card code-card">
+        <div class="card-header">
+          <span>Reference Code</span>
+          <span class="label">JavaScript</span>
+        </div>
+        <div class="card-body">
+          <pre id="codeBlock"><code>${problem.code}</code></pre>
+        </div>
+      </div>
+      
+
+      
+    `;
+
+    // Hook up copy & raw buttons
+    const copyBtn = document.getElementById("copyCodeBtn");
+    const rawBtn = document.getElementById("openRawBtn");
+    const codeBlock = document.getElementById("codeBlock");
+
+    if (copyBtn && codeBlock) {
+      copyBtn.addEventListener("click", () => {
+        const text = codeBlock.innerText;
+        navigator.clipboard?.writeText(text).then(
+          () => { copyBtn.textContent = "✅ Copied"; },
+          () => { copyBtn.textContent = "⚠ Failed"; }
+        );
+        setTimeout(() => (copyBtn.innerHTML = '<span>📋</span> Copy Code'), 1200);
+      });
+    }
+
+    if (rawBtn && codeBlock) {
+      rawBtn.addEventListener("click", () => {
+        const w = window.open("", "_blank");
+        if (!w) return;
+        w.document.write("<pre>" + codeBlock.innerText.replace(/</g, "&lt;") + "</pre>");
+        w.document.close();
+      });
+    }
+  }
+
+  // ==== ROUTING (HASH-BASED) ====
+  function setActiveProblem(id, updateHash) {
+    const problem = problems.find(p => p.id === id) || problems[0];
+    renderSidebar(problem.id);
+    renderProblem(problem);
+    if (updateHash) {
+      window.location.hash = "problem/" + problem.id;
+    }
+  }
+
+  function getProblemIdFromHash() {
+    const hash = window.location.hash || "";
+    const match = hash.match(/problem\/([a-z0-9\-]+)/i);
+    return match ? match[1] : null;
+  }
+
+  window.addEventListener("hashchange", () => {
+    const id = getProblemIdFromHash();
+    if (id) setActiveProblem(id, false);
+  });
+
+  // ==== GLOW TOGGLE ====
+  const glowToggle = document.getElementById("glowToggle");
+  let glowOn = true;
+  glowToggle?.addEventListener("click", () => {
+    document.body.style.filter = glowOn ? "saturate(0.9) brightness(0.95)" : "none";
+    glowOn = !glowOn;
+  });
+
+  // ==== INITIALISE ====
+  (function init() {
+    const initialId = getProblemIdFromHash() || problems[0].id;
+    setActiveProblem(initialId, true);
+  })();
+</script>
+</body>
+</html>
