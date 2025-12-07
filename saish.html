@@ -311,9 +311,9 @@
         title: 'Weather Impact Prediction for Salt Farming',
         photo: './saish/Rabin-Karp.jpg',
         phototitle:'Rabin-Karp',
-        problem: `Salt farmers face sudden weather changes like rain or cyclones that can damage large parts of their salt pans. They often receive general weather alerts but do not know exactly which of their pans will be affected or how much area may be lost. This lack of clear, localized impact prediction leads to unnecessary losses. The problem is the absence of a system that warns farmers early and tells them how much of their pan area is at risk if no action is taken.`,
-        solution: `The solution is a weather-impact tool that detects dangerous weather patterns using sensor data and identifies which pans lie in the affected zone. By analyzing the pan layout with tree structures and simple algorithms, it calculates the total area that may be damaged and alerts the farmer in advance. This gives a clear, easy-to-understand report showing how much of the salt pan will be affected, helping farmers take timely protective actions.`,
-        algos: ['Rabin-Karp Algorithm', 'Tree-based Spatial Index(QuadTree)','Graph Algorithms (BFS)'],
+        problem: `Salt farmers in coastal regions face sudden weather changes like cyclones and heavy rain that can damage large portions of their salt pans. Although general weather forecasts exist, farmers do not get precise, farm-level information about which pans are at risk and how much total area may be affected if no preventive action is taken. This uncertainty leads to poor decisions, unnecessary work, or large losses when storms hit unexpectedly. There is a need for a system that can detect dangerous weather patterns early and estimate the affected pan area clearly and quickly.`,
+        solution: `The system continuously reads sensor data (like pressure or wind speed) and uses a pattern-matching algorithm to detect dangerous weather signatures. When a risk is detected, it checks which salt pans lie within a given storm radius and then uses a graph model of neighboring pans to propagate risk to connected pans that may also be impacted. Finally, it ranks all affected pans based on area so that farmers know which pans are most critical and computes the total affected area. The output is a simple report: which pans are affected and how much area will be damaged if no action is taken.`,
+        algos: ['Rabin-Karp Algorithm', 'Tree-based Spatial Index(QuadTree)','Graph Algorithms (BFS)','Lookup table','Arrays'],
         codeSnippet: `// After removing blocked edge, test connectivity via BFS\nfunction bfs(graph, source){ /* ... */ }\n// Run Dijkstra for best pressure-loss path`
       },
       {
@@ -322,32 +322,21 @@
         title: 'Moisture-Safe Storage Planning.' ,
         photo: './shivaraj/Dijkstra.jpg',
         phototitle:'Dijkstra Algorithm',
-        problem: `Salt farmers struggle to know how long freshly produced salt can safely remain in the open before moisture begins to damage it. 
-        With multiple heaps ready at different times and several storage locations at varying distances, farmers often cannot decide which heap should be moved first or where it should be stored.
-        Without a systematic way to track exposure time and choose the fastest or cheapest storage option, significant salt loss occurs due to moisture absorption and inefficient transport decisions.`,
+        problem: `After harvesting, salt heaps are left in the open and gradually absorb moisture from the air, which reduces their quality and value. Farmers have multiple heaps produced at different times and a limited number of salt godowns at different distances. Without a systematic way to check how long each heap can safely remain exposed and which godown can be reached fastest or at the lowest travel cost, farmers often move heaps too late or to inefficient locations. This leads to avoidable quality loss and higher operational costs.`,
 
-        solution: `The system records when each salt heap was produced and calculates how long it can safely remain exposed before moisture affects it.
-        Based on this, the system assigns a risk score to each heap and sorts them so the most urgent ones are moved first.
-        The layout of the farm—including heaps, paths, and storage points—is modeled as a graph, and Dijkstra’s algorithm is used to find the fastest or lowest-cost route from each heap to the available storage locations. The system then recommends the best destination for each heap and creates a prioritized movement plan, ensuring salt is transferred to storage in the most efficient and protective way possible.`,
-        algos: ["Dijkstra's algorithm"],
+        solution: `The system records, for each salt heap, when it was produced and how long it can remain safely in the open before moisture damage begins. It computes the remaining safe time for every heap and ranks them by urgency. The farm and road layout, including heaps and godowns, is represented as a weighted graph, where edge weights denote realistic travel time or cost. Using Dijkstra’s algorithm, the system finds the shortest travel time from the farmer’s location (or heap location) to each salt godown. Finally, it sorts heaps and suggests for each heap the best godown to move to, prioritizing heaps with less safe time and godowns reachable with minimal travel time or cost.`,
+        algos: ["Dijkstra's algorithm",'Heap','Merge Sort'],
         codeSnippet: `// Simulate arrival as BFS layers; find nodes with high visit counts -> bottlenecks`
       },
       {
         id: 'p3',
-        zone: 'School',
-        title: 'Searching for particular topic on digital library provide by school',
+        zone: 'Residency area',
+        title: '',
         photo: './shivaraj/KMP.png',
         phototitle:'Knuth-Morris-Pratt (KMP) Algorithm',
-        problem: `In this new era of technology, schools and universities are providing digital libraries for students to access books and research papers online.
-    However, in the digital book or research paper if a student want to search for particular keyword or topic then without prior knowledge of the topic it can be hard to find the topic or keyword in the book with a small font size
-    letters.`,
-        solution: `To solve this problem we have there method BFSS, Knuth-Morris-Pratt algorithm and Rabin karp algorithm. But only KMP is efficient among these three algorithms.
-    BFSS will search for each character one by one which is inefficient and have O(n) time complexity = N*M where N is the length of pattern and M is the length of text.
-    Rabin karp algorithm uses hashing technique and have to compute modulus which is not efficient for large book or library, but it can lead to collision and false match. and has time complexity O(n)= N*M.
-
-    The best among these three is KMP algorithm, this is different from BFSS as BFSS will transverse through each character one by one, KMP checks the first character and if it doesn't matches then it will shift by K-pi(K-1) places and check again.
-    It has time complexity O(n)=N always where N is the length of pattern.`,
-        algos: ['Knuth-Morris-Pratt (KMP)'],
+        problem: `Residents in a city often face sudden household issues like plumbing leaks or electrical faults and need technicians quickly. However, they struggle to know who is available, what each technician charges, and how long it will actually take them to reach the house using real roads, not just straight-line distance. Without a system that considers both realistic travel time and service price, residents may overpay, wait too long, or fail to choose the best technician for their needs.`,
+        solution: `The system takes the user’s location and problem type (plumber, electrician, etc.), finds all workers who can handle that service, and models the city as a weighted graph where nodes are areas/junctions and edges are roads with travel time or cost. It uses Dijkstra’s algorithm to compute the shortest travel time from the user’s node to each worker’s node. Then it applies a custom Merge Sort to order workers primarily by their service price and secondarily by their travel time so that cheaper and faster options appear first. The app presents this ranked list to the user, who can then choose a worker (even a farther but cheaper one) and later confirm after seeing the worker’s stated travel cost.`,
+        algos: ['Array list','Graph','Dijkstra','Heap(priority queue)','Merge sort'],
         codeSnippet: `// Model floors as tree; compute path 'cost' to each floor; identify long paths.`
       },
       {
