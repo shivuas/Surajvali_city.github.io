@@ -8,12 +8,16 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #041025;
-      --panel: #071428;
-      --muted: #98a6b8;
+      /* LIGHT THEME VARIABLES */
+      --bg: #f8fafc;
+      --panel: #ffffff;
+      --muted: #64748b; /* Slate 500 */
       --accent: #7c3aed;
       --accent2: #06b6d4;
-      --card-border: rgba(255, 255, 255, 0.04);
+      --card-border: #e2e8f0; /* Slate 200 */
+      --text-main: #0f172a; /* Slate 900 */
+      --text-secondary: #334155; /* Slate 700 */
+      --block-bg: #f1f5f9; /* Slate 100 */
     }
 
     * {
@@ -25,8 +29,9 @@
     body {
       height: 100%;
       margin: 0;
-      background: linear-gradient(180deg, #021021 0%, #041025 100%);
-      color: #eaf2ff
+      /* Light gradient background */
+      background: linear-gradient(180deg, #f1f5f9 0%, #ffffff 100%);
+      color: var(--text-secondary);
     }
 
     .app {
@@ -39,11 +44,12 @@
     }
 
     .sidebar {
-      background: linear-gradient(180deg, #27496540);
+      background: #ffffff;
       border-radius: 12px;
       padding: 18px;
-      margin:15px 0px 0px 0px;
-      
+      margin: 15px 0px 0px 0px;
+      border: 1px solid var(--card-border);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
     }
 
     .home {
@@ -51,44 +57,39 @@
       min-height: 40px;
       position: absolute;
       top: 10px;
-
-      /* keep it aligned to the sidebar on large screens,
-     but never go left of the sidebar padding on small screens */
       left: max(18px, calc((100vw - 1200px) / 2 + 18px));
       font-size: 18px;
       padding: 6px 3px 3px 7px;
       background: linear-gradient(135deg, var(--accent), var(--accent2));
       border-radius: 10px;
       margin: 0px 0px 0px 0px;
-      border: 3px #061c42 solid;
-      color: black;
+      border: 3px #ffffff solid; /* White border to pop against light bg */
+      color: white;
       font-weight: 700;
       z-index: 1200;
-      /* make sure it sits above other content */
       display: block;
-      box-shadow: 0 6px 18px rgba(2, 8, 20, 0.6);
+      box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
     }
-
-
-
 
     .brand {
       display: flex;
       gap: 12px;
       align-items: center;
-      margin-bottom: 12px
+      margin-bottom: 12px;
+      color: var(--text-main);
     }
 
     .logo {
       width: 44px;
       height: 44px;
       border-radius: 10px;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      background: linear-gradient(135deg, rgb(211, 99, 200), rgb(82, 79, 219));
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: 700;
-      color: #021
+      color: #fff;
+      padding: 0px 7px 0px 7px;
     }
 
     .muted {
@@ -109,26 +110,30 @@
     .navitem {
       padding: 10px;
       border-radius: 10px;
-      background: rgba(255, 255, 255, 0.015);
+      background: #edf5f8;
       cursor: pointer;
-      border: 1px solid rgba(255, 255, 255, 0.02)
+      border: 1px solid transparent;
+      color: var(--text-secondary);
+      transition: background 0.2s;
     }
 
-    .navitem.active {
-      background: linear-gradient(90deg, rgba(124, 58, 237, 0.18), rgba(6, 182, 212, 0.12));
-      border-color: rgba(255, 255, 255, 0.06);
+    
 
+    .navitem.active {
+      /* Subtle purple/blue tint for active state */
+      background: linear-gradient(90deg, rgba(105, 236, 142, 0.58), rgba(56, 205, 231, 0.58));
+      border-color: rgba(35, 55, 154, 0.9);
+      color: var(--text-main);
     }
 
     .navitem h4 {
       margin: 0 0 6px 0;
-      font-size: 14px
+      font-size: 14px;
+      color: var(--text-main);
     }
-    .sidebar .brand{
-      font-size:25px;
-    }
-    .sidebar .logo{
-      padding:0px 3px 0px 3px;
+
+    .sidebar .brand {
+      font-size: 25px;
     }
 
     .navitem p {
@@ -140,11 +145,12 @@
     .detail {
       padding: 24px;
       border-radius: 12px;
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.01), rgba(255, 255, 255, 0.01));
+      background: #ffffff;
       border: 1px solid var(--card-border);
       min-height: 72vh;
       overflow: auto;
       margin: 15px 0px 0px 0px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
     }
 
     .top {
@@ -155,16 +161,17 @@
 
     .title h1 {
       margin: 0;
-      font-size: 22px
+      font-size: 22px;
+      color: var(--text-main);
     }
 
     .badge {
       padding: 6px 10px;
       border-radius: 10px;
-      background: rgba(255, 255, 255, 0.02);
+      background: #f1f5f9;
       color: var(--muted);
       font-weight: 700;
-      border: 1px solid rgba(255, 255, 255, 0.03)
+      border: 1px solid #e2e8f0;
     }
 
     .hero {
@@ -173,19 +180,22 @@
       margin-top: 14px;
       border-radius: 10px;
       overflow: hidden;
-      background: linear-gradient(90deg, #20276c70, #18256070);
+      /* Lighter gradient for hero background */
+      background: linear-gradient(90deg, #e0e7ff, #dbeafe);
       display: flex;
       align-items: center;
       justify-content: center;
+      border: 1px solid var(--card-border);
     }
 
-    .hero .images{
+    .hero .images {
       width: 80%;
       height: 300px;
-      object-fit:contain;
-      padding:0px 5px 0px 10px;
+      object-fit: contain;
+      padding: 0px 5px 0px 10px;
+      mix-blend-mode: multiply; /* Helps images blend better on light bg */
+    }
 
-      }
     .hero img {
       width: 100%;
       height: 100%;
@@ -196,8 +206,8 @@
       margin-top: 14px;
       padding: 14px;
       border-radius: 10px;
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid rgba(255, 255, 255, 0.03)
+      background: var(--block-bg);
+      border: 1px solid var(--card-border);
     }
 
     .algos {
@@ -210,10 +220,11 @@
     .algo {
       padding: 8px 10px;
       border-radius: 8px;
-      background: linear-gradient(90deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
-      border: 1px solid rgba(255, 255, 255, 0.03);
-      color: var(--muted);
-      font-weight: 700
+      background: linear-gradient(90deg,#dee9f3,rgb(226, 243, 232));
+      border: 1px solid #cbd5e1;
+      color: var(--text-secondary);
+      font-weight: 700;
+      font-size: 0.9em;
     }
 
     .actions {
@@ -223,44 +234,63 @@
     }
 
     .btn {
-      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      background: linear-gradient(90deg, rgb(66, 186, 188), rgb(68, 102, 227));
       padding: 8px 12px;
       border-radius: 10px;
       border: none;
-      color: #021;
+      color: #fff;
       font-weight: 700;
       cursor: pointer;
       transition: border-radius 0.4s ease, transform 0.4s ease;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
+
     .btn:hover {
       transform: translateY(-4px) scale(1.01);
-    box-shadow: 0 1px 4px rgba(148, 163, 184, 0.5);
-    border-color: rgba(59, 130, 246, 0.4);
+      box-shadow: 0 4px 12px rgba(68, 102, 227, 0.3);
     }
+
     .ghost {
       background: transparent;
-      border: 1px solid rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--card-border);
       padding: 8px 10px;
       border-radius: 8px;
       color: var(--muted);
       cursor: pointer
     }
 
+    /* Code blocks kept dark for contrast/developer feel */
     pre.code {
-      background: #071827;
+      background: #1e293b;
       padding: 12px;
       border-radius: 8px;
       overflow: auto;
-      color: #cfeffd;
+      color: #e2e8f0;
       margin: 0
     }
-   .solutions{
-      color: #b0cfff;
-      font-size:18px;
-   }
-   .headlines{
-    font-size:25px;
-   }
+
+    .solutions {
+      color: black; /* Darker blue for readability on white */
+      font-size: 18px;
+      font-weight: 500;
+    }
+
+    .headlines {
+      font-size: 25px;
+      color: var(--text-main);
+    }
+
+    .metadata {
+      color: #0ea5e9; /* Sky blue */
+      opacity: 1;
+      background: #e0f2fe; /* Light sky background */
+      border-radius: 5px;
+      min-height: 25px;
+      padding: 5px 0px 5px 10px;
+      font-weight: 600;
+      border:1px solid #82bcdc;
+    }
+
     @media (max-width:800px) {
       .app {
         grid-template-columns: 1fr;
@@ -270,7 +300,7 @@
       .hero {
         height: 400px;
       }
-      
+
 
       @media (max-width: 700px) {
         .home {
@@ -305,13 +335,11 @@
         content or replace images.</div>
 
       <div class="list" id="nav">
-        <!-- nav items inserted by JS -->
-      </div>
+        </div>
     </aside>
 
     <main class="detail" id="detail">
-      <!-- detail content injected here -->
-    </main>
+      </main>
   </div>
 
   <script>
@@ -325,7 +353,7 @@
         zone: 'School',
         title: 'Going from one destination to another in large Campus',
         photo: './shivaraj/Dijkstra.jpg',
-        phototitle:'Dijkstra Algorithm',
+        phototitle: 'Dijkstra Algorithm',
         problem: `In a complex school or universities, a parent who visits once in a while will face issue to walk across department building
         , canteens, seminar halls, hostels, and other venues. There are situations where a parent want to visit a particular venue in a very short path and time
         but there could bea situations where parent wants to visit certain venue with his child not in very short span of time, as he wants to spend time with child and also
@@ -342,7 +370,7 @@
         zone: 'School',
         title: 'Wiring and adding fiber cable to whole campur efficiently.',
         photo: './shivaraj/Kruskal.png',
-        phototitle:'Kruskal Algorithm',
+        phototitle: 'Kruskal Algorithm',
         problem: `A large campus needs to be wired and have fiber cables for wifi, but without proper planning, the cost or weight of the cables can become very high and useless.
     In here just using tree structure will be not efficient as it may lead to long cables and can cut the whole system if one edge gets disconnected.
     Using Graph structure alone can be also inefficient as it also lead to long cables and high cost, but it can reduce the dependecy of one edge on othere node.`,
@@ -357,11 +385,11 @@
         zone: 'School',
         title: 'Searching for particular topic on digital library provide by school',
         photo: './shivaraj/KMP.png',
-        phototitle:'Knuth-Morris-Pratt (KMP) Algorithm',
+        phototitle: 'Knuth-Morris-Pratt (KMP) Algorithm',
         problem: `In this new era of technology, schools and universities are providing digital libraries for students to access books and research papers online.
     However, in the digital book or research paper if a student want to search for particular keyword or topic then without prior knowledge of the topic it can be hard to find the topic or keyword in the book with a small font size
     letters.`,
-        solution: `To solve this problem we have there method BFSS, Knuth-Morris-Pratt algorithm and Rabin karp algorithm. But only KMP is efficient among these three algorithms.
+        solution: `To solve this problem we have three method BFSS, Knuth-Morris-Pratt algorithm and Rabin karp algorithm. But only KMP is efficient among these three algorithms.
     BFSS will search for each character one by one which is inefficient and have O(n) time complexity = N*M where N is the length of pattern and M is the length of text.
     Rabin karp algorithm uses hashing technique and have to compute modulus which is not efficient for large book or library, but it can lead to collision and false match. and has time complexity O(n)= N*M.
 
@@ -375,7 +403,7 @@
         zone: 'School',
         title: 'Water from Syntax to every section of School or University without getting blocked',
         photo: './shivaraj/Graph.webp',
-        phototitle:'Graph Algorithm',
+        phototitle: 'Graph Algorithm',
         problem: `In general School or Universitites which are large and have water sytsem for drinking, washroom all connected from Top floor Syntax, 
     the problem is that single pipe burst or blockage in any section will disconnect the whole section from water supply causing inconvenience to students and staff.`,
         solution: `The problem is caused because it the water sysetm is designed in tree structure, where if higher level node gets disrupted then all the child
@@ -387,20 +415,27 @@
       {
         id: 'p5',
         zone: 'School',
-        title: 'Library shelves are disorganized — books hard to find',
+        title: 'Finding shortest path to visit all bustop and return back to school',
         photo: '',
-        phototitle:'',
-        problem: `School library lacks ordering, so students waste time searching shelves during library hour.`,
-        solution: `Adopt a deterministic shelf order (category → author → year) and relabel shelves; maintain a small index map at entrance.`,
-        algos: ['Sorting', 'Trie (for search)'],
+        phototitle: '',
+        problem: `For a large city or a huge population of students, dividing students bases on their location and assigning them to particular bus and
+        the bus should have to choose the shortest path to visit all the points and reach back to starting point (school/University).`,
+        solution: `This problem can be solved with different layer of solutions.
+        1. At first we divide locations into different regions, and assign a bus to each region.
+        2. Then for each region, we use Kruskal's algorithm to find min weight or cheapest route.
+        3. Then using DFS to traversing till we reach the end of depth and before coming back or back tracking, we apply Dijkstra algorithm
+        to check where the other child node of parent node is nearer to current node instead of back tracking to parent node.
+        If the direct length is less than back tracking length then we go directly to child node instead of back tracking to parent node.
+        4. When we visit all nodes then again using Dijkstra to reach back to starting point (school/University).`,
+        algos: ['DFS(Graph)', 'Dijkstra', 'Kruskal'],
         codeSnippet: `// Multi-key sort: category, author, year\nbooks.sort((a,b)=> /* compare category, then author, then year */ );`
       },
       {
         id: 'p6',
-        zone: 'IT Park',
+        zone: 'IT Hub',
         title: 'Implementing smart emergency exit in building complex from any floor',
         photo: './shivaraj/bfs.jpg',
-        phototitle:'BFS (Graph Algorithm)',
+        phototitle: 'BFS (Graph Algorithm)',
         problem: `The IT buildings are large and mainly have high electrical equipment, in case of emergency like fire or earthquake, people from higher floors find it hard to exit quickly
         as they have to do down multiple floors and then exit through main door which could be crowded and could have been on fire or blocked.
         This can lead to casualties and injuries.  `,
@@ -413,11 +448,11 @@
       },
       {
         id: 'p7',
-        zone: 'IT Park',
-        title: 'EV chargers at northwest corner are overcrowded',
+        zone: 'Shopping Mall',
+        title: 'Business model for Shopping Malls',
         photo: '',
-        phototitle:'',
-        problem: `Several chargers are clustered causing long waiting times while other chargers remain unused.`,
+        phototitle: '',
+        problem: ``,
         solution: `Rebalance charger locations by clustering parking demand and add a reservation token system.`,
         algos: ['Graph clustering', 'Sorting'],
         codeSnippet: `// Cluster parking nodes by demand, rank candidate charger sites by distance`
@@ -427,7 +462,7 @@
         zone: 'IT Park',
         title: 'Garbage trucks follow inefficient pickup routes',
         photo: '',
-        phototitle:'',
+        phototitle: '',
         problem: `The daily cleaner route is long and doubles back multiple times, increasing fuel and time.`,
         solution: `Recompute an efficient route that connects all bins using shortest-path distances and a greedy tour heuristic.`,
         algos: ['Dijkstra', 'Sorting (greedy TSP approx)'],
@@ -438,7 +473,7 @@
         zone: 'IT Park',
         title: 'One pipe burst disconnects a whole block of offices',
         photo: '',
-        phototitle:'',
+        phototitle: '',
         problem: `A single failure in the feed line causes many offices to lose water (single point-of-failure).`,
         solution: `Detect bridge edges in the network and add redundant loops; reorganize into ring topology where possible.`,
         algos: ['Graph algorithms', 'Kruskal'],
@@ -449,7 +484,7 @@
         zone: 'IT Park',
         title: 'Food court stall queues form long lines and block walkway',
         photo: '',
-        phototitle:'',
+        phototitle: '',
         problem: `A popular stall leads to queuing that blocks the main walkway and creates congestion.`,
         solution: `Redistribute stalls, increase service capacity, and introduce virtual token queuing (SMS/app).`,
         algos: ['BFS (flow)', 'Sorting'],
@@ -467,7 +502,7 @@
         const d = document.createElement('div');
         d.className = 'navitem';
         d.dataset.id = p.id;
-        d.innerHTML = `<h4>${p.title}</h4><p>${p.zone} • ${p.algos.join(', ')}</p>`;
+        d.innerHTML = `<h4>${p.title}</h4><p class ='metadata' style='color:#0284c7;'>${p.zone} • ${p.algos.join(', ')}</p>`;
         d.onclick = () => { select(p.id); };
         nav.appendChild(d);
       });
@@ -494,8 +529,8 @@
     </div>
 
     
-    <div class="hero">${p.photo ? `<img class="images" src="${p.photo}" alt="photo" style="object-fit:contain;"> <h1 style="color:white; background-color:transparent; font-size:15px; padding:0px 0px 0px 5px;">${p.phototitle}</h1> ` : `<svg width="100%" height="100%" viewBox="0 0 600 260" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#0b2740"/>
-      <stop offset="1" stop-color="#083241"/></linearGradient></defs><rect width="100%" height="100%" fill="url(#g)"/><text x="50%" y="50%" fill="#8fbfd6" font-size="20" text-anchor="middle" dominant-baseline="middle">Replace this with your photo</text></svg>`}
+    <div class="hero">${p.photo ? `<img class="images" src="${p.photo}" alt="photo" style="object-fit:contain;"> <h1 style="color:#1e293b; background-color:transparent; font-size:15px; padding:0px 0px 0px 5px; margin-left:10px;">${p.phototitle}</h1> ` : `<svg width="100%" height="100%" viewBox="0 0 600 260" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#e0e7ff"/>
+      <stop offset="1" stop-color="#dbeafe"/></linearGradient></defs><rect width="100%" height="100%" fill="url(#g)"/><text x="50%" y="50%" fill="#64748b" font-size="20" text-anchor="middle" dominant-baseline="middle">Replace this with your photo</text></svg>`}
       </div>
       
 
@@ -538,7 +573,7 @@
       const blob = new Blob([html], { type: 'text/html' });
       const a = document.createElement('a');
       a.href = URL.createObjectURL(blob);
-      a.download = (p.title.replaceAll(/[^a-z0-9]+/ig, '_').slice(0, 60) || 'page') + '.html';
+      a.download = (p.title.replaceAll(/[^a-z0-9]+/ig, '_').slice(60) || 'page') + '.html';
       a.click();
       URL.revokeObjectURL(a.href);
     }
@@ -548,15 +583,15 @@
       return `<!doctype html>
 <html>
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${escapeHtml(p.title)}</title>
-<style>body{font-family:Inter,system-ui,Arial;background:#041025;color:#eaf2ff;padding:28px} 
-.wrap{max-width:900px;margin:0 auto} h1{font-size:24px} .hero{height:300px;background:#082734;margin-top:12px;border-radius:10px;display:flex;align-items:center;justify-content:center} 
-pre{background:#071827;padding:12px;border-radius:8px;overflow:auto}</style>
+<style>body{font-family:Inter,system-ui,Arial;background:#f8fafc;color:#334155;padding:28px} 
+.wrap{max-width:900px;margin:0 auto} h1{font-size:24px;color:#0f172a} .hero{height:300px;background:#e2e8f0;margin-top:12px;border-radius:10px;display:flex;align-items:center;justify-content:center} 
+pre{background:#1e293b;padding:12px;border-radius:8px;overflow:auto;color:#f1f5f9}</style>
 </head>
 <body><div class="wrap">
 <h1>${escapeHtml(p.title)}</h1>
-<div style="color:#98a6b8">${escapeHtml(p.zone)}</div>
+<div style="color:#64748b;">${escapeHtml(p.zone)}</div>
 
-<div class="hero">${p.photo ? `<img src=${p.photo} style="width:100%;height:100%;object-fit:cover;border-radius:10px">` : '<div style="color:#8fbfd6">Replace with your photo</div>'}</div>
+<div class="hero">${p.photo ? `<img src=${p.photo} style="width:100%;height:100%;object-fit:cover;border-radius:10px">` : '<div style="color:#64748b">Replace with your photo</div>'}</div>
 
 <h2>1. Problem</h2><p>${escapeHtml(p.problem)}</p>
 <h2>2. Solution</h2><p>${escapeHtml(p.solution)}</p>
