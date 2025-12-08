@@ -308,24 +308,24 @@
       {
         id: 'p1',
         zone: 'Salt Field',
-        title: 'Weather Impact Prediction for Salt Farming',
+        title: 'Smart Water Distribution & Routing System',
         photo: './saish/Rabin-Karp.jpg',
         phototitle:'Rabin-Karp',
-        problem: `Salt farmers in coastal regions face sudden weather changes like cyclones and heavy rain that can damage large portions of their salt pans. Although general weather forecasts exist, farmers do not get precise, farm-level information about which pans are at risk and how much total area may be affected if no preventive action is taken. This uncertainty leads to poor decisions, unnecessary work, or large losses when storms hit unexpectedly. There is a need for a system that can detect dangerous weather patterns early and estimate the affected pan area clearly and quickly.`,
-        solution: `The system continuously reads sensor data (like pressure or wind speed) and uses a pattern-matching algorithm to detect dangerous weather signatures. When a risk is detected, it checks which salt pans lie within a given storm radius and then uses a graph model of neighboring pans to propagate risk to connected pans that may also be impacted. Finally, it ranks all affected pans based on area so that farmers know which pans are most critical and computes the total affected area. The output is a simple report: which pans are affected and how much area will be damaged if no action is taken.`,
-        algos: ['Rabin-Karp Algorithm', 'Tree-based Spatial Index(QuadTree)','Graph Algorithms (BFS)','Lookup table','Arrays'],
+        problem: `The problem focuses on ensuring efficient, balanced, and cost-effective water distribution from a central reservoir to different parts of the city, while reducing pressure loss, supply delays, and wastage in the pipeline network.`,
+        solution: `This system represents the water network as a graph where reservoirs, junctions, and pipelines are mapped as interconnected nodes and edges. By applying shortest path and max-flow algorithms, optimal water routes and capacities are calculated for every zone. Real-time sensor data such as flow rate, pressure, and demand are continuously tracked to detect fluctuation and adjust allocations. Priority-based scheduling ensures that critical areas such as hospitals or industrial zones get supply first, while less sensitive areas are queued for later. The system can dynamically reroute water when a path becomes congested or damaged, ensuring consistent supply with minimal loss. Overall, this model supports efficient distribution, fast fault recovery, and scalable city growth.`,
+        algos: ['Dijkstra’s Algorithm', 'Max-Flow Algorithm','Priority Queue Scheduling','Hash Maps','Queues'],
         codeSnippet: `// After removing blocked edge, test connectivity via BFS\nfunction bfs(graph, source){ /* ... */ }\n// Run Dijkstra for best pressure-loss path`
       },
       {
         id: 'p2',
         zone: 'Salt Godown',
-        title: 'Moisture-Safe Storage Planning.' ,
+        title: 'Leak Detection and Response System' ,
         photo: './shivaraj/Dijkstra.jpg',
         phototitle:'Dijkstra Algorithm',
-        problem: `After harvesting, salt heaps are left in the open and gradually absorb moisture from the air, which reduces their quality and value. Farmers have multiple heaps produced at different times and a limited number of salt godowns at different distances. Without a systematic way to check how long each heap can safely remain exposed and which godown can be reached fastest or at the lowest travel cost, farmers often move heaps too late or to inefficient locations. This leads to avoidable quality loss and higher operational costs.`,
+        problem: `Develop a system to store, update, and analyze water usage data of industries for fast monitoring and regulation.`,
 
-        solution: `The system records, for each salt heap, when it was produced and how long it can remain safely in the open before moisture damage begins. It computes the remaining safe time for every heap and ranks them by urgency. The farm and road layout, including heaps and godowns, is represented as a weighted graph, where edge weights denote realistic travel time or cost. Using Dijkstra’s algorithm, the system finds the shortest travel time from the farmer’s location (or heap location) to each salt godown. Finally, it sorts heaps and suggests for each heap the best godown to move to, prioritizing heaps with less safe time and godowns reachable with minimal travel time or cost.`,
-        algos: ["Dijkstra's algorithm",'Heap','Merge Sort'],
+        solution: `Industries often consume large amounts of water, and tracking their usage is necessary for billing, regulation, and conservation planning. Each industry is assigned an ID and its daily consumption is stored in a hash map for fast retrieval and update. This allows the system to efficiently detect high-usage industries, update usage data, and compute aggregate consumption. An array is used to store daily or weekly usage patterns, and a max-heap helps identify which industries have the highest consumption at any given time. This approach ensures fast data access, easy updates, and supports analytics for decision making such as issuing warnings or imposing limits on excessive users.`,
+        algos: ["Hash Maps",'Array','Max-Heap', 'Sorting Algorithms'],
         codeSnippet: `// Simulate arrival as BFS layers; find nodes with high visit counts -> bottlenecks`
       },
       {
@@ -334,9 +334,9 @@
         title: '',
         photo: './shivaraj/KMP.png',
         phototitle:'Knuth-Morris-Pratt (KMP) Algorithm',
-        problem: `Residents in a city often face sudden household issues like plumbing leaks or electrical faults and need technicians quickly. However, they struggle to know who is available, what each technician charges, and how long it will actually take them to reach the house using real roads, not just straight-line distance. Without a system that considers both realistic travel time and service price, residents may overpay, wait too long, or fail to choose the best technician for their needs.`,
-        solution: `The system takes the user’s location and problem type (plumber, electrician, etc.), finds all workers who can handle that service, and models the city as a weighted graph where nodes are areas/junctions and edges are roads with travel time or cost. It uses Dijkstra’s algorithm to compute the shortest travel time from the user’s node to each worker’s node. Then it applies a custom Merge Sort to order workers primarily by their service price and secondarily by their travel time so that cheaper and faster options appear first. The app presents this ranked list to the user, who can then choose a worker (even a farther but cheaper one) and later confirm after seeing the worker’s stated travel cost.`,
-        algos: ['Array list','Graph','Dijkstra','Heap(priority queue)','Merge sort'],
+        problem: `Design a system to assign water tankers to emergency zones by finding the fastest route from a depot to multiple destinations during crisis situations, considering road network distances and travel time.`,
+        solution: `To solve this problem, the city’s road network is represented as a graph, where intersections are nodes and roads between them are weighted edges based on travel time or distance. When an emergency occurs, a water tanker must be routed from the nearest available depot to the affected location using the fastest possible path. To identify this path efficiently, Dijkstra’s Algorithm is applied, since it computes the shortest path from a source node to all other nodes in a weighted graph. During execution, a min-heap (priority queue) is used to repeatedly choose the next node with the smallest known distance, improving performance compared to a linear search. A distance array maintains the shortest known distance to every node, while a visited array keeps track of processed nodes to avoid recalculating routes. A predecessor array can store the previous node in each shortest path to reconstruct the full route once the algorithm finishes. To support multiple emergencies, a queue can be used to handle requests one by one in order of arrival, ensuring fairness and immediate routing. This system ensures that during disasters, water tankers reach critical zones quickly through optimized routing, minimizing response time and saving lives.`,
+        algos: ['Dijkstra Algorithm','Graph','Array','Min-Heap or priority queue','Queue'],
         codeSnippet: `// Model floors as tree; compute path 'cost' to each floor; identify long paths.`
       },
       {
