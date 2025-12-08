@@ -331,9 +331,9 @@
       {
         id: 'p3',
         zone: 'Residency area',
-        title: '',
-        photo: './shivaraj/KMP.png',
-        phototitle:'Knuth-Morris-Pratt (KMP) Algorithm',
+        title: 'Home Service Finder',
+        photo: '',
+        phototitle:'',
         problem: `Residents in a city often face sudden household issues like plumbing leaks or electrical faults and need technicians quickly. However, they struggle to know who is available, what each technician charges, and how long it will actually take them to reach the house using real roads, not just straight-line distance. Without a system that considers both realistic travel time and service price, residents may overpay, wait too long, or fail to choose the best technician for their needs.`,
         solution: `The system takes the user’s location and problem type (plumber, electrician, etc.), finds all workers who can handle that service, and models the city as a weighted graph where nodes are areas/junctions and edges are roads with travel time or cost. It uses Dijkstra’s algorithm to compute the shortest travel time from the user’s node to each worker’s node. Then it applies a custom Merge Sort to order workers primarily by their service price and secondarily by their travel time so that cheaper and faster options appear first. The app presents this ranked list to the user, who can then choose a worker (even a farther but cheaper one) and later confirm after seeing the worker’s stated travel cost.`,
         algos: ['Array list','Graph','Dijkstra','Heap(priority queue)','Merge sort'],
@@ -341,27 +341,24 @@
       },
       {
         id: 'p4',
-        zone: 'School',
-        title: 'Water from Syntax to every section of School or University without getting blocked',
+        zone: 'Residential area',
+        title: 'Waste Management',
         photo: './shivaraj/Graph.webp',
-        phototitle:'Graph Algorithm',
-        problem: `In general School or Universitites which are large and have water sytsem for drinking, washroom all connected from Top floor Syntax, 
-    the problem is that single pipe burst or blockage in any section will disconnect the whole section from water supply causing inconvenience to students and staff.`,
-        solution: `The problem is caused because it the water sysetm is designed in tree structure, where if higher level node gets disrupted then all the child
-    node gets disconnected. To solve this we can use Graph structure instead of tree structure, where a single corner or node is connected to more than one edge or pipe.
-    By this way if one edge or pipe get's blocked or burst, we can still run water through alternate pipes or edges.`,
-        algos: ['Graph algorithms'],
+        phototitle:'Greedy Algorithm',
+        problem: `In many residential areas, there is only one or very few garbage collection points, which are far for some localities. People living far away often dump waste on streets or open spaces instead of walking a long distance to the bin. This creates hygiene issues and pollution. The aim is to place 4–5 dustbins at different locations in such a way that each locality has at least one nearby dustbin, instead of only one central bin, and later these bins can also be collected efficiently by the garbage truck.`,
+        solution: `We model the residential area as a graph, where junctions or localities are nodes and roads between them are edges with distance or time as weights. We decide to place K = 4 or 5 dustbins. First, we select one initial dustbin location (for example, a central or important locality). Then we repeatedly do the following: we run multi-source shortest path from all currently chosen dustbin nodes to find, for every locality, the distance to its nearest dustbin. We then find the locality that is farthest from any existing dustbin and place the next dustbin there. We repeat this until we have 4–5 dustbins. This greedy method spreads the dustbins across the area so that no locality is too far from a bin, and each locality naturally gets a nearest dustbin that serves it.`,
+        algos: ['Arrays','Graph as Adjancency List','Dijkstra','Greedy Algorithm'],
         codeSnippet: `// Compare shortest 'official' vs 'actual' path lengths; if ratio > threshold add new edge.`
       },
       {
         id: 'p5',
-        zone: 'School',
-        title: 'Library shelves are disorganized — books hard to find',
-        photo: '',
-        phototitle:'',
-        problem: `School library lacks ordering, so students waste time searching shelves during library hour.`,
-        solution: `Adopt a deterministic shelf order (category → author → year) and relabel shelves; maintain a small index map at entrance.`,
-        algos: ['Sorting', 'Trie (for search)'],
+        zone: 'Residential Area',
+        title: 'Gas Pipeline Layout Optimization',
+        photo: './shivaraj/Kruskal.png',
+        phototitle:'Kruskal Algorithm',
+        problem: `In many residential areas, gas pipelines are not planned in an efficient manner. Because of this, the total pipe length becomes very high, which increases the construction cost and also creates more chances of leakage. Homes that are far from the gas source face low gas pressure, and maintenance also becomes difficult as the network becomes too complicated. If the gas line is not constructed optimally, it leads to high expenses, safety issues, and poor gas supply to some houses. So, there is a need for a proper method to connect all houses using the minimum possible pipeline length while still ensuring that every home gets reliable gas supply.`,
+        solution: `To solve this issue, we can model the entire residential area as a graph where each house and main gas outlet is treated as a node, and possible pipeline routes between them are edges with distances. Using this graph, we apply Kruskal’s Minimum Spanning Tree algorithm to select only those pipeline connections that give the minimum total pipe length while still connecting every home. After constructing this optimized network, we use Dijkstra’s algorithm to measure the actual distance from the gas source to each house, which helps us identify if any home is too far and may face pressure issues. This approach ensures the gas line is laid out in a cost-effective, safe, and efficient way while reducing maintenance problems in the future.`,
+        algos: ['Arrays', 'Graph','Merge sort','union Find','Kruskal','Dijkstra'],
         codeSnippet: `// Multi-key sort: category, author, year\nbooks.sort((a,b)=> /* compare category, then author, then year */ );`
       },
       {
