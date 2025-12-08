@@ -39,10 +39,11 @@
     }
 
     .sidebar {
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.01), rgba(255, 255, 255, 0.01));
+      background: linear-gradient(180deg, #27496540);
       border-radius: 12px;
       padding: 18px;
-      border: 1px solid var(--card-border);
+      margin:15px 0px 0px 0px;
+      
     }
 
     .home {
@@ -58,7 +59,7 @@
       padding: 6px 3px 3px 7px;
       background: linear-gradient(135deg, var(--accent), var(--accent2));
       border-radius: 10px;
-      margin: 0px 0px 0px 10px;
+      margin: 0px 0px 0px 0px;
       border: 3px #061c42 solid;
       color: black;
       font-weight: 700;
@@ -123,6 +124,12 @@
       margin: 0 0 6px 0;
       font-size: 14px
     }
+    .sidebar .brand{
+      font-size:25px;
+    }
+    .sidebar .logo{
+      padding:0px 3px 0px 3px;
+    }
 
     .navitem p {
       margin: 0;
@@ -136,7 +143,8 @@
       background: linear-gradient(180deg, rgba(255, 255, 255, 0.01), rgba(255, 255, 255, 0.01));
       border: 1px solid var(--card-border);
       min-height: 72vh;
-      overflow: auto
+      overflow: auto;
+      margin: 15px 0px 0px 0px;
     }
 
     .top {
@@ -161,27 +169,27 @@
 
     .hero {
       width: 100%;
-      height: 260px;
+      height: 300px;
       margin-top: 14px;
       border-radius: 10px;
       overflow: hidden;
-      background: linear-gradient(90deg, #081827, #0b1f2f);
+      background: linear-gradient(90deg, #20276c70, #18256070);
       display: flex;
       align-items: center;
       justify-content: center;
-      background:transparent;
     }
 
     .hero .images{
-      width: 100%;
-      height: 100%;
+      width: 80%;
+      height: 300px;
       object-fit:contain;
+      padding:0px 5px 0px 10px;
 
       }
     .hero img {
       width: 100%;
       height: 100%;
-      object-fit: cover
+      object-fit: contain;
     }
 
     .block {
@@ -246,7 +254,13 @@
       color: #cfeffd;
       margin: 0
     }
-
+   .solutions{
+      color: #b0cfff;
+      font-size:18px;
+   }
+   .headlines{
+    font-size:25px;
+   }
     @media (max-width:800px) {
       .app {
         grid-template-columns: 1fr;
@@ -258,7 +272,7 @@
       }
       
 
-      @media (max-width: 800px) {
+      @media (max-width: 700px) {
         .home {
           left: 18px;
           /* same padding as .app */
@@ -467,8 +481,8 @@
       // render detail page like the screenshot style
       detail.innerHTML = `
     <div class="top">
-      <div class="title">
-        <h1>${escapeHtml(p.title)}</h1>
+      <div class="title ">
+        <h1 class='headlines'>${escapeHtml(p.title)}</h1>
         <div style="display:flex;gap:12px;align-items:center;margin-top:10px">
           <div class="badge">${escapeHtml(p.zone)}</div>
           
@@ -485,11 +499,11 @@
       </div>
       
 
-    <div class="block"><strong>1. Problem</strong><p style="margin-top:10px">${escapeHtml(p.problem)}</p></div>
+    <div class="block"><strong class='headlines'>1. Problem</strong><p style="margin-top:10px">${escapeHtml(p.problem)}</p></div>
 
-    <div class="block"><strong>2. Practical Solution</strong><p style="margin-top:10px" class="muted">${escapeHtml(p.solution)}</p></div>
+    <div class="block"><strong class='headlines'>2. Practical Solution</strong><p style="margin-top:10px" class="muted solutions">${escapeHtml(p.solution)}</p></div>
 
-    <div class="block"><strong>3. Algorithm(s) used</strong>
+    <div class="block"><strong class='headlines'>3. Algorithm(s) used</strong>
       <div class="algos">${p.algos.map(a => `<div class="algo">${a}</div>`).join('')}</div>
     </div>
 
