@@ -453,129 +453,151 @@
     const pages = [
   {
     id: 'p1',
-    zone: 'School',
-    title: 'Going from one destination to another in large Campus',
-    photo: './shivaraj/Dijkstra.jpg',
-    phototitle: 'Dijkstra Algorithm',
-    problem: `In a complex school or universities, a parent who visits once in a while will face issue to walk across department building
-    , canteens, seminar halls, hostels, and other venues. There are situations where a parent want to visit a particular venue in a very short path and time
-    but there could bea situations where parent wants to visit certain venue with his child not in very short span of time, as he wants to spend time with child and also
-    want to visit the venue(in longest distance)`,
-    solution: `This particular problem can be solved using Dijkstra's algorithm for both shortest and longest path. Usually Dijkstra gives shortest path with condition -- dist[u]+cost[v][u] < dist[v] , 
-    this condtion can be use to find the shortest path between two point through different paths. But for the longest path one can change condition to --  dist[u]+cost[v][u] > dist[v], 
-    in Dijkstra's algorithm changing this condition along with min value will give the longest path
-    between two point through other paths.`,
-    algos: ['Dijkstra', 'Longest Dijkstra(modified Dijkstra)'],
+    zone: 'Salt Farms',
+    title: 'Weather Impact Prediction for Salt Farming',
+    photo: './saish/Rabin-Karp.jpg',
+    phototitle: 'Rabin Karp Algorithm',
+    problem: `Salt farmers in coastal regions face sudden weather changes like cyclones and heavy rain that can damage large portions of their salt pans. Although general weather forecasts exist, farmers do not get precise, farm-level information about which pans are at risk and how much total area may be affected if no preventive action is taken. This uncertainty leads to poor decisions, unnecessary work, or large losses when storms hit unexpectedly. There is a need for a system that can detect dangerous weather patterns early and estimate the affected pan area clearly and quickly.
+
+`,
+    solution: `Use sensor streams + simple forecast feeds. Detect dangerous weather signatures by running Rabin–Karp on recent pressure/wind time-series to spot cyclone-like patterns quickly. When a pattern is detected, index pans in a spatial tree (quadtree or grid) to get candidate pans inside the storm footprint, then build a pan adjacency graph and run BFS from directly-hit pans to propagate risk to connected pans. Finally Merge Sort the affected pans by area/severity for reporting.
+Why these fit: Rabin–Karp is fast for matching short patterns in streaming data; spatial trees reduce the number of point-in-region checks; BFS models physical overflow/adjacency; Merge Sort gives stable O(n log n) ordering for farmer-facing priority lists.
+
+`,
+    algos: ['Rabin_Karp Alogoritms', 'Tree-based Spatial Index(QuadTree)','Graph Algorithms (BFS)','Lookup table','Arrays'
+],
     sdgs: [
-      'SDG 4 – Quality Education',
+      
+      'SDG 13– Climate Action',
       'SDG 9 – Industry, Innovation and Infrastructure',
-      'SDG 11 – Sustainable Cities and Communities'
+      'SDG 12 – Sustainable Cities and Communities'
     ],
-    codeSnippet: `// After removing blocked edge, test connectivity via BFS
-function bfs(graph, source){ /* ... */ }
-// Run Dijkstra for best pressure-loss path`
+    codeSnippet: ``
   },
   {
     id: 'p2',
-    zone: 'School',
-    title: 'Wiring and adding fiber cable to whole campur efficiently.',
-    photo: './shivaraj/Kruskal.png',
-    phototitle: 'Kruskal Algorithm',
-    problem: `A large campus needs to be wired and have fiber cables for wifi, but without proper planning, the cost or weight of the cables can become very high and useless.
-    In here just using tree structure will be not efficient as it may lead to long cables and can cut the whole system if one edge gets disconnected.
-    Using Graph structure alone can be also inefficient as it also lead to long cables and high cost, but it can reduce the dependecy of one edge on othere node.`,
-    solution: `As seen in the problem part, using Graph alone is ineffiecient. So to solve this we can use Kruskal's along with Graph algorithms. 
-    The method here is first create a cheapest spanning tree using Kruskal's algorithm, then taking the edges which were neglected by kruskal's algorithm and adding them back in same order until all the nodes have atleast 1 edge connected to it. 
-    By this way we can reduce the weight of cables used overall and also reduce dependecy of one edge on other single edge.`,
-    algos: ["Kruskal's algorithm", 'Graph algorithms'],
+    zone: 'Salt Farms',
+    title: 'Moisture-Safe Storage Planning.',
+    photo: './shivaraj/Dijkstra.jpg',
+    phototitle: 'Dijkstra Algorithm',
+    problem: `After harvesting, salt heaps are left in the open and gradually absorb moisture from the air, which reduces their quality and value. Farmers have multiple heaps produced at different times and a limited number of salt godowns at different distances. Without a systematic way to check how long each heap can safely remain exposed and which godown can be reached fastest or at the lowest travel cost, farmers often move heaps too late or to inefficient locations. This leads to avoidable quality loss and higher operational costs.
+`,
+    solution: `For each heap compute remaining safe exposure time (production time + safeDuration − currentTime). Model farm roads as a weighted graph. Run Dijkstra (multi-source or per-heap) to compute fastest travel time from heap node to all godowns and pick the cheapest/fastest destination. Merge Sort or a heap orders heaps by urgency (least timeLeft first) and breaks ties by travel time. Optionally maintain a queue for trucks.
+Why these fit: Dijkstra computes realistic road-time distances on weighted graphs (essential for true arrival ETA). Sorting gives a clear movement priority; heap/queue supports scheduling limited vehicles.
+`,
+    algos: ["Dijkstra's algorithm",'Merge sort','Heap(priority queue)'],
     sdgs: [
       'SDG 9 – Industry, Innovation and Infrastructure',
+      'SDG 12 – Responsible Consumption & Production',
+      'SDG 8 – Decent Work and Economic Growth',
       'SDG 11 – Sustainable Cities and Communities'
     ],
-    codeSnippet: `// Simulate arrival as BFS layers; find nodes with high visit counts -> bottlenecks`
+    codeSnippet: ``
   },
   {
     id: 'p3',
-    zone: 'School',
-    title: 'Searching for particular topic on digital library provide by school',
+    zone: 'Residential Area',
+    title: 'Home Service Finder',
     photo: './shivaraj/KMP.png',
     phototitle: 'Knuth-Morris-Pratt (KMP) Algorithm',
-    problem: `In this new era of technology, schools and universities are providing digital libraries for students to access books and research papers online.
-    However, in the digital book or research paper if a student want to search for particular keyword or topic then without prior knowledge of the topic it can be hard to find the topic or keyword in the book with a small font size
-    letters.`,
-    solution: `To solve this problem we have three method BFSS, Knuth-Morris-Pratt algorithm and Rabin karp algorithm. But only KMP is efficient among these three algorithms.
-    BFSS will search for each character one by one which is inefficient and have O(n) time complexity = N*M where N is the length of pattern and M is the length of text.
-    Rabin karp algorithm uses hashing technique and have to compute modulus which is not efficient for large book or library, but it can lead to collision and false match. and has time complexity O(n)= N*M.
-    The best among these three is KMP algorithm, this is different from BFSS as BFSS will transverse through each character one by one, KMP checks the first character and if it doesn't matches then it will shift by K-pi(K-1) places and check again.
-    It has time complexity O(n)=N always where N is the length of pattern.`,
-    algos: ['Knuth-Morris-Pratt (KMP)'],
+    problem: `Residents in a city often face sudden household issues like plumbing leaks or electrical faults and need technicians quickly. However, they struggle to know who is available, what each technician charges, and how long it will actually take them to reach the house using real roads, not just straight-line distance. Without a system that considers both realistic travel time and service price, residents may overpay, wait too long, or fail to choose the best technician for their needs.
+`,
+    solution: `Represent the city as a weighted road graph (nodes = junctions / worker locations / user). On a service request, run Dijkstra from the user node to get realistic travel times to each worker. Compute worker comparator (primary: price, secondary: travel time) and apply Merge Sort to produce a stable ranked list shown to the user. Use hash tables to index workers by service type for fast filtering.
+Why these fit: Dijkstra gives real-world travel time (not straight-line); Merge Sort is stable and predictable when sorting by price then time; hashing enables O(1) lookup by skill/type.`,
+    algos: ['Array list','Graph','Dijkstra',
+'Heap(priority queue)',
+'Merge sort','Hash Tables'],
     sdgs: [
-      'SDG 4 – Quality Education',
+      'SDG 8 – Decent Work and Economic Growth',
+      'SDG 11 – Sustainable Cities and Communities',
       'SDG 9 – Industry, Innovation and Infrastructure'
     ],
-    codeSnippet: `// Model floors as tree; compute path 'cost' to each floor; identify long paths.`
+    codeSnippet: ``
   },
   {
     id: 'p4',
-    zone: 'School',
-    title: 'Water from Syntax to every section of School or University without getting blocked',
+    zone: 'Residential Area',
+    title: 'Waste Management',
     photo: './shivaraj/Graph.webp',
-    phototitle: 'Graph Algorithm',
-    problem: `In general School or Universitites which are large and have water sytsem for drinking, washroom all connected from Top floor Syntax,
-    the problem is that single pipe burst or blockage in any section will disconnect the whole section from water supply causing inconvenience to students and staff.`,
-    solution: `The problem is caused because it the water sysetm is designed in tree structure, where if higher level node gets disrupted then all the child node gets disconnected. 
-    To solve this we can use Graph structure instead of tree structure, where a single corner or node is connected to more than one edge or pipe.
-    By this way if one edge or pipe get's blocked or burst, we can still run water through alternate pipes or edges.`,
-    algos: ['Graph algorithms'],
+    phototitle: 'Greedy Algorithm',
+    problem: `In many residential areas, there is only one or very few garbage collection points, which are far for some localities. People living far away often dump waste on streets or open spaces instead of walking a long distance to the bin. This creates hygiene issues and pollution. The aim is to place 4–5 dustbins at different locations in such a way that each locality has at least one nearby dustbin, instead of only one central bin, and later these bins can also be collected efficiently by the garbage truck.
+
+`,
+    solution: `To solve the waste bin placement issue in residential areas, we model the area as a weighted graph, where nodes represent localities or junctions, and edges represent roads with travel distances or times. We aim to place 4–5 dustbins so that each locality has at least one nearby dustbin. For this, we apply the Greedy Farthest–First Traversal (K-Center Greedy Algorithm):
+
+Start by placing one bin at a central or important node.
+
+Then repeatedly run multi-source Dijkstra from all existing bins to compute the shortest distance from each locality to its nearest bin.
+
+At each step, place the next bin at the locality that is farthest from any existing bin.
+
+Repeat this until all K bins are placed.
+
+This greedy algorithm ensures the worst-case distance from any locality to a bin is minimized. It naturally spreads bins across underserved areas, avoids clustering, and improves accessibility for all residents. Dijkstra is used for accurate travel distances, and arrays/lists store distance values efficiently during selection.`,
+    algos: ['Arrays',
+'Graph as Adjancency List'
+,'Dijkstra',
+'Greedy Algorithm'],
     sdgs: [
       'SDG 6 – Clean Water and Sanitation',
-      'SDG 9 – Industry, Innovation and Infrastructure',
+      'SDG 3 – Good Health and Well-Being',
+      'SDG 13 – Climate Action',
       'SDG 11 – Sustainable Cities and Communities'
     ],
-    codeSnippet: `// Compare shortest 'official' vs 'actual' path lengths; if ratio > threshold add new edge.`
+    codeSnippet: ``
   },
   {
     id: 'p5',
-    zone: 'School',
-    title: 'Finding shortest path to visit all bustop and return back to school',
+    zone: 'Residential Area',
+    title: 'Gas Pipeline Layout Optimization
+',
     photo: '',
     phototitle: '',
-    problem: `For a large city or a huge population of students, dividing students bases on their location and assigning them to particular bus and
-    the bus should have to choose the shortest path to visit all the points and reach back to starting point (school/University).`,
-    solution: `This problem can be solved with different layer of solutions.
-    1. At first we divide locations into different regions, and assign a bus to each region.
-    2. Then for each region, we use Kruskal's algorithm to find min weight or cheapest route.
-    3. Then using DFS to traversing till we reach the end of depth and before coming back or back tracking, we apply Dijkstra algorithm
-    to check where the other child node of parent node is nearer to current node instead of back tracking to parent node.
-    If the direct length is less than back tracking length then we go directly to child node instead of back tracking to parent node.
-    4. When we visit all nodes then again using Dijkstra to reach back to starting point (school/University).`,
-    algos: ['DFS(Graph)', 'Dijkstra', 'Kruskal'],
+    problem: `
+In many residential areas, gas pipelines are not planned in an efficient manner. Because of this, the total pipe length becomes very high, which increases the construction cost and also creates more chances of leakage. Homes that are far from the gas source face low gas pressure, and maintenance also becomes difficult as the network becomes too complicated. If the gas line is not constructed optimally, it leads to high expenses, safety issues, and poor gas supply to some houses. So, there is a need for a proper method to connect all houses using the minimum possible pipeline length while still ensuring that every home gets reliable gas supply.
+
+`,
+    solution: `Treat gas source + homes as nodes and feasible pipe segments (road-based or planned) as weighted edges. Build a candidate edge list (actual road distances), sort edges using Merge Sort, and run Kruskal with Union-Find to form a Minimum Spanning Tree (MST) — the cost-minimizing pipeline layout. Then run Dijkstra on the MST (or full graph) from the gas source to calculate delivery distances to each home to check pressure/latency and flag long branches for boosters.
+Why these fit: Kruskal + DSU yields a minimum total pipe length (reduces material/joints/leak points); sorting edges is essential for Kruskal and Merge Sort gives worst-case guarantees; Dijkstra on the resulting tree shows actual path distances from source to plan for pressure design.`,
+    algos: ['Arrays',
+'Graph',
+'Merge sort',
+'union Find',
+'Kruskal',
+'Dijkstra',
+'MST'],
     sdgs: [
       'SDG 11 – Sustainable Cities and Communities',
-      'SDG 13 – Climate Action'
+      'SDG 13 – Climate Action',
+      'SDG 7 – Affordable and Clean Energy',
+      'SDG 9 – Industry, Innovation and Infrastructure'
     ],
-    codeSnippet: `// Multi-key sort: category, author, year
-books.sort((a,b)=> /* compare category, then author, then year */ );`
+    codeSnippet: ``
   },
   {
     id: 'p6',
-    zone: 'IT Hub',
-    title: 'Implementing smart emergency exit in building complex from any floor',
+    zone: 'Residential Area',
+    title: 'Optimized Parking Allocation in Residential Areas
+',
     photo: './shivaraj/bfs.jpg',
     phototitle: 'BFS (Graph Algorithm)',
-    problem: `The IT buildings are large and mainly have high electrical equipment, in case of emergency like fire or earthquake, people from higher floors find it hard to exit quickly
-    as they have to do down multiple floors and then exit through main door which could be crowded and could have been on fire or blocked.
-    This can lead to casualties and injuries.  `,
-    solution: `To solve this problem we can use Graph algorithm for multiple exits and BFS for finding nearest exit from any floor.
-    Why BFS over DFS? Let's imagine a situation where fire broke out on floor 5 and there are emergencies exits on floor 3, 6, 15, and people are on floor - 12
-    if a smart device uses DFS it may suggest exit from floor 6 as it search in depth first manner, but in the given case the nearest emergency exit at floor 15, but if the device uses BFS
-    it will suggest exit from floor 15 as it search in Layer by layer manner. Hence BFS if better solution for this problem.`,
-    algos: ['BFS'],
+    problem: `In many residential buildings and apartment complexes parking is chaotic. Vehicles arrive from different entry points but parking bays are limited and not tracked properly. Residents and visitors waste time searching for free slots, sometimes park in wrong places, and security can’t quickly tell which slots are free. This causes congestion inside the premises and general inconvenience. We need a system that allocates the nearest available parking slot to each incoming vehicle, keeps an updated map of occupied/free slots, and supports release (when a car leaves) — all while minimising driving time inside the complex.
+
+`,
+    solution: `Model internal lanes and slots as a weighted graph (nodes = junctions/slot locations/entries). Keep parking-slot nodes and an occupancy hash table for O(1) checks. On vehicle arrival at an entry node, run Dijkstra from that entry to compute travel time to slots, then select nearest free slot (scan slots or use a min-heap keyed by computed distance). On departure update the occupancy map. For frequent requests, precompute distances from each entry to all slots or maintain a dynamic heap of free slots per entry.
+Why these fit: Dijkstra yields realistic driving time inside the premises; hash map gives instant occupancy updates; heap speeds up nearest-free-slot retrieval without scanning all slots each time.`,
+    algos: ['Weighted graph',
+'Hash Table',
+'Min heap',
+'Dijkstra Algo',
+'Arrays
+'],
     sdgs: [
-      'SDG 3 – Good Health and Well-being',
+      'SDG 13 – Climate Action',
+      'SDG 9 – Industry, Innovation, and Infrastructure ',
       'SDG 11 – Sustainable Cities and Communities'
     ],
-    codeSnippet: `// Find nearest free slot via BFS on lane graph; compute driving path by Dijkstra.`
+    codeSnippet: ``
   },
   {
     id: 'p7',
