@@ -1,945 +1,1244 @@
-<!DOCTYPE html>
-<html lang="en" data-theme="light">
+<!doctype html>
+<html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Surajvali City – Business Cases</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <title>Surajvali City – Algorithmic Transport & Energy Cases</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --primary: #0f172a;
-      --accent: #0ea5e9;
-      --muted: #6b7280;
-      --card: #ffffff;
-      --bg-gradient: linear-gradient(45deg, #f9fafb 0%, #e0f2fe 30%, #e0f7f4 65%, #fce7f3 100%);
-      --shadow-soft: 0 8px 24px rgba(148, 163, 184, 0.3);
-      --shadow-strong: 0 18px 40px rgba(148, 163, 184, 0.8);
-    }
-
-    html[data-theme='dark'] {
-      --primary: #e5e7eb;
-      --accent: #38bdf8;
-      --muted: #9ca3af;
-      --card: #020617;
-      --bg-gradient: radial-gradient(circle at top, #020617 0%, #020617 40%, #020617 100%);
-      --shadow-soft: 0 8px 24px rgba(15, 23, 42, 0.9);
-      --shadow-strong: 0 18px 40px rgba(15, 23, 42, 0.95);
+      --bg: #f8fafc;
+      --panel: #ffffff;
+      --muted: #64748b;
+      --accent: #7c3aed;
+      --accent2: #06b6d4;
+      --card-border: #e2e8f0;
+      --text-main: #0f172a;
+      --text-secondary: #334155;
+      --block-bg: #f1f5f9;
     }
 
     * {
       box-sizing: border-box;
-      scroll-behavior: smooth;
+      font-family: Inter, system-ui, Segoe UI, Roboto, Arial;
     }
 
     html,
     body {
       height: 100%;
       margin: 0;
-      font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial;
-      background: var(--bg-gradient);
-      background-attachment: fixed;
-      color: var(--primary);
-      transition: background 0.4s ease, color 0.3s ease;
+      background: linear-gradient(180deg, #f1f5f9 0%, #ffffff 100%);
+      color: var(--text-secondary);
     }
 
-    /* NAV */
-    .nav {
-      position: fixed;
-      top: 16px;
-      left: 50%;
-      transform: translateX(-50%) translateY(-10px);
-      width: 92%;
-      max-width: 1100px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      background: rgba(15, 23, 42, 0.05);
-      backdrop-filter: blur(18px) saturate(140%);
-      -webkit-backdrop-filter: blur(18px) saturate(140%);
-      padding: 10px 18px;
-      border-radius: 18px;
-      border: 1px solid rgba(255, 255, 255, 0.45);
-      box-shadow: var(--shadow-soft);
-      z-index: 50;
-      opacity: 0;
-      animation: nav-drop 0.6s ease-out forwards;
+    .app {
+      max-width: 1200px;
+      margin: 28px auto;
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 20px;
+      padding: 18px;
     }
 
-    @keyframes nav-drop {
-      to {
-        opacity: 1;
-        transform: translateX(-50%) translateY(0);
-      }
+    .sidebar {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 18px;
+      margin: 15px 0 0;
+      border: 1px solid var(--card-border);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    }
+
+    .home {
+      min-width: 70px;
+      min-height: 40px;
+      position: absolute;
+      top: 10px;
+      left: max(18px, calc((100vw - 1200px) / 2 + 18px));
+      font-size: 18px;
+      padding: 6px 3px 3px 7px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      border-radius: 10px;
+      border: 3px #ffffff solid;
+      color: white;
+      font-weight: 700;
+      z-index: 1200;
+      display: block;
+      box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+      text-decoration: none;
     }
 
     .brand {
       display: flex;
-      align-items: center;
       gap: 12px;
+      align-items: center;
+      margin-bottom: 12px;
+      color: var(--text-main);
     }
 
     .logo {
       width: 44px;
       height: 44px;
       border-radius: 10px;
-      background: radial-gradient(circle at 20% 20%, #f9fafb, #0ea5e9 50%, #22c55e 100%);
+      background: linear-gradient(135deg, rgb(211, 99, 200), rgb(82, 79, 219));
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #f9fafb;
       font-weight: 700;
-      position: relative;
-      overflow: hidden;
+      color: #fff;
+      padding: 0 7px;
     }
 
-    .logo::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(120deg, transparent 0%, rgba(255, 255, 255, 0.6) 40%, transparent 80%);
-      transform: translateX(-100%);
-      opacity: 0;
+    .muted {
+      color: var(--muted);
+      font-size: 13px;
     }
 
-    .logo:hover::after {
-      opacity: 1;
-      transform: translateX(100%);
-      transition: transform 0.7s ease;
-    }
-
-    .brand-title {
-      font-weight: 700;
-    }
-
-    .nav-links {
+    .list {
+      margin-top: 12px;
       display: flex;
-      gap: 14px;
-      align-items: center;
+      flex-direction: column;
+      gap: 8px;
+      max-height: 72vh;
+      overflow: auto;
+      padding-right: 6px;
     }
 
-    .nav-links a {
-      color: var(--primary);
-      text-decoration: none;
-      font-weight: 600;
-      position: relative;
-      font-size: 14px;
-    }
-
-    .nav-links a::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      bottom: -3px;
-      width: 0;
-      height: 2px;
-      background: linear-gradient(90deg, #0ea5e9, #22c55e);
-      transition: width 0.25s ease;
-    }
-
-    .nav-links a:hover::after {
-      width: 100%;
-    }
-
-    /* Dark mode toggle */
-    .theme-toggle {
-      border: 0;
-      background: rgba(148, 163, 184, 0.2);
-      color: var(--primary);
-      border-radius: 999px;
-      padding: 6px 10px;
+    .navitem {
+      padding: 10px;
+      border-radius: 10px;
+      background: #edf5f8;
       cursor: pointer;
-      display: inline-flex;
+      border: 1px solid transparent;
+      color: var(--text-secondary);
+      transition:
+        background 0.2s,
+        transform 0.15s ease,
+        box-shadow 0.15s ease,
+        border-color 0.15s ease;
+    }
+
+    .navitem:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(15, 23, 42, 0.12);
+      border-color: rgba(56, 189, 248, 0.8);
+    }
+
+    .navitem.active {
+      background: linear-gradient(90deg, rgba(105, 236, 142, 0.58), rgba(56, 205, 231, 0.58));
+      border-color: rgba(35, 55, 154, 0.9);
+      color: var(--text-main);
+      box-shadow: 0 3px 10px rgba(34, 197, 94, 0.35);
+    }
+
+    .navitem h4 {
+      margin: 0 0 6px 0;
+      font-size: 14px;
+      color: var(--text-main);
+    }
+
+    .navitem p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .detail {
+      padding: 24px;
+      border-radius: 12px;
+      background: #ffffff;
+      border: 1px solid var(--card-border);
+      min-height: 72vh;
+      overflow: auto;
+      margin: 15px 0 0;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    }
+
+    /* New: smooth detail transition */
+    .detail-inner {
+      animation: fadeSlideIn 0.25s ease-out;
+    }
+
+    @keyframes fadeSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(4px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .top {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .title h1 {
+      margin: 0;
+      font-size: 22px;
+      color: var(--text-main);
+    }
+
+    .badge {
+      padding: 6px 10px;
+      border-radius: 10px;
+      background: #f1f5f9;
+      color: var(--muted);
+      font-weight: 700;
+      border: 1px solid #e2e8f0;
+    }
+
+    .hero {
+      width: 100%;
+      height: 300px;
+      margin-top: 14px;
+      border-radius: 10px;
+      overflow: hidden;
+      background: linear-gradient(90deg, #e0e7ff, #dbeafe);
+      display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 16px;
-      transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
-    }
-
-    .theme-toggle:hover {
-      background: rgba(148, 163, 184, 0.35);
-      transform: translateY(-1px);
-      box-shadow: 0 4px 14px rgba(15, 23, 42, 0.25);
-    }
-
-    .theme-toggle:active {
-      transform: translateY(0);
-      box-shadow: none;
-    }
-
-    /* HERO */
-    .hero {
-      background: rgba(255, 255, 255, 0.85);
-      border-radius: 24px;
-      margin-top: 90px;
-      padding: 60px 20px;
-      max-width: 1100px;
-      margin-left: auto;
-      margin-right: auto;
-      display: grid;
-      grid-template-columns: 1fr 420px;
-      gap: 36px;
-      align-items: center;
-      box-shadow: var(--shadow-strong);
+      border: 1px solid var(--card-border);
       position: relative;
-      overflow: hidden;
-      will-change: transform;
-      transition: background 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    html[data-theme='dark'] .hero {
-      background: rgba(15, 23, 42, 0.9);
     }
 
     .hero::before {
-      content: '';
+      content: "";
       position: absolute;
-      width: 260px;
-      height: 260px;
-      border-radius: 999px;
-      background: radial-gradient(circle, rgba(56, 189, 248, 0.18), transparent 60%);
-      top: -80px;
-      right: -40px;
-      filter: blur(1px);
+      inset: 0;
+      background: radial-gradient(circle at top left, rgba(148, 163, 184, 0.18), transparent 55%);
       pointer-events: none;
     }
 
-    .hero-left h1 {
-      font-size: 28px;
-      margin: 0 0 12px;
-      line-height: 1.3;
+    .hero .images {
+      width: 80%;
+      height: 300px;
+      object-fit: contain;
+      padding: 0 5px 0 10px;
+      mix-blend-mode: multiply;
+      transition: transform 0.35s ease;
     }
 
-    .hero-left p {
-      margin: 0 0 18px;
-      color: var(--muted);
+    .hero:hover .images {
+      transform: scale(1.02);
     }
 
-    .hero-cta {
-      margin-top: 18px;
-      display: flex;
-      gap: 12px;
-      align-items: center;
+    .hero img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
     }
 
-    .cta {
-      background: var(--accent);
-      color: #f9fafb;
-      padding: 8px 14px;
+    .block {
+      margin-top: 14px;
+      padding: 14px;
       border-radius: 10px;
-      text-decoration: none;
+      background: var(--block-bg);
+      border: 1px solid var(--card-border);
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+    }
+
+    .block:hover {
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.07);
+      transform: translateY(-1px);
+    }
+
+    .algos {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+
+    .algo {
+      padding: 8px 10px;
+      border-radius: 8px;
+      background: linear-gradient(90deg, #dee9f3, rgb(226, 243, 232));
+      border: 1px solid #cbd5e1;
+      color: var(--text-secondary);
       font-weight: 700;
-      box-shadow: 0 12px 24px rgba(56, 189, 248, 0.4);
-      transform: translateY(0);
+      font-size: 0.9em;
       transition: transform 0.18s ease, box-shadow 0.18s ease;
     }
 
-    .cta:hover {
-      transform: translateY(-2px) scale(1.02);
-      box-shadow: 0 16px 32px rgba(56, 189, 248, 0.55);
+    .algo:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 3px 8px rgba(15, 23, 42, 0.15);
     }
 
-    .link-primary {
-      color: var(--accent);
-      font-weight: 700;
-      text-decoration: none;
-      position: relative;
-    }
-
-    .link-primary::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      bottom: -3px;
-      width: 100%;
-      height: 1.5px;
-      background: currentColor;
-      transform-origin: left;
-      transform: scaleX(0.4);
-      opacity: 0.7;
-      transition: transform 0.2s ease;
-    }
-
-    .link-primary:hover::after {
-      transform: scaleX(1);
-    }
-
-    /* PROFILE CARD */
-    .profile-card {
-      background: linear-gradient(145deg, #ffffff, #f9fafb);
-      border-radius: 20px;
-      padding: 18px;
-      box-shadow: var(--shadow-strong);
-      border: 1px solid rgba(209, 213, 219, 0.8);
-      transition: background 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
-    }
-
-    html[data-theme='dark'] .profile-card {
-      background: linear-gradient(145deg, #020617, #0b1120);
-      border-color: rgba(30, 64, 175, 0.9);
-    }
-
-    .profile-card:hover {
-      transform: translateY(-4px);
-    }
-
-    .profile-top {
-      display: flex;
-      gap: 14px;
-      align-items: center;
-    }
-
-    .avatar {
-      width: 84px;
-      height: 84px;
-      border-radius: 14px;
-      background: linear-gradient(135deg, #38bdf8, #a855f7);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #f9fafb;
-      font-size: 28px;
-      font-weight: 700;
-    }
-
-    .profile-name {
-      font-weight: 700;
-    }
-
-    .profile-stats {
-      display: flex;
-      gap: 10px;
-      margin-top: 14px;
-    }
-
-    .profile-stats .stat {
-      font-weight: 700;
-    }
-
-    .profile-links {
-      margin-top: 12px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .links-row {
+    .actions {
       display: flex;
       gap: 8px;
+      margin-left: auto;
     }
 
-    .links-row a {
-      text-decoration: none;
-      color: #0ea5e9;
+    .btn {
+      background: linear-gradient(90deg, rgb(66, 186, 188), rgb(68, 102, 227));
+      padding: 8px 12px;
+      border-radius: 10px;
+      border: none;
+      color: #fff;
       font-weight: 700;
-    }
-
-    /* SECTIONS */
-    .section {
-      max-width: 1100px;
-      margin: 40px auto;
-      padding: 32px 20px;
-      border-radius: 24px;
-      backdrop-filter: blur(4px);
-      background: rgba(255, 255, 255, 0.9);
-      transition: background 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    html[data-theme='dark'] .section {
-      background: rgba(15, 23, 42, 0.92);
-    }
-
-    .section h2 {
-      margin: 0 0 18px;
-    }
-
-    /* CASES LAYOUT */
-    .cases-layout {
-      display: grid;
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
-      gap: 20px;
-      align-items: flex-start;
-    }
-
-    .cases-list {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      max-height: 600px;
-      overflow-y: auto;
-      padding-right: 4px;
-    }
-
-    /* TAB-LIKE LINKS */
-    .case-tab {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      text-decoration: none;
-      color: var(--primary);
-      padding: 10px 14px;
-    }
-
-    .case-tab-label {
-      font-size: 13px;
-      font-weight: 600;
-    }
-
-    /* CARD BASE */
-    .project {
-      background: var(--card);
-      padding: 12px 14px;
-      border-radius: 999px;
-      box-shadow: var(--shadow-soft);
-      position: relative;
-      overflow: hidden;
-      border: 1px solid rgba(209, 213, 219, 0.9);
-      transform: translateY(0);
-      transition:
-        transform 0.22s ease,
-        box-shadow 0.22s ease,
-        border-color 0.22s ease,
-        background 0.22s ease;
-    }
-
-    html[data-theme='dark'] .project {
-      border-color: rgba(30, 64, 175, 0.8);
-    }
-
-    .project::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.14), transparent 55%);
-      opacity: 0;
-      transition: opacity 0.22s ease;
-      pointer-events: none;
-    }
-
-    .project:hover {
-      transform: translateY(-3px);
-      box-shadow: var(--shadow-strong);
-      border-color: rgba(59, 130, 246, 0.9);
-    }
-
-    .project:hover::before {
-      opacity: 1;
-    }
-
-    .case-item {
       cursor: pointer;
-      border-left: 3px solid transparent;
-      transition: border-color 0.2s ease;
+      transition: border-radius 0.4s ease, transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
 
-    .case-item:hover {
-      border-left-color: var(--accent);
+    .btn:hover {
+      transform: translateY(-2px) scale(1.01);
+      box-shadow: 0 4px 12px rgba(68, 102, 227, 0.3);
     }
 
-    .case-item.active {
-      border-left-color: var(--accent);
+    .solutions {
+      color: black;
+      font-size: 18px;
+      font-weight: 500;
     }
 
-    /* THUMB */
-    .thumb {
-      height: 32px;
-      width: 32px;
+    .headlines {
+      font-size: 25px;
+      color: var(--text-main);
+    }
+
+    .metadata {
+      color: #0ea5e9;
+      background: #e0f2fe;
+      border-radius: 5px;
+      min-height: 25px;
+      padding: 5px 0 5px 10px;
+      font-weight: 600;
+      border: 1px solid #82bcdc;
+    }
+
+    .sdg-badge {
+      display: inline-block;
+      margin: 4px 6px 0 0;
+      padding: 4px 8px;
       border-radius: 999px;
-      background: linear-gradient(135deg, #e0f2fe, #e0f7f4);
-      display: flex;
+      background: #ecfdf5;
+      color: #166534;
+      border: 1px solid #bbf7d0;
+      font-size: 12px;
+      font-weight: 600;
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .sdg-badge:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 3px 8px rgba(22, 163, 74, 0.25);
+    }
+
+    /* Code modal */
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.7);
+      display: none;
       align-items: center;
       justify-content: center;
-      font-weight: 700;
-      font-size: 13px;
-      color: #0f172a;
-      transition:
-        transform 0.25s ease,
-        box-shadow 0.25s ease,
-        filter 0.25s ease,
-        background 0.25s ease;
+      z-index: 999;
     }
 
-    .project:hover .thumb {
-      transform: scale(1.06) translateY(-1px);
-      box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
-      filter: saturate(1.05) brightness(1.05);
+    .modal.show {
+      display: flex;
     }
 
-    /* PREVIEW */
-    .case-preview {
-      background: var(--card);
-      border-radius: 16px;
-      padding: 18px;
-      box-shadow: var(--shadow-strong);
-      border: 1px solid rgba(209, 213, 219, 0.9);
-      min-height: 260px;
+    .modal-content {
+      background: #0b1120;
+      color: #e2e8f0;
+      border-radius: 14px;
+      max-width: 900px;
+      width: 94%;
+      max-height: 80vh;
+      padding: 16px;
+      box-shadow: 0 24px 60px rgba(15, 23, 42, 0.8);
       display: flex;
       flex-direction: column;
-      gap: 14px;
-    }
-
-    html[data-theme='dark'] .case-preview {
-      border-color: rgba(30, 64, 175, 0.8);
-    }
-
-    .preview-columns {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
-    }
-
-    .preview-block h4 {
-      margin: 0 0 6px;
-      font-size: 14px;
-    }
-
-    #preview-algorithm {
-      margin: 0;
-      padding-left: 18px;
-    }
-
-    /* GENERIC CARD */
-    .card {
-      background: var(--card);
-      padding: 18px;
-      border-radius: 12px;
-      box-shadow: var(--shadow-strong);
-      border: 1px solid rgba(209, 213, 219, 0.9);
-      transition: background 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
-    }
-
-    html[data-theme='dark'] .card {
-      border-color: rgba(30, 64, 175, 0.8);
-    }
-
-    .card:hover {
-      transform: translateY(-3px);
-    }
-
-    /* FOOTER */
-    .footer {
-      max-width: 1100px;
-      margin: 30px auto 40px;
-      text-align: center;
-      padding: 0 20px;
-      color: var(--muted);
-    }
-
-    /* UTILITIES */
-    .muted {
-      color: var(--muted);
-    }
-
-    .small {
-      font-size: 13px;
-    }
-
-    .info-bold {
-      font-weight: 700;
-    }
-
-    /* Reveal animation */
-    .reveal {
+      border: 1px solid #1e293b;
+      transform: scale(0.96);
       opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.5s ease, transform 0.5s ease;
+      transition: transform 0.18s ease-out, opacity 0.18s ease-out;
     }
 
-    .reveal-visible {
+    .modal.show .modal-content {
+      transform: scale(1);
       opacity: 1;
-      transform: translateY(0);
     }
 
-    /* Responsive */
-    @media (max-width: 980px) {
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .modal-header h3 {
+      margin: 0;
+      font-size: 16px;
+    }
+
+    .modal-close {
+      background: transparent;
+      border: none;
+      font-size: 22px;
+      cursor: pointer;
+      color: #9ca3af;
+    }
+
+    .modal-close:hover {
+      color: #e5e7eb;
+    }
+
+    .modal-body {
+      flex: 1;
+      overflow: auto;
+    }
+
+    pre.code {
+      background: transparent;
+      padding: 0;
+      margin: 0;
+      font-size: 12px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace;
+      white-space: pre;
+    }
+    .home {
+      min-width: 70px;
+      min-height: 40px;
+      position: absolute;
+      top: 10px;
+      left: max(18px, calc((100vw - 1200px) / 2 + 18px));
+      font-size: 18px;
+      padding: 6px 3px 3px 7px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      border-radius: 10px;
+      margin: 0px 0px 0px 0px;
+      border: 3px #ffffff solid; /* White border to pop against light bg */
+      color: white;
+      font-weight: 700;
+      z-index: 1200;
+      display: block;
+      box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+    }
+
+    .topbar {
+      position: relative;
+      height: 60px;
+      margin-bottom: 10px;
+      background:rgb(176, 179, 216);
+      box-shadow: 0 0px 6px 0px rgba(0, 0, 0, 0.8);
+    }
+    .cityname{
+      width:350px;
+      position: absolute;
+      left: max(18px, calc((100vw - 1200px) / 2 + 400px));
+      top: 8px;
+      font-size:35px;
+      font-weight:900;
+      color:white;
+      padding:0px 0px 0px 45px;
+      background: linear-gradient(90deg, rgb(33, 47, 152,0.8), rgb(95, 54, 207));
+      -webkit-background-clip:text;
+      background-clip:text;
+      -webkit-text-fill-color:transparent;
+      
+
+    }
+
+    .user{
+      width:100px;
+      position: absolute;
+      right: min(18px, calc((100vw - 1200px) / 2 + 720px));
+      top: 15px;
+      font-size:20px;
+      font-weight:700;
+      color:rgb(70, 57, 125);
+      padding:0px 0px 0px 10px;
+      
+    }
+    @media (max-width: 800px) {
+      .app {
+        grid-template-columns: 1fr;
+        padding: 12px;
+      }
+
       .hero {
-        grid-template-columns: 1fr;
-        gap: 24px;
-        padding-top: 60px;
+        height: 400px;
       }
 
-      .cases-layout {
-        grid-template-columns: 1fr;
+      .top {
+        flex-direction: column;
+        gap: 12px;
       }
-    }
 
-    @media (max-width: 768px) {
-      .preview-columns {
-        grid-template-columns: 1fr;
+      .actions {
+        margin-left: 0;
       }
     }
 
-    @media (max-width: 560px) {
-      .nav-links a {
-        display: none;
-      }
-
-      .theme-toggle {
-        display: inline-flex;
-      }
-
-      .hero-left h1 {
-        font-size: 22px;
-      }
-
-      .profile-card {
-        order: -1;
+    @media (max-width: 700px) {
+      .home {
+        left: 18px;
+        top: 12px;
+        padding: 8px 6px;
+        min-width: 62px;
       }
     }
   </style>
 </head>
+
 <body>
-  <!-- NAV -->
-  <nav class="nav">
-    <div class="brand">
-      <div class="logo">SC</div>
-      <div>
-        <div class="brand-title">Business Cases Document</div>
-        <div class="small muted">Transport & Energy Business Cases</div>
+  <div class="topbar">
+  <a href="https://shivuas.github.io/Surajvali_city.github.io/" style="text-decoration:none;">
+    <div class="home btn">Home</div>
+    <div class="cityname">Surajvali City</div>
+    <div class="user">Sohan Patil</div>
+  </a>
+</div>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="logo">SC</div>
+        <div>
+          <div style="font-weight:700">Surajvali City — Algorithmic Cases</div>
+          <div class="muted">10 business cases • editable HTML</div>
+        </div>
       </div>
-    </div>
-    <div class="nav-links">
-      <a href="#overview">Overview</a>
-      <a href="#cases">Business Cases</a>
-      <a href="#about">About</a>
 
-      <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
-        <span class="theme-icon">🌞</span>
-      </button>
-    </div>
-  </nav>
+      <div class="muted" style="margin-bottom:8px">
+        Click any case to open its detail page. Use ↑ and ↓ keys to move between cases.
+      </div>
 
-  <!-- HERO -->
-  <header id="overview" class="hero">
-    <div class="hero-left">
-      <h1>Surajvali City – Transport & Energy Business Cases</h1>
-      <p class="muted">
-        A structured portfolio of 10 integrated transport and energy initiatives for Surajvali City, focusing on congestion reduction, clean mobility, and low‑carbon infrastructure.
-      </p>
-      <div class="hero-cta">
-        <a class="cta" href="#cases">View All Cases</a>
-      </div>
-    </div>
-    <aside class="profile-card">
-      <div class="profile-top">
-        <div class="avatar">SO</div>
-        <div>
-          <div class="profile-name">Sohan</div>
-          <div class="small muted">Transport & Energy Portfolio</div>
-        </div>
-      </div>
-      <div class="profile-stats">
-        <div>
-          <div class="small muted">Total Cases</div>
-          <div class="stat">10</div>
-        </div>
-        <div>
-          <div class="small muted">Focus Areas</div>
-          <div class="stat">Mobility & Energy</div>
-        </div>
-      </div>
-      <div class="profile-links">
-        <div class="small muted">Actions</div>
-        <div class="links-row">
-          <a href="#cases">Jump to Index</a>
-        </div>
-      </div>
+      <div class="list" id="nav"></div>
     </aside>
-  </header>
 
-  <!-- CASES -->
-  <section id="cases" class="section">
-    <h2>🧭 Case Index</h2>
-    <p class="muted small">
-      High‑level index of all 10 transportation and energy business cases compiled for Surajvali City.
-    </p>
+    <main class="detail" id="detail"></main>
+  </div>
 
-    <div class="cases-layout">
-      <!-- LEFT: small tabs (no href yet; add href if you want true new pages) -->
-      <div class="cases-list">
-        <!-- 1 -->
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          id="case1"
-          class="project case-item case-tab reveal"
-          data-title="Smart Traffic Management & Signal Optimization"
-          data-study="Uses adaptive traffic control, GPS data, and an integrated control center to reduce corridor congestion, fuel use, and incident delay on priority freight and commuter routes."
-          data-algorithm="Diagnose baseline congestion and delays on key corridors.;Instrument intersections and fleets with sensors and GPS data feeds.;Ingest live data into a traffic control center and analytics engine.;Run optimization to generate adaptive signal plans by time of day and demand.;Implement freight and emergency-vehicle priority rules on critical links.;Continuously monitor KPIs and refine timing plans through feedback loops.">
-          <div class="thumb">1</div>
-          <span class="case-tab-label">Smart Traffic Management & Signal Optimization</span>
-        </a>
-
-        <!-- 2 -->
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          id="case2"
-          class="project case-item case-tab reveal"
-          data-title="High‑Capacity BRT + Last‑Mile Electric Shuttle Network"
-          data-study="Creates a BRT spine on high-demand corridors with electric shuttle feeders linking housing and employment clusters to reduce private vehicle dependence."
-          data-algorithm="Map current and projected travel demand between housing, industrial, and commercial hubs.;Select and design priority BRT corridors and dedicated lanes.;Plan last-mile e-shuttle routes and depot locations for housing and worker clusters.;Procure electric fleets, charging infrastructure, and smart ticketing systems.;Launch integrated BRT + feeder services with unified fares and real-time information.;Track ridership, load factors, and mode shift and then adjust route and frequency.">
-          <div class="thumb">2</div>
-          <span class="case-tab-label">High‑Capacity BRT + Last‑Mile Electric Shuttle Network</span>
-        </a>
-
-        <!-- 3 -->
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          id="case3"
-          class="project case-item case-tab reveal"
-          data-title="Freight & Port‑Linked Green Logistics Corridor"
-          data-study="Separates heavy freight flows from passenger traffic and introduces cleaner logistics assets to reduce diesel use, travel time, and emissions along port‑linked corridors."
-          data-algorithm="Identify freight-intensive corridors, bottlenecks, and conflict points with passenger traffic.;Design dedicated freight lanes and grade-separated connections where feasible.;Develop rail-linked logistics parks, consolidation hubs, and truck rest areas.;Introduce electric and LNG trucks for short-haul drayage and yard operations.;Deploy a digital freight management and tracking platform across operators.;Monitor corridor speeds, fuel use, and emissions and refine infrastructure phasing.">
-          <div class="thumb">3</div>
-          <span class="case-tab-label">Freight & Port‑Linked Green Logistics Corridor</span>
-        </a>
-
-        <!-- 4 -->
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          id="case4"
-          class="project case-item case-tab reveal"
-          data-title="EV Charging & Smart Parking Network"
-          data-study="Deploys fast and destination charging together with digital parking management to support large‑scale EV adoption and reduce cruising time for parking in key zones."
-          data-algorithm="Analyse present and future EV demand hotspots and parking stress areas.;Define a citywide hierarchy of fast, semi-fast, and slow charging locations.;Design the smart parking platform for reservations, dynamic pricing, and payment.;Install chargers and sensors in public, commercial, and residential car parks.;Integrate parking and charging data into a single user-facing app.;Use data analytics to rebalance capacity, tariffs, and enforcement policies.">
-          <div class="thumb">4</div>
-          <span class="case-tab-label">EV Charging & Smart Parking Network</span>
-        </a>
-
-        <!-- 5 -->
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          id="case5"
-          class="project case-item case-tab reveal"
-          data-title="Road Asset Management & Pavement Lifecycle Program"
-          data-study="Implements data‑driven condition monitoring and preventive maintenance to extend pavement life on freight‑heavy corridors and reduce long‑term operating costs."
-          data-algorithm="Survey existing pavement condition and traffic loading on the road network.;Deploy sensors, visual inspections, and periodic structural testing on key segments.;Develop a lifecycle cost model and prioritize segments for preventive interventions.;Specify warm-mix, recycled asphalt, and improved structures suited to freight loads.;Implement annual maintenance and rehabilitation programs based on condition triggers.;Continuously update the asset database and funding needs using performance data.">
-          <div class="thumb">5</div>
-          <span class="case-tab-label">Road Asset Management & Pavement Lifecycle Program</span>
-        </a>
-
-        <!-- 6 -->
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          id="case6"
-          class="project case-item case-tab reveal"
-          data-title="Airport Multi‑Modal Low‑Carbon Mobility Hub"
-          data-study="Transforms the airport into a connected, low‑carbon node through clean apron fleets, strong rail/metro links, and on‑site renewable energy supply."
-          data-algorithm="Analyse current airport access modes, peak flows, and on-site energy usage.;Plan and phase high-capacity rail or metro connections with coordinated timetables.;Electrify apron buses, ground support equipment, and service vehicles.;Design and install a solar-powered microgrid with storage to serve terminal loads.;Integrate ticketing, wayfinding, and information for all airport access modes.;Monitor access mode share, energy mix, and emissions to guide further upgrades.">
-          <div class="thumb">6</div>
-          <span class="case-tab-label">Airport Multi‑Modal Low‑Carbon Mobility Hub</span>
-        </a>
-
-        <!-- 7 -->
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          id="case7"
-          class="project case-item case-tab reveal"
-          data-title="Smart Streetlight & Road Lighting Energy Grid"
-          data-study="Modernizes road lighting through LEDs, adaptive dimming, and solar‑battery units to cut electricity consumption and maintenance costs while improving safety."
-          data-algorithm="Inventory all existing streetlights, circuits, and energy consumption.;Design LED retrofit packages, smart controllers, and communication systems.;Prioritise corridors and intersections for adaptive dimming based on traffic patterns.;Install central and segment-level control systems to manage brightness and schedules.;Integrate solar-powered or hybrid units in off-grid or high-cost areas.;Track energy savings, outage rates, and safety indicators and refine lighting policies.">
-          <div class="thumb">7</div>
-          <span class="case-tab-label">Smart Streetlight & Road Lighting Energy Grid</span>
-        </a>
-
-        <!-- 8 -->
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          id="case8"
-          class="project case-item case-tab reveal"
-          data-title="Rooftop Solar & EV‑Ready Community Microgrids"
-          data-study="Equips priority housing and worker clusters with rooftop solar, storage, and microgrid controls to raise local renewable share and support EV charging."
-          data-algorithm="Identify residential and worker clusters with high energy and EV charging demand.;Assess rooftop potential, load profiles, and grid constraints for each cluster.;Design rooftop PV systems, batteries, and microgrid control architecture.;Implement EV-ready wiring standards and shared charging points within the microgrid.;Connect to utility grid with net-metering and protection schemes.;Monitor generation, consumption, and EV loads to optimize dispatch and tariffs.">
-          <div class="thumb">8</div>
-          <span class="case-tab-label">Rooftop Solar & EV‑Ready Community Microgrids</span>
-        </a>
-
-        <!-- 9 -->
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          id="case9"
-          class="project case-item case-tab reveal"
-          data-title="Textile Industry Energy Efficiency & Waste‑Heat Recovery"
-          data-study="Improves energy performance of textile clusters through process optimization, waste‑heat recovery, and electrified intra‑plant logistics."
-          data-algorithm="Benchmark baseline energy use, process efficiencies, and logistics flows in textile units.;Identify high-temperature and high-flow processes suitable for waste-heat recovery.;Design heat exchangers, heat recovery boilers, and distribution systems.;Electrify internal material handling with e-tuggers and automated systems.;Offer technical assistance and incentives for firms to adopt selected measures.;Track energy savings, payback periods, and emissions reductions across the cluster.">
-          <div class="thumb">9</div>
-          <span class="case-tab-label">Textile Industry Energy Efficiency & Waste‑Heat Recovery</span>
-        </a>
-
-        <!-- 10 -->
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          id="case10"
-          class="project case-item case-tab reveal"
-          data-title="Mobility Data Platform & MaaS"
-          data-study="Builds a unified data, analytics, and ticketing layer so that multiple modes, routes, and energy systems can be coordinated through Mobility‑as‑a‑Service."
-          data-algorithm="Map all data sources across public transport, roads, parking, logistics, and energy.;Define common data standards, APIs, and governance for the mobility data platform.;Develop a central analytics engine for demand forecasting, routing, and energy optimization.;Create a MaaS app with trip planning, booking, and integrated payment features.;Onboard public and private operators onto the platform with service-level rules.;Use platform insights to adjust routes, tariffs, and infrastructure investments.">
-          <div class="thumb">10</div>
-          <span class="case-tab-label">Mobility Data Platform & MaaS</span>
-        </a>
+  <!-- CODE MODAL -->
+  <div id="code-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="code-modal-title">Sample C++ pseudocode</h3>
+        <button type="button" class="modal-close" aria-label="Close">&times;</button>
       </div>
-
-      <!-- RIGHT: preview -->
-      <aside class="case-preview">
-        <h3 id="preview-title">Select a business case</h3>
-        <div class="preview-columns">
-          <div class="preview-block">
-            <h4>Study / Overview</h4>
-            <p id="preview-study" class="small muted">
-              Click on any business case tab on the left to see its study summary here.
-            </p>
-          </div>
-          <div class="preview-block">
-            <h4>Algorithm / Steps</h4>
-            <ol id="preview-algorithm" class="small">
-              <li>Select a case from the left panel.</li>
-              <li>The implementation steps will appear here.</li>
-            </ol>
-          </div>
-        </div>
-      </aside>
+      <div class="modal-body">
+        <pre id="code-modal-body" class="code"></pre>
+      </div>
     </div>
-  </section>
-
-  <!-- ABOUT -->
-  <section id="about" class="section reveal">
-    <h2>ℹ️ About This Portfolio</h2>
-    <div class="card">
-      <p class="muted small">
-        This individual portfolio compiles 10 transportation and energy business cases derived from Surajvali City development data, charts, and infrastructure plans.
-      </p>
-      <p class="muted small">
-        Each case is structured around a clear problem statement, objective, solution summary, and budget range to support decision‑making and future funding proposals.
-      </p>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section id="contact" class="section reveal">
-    <div class="card about-course">
-      <h3>Document Summary</h3>
-      <p class="small muted">
-        This document compiles all 10 transportation and energy‑focused business cases derived from the Surajvali City development work.
-      </p>
-      <div class="small muted">Scope</div>
-      <div class="info-bold">Transport & Energy Systems</div>
-      <div class="small muted">Use</div>
-      <div class="info-bold">Planning, investment pitches, and reporting</div>
-      <div class="small muted">Next Steps</div>
-      <div class="info-bold">Convert to PDF or extend to a full report as needed</div>
-    </div>
-  </section>
-
-  <footer class="footer">
-    <small>© <span id="year"></span> Surajvali City Business Cases • All rights reserved</small>
-  </footer>
+  </div>
 
   <script>
-    // Year
-    document.getElementById('year').textContent = new Date().getFullYear();
+    // --- CONTENT: 10 business cases with separate SDG field ---
+    const pages = [
+      {
+        id: 'p1',
+        zone: 'Public Transport',
+        title: 'Smart Real-Time Bus Tracking & Route Recommender (Dijkstra)',
+        photo: './Screenshot 2025-12-08 233941.png',
+        phototitle: '',
+        problem: `Passengers often wait at bus stops without knowing when the next bus will arrive. They also do not know which route combination will minimize travel time and number of changes between stops.`,
+        solution: `Equip each city bus with a GPS unit that sends location data to a central server. Model bus stops as graph nodes and road segments as weighted edges with travel time. Use Dijkstra's shortest path algorithm to compute the best route between any two stops and show live arrival times in a mobile app or at bus shelters.`,
+        sdg: [
+          'SDG 11 – Sustainable Cities and Communities',
+          'SDG 9 – Industry, Innovation and Infrastructure'
+        ],
+        algos: ["Dijkstra's shortest path"]
+      },
+      {
+        id: 'p2',
+        zone: 'Traffic & Emergency Response',
+        title: 'Adaptive Traffic Signals for Emergency Corridors (Floyd)',
+        photo: './Screenshot 2025-12-08 234114.png',
+        phototitle: '',
+        problem: `Ambulances and fire vehicles lose valuable minutes at busy junctions because signal timings are fixed and do not take into account the current network condition or shortest corridor to the hospital.`,
+        solution: `Model major junctions as graph nodes and roads as edges with travel time. Use Floyd's all-pairs shortest path algorithm to precompute the quickest path between all important locations. When an emergency call comes, the control centre selects the fastest corridor and temporarily adjusts signals along that path to create a green wave.`,
+        sdg: [
+          'SDG 3 – Good Health and Well-Being',
+          'SDG 11 – Sustainable Cities and Communities'
+        ],
+        algos: ['Floyd–Warshall – all-pairs shortest path']
+      },
+      {
+        id: 'p3',
+        zone: 'Multimodal Hubs',
+        title: 'Backbone Network for Bus, Rail & Airport Hubs (Prim)',
+        photo: './Screenshot 2025-12-09 001439.png',
+        phototitle: '',
+        problem: `The main bus stand, railway station, airport and metro nodes are poorly connected. Passengers must take long, indirect routes and multiple intermediate stops to transfer between modes.`,
+        solution: `Identify all major transport hubs and treat each as a graph node. Estimate travel distance or time between every pair of hubs as weighted edges. Apply Prim's Minimum Spanning Tree algorithm to design a backbone network that connects all hubs with minimum total corridor length. Prioritise these MST edges as high-frequency shuttle or BRT routes.`,
+        sdg: [
+          'SDG 9 – Industry, Innovation and Infrastructure',
+          'SDG 11 – Sustainable Cities and Communities'
+        ],
+        algos: ['Prim – Minimum Spanning Tree']
+      },
+      {
+        id: 'p4',
+        zone: 'Power Distribution',
+        title: 'Smart Power Distribution Layout for Neighbourhoods (Prim)',
+        photo: './Screenshot 2025-12-09 002552.png',
+        phototitle: '',
+        problem: `Some neighbourhoods face frequent low voltage and outages because distribution lines were extended in an ad-hoc manner. Cable routes are too long and create high losses and high maintenance cost.`,
+        solution: `Treat substations and neighbourhood load points as nodes in a graph. Define feasible cable routes between them with cost or length as edge weights. Use Prim's algorithm to construct a minimum spanning tree that reaches all loads with minimum total cable length. This MST layout becomes the base design, which can then be strengthened with a few redundant links.`,
+        sdg: [
+          'SDG 7 – Affordable and Clean Energy',
+          'SDG 9 – Industry, Innovation and Infrastructure'
+        ],
+        algos: ['Prim – Minimum Spanning Tree']
+      },
+      {
+        id: 'p5',
+        zone: 'Public Transport',
+        title: 'Optimal Bus Shelter Placement with Limited Budget (Brute Force)',
+        photo: './Screenshot 2025-12-09 001439.png',
+        phototitle: '',
+        problem: `The city can only afford to build a small number of new covered bus shelters. If shelters are placed randomly, some very crowded stops remain without shade while low-demand stops receive new structures.`,
+        solution: `Estimate the average daily passenger count at each candidate bus stop. Let N be the number of stops and K be the number of shelters that can be built. Use a brute force search over all combinations of K stops, compute the total passengers served in each combination, and select the combination that maximizes passenger coverage.`,
+        sdg: [
+          'SDG 11 – Sustainable Cities and Communities',
+          'SDG 10 – Reduced Inequalities'
+        ],
+        algos: ['Brute force subset search']
+      },
+      {
+        id: 'p6',
+        zone: 'Corporate & Campus Mobility',
+        title: 'Demand-Based Shuttle Scheduling for Offices & Campus (Backtracking)',
+        photo: './Screenshot 2025-12-09 001642.png',
+        phototitle: '',
+        problem: `Fixed shuttle routes and timings create overcrowded vehicles on some routes and half-empty vehicles on others. Fuel is wasted, and many passengers experience long travel times or standing journeys.`,
+        solution: `Collect origin locations and working hours for all users. Consider each passenger as an item that must be assigned to one shuttle under constraints on seat capacity and maximum route distance. Use a backtracking algorithm that tries to assign passengers shuttle by shuttle and backtracks whenever a capacity or distance constraint is violated until a valid assignment is found.`,
+        sdg: [
+          'SDG 11 – Sustainable Cities and Communities',
+          'SDG 13 – Climate Action'
+        ],
+        algos: ['Backtracking – constrained assignment']
+      },
+      {
+        id: 'p7',
+        zone: 'Transport Analytics',
+        title: 'Transport Incident Log Search & Pattern Detection (KMP)',
+        photo: './image-660x398.png',
+        phototitle: '',
+        problem: `The transport department stores large daily text logs describing breakdowns, delays and safety incidents. Manually searching these logs for repeated problems like signal failure or brake overheating is slow and incomplete.`,
+        solution: `Combine logs from buses, junctions and control centres into a single searchable text file. When staff enter a keyword or phrase, use the Knuth–Morris–Pratt (KMP) string search algorithm to find all occurrences quickly. Summarise the most frequent patterns, locations and times so that engineering teams can focus their maintenance and safety actions.`,
+        sdg: [
+          'SDG 9 – Industry, Innovation and Infrastructure',
+          'SDG 16 – Peace, Justice and Strong Institutions'
+        ],
+        algos: ['Knuth–Morris–Pratt (KMP) string search']
+      },
+      {
+        id: 'p8',
+        zone: 'Renewable Energy Planning',
+        title: 'Renewable Energy Forecasting System for Solar & Wind (Sorting + Brute Force)',
+        photo: './image.png',
+        phototitle: '',
+        problem: `The city is rapidly adding rooftop solar plants and small wind turbines. However, generation from these sources is highly variable. Without a proper day-ahead and hour-ahead forecast, the control centre either runs too many backup generators and wastes fuel or starts them too late, causing voltage issues, frequency deviations, and occasional load shedding.`,
+        solution: `A Renewable Energy Forecasting System is implemented for the city’s solar and wind fleet. It collects historical generation data together with weather information such as irradiance, temperature, cloud cover and wind speed. For each future day or hour, it uses weather forecasts to find similar historical days, ranks them using a sorting algorithm, and averages their generation curves to produce a forecast. Operators then use this forecast to schedule backup generators, battery storage and flexible loads more intelligently.`,
+        sdg: [
+          'SDG 7 – Affordable and Clean Energy',
+          'SDG 11 – Sustainable Cities and Communities',
+          'SDG 13 – Climate Action'
+        ],
+        algos: ['Similarity search', 'Sorting', 'Brute force over historical days']
+      },
+      {
+        id: 'p9',
+        zone: 'Smart Grid Operations',
+        title: 'City-Wide Smart Grid Fault Detection & Isolation System',
+        photo: './Screenshot 2025-12-09 002458.png',
+        phototitle: './',
+        problem: `The city’s electrical distribution network covers many substations, feeders and neighbourhood transformers. When a fault occurs, it is often detected only after customers report outages. Repair teams spend a lot of time searching the network to locate the actual fault, which increases outage duration, business losses and safety risks.`,
+        solution: `A city-wide smart grid fault detection system is deployed using sensors, communication links and automated control software. Smart current, voltage and temperature sensors are installed at key points in the network and send real-time data to a central control centre. The system continuously compares measurements against normal thresholds to detect abnormal conditions and uses feeder topology to pinpoint the likely faulted segment. It automatically isolates the faulted section using intelligent switches and reroutes power through healthy lines, while dispatching repair teams directly to the correct location.`,
+        sdg: [
+          'SDG 7 – Affordable and Clean Energy',
+          'SDG 9 – Industry, Innovation and Infrastructure',
+          'SDG 11 – Sustainable Cities and Communities',
+          'SDG 13 – Climate Action'
+        ],
+        algos: ['Threshold-based anomaly detection', 'BFS / feeder traversal']
+      },
+      {
+        id: 'p10',
+        zone: 'Microgrids & Resilience',
+        title: 'Smart Renewable Microgrid Planner for Communities (Prim)',
+        photo: './Screenshot 2025-12-09 003002.png',
+        phototitle: '',
+        problem: `Many residential communities and campuses still depend fully on the main grid and face power interruptions during peak demand or grid failures. At the same time, rooftops and local spaces suitable for solar and batteries are underutilized because there is no structured microgrid design connecting these assets efficiently.`,
+        solution: `A Smart Renewable Microgrid Planner is developed to design local microgrids for priority neighbourhoods, campuses and hospitals. It collects data on average daily load, rooftop solar potential and possible cable routes between buildings. The planner chooses solar and battery sizes using simple sizing rules and then uses a minimum spanning tree algorithm to design a low-cost wiring layout that connects all nodes to a main substation. During normal operation the microgrid supports the grid, and during outages it can island itself to supply critical loads using local solar and storage.`,
+        sdg: [
+          'SDG 7 – Affordable and Clean Energy',
+          'SDG 9 – Industry, Innovation and Infrastructure',
+          'SDG 11 – Sustainable Cities and Communities',
+          'SDG 13 – Climate Action'
+        ],
+        algos: ['Solar/battery sizing rules', 'Prim – Minimum Spanning Tree']
+      }
+    ];
 
-    // Smooth scroll
-    document.querySelectorAll('a[href^="#"]').forEach((a) => {
-      a.addEventListener('click', (e) => {
-        const href = a.getAttribute('href');
-        if (href && href.length > 1) {
-          e.preventDefault();
-          const target = document.querySelector(href);
-          if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    // --- Full algorithm code snippets (same as before) ---
+    const codeSnippets = {
+      p1: `// Dijkstra's algorithm – shortest path between bus stops
+const int INF = 1e9;
+
+void dijkstra(int n, vector<vector<int>>& cost, int src, vector<int>& dist) {
+    dist.assign(n, INF);
+    vector<bool> used(n, false);
+    dist[src] = 0;
+
+    for (int iter = 0; iter < n - 1; iter++) {
+        int u = -1;
+        for (int i = 0; i < n; i++) {
+            if (!used[i] && (u == -1 || dist[i] < dist[u])) {
+                u = i;
+            }
+        }
+        if (u == -1) break;
+        used[u] = true;
+
+        for (int v = 0; v < n; v++) {
+            if (cost[u][v] != INF && dist[u] + cost[u][v] < dist[v]) {
+                dist[v] = dist[u] + cost[u][v];
+            }
+        }
+    }
+    // dist[v] = minimum travel time from src to stop v
+}`,
+      p2: `// Floyd–Warshall algorithm – all-pairs shortest emergency routes
+const int INF = 1e9;
+
+void floyd(int n, vector<vector<int>>& dist) {
+    // dist[i][j] initially stores direct travel time from junction i to j
+    for (int k = 0; k < n; k++) {
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (dist[i][k] < INF && dist[k][j] < INF &&
+                    dist[i][k] + dist[k][j] < dist[i][j]) {
+                    dist[i][j] = dist[i][k] + dist[k][j];
+                }
+            }
+        }
+    }
+    // dist[i][j] gives minimum travel time between any two junctions
+}`,
+      p3: `// Prim's MST – backbone network between city hubs
+const int INF = 1e9;
+
+void primMST(int n, vector<vector<int>>& cost,
+             vector<int>& parent) {
+    vector<int> key(n, INF);
+    vector<bool> inMST(n, false);
+    parent.assign(n, -1);
+
+    key[0] = 0; // start from first hub
+    for (int iter = 0; iter < n - 1; iter++) {
+        int u = -1;
+        for (int i = 0; i < n; i++) {
+            if (!inMST[i] && (u == -1 || key[i] < key[u])) {
+                u = i;
+            }
+        }
+        inMST[u] = true;
+
+        for (int v = 0; v < n; v++) {
+            if (cost[u][v] != INF && !inMST[v] && cost[u][v] < key[v]) {
+                key[v] = cost[u][v];
+                parent[v] = u;
+            }
+        }
+    }
+    // parent[v] gives backbone connection parent[v] -> v
+}`,
+      p4: `// Prim's MST – smart power distribution layout
+const int INF = 1e9;
+
+void designPowerMST(int n, vector<vector<int>>& cost,
+                    vector<int>& parent) {
+    vector<int> key(n, INF);
+    vector<bool> inTree(n, false);
+    parent.assign(n, -1);
+
+    key[0] = 0; // start from main substation
+    for (int iter = 0; iter < n - 1; iter++) {
+        int u = -1;
+        for (int i = 0; i < n; i++) {
+            if (!inTree[i] && (u == -1 || key[i] < key[u])) {
+                u = i;
+            }
+        }
+        inTree[u] = true;
+
+        for (int v = 0; v < n; v++) {
+            if (cost[u][v] != INF && !inTree[v] && cost[u][v] < key[v]) {
+                key[v] = cost[u][v];
+                parent[v] = u;
+            }
+        }
+    }
+    // parent[] describes which cable segments to construct
+}`,
+      p5: `// Brute force – choose K stops for bus shelters
+int bestCoverage = 0;
+vector<int> bestSet;
+
+void chooseShelters(int n, vector<int>& passengers, int K) {
+    int totalMasks = 1 << n; // 2^n subsets
+
+    for (int mask = 0; mask < totalMasks; mask++) {
+        if (__builtin_popcount(mask) != K) continue;
+
+        int coverage = 0;
+        for (int i = 0; i < n; i++) {
+            if (mask & (1 << i)) {
+                coverage += passengers[i];
+            }
+        }
+
+        if (coverage > bestCoverage) {
+            bestCoverage = coverage;
+            bestSet.clear();
+            for (int i = 0; i < n; i++) {
+                if (mask & (1 << i)) bestSet.push_back(i);
+            }
+        }
+    }
+    // bestSet holds indices of stops where shelters should be built
+}`,
+      p6: `// Backtracking – assign passengers to shuttles
+// capacity[s] = maximum passengers per shuttle s
+// route[s] = list of passengers assigned to shuttle s
+
+bool isValidAssignment(int shuttle, int passenger) {
+    // check capacity and approximate route distance etc.
+    // return true if constraints are okay after adding this passenger
+    return true; // placeholder
+}
+
+bool assignPassenger(int idx, int P, int S,
+                     vector<vector<int>>& route) {
+    if (idx == P) return true; // all passengers assigned
+
+    for (int s = 0; s < S; s++) {
+        if (isValidAssignment(s, idx)) {
+            route[s].push_back(idx);   // assign
+            if (assignPassenger(idx + 1, P, S, route)) {
+                return true;          // solution found
+            }
+            route[s].pop_back();      // backtrack
+        }
+    }
+    return false; // no valid assignment from this state
+}`,
+      p7: `// KMP string search – find pattern in incident logs
+vector<int> buildLPS(const string& pat) {
+    int m = (int)pat.size();
+    vector<int> lps(m);
+    int len = 0;
+    lps[0] = 0;
+    int i = 1;
+
+    while (i < m) {
+        if (pat[i] == pat[len]) {
+            len++;
+            lps[i] = len;
+            i++;
+        } else {
+            if (len != 0) {
+                len = lps[len - 1];
+            } else {
+                lps[i] = 0;
+                i++;
+            }
+        }
+    }
+    return lps;
+}
+
+vector<int> KMP_search(const string& text, const string& pat) {
+    vector<int> res;
+    if (pat.empty()) return res;
+
+    vector<int> lps = buildLPS(pat);
+    int n = (int)text.size();
+    int m = (int)pat.size();
+    int i = 0, j = 0;
+
+    while (i < n) {
+        if (text[i] == pat[j]) {
+            i++; j++;
+            if (j == m) {
+                res.push_back(i - j); // match at i - j
+                j = lps[j - 1];
+            }
+        } else {
+            if (j != 0) {
+                j = lps[j - 1];
+            } else {
+                i++;
+            }
+        }
+    }
+    return res; // indexes where pattern appears
+}`,
+      p8: `// Renewable Energy Forecasting – similarity search + sorting
+// Find past days with similar weather and average their generation curves.
+
+struct DayFeatures {
+    double temp;
+    double cloud;
+    double wind;
+    // plus more features if needed
+    vector<double> generation; // power values across the day
+};
+
+// Simple distance between target and historical day
+double distanceDay(const DayFeatures& a, const DayFeatures& b) {
+    return fabs(a.temp - b.temp) +
+           fabs(a.cloud - b.cloud) +
+           fabs(a.wind - b.wind);
+}
+
+void forecastRenewable(const vector<DayFeatures>& history,
+                       const DayFeatures& target,
+                       int k,
+                       vector<double>& forecast) {
+    int n = (int)history.size();
+    vector<pair<double,int>> distIdx;
+    distIdx.reserve(n);
+
+    // 1) Brute force: compute distance to every past day
+    for (int i = 0; i < n; i++) {
+        double d = distanceDay(history[i], target);
+        distIdx.push_back({d, i});
+    }
+
+    // 2) Sort by similarity (ascending distance)
+    sort(distIdx.begin(), distIdx.end(),
+         [](auto& a, auto& b){ return a.first < b.first; });
+
+    // 3) Use top-k similar days to build forecast curve
+    int m = (int)history[0].generation.size();
+    forecast.assign(m, 0.0);
+
+    k = min(k, n);
+    for (int t = 0; t < m; t++) {
+        double sum = 0.0;
+        for (int j = 0; j < k; j++) {
+            int idx = distIdx[j].second;
+            sum += history[idx].generation[t];
+        }
+        forecast[t] = sum / k; // average power at time slot t
+    }
+}`,
+      p9: `// City-wide Grid Fault Detection – threshold + feeder traversal
+// Each sensor reports current and voltage. We check for abnormal values
+// and then walk along the feeder to localize the faulted segment.
+
+struct Sensor {
+    int id;
+    double current;
+    double voltage;
+    bool healthy;
+};
+
+bool isAbnormal(double current, double voltage,
+                double Imin, double Imax,
+                double Vmin, double Vmax) {
+    return (current < Imin || current > Imax ||
+            voltage < Vmin || voltage > Vmax);
+}
+
+// adjacency list of feeders: u -> v if line segment exists
+void detectFault(const vector<vector<int>>& adj,
+                 vector<Sensor>& sensors,
+                 double Imin, double Imax,
+                 double Vmin, double Vmax) {
+    int n = (int)sensors.size();
+    vector<int> suspicious;
+
+    // 1) Check all sensors (brute force) for abnormal measurements
+    for (int i = 0; i < n; i++) {
+        if (isAbnormal(sensors[i].current, sensors[i].voltage,
+                       Imin, Imax, Vmin, Vmax)) {
+            suspicious.push_back(i);
+        }
+    }
+
+    if (suspicious.empty()) {
+        cout << "No obvious fault detected.\\n";
+        return;
+    }
+
+    // 2) For simplicity, pick first suspicious sensor as starting point
+    int start = suspicious[0];
+    cout << "Fault likely near sensor " << start << "\\n";
+
+    // 3) Optional: BFS from this node to mark affected area
+    queue<int> q;
+    vector<bool> vis(n,false);
+    q.push(start);
+    vis[start] = true;
+
+    while (!q.empty()) {
+        int u = q.front(); q.pop();
+        for (int v : adj[u]) {
+            if (!vis[v]) {
+                vis[v] = true;
+                q.push(v);
+            }
+        }
+    }
+
+    // nodes with vis[v] == true lie in same feeder section and can be isolated
+}`,
+      p10: `// Smart Renewable Microgrid Planner – sizing + Prim MST
+
+struct Node {
+    double avgLoad;        // kWh per day for building / load point
+    double solarPotential; // max kW of rooftop solar that can be installed
+};
+
+const int INF = 1e9;
+
+// Input:
+//   n          = number of nodes in the microgrid
+//   nodes[i]   = load + solar potential info for node i
+//   cost[i][j] = cost (or distance) of laying cable between node i and j
+// Output:
+//   solarSize[i]   = chosen solar size at node i (kW)
+//   batterySize[i] = chosen battery size at node i (kWh)
+//   parent[i]      = parent of node i in MST (microgrid backbone)
+void planMicrogrid(int n,
+                   const vector<Node>& nodes,
+                   const vector<vector<int>>& cost,
+                   vector<double>& solarSize,
+                   vector<double>& batterySize,
+                   vector<int>& parent)
+{
+    solarSize.assign(n, 0.0);
+    batterySize.assign(n, 0.0);
+    parent.assign(n, -1);
+
+    // 1) Simple sizing rules for solar & battery
+    for (int i = 0; i < n; i++) {
+        double aimSolar = 0.60 * nodes[i].avgLoad; // kW approx
+        double aimBatt  = 0.30 * nodes[i].avgLoad; // kWh approx
+
+        solarSize[i]   = min(aimSolar, nodes[i].solarPotential);
+        batterySize[i] = aimBatt;
+    }
+
+    // 2) Prim's algorithm to design MST wiring layout
+    vector<int> key(n, INF);
+    vector<bool> inMST(n, false);
+
+    key[0] = 0;    // start from main substation node 0
+    parent[0] = -1;
+
+    for (int iter = 0; iter < n - 1; iter++) {
+        int u = -1;
+        for (int i = 0; i < n; i++) {
+            if (!inMST[i] && (u == -1 || key[i] < key[u])) {
+                u = i;
+            }
+        }
+        if (u == -1) break;
+        inMST[u] = true;
+
+        for (int v = 0; v < n; v++) {
+            if (!inMST[v] && cost[u][v] < key[v]) {
+                key[v] = cost[u][v];
+                parent[v] = u;
+            }
+        }
+    }
+    // parent[] now describes the backbone microgrid connections
+}`
+    };
+
+    const nav = document.getElementById('nav');
+    const detail = document.getElementById('detail');
+
+    const codeModal = document.getElementById('code-modal');
+    const codeModalTitle = document.getElementById('code-modal-title');
+    const codeModalBody = document.getElementById('code-modal-body');
+    const codeModalClose = document.querySelector('.modal-close');
+
+    let currentId = null;
+
+    function makeNav() {
+      nav.innerHTML = '';
+      pages.forEach((p) => {
+        const d = document.createElement('div');
+        d.className = 'navitem';
+        d.dataset.id = p.id;
+        d.innerHTML =
+          `<h4>${p.title}</h4><p class="metadata" style="color:#0284c7;">${p.zone} • ${p.algos.join(', ')}</p>`;
+        d.onclick = () => { select(p.id); };
+        nav.appendChild(d);
+      });
+    }
+
+    function getNavIds() {
+      return Array.from(nav.children).map(d => d.dataset.id);
+    }
+
+    function nextCase() {
+      const ids = getNavIds();
+      if (!ids.length || !currentId) return;
+      const idx = ids.indexOf(currentId);
+      const nextId = ids[(idx + 1) % ids.length];
+      select(nextId);
+    }
+
+    function prevCase() {
+      const ids = getNavIds();
+      if (!ids.length || !currentId) return;
+      const idx = ids.indexOf(currentId);
+      const prevId = ids[(idx - 1 + ids.length) % ids.length];
+      select(prevId);
+    }
+
+    function select(id) {
+      currentId = id;
+      Array.from(nav.children).forEach(n => {
+        const isActive = n.dataset.id === id;
+        n.classList.toggle('active', isActive);
+        if (isActive) {
+          // keep active item in view
+          n.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
         }
       });
-    });
+      const p = pages.find(x => x.id === id);
+      if (!p) return;
 
-    // Dark mode toggle
-    const htmlEl = document.documentElement;
-    const toggleBtn = document.getElementById('theme-toggle');
-    const iconSpan = toggleBtn.querySelector('.theme-icon');
+      const sdgHtml = (p.sdg && p.sdg.length)
+        ? p.sdg.map(s => `<span class="sdg-badge" title="${escapeHtml(s)}">${escapeHtml(s)}</span>`).join('')
+        : '<span class="muted">No SDG specified</span>';
 
-    function setTheme(theme) {
-      htmlEl.setAttribute('data-theme', theme);
-      localStorage.setItem('theme', theme);
-      iconSpan.textContent = theme === 'dark' ? '🌙' : '🌞';
-      toggleBtn.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+      detail.innerHTML = `
+        <div class="detail-inner">
+          <div class="top">
+            <div class="title">
+              <h1 class="headlines">${escapeHtml(p.title)}</h1>
+              <div style="display:flex;gap:12px;align-items:center;margin-top:10px">
+                <div class="badge">${escapeHtml(p.zone)}</div>
+              </div>
+            </div>
+            <div class="actions">
+              <button class="btn" onclick="viewCode('${p.id}')">View code</button>
+            </div>
+          </div>
+
+          <div class="hero">
+            ${
+              p.photo
+                ? `<img class="images" src="${p.photo}" alt="photo"><h1 style="color:#1e293b;font-size:15px;margin-left:10px;">${p.phototitle}</h1>`
+                : `<svg width="100%" height="100%" viewBox="0 0 600 260" xmlns="http://www.w3.org/2000/svg">
+                     <defs>
+                       <linearGradient id="g" x1="0" x2="1">
+                         <stop offset="0" stop-color="#e0e7ff"/>
+                         <stop offset="1" stop-color="#dbeafe"/>
+                       </linearGradient>
+                     </defs>
+                     <rect width="100%" height="100%" fill="url(#g)"/>
+                     <text x="50%" y="50%" fill="#64748b" font-size="20" text-anchor="middle" dominant-baseline="middle">
+                       Replace this with your photo
+                     </text>
+                   </svg>`
+            }
+          </div>
+
+          <div class="block">
+            <strong class="headlines">1. Problem</strong>
+            <p style="margin-top:10px">${escapeHtml(p.problem)}</p>
+          </div>
+
+          <div class="block">
+            <strong class="headlines">2. Practical Solution</strong>
+            <p style="margin-top:10px" class="muted solutions">${escapeHtml(p.solution)}</p>
+          </div>
+
+          <div class="block">
+            <strong class="headlines">3. Algorithm(s) used</strong>
+            <div class="algos">${p.algos.map(a => `<div class="algo">${a}</div>`).join('')}</div>
+          </div>
+
+          <div class="block">
+            <strong class="headlines">4. Related SDG(s)</strong>
+            <div style="margin-top:8px">${sdgHtml}</div>
+          </div>
+
+          <div style="margin-top:16px;display:flex;gap:10px">
+            <a class="btn" href="#${p.id}" style="text-decoration:none;" onclick="copyLink(event,'${p.id}')">Share link</a>
+          </div>
+        </div>
+      `;
+
+      location.hash = id;
     }
 
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-      setTheme(savedTheme);
-    } else {
-      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-      setTheme(prefersDark ? 'dark' : 'light');
+    function escapeHtml(s) {
+      return (s || '')
+        .toString()
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;');
     }
 
-    toggleBtn.addEventListener('click', () => {
-      const current = htmlEl.getAttribute('data-theme');
-      setTheme(current === 'dark' ? 'light' : 'dark');
-    });
-
-    // Scroll reveal
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('reveal-visible');
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.15 }
-    );
-    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
-
-    // Parallax hero
-    window.addEventListener('scroll', () => {
-      const hero = document.querySelector('.hero');
-      if (!hero) return;
-      const offset = window.scrollY * 0.15;
-      hero.style.transform = `translateY(${offset}px)`;
-    });
-
-    // Preview logic
-    const caseItems = document.querySelectorAll('.case-item');
-    const previewTitle = document.getElementById('preview-title');
-    const previewStudy = document.getElementById('preview-study');
-    const previewAlgoList = document.getElementById('preview-algorithm');
-
-    function setPreviewFromElement(el) {
-      const title = el.getAttribute('data-title');
-      const study = el.getAttribute('data-study');
-      const algorithmText = el.getAttribute('data-algorithm') || '';
-
-      previewTitle.textContent = title;
-      previewStudy.textContent = study;
-
-      previewAlgoList.innerHTML = '';
-      const steps = algorithmText.split(/[;]+/).map(s => s.trim()).filter(Boolean);
-      steps.forEach(step => {
-        const li = document.createElement('li');
-        li.textContent = step;
-        previewAlgoList.appendChild(li);
-      });
-
-      caseItems.forEach(ci => ci.classList.remove('active'));
-      el.classList.add('active');
+    function viewCode(id) {
+      const p = pages.find(x => x.id === id);
+      const code = codeSnippets[id];
+      if (!code) {
+        alert('No code added yet for this case.');
+        return;
+      }
+      codeModalTitle.textContent = (p ? p.title : 'Case') + ' – C++ pseudocode';
+      codeModalBody.textContent = code;
+      codeModal.classList.add('show');
     }
 
-    caseItems.forEach(item => {
-      item.addEventListener('click', () => {
-        setPreviewFromElement(item);
-      });
+    function copyLink(e, id) {
+      e.preventDefault();
+      const url = location.href.split('#')[0] + '#' + id;
+      navigator.clipboard?.writeText(url).then(() => alert('Link copied to clipboard'));
+    }
+
+    codeModalClose.addEventListener('click', () => codeModal.classList.remove('show'));
+    codeModal.addEventListener('click', (e) => {
+      if (e.target === codeModal) codeModal.classList.remove('show');
     });
 
-    if (caseItems.length > 0) {
-      setPreviewFromElement(caseItems[0]);
+    // Keyboard navigation (no new buttons, just behavior)
+    document.addEventListener('keydown', (e) => {
+      const tag = e.target.tagName;
+      if (tag === 'INPUT' || tag === 'TEXTAREA') return;
+
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        nextCase();
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        prevCase();
+      }
+    });
+
+    window.addEventListener('load', () => {
+      makeNav();
+      const h = location.hash ? location.hash.slice(1) : pages[0].id;
+      select(h);
+    });
+
+    if (location.hash) {
+      window.addEventListener('load', () => select(location.hash.slice(1)));
     }
   </script>
 </body>
