@@ -365,18 +365,13 @@
       },
       {
         id: 'p6',
-        zone: 'IT Park',
-        title: 'Implementing smart emergency exit in building complex from any floor',
-        photo: './shivaraj/bfs.jpg',
+        zone: 'Residential Area',
+        title: 'Optimized Parking Allocation in Residential Areas',
+        photo: '',
         phototitle:'BFS (Graph Algorithm)',
-        problem: `The IT buildings are large and mainly have high electrical equipment, in case of emergency like fire or earthquake, people from higher floors find it hard to exit quickly
-        as they have to do down multiple floors and then exit through main door which could be crowded and could have been on fire or blocked.
-        This can lead to casualties and injuries.  `,
-        solution: `To solve this problem we can use Graph algorithm for multiple exits and BFS for finding nearest exit from any floor.
-        Why BFS over DFS? Let's imagine a situation where fire broke out on floor 5 and there are emergencies exits on floor 3, 6, 15, and people are on floor - 12
-        if a smart device uses DFS it may suggest exit from floor 5 as it search in depth first manner, but in the given case the nearest emergency exit at floor 15, but if the device uses BFS
-        it will suggest exit from floor 15 as it search in Layer by layer manner. Hence BFS if better solution for this problem.`,
-        algos: ['BFS'],
+        problem: `In many residential buildings and apartment complexes parking is chaotic. Vehicles arrive from different entry points but parking bays are limited and not tracked properly. Residents and visitors waste time searching for free slots, sometimes park in wrong places, and security can’t quickly tell which slots are free. This causes congestion inside the premises and general inconvenience. We need a system that allocates the nearest available parking slot to each incoming vehicle, keeps an updated map of occupied/free slots, and supports release (when a car leaves) — all while minimising driving time inside the complex. `,
+        solution: `Model the building roads/lanes as a weighted graph (nodes = junctions / slot locations / entries, edges = short travel times). Mark specific nodes as parking slots. When a vehicle arrives at an entry node, run Dijkstra from that entry to get shortest travel times to all nodes, then pick the nearest node that currently has a free slot. Maintain a hash/map of slot occupancy to allow O(1) checks and updates when cars arrive or depart. For listing or reporting (e.g., show top-k nearest free slots), use a min-heap (priority queue) or sort when needed. This approach gives a fast, realistic nearest-slot allocation and clean tracking for releases.`,
+        algos: ['Adjacency list','Hash Table','Min heap','Dijkstra Algo','Arrays'],
         codeSnippet: `// Find nearest free slot via BFS on lane graph; compute driving path by Dijkstra.`
       },
       {
