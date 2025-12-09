@@ -71,6 +71,42 @@
       box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
     }
 
+    .topbar {
+      position: relative;
+      height: 60px;
+      margin-bottom: 10px;
+      background:rgb(176, 179, 216);
+      box-shadow: 0 0px 6px 0px rgba(0, 0, 0, 0.8);
+    }
+    .cityname{
+      width:350px;
+      position: absolute;
+      left: max(18px, calc((100vw - 1200px) / 2 + 400px));
+      top: 8px;
+      font-size:35px;
+      font-weight:900;
+      color:white;
+      padding:0px 0px 0px 45px;
+      background: linear-gradient(90deg, rgb(33, 47, 152,0.8), rgb(95, 54, 207));
+      -webkit-background-clip:text;
+      background-clip:text;
+      -webkit-text-fill-color:transparent;
+      
+
+    }
+
+    .user{
+      width:100px;
+      position: absolute;
+      right: min(18px, calc((100vw - 1200px) / 2 + 720px));
+      top: 15px;
+      font-size:20px;
+      font-weight:700;
+      color:rgb(70, 57, 125);
+      padding:0px 0px 0px 10px;
+      
+    }
+
     .brand {
       display: flex;
       gap: 12px;
@@ -102,7 +138,7 @@
       display: flex;
       flex-direction: column;
       gap: 8px;
-      max-height: 72vh;
+      min-height: 72vh;
       overflow: auto;
       padding-right: 6px
     }
@@ -192,7 +228,7 @@
       width: 80%;
       height: 300px;
       object-fit: contain;
-      padding: 0px 5px 0px 10px;
+      padding: 0px 5px 0px 5px;
       mix-blend-mode: multiply; /* Helps images blend better on light bg */
     }
 
@@ -407,9 +443,13 @@
 </head>
 
 <body>
+  <div class="topbar">
   <a href='https://shivuas.github.io/Surajvali_city.github.io/' style="text-decoration:none;">
     <div class='home btn'>Home</div>
+    <div class="cityname">Surajvali city</div>
+    <div class="user">Shivaraj</div>
   </a>
+</div>
   <div class="app">
     <aside class="sidebar">
       <div class="brand">
