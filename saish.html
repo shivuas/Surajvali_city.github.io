@@ -47,7 +47,7 @@
       background: #ffffff;
       border-radius: 12px;
       padding: 18px;
-      margin: 15px 0px 0px 0px;
+      margin: 0px 0px 0px 0px;
       border: 1px solid var(--card-border);
       box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
     }
@@ -69,6 +69,42 @@
       z-index: 1200;
       display: block;
       box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+    }
+
+    .topbar {
+      position: relative;
+      height: 60px;
+      margin-bottom: 10px;
+      background:rgb(176, 179, 216);
+      box-shadow: 0 0px 6px 0px rgba(0, 0, 0, 0.8);
+    }
+    .cityname{
+      width:350px;
+      position: absolute;
+      left: max(18px, calc((100vw - 1200px) / 2 + 400px));
+      top: 8px;
+      font-size:35px;
+      font-weight:900;
+      color:white;
+      padding:0px 0px 0px 45px;
+      background: linear-gradient(90deg, rgb(33, 47, 152,0.8), rgb(95, 54, 207));
+      -webkit-background-clip:text;
+      background-clip:text;
+      -webkit-text-fill-color:transparent;
+      
+
+    }
+
+    .user{
+      width:100px;
+      position: absolute;
+      right: min(18px, calc((100vw - 1200px) / 2 + 720px));
+      top: 15px;
+      font-size:20px;
+      font-weight:700;
+      color:rgb(70, 57, 125);
+      padding:0px 0px 0px 10px;
+      
     }
 
     .brand {
@@ -102,7 +138,7 @@
       display: flex;
       flex-direction: column;
       gap: 8px;
-      max-height: 72vh;
+      min-height: 72vh;
       overflow: auto;
       padding-right: 6px
     }
@@ -143,13 +179,13 @@
     }
 
     .detail {
-      padding: 24px;
+      padding: 20px;
       border-radius: 12px;
       background: #ffffff;
       border: 1px solid var(--card-border);
       min-height: 72vh;
       overflow: auto;
-      margin: 15px 0px 0px 0px;
+      margin: 0px 0px 0px 0px;
       box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
     }
 
@@ -192,7 +228,7 @@
       width: 80%;
       height: 300px;
       object-fit: contain;
-      padding: 0px 5px 0px 10px;
+      padding: 0px 5px 0px 5px;
       mix-blend-mode: multiply; /* Helps images blend better on light bg */
     }
 
@@ -339,8 +375,7 @@
 
     .solutions {
       color: black; /* Darker blue for readability on white */
-      font-size: 15px;
-      font-weight: 500;
+      font-size: 16px;
       white-space: pre-line;
       background:rgb(233, 236, 249);
       border-radius:8px;
@@ -407,9 +442,13 @@
 </head>
 
 <body>
+  <div class="topbar">
   <a href='https://shivuas.github.io/Surajvali_city.github.io/' style="text-decoration:none;">
     <div class='home btn'>Home</div>
+    <div class="cityname">Surajvali city</div>
+    <div class="user">Saish</div>
   </a>
+</div>
   <div class="app">
     <aside class="sidebar">
       <div class="brand">
@@ -450,7 +489,7 @@
       Single-file static pages: replace content inside `pages` array if you want to edit later.
       Each page has: id, zone, title, photo (data URL or external URL), problem, solution, algos (array), codeSnippet (optional)
     */
-    const pages = [
+     const pages = [
   {
     id: 'p1',
     zone: 'Salt Farms',
@@ -1251,8 +1290,7 @@ int main() {
   {
     id: 'p5',
     zone: 'Residential Area',
-    title: 'Gas Pipeline Layout Optimization
-',
+    title: 'Gas Pipeline Layout Optimization',
     photo: '',
     phototitle: '',
     problem: `
@@ -1457,8 +1495,7 @@ int main() {
   {
     id: 'p6',
     zone: 'Residential Area',
-    title: 'Optimized Parking Allocation in Residential Areas
-',
+    title: 'Optimized Parking Allocation in Residential Areas',
     photo: './shivaraj/bfs.jpg',
     phototitle: 'BFS (Graph Algorithm)',
     problem: `In many residential buildings and apartment complexes parking is chaotic. Vehicles arrive from different entry points but parking bays are limited and not tracked properly. Residents and visitors waste time searching for free slots, sometimes park in wrong places, and security can’t quickly tell which slots are free. This causes congestion inside the premises and general inconvenience. We need a system that allocates the nearest available parking slot to each incoming vehicle, keeps an updated map of occupied/free slots, and supports release (when a car leaves) — all while minimising driving time inside the complex.
@@ -1470,8 +1507,7 @@ Why these fit: Dijkstra yields realistic driving time inside the premises; hash 
 'Hash Table',
 'Min heap',
 'Dijkstra Algo',
-'Arrays
-'],
+'Arrays'],
     sdgs: [
       'SDG 13 – Climate Action',
       'SDG 9 – Industry, Innovation, and Infrastructure ',
