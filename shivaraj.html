@@ -747,69 +747,6 @@ books.sort((a,b)=> /* compare category, then author, then year */ );`
       'SDG 11 – Sustainable Cities and Communities'
     ],
     codeSnippet: `// Find nearest free slot via BFS on lane graph; compute driving path by Dijkstra.`
-  },
-  {
-    id: 'p7',
-    zone: 'Shopping Mall',
-    title: 'Business model for Shopping Malls',
-    photo: '',
-    phototitle: '',
-    problem: ``,
-    solution: `Rebalance charger locations by clustering parking demand and add a reservation token system.`,
-    algos: ['Graph clustering', 'Sorting'],
-    sdgs: [
-      'SDG 8 – Decent Work and Economic Growth',
-      'SDG 12 – Responsible Consumption and Production'
-    ],
-    codeSnippet: `// Cluster parking nodes by demand, rank candidate charger sites by distance`
-  },
-  {
-    id: 'p8',
-    zone: 'IT Park',
-    title: 'Garbage trucks follow inefficient pickup routes',
-    photo: '',
-    phototitle: '',
-    problem: `The daily cleaner route is long and doubles back multiple times, increasing fuel and time.`,
-    solution: `Recompute an efficient route that connects all bins using shortest-path distances and a greedy tour heuristic.`,
-    algos: ['Dijkstra', 'Sorting (greedy TSP approx)'],
-    sdgs: [
-      'SDG 11 – Sustainable Cities and Communities',
-      'SDG 12 – Responsible Consumption and Production',
-      'SDG 13 – Climate Action'
-    ],
-    codeSnippet: `// Build pairwise shortest distances (Dijkstra), then run greedy traversal to approximate route`
-  },
-  {
-    id: 'p9',
-    zone: 'IT Park',
-    title: 'One pipe burst disconnects a whole block of offices',
-    photo: '',
-    phototitle: '',
-    problem: `A single failure in the feed line causes many offices to lose water (single point-of-failure).`,
-    solution: `Detect bridge edges in the network and add redundant loops; reorganize into ring topology where possible.`,
-    algos: ['Graph algorithms', 'Kruskal'],
-    sdgs: [
-      'SDG 6 – Clean Water and Sanitation',
-      'SDG 9 – Industry, Innovation and Infrastructure',
-      'SDG 11 – Sustainable Cities and Communities'
-    ],
-    codeSnippet: `// Run bridge-detection (DFS) and compute MST/Kruskal to plan rewiring`
-  },
-  {
-    id: 'p10',
-    zone: 'IT Park',
-    title: 'Food court stall queues form long lines and block walkway',
-    photo: '',
-    phototitle: '',
-    problem: `A popular stall leads to queuing that blocks the main walkway and creates congestion.`,
-    solution: `Redistribute stalls, increase service capacity, and introduce virtual token queuing (SMS/app).`,
-    algos: ['BFS (flow)', 'Sorting'],
-    sdgs: [
-      'SDG 3 – Good Health and Well-being',
-      'SDG 8 – Decent Work and Economic Growth',
-      'SDG 11 – Sustainable Cities and Communities'
-    ],
-    codeSnippet: `// Simulate arrivals and queue growth using BFS layers; rank stalls by throughput`
   }
 ];
 
