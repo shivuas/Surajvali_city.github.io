@@ -472,7 +472,234 @@ Why these fit: Rabin–Karp is fast for matching short patterns in streaming dat
       'SDG 9 – Industry, Innovation and Infrastructure',
       'SDG 12 – Sustainable Cities and Communities'
     ],
-    codeSnippet: ``
+    codeSnippet: `#include <bits/stdc++.h>
+using namespace std;
+
+/* ------------ Data Structures ------------ */
+
+struct Pan {
+    int id;
+    double x, y;   // coordinates (simple 2D)
+    double area;   // in m^2
+    bool affected; // whether this pan is affected by storm
+};
+
+/* ------------ Rabin–Karp: detect dangerous pattern in sensor data ------------ */
+// Here we treat sensor data as an integer sequence (e.g., pressure readings).
+
+bool rabinKarpMatch(const vector<int>& text, const vector<int>& pattern) {
+    if (pattern.empty() || text.size() < pattern.size()) return false;
+
+    const long long base = 257;
+    const long long mod  = 1000000007LL;
+
+    int n = text.size();
+    int m = pattern.size();
+
+    long long patHash = 0, txtHash = 0, power = 1;
+
+    // base^(m-1)
+    for (int i = 0; i < m - 1; ++i) {
+        power = (power * base) % mod;
+    }
+
+    // initial hash
+    for (int i = 0; i < m; ++i) {
+        patHash = (patHash * base + pattern[i]) % mod;
+        txtHash = (txtHash * base + text[i]) % mod;
+    }
+
+    for (int i = 0; i <= n - m; ++i) {
+        if (patHash == txtHash) {
+            bool same = true;
+            for (int j = 0; j < m; ++j) {
+                if (text[i + j] != pattern[j]) {
+                    same = false;
+                    break;
+                }
+            }
+            if (same) return true;
+        }
+        // roll hash
+        if (i < n - m) {
+            long long remove = (text[i] * power) % mod;
+            txtHash = (txtHash - remove + mod) % mod;
+            txtHash = (txtHash * base + text[i + m]) % mod;
+        }
+    }
+    return false;
+}
+
+/* ------------ Build adjacency (graph) of neighboring pans ------------ */
+
+vector<vector<int>> buildAdjacency(const vector<Pan>& pans, double neighborDist) {
+    int n = (int)pans.size();
+    vector<vector<int>> adj(n);
+    double nd2 = neighborDist * neighborDist;
+
+    for (int i = 0; i < n; ++i) {
+        for (int j = i + 1; j < n; ++j) {
+            double dx = pans[i].x - pans[j].x;
+            double dy = pans[i].y - pans[j].y;
+            double d2 = dx * dx + dy * dy;
+            if (d2 <= nd2) {
+                adj[i].push_back(j);
+                adj[j].push_back(i);
+            }
+        }
+    }
+    return adj;
+}
+
+/* ------------ BFS: propagate risk from directly-hit pans ------------ */
+
+vector<int> bfsAffected(const vector<vector<int>>& adj,
+                        const vector<int>& initial,
+                        int n) {
+    vector<bool> visited(n, false);
+    queue<int> q;
+    for (int idx : initial) {
+        if (!visited[idx]) {
+            visited[idx] = true;
+            q.push(idx);
+        }
+    }
+    vector<int> affected;
+    while (!q.empty()) {
+        int u = q.front(); q.pop();
+        affected.push_back(u);
+        for (int v : adj[u]) {
+            if (!visited[v]) {
+                visited[v] = true;
+                q.push(v);
+            }
+        }
+    }
+    return affected;
+}
+
+/* ------------ Merge Sort: sort pans by area (descending) ------------ */
+
+bool panLess(const Pan& a, const Pan& b) {
+    // we want descending order, so "less" means larger area
+    return a.area > b.area;
+}
+
+void mergePans(vector<Pan>& arr, int left, int mid, int right) {
+    int n1 = mid - left + 1;
+    int n2 = right - mid;
+    vector<Pan> L(n1), R(n2);
+
+    for (int i = 0; i < n1; ++i) L[i] = arr[left + i];
+    for (int j = 0; j < n2; ++j) R[j] = arr[mid + 1 + j];
+
+    int i = 0, j = 0, k = left;
+    while (i < n1 && j < n2) {
+        if (panLess(L[i], R[j])) arr[k++] = L[i++];
+        else                      arr[k++] = R[j++];
+    }
+    while (i < n1) arr[k++] = L[i++];
+    while (j < n2) arr[k++] = R[j++];
+}
+
+void mergeSortPans(vector<Pan>& arr, int left, int right) {
+    if (left >= right) return;
+    int mid = left + (right - left) / 2;
+    mergeSortPans(arr, left, mid);
+    mergeSortPans(arr, mid + 1, right);
+    mergePans(arr, left, mid, right);
+}
+
+/* ----------------------------- MAIN ----------------------------- */
+
+int main() {
+    // 1) Simulated sensor data & danger pattern
+    vector<int> sensorData   = {1010, 1008, 1005, 1001, 995, 990, 988};
+    vector<int> dangerPattern = {1008, 1005, 1001, 995}; // rapid pressure drop
+
+    bool stormDetected = rabinKarpMatch(sensorData, dangerPattern);
+
+    if (!stormDetected) {
+        cout << "No dangerous weather pattern detected. No impact prediction.\n";
+        return 0;
+    }
+
+    cout << "Dangerous weather pattern detected! Predicting impact on salt pans...\n\n";
+
+    // 2) Example pans (id, x, y, area)
+    vector<Pan> pans = {
+        {0, 10, 10, 1000, false},
+        {1, 12, 11, 1500, false},
+        {2, 20, 20, 1300, false},
+        {3, 25, 19, 2000, false},
+        {4, 30, 35, 1800, false},
+        {5, 40, 40, 2200, false}
+    };
+
+    int n = (int)pans.size();
+
+    // 3) Storm center + radius
+    double cx = 15.0, cy = 15.0, radius = 12.0;
+    double r2 = radius * radius;
+
+    // Find directly affected pans (inside circle)
+    vector<int> initialAffectedIdx;
+    for (int i = 0; i < n; ++i) {
+        double dx = pans[i].x - cx;
+        double dy = pans[i].y - cy;
+        double d2 = dx * dx + dy * dy;
+        if (d2 <= r2) {
+            pans[i].affected = true;
+            initialAffectedIdx.push_back(i);
+        }
+    }
+
+    cout << "Directly affected pans (inside storm radius):\n";
+    if (initialAffectedIdx.empty()) {
+        cout << "  None directly inside storm region.\n\n";
+    } else {
+        for (int idx : initialAffectedIdx) {
+            cout << "  Pan " << pans[idx].id
+                 << " at (" << pans[idx].x << "," << pans[idx].y
+                 << "), area = " << pans[idx].area << " m^2\n";
+        }
+        cout << "\n";
+    }
+
+    // 4) Build adjacency of pans (neighbors within distance) and BFS
+    double neighborDist = 8.0;
+    vector<vector<int>> adj = buildAdjacency(pans, neighborDist);
+
+    vector<int> allAffectedIdx;
+    if (!initialAffectedIdx.empty()) {
+        allAffectedIdx = bfsAffected(adj, initialAffectedIdx, n);
+        for (int idx : allAffectedIdx) pans[idx].affected = true;
+    }
+
+    // 5) Collect affected pans and sort by area (descending) using Merge Sort
+    vector<Pan> affectedPans;
+    for (const auto& p : pans) {
+        if (p.affected) affectedPans.push_back(p);
+    }
+
+    if (!affectedPans.empty()) {
+        mergeSortPans(affectedPans, 0, (int)affectedPans.size() - 1);
+    }
+
+    double totalArea = 0.0;
+    for (const auto& p : affectedPans) totalArea += p.area;
+
+    cout << "All affected pans (after BFS propagation), sorted by area:\n";
+    for (const auto& p : affectedPans) {
+        cout << "  Pan " << p.id
+             << " | area = " << p.area
+             << " m^2 at (" << p.x << "," << p.y << ")\n";
+    }
+    cout << "\nTotal affected area (if no action taken): "
+         << totalArea << " m^2\n";
+
+    return 0;
+}`
   },
   {
     id: 'p2',
@@ -492,7 +719,187 @@ Why these fit: Dijkstra computes realistic road-time distances on weighted graph
       'SDG 8 – Decent Work and Economic Growth',
       'SDG 11 – Sustainable Cities and Communities'
     ],
-    codeSnippet: ``
+    codeSnippet: `#include <bits/stdc++.h>
+using namespace std;
+
+/* ---------------- Data Structures ---------------- */
+
+struct Edge {
+    int to;
+    double cost; // travel time or cost
+};
+
+struct HeapSalt {
+    int id;
+    int node;            // graph node where heap is located
+    int productionTime;  // minutes from start of day
+    int safeDuration;    // minutes safe before moisture damage
+};
+
+struct HeapWithUrgency {
+    HeapSalt heap;
+    int timeLeft;        // remaining safe time (can be negative if overdue)
+    double bestTravel;   // best travel cost/time to nearest godown
+    int bestGodown;      // node index of nearest godown
+};
+
+/* ---------------- Dijkstra: shortest path in weighted graph ---------------- */
+
+vector<double> dijkstra(const vector<vector<Edge>>& graph, int src) {
+    int n = (int)graph.size();
+    const double INF = numeric_limits<double>::infinity();
+    vector<double> dist(n, INF);
+
+    using State = pair<double,int>; // (dist, node)
+    priority_queue<State, vector<State>, greater<State>> pq;
+
+    dist[src] = 0.0;
+    pq.push({0.0, src});
+
+    while (!pq.empty()) {
+        auto [d, u] = pq.top();
+        pq.pop();
+        if (d > dist[u]) continue;
+        for (const auto& e : graph[u]) {
+            int v = e.to;
+            double nd = d + e.cost;
+            if (nd < dist[v]) {
+                dist[v] = nd;
+                pq.push({nd, v});
+            }
+        }
+    }
+    return dist;
+}
+
+/* ---------------- Merge Sort: sort heaps by urgency then travel ---------------- */
+
+bool heapLess(const HeapWithUrgency& a, const HeapWithUrgency& b) {
+    // First: less timeLeft -> more urgent
+    if (a.timeLeft < b.timeLeft) return true;
+    if (a.timeLeft > b.timeLeft) return false;
+    // If same urgency, choose smaller travel cost
+    return a.bestTravel < b.bestTravel;
+}
+
+void mergeHeaps(vector<HeapWithUrgency>& arr, int left, int mid, int right) {
+    int n1 = mid - left + 1;
+    int n2 = right - mid;
+    vector<HeapWithUrgency> L(n1), R(n2);
+
+    for (int i = 0; i < n1; ++i) L[i] = arr[left + i];
+    for (int j = 0; j < n2; ++j) R[j] = arr[mid + 1 + j];
+
+    int i = 0, j = 0, k = left;
+    while (i < n1 && j < n2) {
+        if (heapLess(L[i], R[j])) arr[k++] = L[i++];
+        else                       arr[k++] = R[j++];
+    }
+    while (i < n1) arr[k++] = L[i++];
+    while (j < n2) arr[k++] = R[j++];
+}
+
+void mergeSortHeaps(vector<HeapWithUrgency>& arr, int left, int right) {
+    if (left >= right) return;
+    int mid = left + (right - left) / 2;
+    mergeSortHeaps(arr, left, mid);
+    mergeSortHeaps(arr, mid + 1, right);
+    mergeHeaps(arr, left, mid, right);
+}
+
+/* ------------------------------ MAIN ------------------------------ */
+
+int main() {
+    // 1) Build a sample graph (nodes = junctions, pans, godowns)
+    int N = 7; // 0..6
+    vector<vector<Edge>> graph(N);
+
+    auto addEdge = [&](int u, int v, double cost) {
+        graph[u].push_back({v, cost});
+        graph[v].push_back({u, cost}); // undirected
+    };
+
+    // Example roads with time cost (minutes)
+    addEdge(0, 1, 4.0);
+    addEdge(1, 2, 3.0);
+    addEdge(2, 3, 5.0);
+    addEdge(1, 4, 2.5);
+    addEdge(4, 5, 4.5);
+    addEdge(3, 6, 6.0);
+    addEdge(5, 6, 2.0);
+
+    // 2) Salt godowns (storage nodes)
+    vector<int> godowns = {3, 5};
+
+    // 3) Salt heaps
+    vector<HeapSalt> heaps = {
+        {0, 0,  60, 120},  // id, node, produced at t=60, safe 120 min
+        {1, 1, 100,  90},
+        {2, 2, 110,  80},
+        {3, 4, 130,  60},
+        {4, 6, 140,  50}
+    };
+
+    int currentTime = 180; // minutes from start of day
+
+    // 4) Precompute distance from each node to EACH godown? Instead:
+    //    We'll run Dijkstra from each godown and keep minimum.
+    int n = (int)graph.size();
+    const double INF = numeric_limits<double>::infinity();
+    vector<double> bestDistToGodown(n, INF);
+    vector<int> bestGodownForNode(n, -1);
+
+    for (int g : godowns) {
+        vector<double> dist = dijkstra(graph, g);
+        for (int node = 0; node < n; ++node) {
+            if (dist[node] < bestDistToGodown[node]) {
+                bestDistToGodown[node] = dist[node];
+                bestGodownForNode[node] = g;
+            }
+        }
+    }
+
+    // 5) Build HeapWithUrgency list
+    vector<HeapWithUrgency> list;
+    for (const auto& h : heaps) {
+        int expiry = h.productionTime + h.safeDuration;
+        int timeLeft = expiry - currentTime;
+        double travel = bestDistToGodown[h.node];
+        int godownNode = bestGodownForNode[h.node];
+        list.push_back({h, timeLeft, travel, godownNode});
+    }
+
+    // 6) Sort heaps by urgency -> timeLeft, then travel cost, using Merge Sort
+    if (!list.empty()) {
+        mergeSortHeaps(list, 0, (int)list.size() - 1);
+    }
+
+    // 7) Print plan
+    cout << "Salt Storage Optimization Plan\n\n";
+    cout << "Current time: " << currentTime << " minutes\n\n";
+    cout << left << setw(6) << "ID"
+         << setw(6) << "Node"
+         << setw(12) << "TimeLeft"
+         << setw(12) << "BestGdn"
+         << setw(12) << "Travel" << "\n";
+    cout << string(48, '-') << "\n";
+
+    for (const auto& hw : list) {
+        cout << left << setw(6) << hw.heap.id
+             << setw(6) << hw.heap.node
+             << setw(12) << hw.timeLeft
+             << setw(12) << hw.bestGodown
+             << setw(12) << fixed << setprecision(2) << hw.bestTravel
+             << "\n";
+    }
+
+    cout << "\nExplanation:\n";
+    cout << "- Dijkstra is used (from each godown) to compute realistic travel time on roads.\n";
+    cout << "- Merge Sort orders heaps by urgency (timeLeft) and then smaller travel cost.\n";
+    cout << "- The farmer can move the top (most urgent) heaps to the suggested godowns first.\n";
+
+    return 0;
+}`
   },
   {
     id: 'p3',
@@ -512,7 +919,182 @@ Why these fit: Dijkstra gives real-world travel time (not straight-line); Merge 
       'SDG 11 – Sustainable Cities and Communities',
       'SDG 9 – Industry, Innovation and Infrastructure'
     ],
-    codeSnippet: ``
+    codeSnippet: `#include <bits/stdc++.h>
+using namespace std;
+
+/* ------------- Data Structures ------------- */
+
+struct Edge {
+    int to;
+    double timeCost; // travel time along this road (e.g. minutes)
+};
+
+struct Worker {
+    int id;
+    string name;
+    string serviceType; // e.g. "plumber", "electrician"
+    int node;           // node where the worker is located in the graph
+    double price;       // base service charge (excluding travel)
+    double travelTime;  // computed using Dijkstra from user node
+};
+
+/* ------------- Dijkstra: shortest travel time in weighted graph ------------- */
+
+vector<double> dijkstra(const vector<vector<Edge>>& graph, int src) {
+    int n = (int)graph.size();
+    const double INF = numeric_limits<double>::infinity();
+    vector<double> dist(n, INF);
+
+    using State = pair<double,int>; // (time, node)
+    priority_queue<State, vector<State>, greater<State>> pq;
+
+    dist[src] = 0.0;
+    pq.push({0.0, src});
+
+    while (!pq.empty()) {
+        auto [curTime, u] = pq.top();
+        pq.pop();
+        if (curTime > dist[u]) continue;
+
+        for (const auto& e : graph[u]) {
+            int v = e.to;
+            double nd = curTime + e.timeCost;
+            if (nd < dist[v]) {
+                dist[v] = nd;
+                pq.push({nd, v});
+            }
+        }
+    }
+    return dist;
+}
+
+/* ------------- Merge Sort: sort workers by price then travelTime ------------- */
+
+bool workerLess(const Worker& a, const Worker& b) {
+    if (a.price < b.price) return true;
+    if (a.price > b.price) return false;
+    // if price equal, sort by travel time (faster first)
+    return a.travelTime < b.travelTime;
+}
+
+void mergeWorkers(vector<Worker>& arr, int left, int mid, int right) {
+    int n1 = mid - left + 1;
+    int n2 = right - mid;
+    vector<Worker> L(n1), R(n2);
+
+    for (int i = 0; i < n1; ++i) L[i] = arr[left + i];
+    for (int j = 0; j < n2; ++j) R[j] = arr[mid + 1 + j];
+
+    int i = 0, j = 0, k = left;
+    while (i < n1 && j < n2) {
+        if (workerLess(L[i], R[j])) arr[k++] = L[i++];
+        else                        arr[k++] = R[j++];
+    }
+    while (i < n1) arr[k++] = L[i++];
+    while (j < n2) arr[k++] = R[j++];
+}
+
+void mergeSortWorkers(vector<Worker>& arr, int left, int right) {
+    if (left >= right) return;
+    int mid = left + (right - left) / 2;
+    mergeSortWorkers(arr, left, mid);
+    mergeSortWorkers(arr, mid + 1, right);
+    mergeWorkers(arr, left, mid, right);
+}
+
+/* ------------- MAIN: Demo of the technician app logic ------------- */
+
+int main() {
+    // 1) Build a sample city graph (nodes 0..6)
+    int N = 7;
+    vector<vector<Edge>> graph(N);
+
+    auto addRoad = [&](int u, int v, double timeCost) {
+        graph[u].push_back({v, timeCost});
+        graph[v].push_back({u, timeCost}); // undirected road
+    };
+
+    // Roads with realistic time (minutes) or cost
+    addRoad(0, 1, 5.0);
+    addRoad(1, 2, 8.0);
+    addRoad(1, 3, 3.0);
+    addRoad(2, 4, 6.0);
+    addRoad(3, 4, 4.0);
+    addRoad(3, 5, 7.0);
+    addRoad(4, 6, 5.0);
+    addRoad(5, 6, 2.0);
+
+    // 2) User’s location (node index in the graph)
+    int userNode = 0;
+
+    // 3) Available workers (id, name, serviceType, node, price)
+    vector<Worker> workers = {
+        {0, "Ramesh", "plumber",     2, 300.0, 0.0},
+        {1, "Suresh", "electrician", 4, 250.0, 0.0},
+        {2, "Anita",  "plumber",     5, 280.0, 0.0},
+        {3, "Vijay",  "carpenter",   6, 260.0, 0.0},
+        {4, "Kiran",  "electrician", 3, 250.0, 0.0}
+    };
+
+    // Filter workers by requested service type (e.g., plumber)
+    string requestedService = "plumber";
+    vector<Worker> filtered;
+    for (auto w : workers) {
+        if (w.serviceType == requestedService) {
+            filtered.push_back(w);
+        }
+    }
+
+    if (filtered.empty()) {
+        cout << "No workers available for service: " << requestedService << "\n";
+        return 0;
+    }
+
+    // 4) Run Dijkstra from user node to get travel time to all nodes
+    vector<double> dist = dijkstra(graph, userNode);
+    const double INF = numeric_limits<double>::infinity();
+
+    // Assign travelTime to each filtered worker
+    for (auto& w : filtered) {
+        w.travelTime = dist[w.node];
+        if (w.travelTime == INF) {
+            w.travelTime = 1e9; // large number for unreachable
+        }
+    }
+
+    // 5) Sort filtered workers using custom Merge Sort
+    mergeSortWorkers(filtered, 0, (int)filtered.size() - 1);
+
+    // 6) Display sorted worker list (by price, then travel time)
+    cout << "User node: " << userNode << "\n";
+    cout << "Requested service: " << requestedService << "\n\n";
+
+    cout << left << setw(4) << "ID"
+         << setw(12) << "Name"
+         << setw(12) << "Service"
+         << setw(8) << "Node"
+         << setw(10) << "Price"
+         << setw(12) << "Time(min)" << "\n";
+
+    cout << string(58, '-') << "\n";
+
+    for (const auto& w : filtered) {
+        cout << left << setw(4) << w.id
+             << setw(12) << w.name
+             << setw(12) << w.serviceType
+             << setw(8) << w.node
+             << setw(10) << fixed << setprecision(2) << w.price
+             << setw(12) << fixed << setprecision(2) << w.travelTime
+             << "\n";
+    }
+
+    cout << "\nExplanation:\n";
+    cout << "- Dijkstra computes realistic travel time on the road graph from the user to each worker.\n";
+    cout << "- Merge Sort ranks workers by price, then by travel time.\n";
+    cout << "- The user can then pick a cheaper but farther worker, or a closer one, as they prefer.\n";
+
+    return 0;
+}`
   },
   {
     id: 'p4',
@@ -544,7 +1126,127 @@ This greedy algorithm ensures the worst-case distance from any locality to a bin
       'SDG 13 – Climate Action',
       'SDG 11 – Sustainable Cities and Communities'
     ],
-    codeSnippet: ``
+    codeSnippet: `#include <bits/stdc++.h>
+using namespace std;
+
+struct Edge {
+    int to;
+    double cost; // distance or time along this road
+};
+
+/* --------- Multi-source Dijkstra: from all current bin nodes --------- */
+
+void multiSourceDijkstra(
+    const vector<vector<Edge>>& graph,
+    const vector<int>& bins,          // current bin locations
+    vector<double>& dist,             // output: distance to nearest bin
+    vector<int>& nearestBin           // output: which bin is nearest
+) {
+    int n = (int)graph.size();
+    const double INF = 1e18;
+    dist.assign(n, INF);
+    nearestBin.assign(n, -1);
+
+    using State = pair<double,int>; // (distance, node)
+    priority_queue<State, vector<State>, greater<State>> pq;
+
+    // Initialize all current bins as sources
+    for (int b : bins) {
+        dist[b] = 0.0;
+        nearestBin[b] = b;
+        pq.push({0.0, b});
+    }
+
+    while (!pq.empty()) {
+        auto [d, u] = pq.top();
+        pq.pop();
+        if (d > dist[u]) continue;
+
+        for (const auto& e : graph[u]) {
+            int v = e.to;
+            double nd = d + e.cost;
+            if (nd < dist[v]) {
+                dist[v] = nd;
+                nearestBin[v] = nearestBin[u]; // inherit source bin
+                pq.push({nd, v});
+            }
+        }
+    }
+}
+
+/* ---------------------- Demo: bin placement ---------------------- */
+
+int main() {
+    // --- 1. Build a sample residential graph ---
+    int N = 8; // 8 localities/junctions numbered 0..7
+    vector<vector<Edge>> graph(N);
+
+    auto addRoad = [&](int u, int v, double cost) {
+        graph[u].push_back({v, cost});
+        graph[v].push_back({u, cost}); // undirected
+    };
+
+    // Example roads (you can change distances)
+    addRoad(0, 1, 3.0);
+    addRoad(1, 2, 4.0);
+    addRoad(2, 3, 2.5);
+    addRoad(1, 4, 5.0);
+    addRoad(4, 5, 3.5);
+    addRoad(5, 6, 2.0);
+    addRoad(6, 7, 4.0);
+    addRoad(3, 7, 3.0);
+
+    // --- 2. We want K dustbins ---
+    int K = 4; // e.g., 4 bin locations
+
+    // Start with one initial bin (could be central area, here node 0)
+    vector<int> bins;
+    bins.push_back(0);
+
+    vector<double> dist;
+    vector<int> nearestBin;
+
+    // --- 3. Greedily add bins at farthest localities ---
+    while ((int)bins.size() < K) {
+        // Run multi-source Dijkstra from all current bins
+        multiSourceDijkstra(graph, bins, dist, nearestBin);
+
+        // Find the locality farthest from any existing bin
+        int farNode = -1;
+        double farDist = -1.0;
+
+        for (int node = 0; node < N; ++node) {
+            // skip if already a bin location
+            if (find(bins.begin(), bins.end(), node) != bins.end()) continue;
+
+            if (dist[node] > farDist) {
+                farDist = dist[node];
+                farNode = node;
+            }
+        }
+
+        if (farNode == -1) break; // all nodes already bins or isolated
+
+        bins.push_back(farNode);
+    }
+
+    // --- 4. Final assignment: which locality uses which bin? ---
+    multiSourceDijkstra(graph, bins, dist, nearestBin);
+
+    cout << "Chosen dustbin locations (nodes): ";
+    for (int b : bins) cout << b << " ";
+    cout << "\n\n";
+
+    cout << "Locality -> nearest bin (and distance):\n";
+    for (int node = 0; node < N; ++node) {
+        cout << "  Locality " << node
+             << " -> Bin at node " << nearestBin[node]
+             << " (distance " << fixed << setprecision(2)
+             << dist[node] << ")\n";
+    }
+
+    return 0;
+}`
   },
   {
     id: 'p5',
@@ -572,7 +1274,185 @@ Why these fit: Kruskal + DSU yields a minimum total pipe length (reduces materia
       'SDG 7 – Affordable and Clean Energy',
       'SDG 9 – Industry, Innovation and Infrastructure'
     ],
-    codeSnippet: ``
+    codeSnippet: `#include <bits/stdc++.h>
+using namespace std;
+
+/* -------------------- Data structures -------------------- */
+
+struct Node {
+    int id;
+    double x, y; // coordinates (or could be replaced by actual road node ids)
+};
+
+struct Edge {
+    int u, v;
+    double w; // weight (distance)
+};
+
+// For adjacency list (MST)
+struct AdjEdge {
+    int to;
+    double w;
+};
+
+/* -------------------- Merge Sort for edges -------------------- */
+
+void mergeEdges(vector<Edge>& a, int L, int M, int R) {
+    int n1 = M - L + 1;
+    int n2 = R - M;
+    vector<Edge> left(n1), right(n2);
+    for (int i = 0; i < n1; ++i) left[i] = a[L + i];
+    for (int j = 0; j < n2; ++j) right[j] = a[M + 1 + j];
+    int i = 0, j = 0, k = L;
+    while (i < n1 && j < n2) {
+        if (left[i].w <= right[j].w) a[k++] = left[i++];
+        else a[k++] = right[j++];
+    }
+    while (i < n1) a[k++] = left[i++];
+    while (j < n2) a[k++] = right[j++];
+}
+
+void mergeSortEdges(vector<Edge>& a, int L, int R) {
+    if (L >= R) return;
+    int M = L + (R - L) / 2;
+    mergeSortEdges(a, L, M);
+    mergeSortEdges(a, M+1, R);
+    mergeEdges(a, L, M, R);
+}
+
+/* -------------------- Union-Find (DSU) -------------------- */
+
+struct DSU {
+    int n;
+    vector<int> parent, rankv;
+    DSU(int n=0): n(n), parent(n), rankv(n,0) {
+        for (int i=0;i<n;++i) parent[i]=i;
+    }
+    int find(int x) {
+        if (parent[x]==x) return x;
+        return parent[x]=find(parent[x]);
+    }
+    bool unite(int a,int b) {
+        a=find(a); b=find(b);
+        if (a==b) return false;
+        if (rankv[a]<rankv[b]) swap(a,b);
+        parent[b]=a;
+        if (rankv[a]==rankv[b]) rankv[a]++;
+        return true;
+    }
+};
+
+/* -------------------- Dijkstra (priority queue) -------------------- */
+
+vector<double> dijkstraOnGraph(const vector<vector<AdjEdge>>& adj, int src) {
+    int n = adj.size();
+    const double INF = numeric_limits<double>::infinity();
+    vector<double> dist(n, INF);
+    using P = pair<double,int>;
+    priority_queue<P, vector<P>, greater<P>> pq;
+    dist[src]=0.0; pq.push({0.0, src});
+    while(!pq.empty()){
+        auto [d,u]=pq.top(); pq.pop();
+        if (d>dist[u]) continue;
+        for (auto &e: adj[u]){
+            int v=e.to; double nd = d + e.w;
+            if (nd < dist[v]) { dist[v]=nd; pq.push({nd,v}); }
+        }
+    }
+    return dist;
+}
+
+/* -------------------- Utility: euclidean distance -------------------- */
+
+double euclid(const Node& a, const Node& b) {
+    double dx = a.x - b.x;
+    double dy = a.y - b.y;
+    return sqrt(dx*dx + dy*dy);
+}
+
+/* -------------------- Main: build MST and analyze -------------------- */
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    // Sample input: nodes (0 is gas source)
+    // Replace or extend nodes with real coordinates or actual road node ids.
+    vector<Node> nodes = {
+        {0, 0.0, 0.0},   // Gas source at origin
+        {1, 2.3, 1.1},
+        {2, 4.0, -0.5},
+        {3, -1.2, 3.0},
+        {4, 3.5, 3.2},
+        {5, -2.0, -1.5},
+        {6, 1.0, -3.0}
+    };
+
+    int N = nodes.size();
+
+    // 1) Build candidate edges (here complete graph with Euclidean weights).
+    // For larger real maps, you would only add feasible road edges with given distances.
+    vector<Edge> edges;
+    for (int i=0;i<N;++i){
+        for (int j=i+1;j<N;++j){
+            double w = euclid(nodes[i], nodes[j]);
+            edges.push_back({i,j,w});
+        }
+    }
+
+    // 2) Sort edges by weight using Merge Sort
+    mergeSortEdges(edges, 0, (int)edges.size()-1);
+
+    // 3) Kruskal's MST
+    DSU dsu(N);
+    vector<Edge> mstEdges;
+    double totalLength = 0.0;
+    for (const auto &e : edges) {
+        if (dsu.unite(e.u, e.v)) {
+            mstEdges.push_back(e);
+            totalLength += e.w;
+            if ((int)mstEdges.size() == N-1) break;
+        }
+    }
+
+    // 4) Build adjacency list for MST
+    vector<vector<AdjEdge>> mstAdj(N);
+    for (const auto &e : mstEdges) {
+        mstAdj[e.u].push_back({e.v, e.w});
+        mstAdj[e.v].push_back({e.u, e.w});
+    }
+
+    // 5) Dijkstra from gas source (node 0) on MST to compute distances (proxy for pressure drop)
+    vector<double> dist = dijkstraOnGraph(mstAdj, 0);
+
+    // 6) Output results
+    cout << fixed << setprecision(3);
+    cout << "MST edges (pipelines to lay):\n";
+    for (const auto &e : mstEdges) {
+        cout << "  " << e.u << " -- " << e.v << "  (length = " << e.w << ")\n";
+    }
+    cout << "\nTotal pipeline length (MST): " << totalLength << "\n\n";
+
+    cout << "Distance from source (node 0) to each node along MST:\n";
+    double maxd = 0.0; int idxMax = -1;
+    for (int i=0;i<N;++i) {
+        cout << "  Node " << i << " : " << dist[i] << "\n";
+        if (dist[i] > maxd) { maxd = dist[i]; idxMax = i; }
+    }
+    cout << "\nMaximum delivery distance from source = " << maxd
+         << " (node " << idxMax << ")\n";
+
+    // 7) Simple suggestion logic (threshold): if maxd too large, flag for pressure booster
+    double threshold = 6.0; // example threshold in same units as distance
+    if (maxd > threshold) {
+        cout << "\nNote: maximum distance exceeds threshold (" << threshold << ").\n";
+        cout << "Consider adding a booster station or re-evaluating pipeline placement.\n";
+    } else {
+        cout << "\nNetwork distances are within acceptable threshold.\n";
+    }
+
+    return 0;
+}`
   },
   {
     id: 'p6',
@@ -597,7 +1477,127 @@ Why these fit: Dijkstra yields realistic driving time inside the premises; hash 
       'SDG 9 – Industry, Innovation, and Infrastructure ',
       'SDG 11 – Sustainable Cities and Communities'
     ],
-    codeSnippet: ``
+    codeSnippet: `#include <bits/stdc++.h>
+using namespace std;
+
+struct Edge { int to; double w; };
+struct AssignResult { int slotNode; double dist; };
+
+// Dijkstra from source, returns distances vector
+vector<double> dijkstra(const vector<vector<Edge>>& g, int src) {
+    int n = g.size();
+    const double INF = numeric_limits<double>::infinity();
+    vector<double> dist(n, INF);
+    using P = pair<double,int>;
+    priority_queue<P, vector<P>, greater<P>> pq;
+    dist[src] = 0.0; pq.push({0.0, src});
+    while (!pq.empty()) {
+        auto [d,u] = pq.top(); pq.pop();
+        if (d > dist[u]) continue;
+        for (auto &e : g[u]) {
+            int v = e.to; double nd = d + e.w;
+            if (nd < dist[v]) { dist[v] = nd; pq.push({nd, v}); }
+        }
+    }
+    return dist;
+}
+
+// Find nearest free slot node given entry node.
+// slots = list of slot nodes; occupancy maps node -> bool (true if occupied)
+AssignResult assignNearestSlot(const vector<vector<Edge>>& graph,
+                               int entryNode,
+                               const vector<int>& slots,
+                               const unordered_map<int,bool>& occupied)
+{
+    AssignResult res = {-1, 1e18};
+    vector<double> dist = dijkstra(graph, entryNode);
+
+    // Option A (simple): scan all slots and pick nearest free
+    for (int slotNode : slots) {
+        auto it = occupied.find(slotNode);
+        bool isOcc = (it != occupied.end() ? it->second : false);
+        if (!isOcc && dist[slotNode] < res.dist) {
+            res.slotNode = slotNode;
+            res.dist = dist[slotNode];
+        }
+    }
+    return res;
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    // --- Build sample graph ---
+    // Nodes 0..9 (example)
+    int N = 10;
+    vector<vector<Edge>> graph(N);
+    auto addEdge = [&](int u, int v, double w) {
+        graph[u].push_back({v, w});
+        graph[v].push_back({u, w});
+    };
+
+    // sample connections (bidirectional small campus)
+    addEdge(0,1,2.0); addEdge(1,2,1.5); addEdge(2,3,2.2);
+    addEdge(1,4,2.5); addEdge(4,5,1.0); addEdge(5,6,2.0);
+    addEdge(2,7,3.0); addEdge(7,8,1.2); addEdge(8,9,2.3);
+    addEdge(3,9,1.8);
+
+    // --- Define parking slot nodes and entries ---
+    vector<int> slots = {2, 4, 6, 8};   // nodes that are parking slots
+    vector<int> entries = {0, 5};       // possible vehicle entry nodes
+
+    // occupancy map: node -> occupied?
+    unordered_map<int,bool> occupied;
+    for (int s : slots) occupied[s] = false; // all free initially
+
+    // Simulate arrivals
+    cout << "Simulating arrivals:\n";
+
+    vector<pair<int,string>> arrivals = {
+        {0,"Car-A"}, {5,"Car-B"}, {0,"Car-C"}, {5,"Car-D"}, {0,"Car-E"}
+    };
+
+    // Map to remember which car in which slot (for releases)
+    unordered_map<string,int> carToSlot;
+
+    for (auto &p : arrivals) {
+        int entry = p.first;
+        string car = p.second;
+        AssignResult a = assignNearestSlot(graph, entry, slots, occupied);
+        if (a.slotNode == -1) {
+            cout << car << " arrived at entry " << entry << " -> NO FREE SLOT\n";
+        } else {
+            cout << car << " arrived at entry " << entry
+                 << " -> assigned slot node " << a.slotNode
+                 << " at dist " << fixed << setprecision(2) << a.dist << "\n";
+            occupied[a.slotNode] = true;
+            carToSlot[car] = a.slotNode;
+        }
+    }
+
+    // Simulate some departures
+    cout << "\nSimulating departures:\n";
+    vector<string> departures = {"Car-B", "Car-A"};
+    for (auto &car : departures) {
+        if (carToSlot.find(car) == carToSlot.end()) {
+            cout << car << " not found\n";
+            continue;
+        }
+        int slotNode = carToSlot[car];
+        occupied[slotNode] = false;   // free it
+        carToSlot.erase(car);
+        cout << car << " left, freed slot node " << slotNode << "\n";
+    }
+
+    // New arrival after frees
+    cout << "\nNew arrival after frees:\n";
+    AssignResult a = assignNearestSlot(graph, 0, slots, occupied);
+    if (a.slotNode == -1) cout << "No free slot\n";
+    else cout << "NewCar assigned slot " << a.slotNode << " at dist " << a.dist << "\n";
+
+    return 0;
+}`
   },
   {
     id: 'p7',
