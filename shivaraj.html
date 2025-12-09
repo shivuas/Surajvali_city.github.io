@@ -532,75 +532,77 @@ function bfs(graph, source){ /* ... */ }
       'SDG 9 – Industry, Innovation and Infrastructure',
       'SDG 11 – Sustainable Cities and Communities'
     ],
-    codeSnippet: `// Kruskals algorithm:
+    codeSnippet: `// KRUSKAL's algorithm:
+    
     struct Edge {
     int u, v, w;
-};
+    };
 
-int parent[1000], rnk[1000];
+    int parent[1000], rnk[1000];
 
-void makeSet(int n) {
-    for (int i = 0; i < n; i++) {
-        parent[i] = i;
-        rnk[i] = 0;
+    void makeSet(int n) {
+        for (int i = 0; i < n; i++) {
+            parent[i] = i;
+            rnk[i] = 0;
+        }
     }
-}
 
-int findSet(int x) {
-    if (parent[x] != x)
-        parent[x] = findSet(parent[x]);
-    return parent[x];
-}
+    int findSet(int x) {
+        if (parent[x] != x)
+            parent[x] = findSet(parent[x]);
+        return parent[x];
+    }
+    
+    bool unionSet(int a, int b) {
+        a = findSet(a);
+        b = findSet(b);
+        if (a == b) return false;
+    
+        if (rnk[a] < rnk[b]) swap(a, b);
+        parent[b] = a;
+        if (rnk[a] == rnk[b]) rnk[a]++;
+        return true;
+    }
 
-bool unionSet(int a, int b) {
-    a = findSet(a);
-    b = findSet(b);
-    if (a == b) return false;
-
-    if (rnk[a] < rnk[b]) swap(a, b);
-    parent[b] = a;
-    if (rnk[a] == rnk[b]) rnk[a]++;
-    return true;
-}
-
-// edges[] → input
-// mst[] → output MST edges
-int kruskal(int n, Edge edges[], int m, Edge mst[]) {
-    // Simple bubble sort (since no vector or STL)
-    for (int i = 0; i < m; i++) {
-        for (int j = i + 1; j < m; j++) {
-            if (edges[j].w < edges[i].w) {
-                Edge temp = edges[i];
-                edges[i] = edges[j];
-                edges[j] = temp;
+    // edges[] → input
+    // mst[] → output MST edges
+    int kruskal(int n, Edge edges[], int m, Edge mst[]) {
+        // Simple bubble sort (since no vector or STL)
+        for (int i = 0; i < m; i++) {
+            for (int j = i + 1; j < m; j++) {
+                if (edges[j].w < edges[i].w) {
+                    Edge temp = edges[i];
+                    edges[i] = edges[j];
+                    edges[j] = temp;
+                }
             }
         }
-    }
 
-    makeSet(n);
-    int mstCount = 0;
-
-    for (int i = 0; i < m; i++) {
-        if (unionSet(edges[i].u, edges[i].v)) {
-            mst[mstCount++] = edges[i];
+        makeSet(n);
+        int mstCount = 0;
+    
+        for (int i = 0; i < m; i++) {
+            if (unionSet(edges[i].u, edges[i].v)) {
+                mst[mstCount++] = edges[i];
+            }
         }
+    
+        return mstCount; // how many edges added
     }
-
-    return mstCount; // how many edges added
-}
 
 
 
 DFS Algorithm:
-void dfs(int node, int n, int adj[100][100], int visited[]) {
-    visited[node] = 1;
 
-    for (int j = 0; j < n; j++) {
-        if (adj[node][j] == 1 && !visited[j]) {
-            dfs(j, n, adj, visited);
-        }
-    }
-}
+  void dfs(int node, int n, int adj[100][100], int visited[]) {
+      visited[node] = 1;
+  
+      for (int j = 0; j < n; j++) {
+          if (adj[node][j] == 1 && !visited[j]) {
+              dfs(j, n, adj, visited);
+          }
+      }
+  }
 
 `
   },
