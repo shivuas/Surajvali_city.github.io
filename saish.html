@@ -8,12 +8,16 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #041025;
-      --panel: #071428;
-      --muted: #98a6b8;
+      /* LIGHT THEME VARIABLES */
+      --bg: #f8fafc;
+      --panel: #ffffff;
+      --muted: #64748b; /* Slate 500 */
       --accent: #7c3aed;
       --accent2: #06b6d4;
-      --card-border: rgba(255, 255, 255, 0.04);
+      --card-border: #e2e8f0; /* Slate 200 */
+      --text-main: #0f172a; /* Slate 900 */
+      --text-secondary: #334155; /* Slate 700 */
+      --block-bg: #f1f5f9; /* Slate 100 */
     }
 
     * {
@@ -25,8 +29,9 @@
     body {
       height: 100%;
       margin: 0;
-      background: linear-gradient(180deg, #021021 0%, #041025 100%);
-      color: #eaf2ff
+      /* Light gradient background */
+      background: linear-gradient(180deg, #f1f5f9 0%, #ffffff 100%);
+      color: var(--text-secondary);
     }
 
     .app {
@@ -39,10 +44,12 @@
     }
 
     .sidebar {
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.01), rgba(255, 255, 255, 0.01));
+      background: #ffffff;
       border-radius: 12px;
       padding: 18px;
+      margin: 15px 0px 0px 0px;
       border: 1px solid var(--card-border);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
     }
 
     .home {
@@ -50,44 +57,39 @@
       min-height: 40px;
       position: absolute;
       top: 10px;
-
-      /* keep it aligned to the sidebar on large screens,
-     but never go left of the sidebar padding on small screens */
       left: max(18px, calc((100vw - 1200px) / 2 + 18px));
       font-size: 18px;
       padding: 6px 3px 3px 7px;
       background: linear-gradient(135deg, var(--accent), var(--accent2));
       border-radius: 10px;
-      margin: 0px 0px 0px 10px;
-      border: 3px #061c42 solid;
-      color: black;
+      margin: 0px 0px 0px 0px;
+      border: 3px #ffffff solid; /* White border to pop against light bg */
+      color: white;
       font-weight: 700;
       z-index: 1200;
-      /* make sure it sits above other content */
       display: block;
-      box-shadow: 0 6px 18px rgba(2, 8, 20, 0.6);
+      box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
     }
-
-
-
 
     .brand {
       display: flex;
       gap: 12px;
       align-items: center;
-      margin-bottom: 12px
+      margin-bottom: 12px;
+      color: var(--text-main);
     }
 
     .logo {
       width: 44px;
       height: 44px;
       border-radius: 10px;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      background: linear-gradient(135deg, rgb(211, 99, 200), rgb(82, 79, 219));
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: 700;
-      color: #021
+      color: #fff;
+      padding: 0px 7px 0px 7px;
     }
 
     .muted {
@@ -108,20 +110,30 @@
     .navitem {
       padding: 10px;
       border-radius: 10px;
-      background: rgba(255, 255, 255, 0.015);
+      background: #edf5f8;
       cursor: pointer;
-      border: 1px solid rgba(255, 255, 255, 0.02)
+      border: 1px solid transparent;
+      color: var(--text-secondary);
+      transition: background 0.2s;
     }
 
-    .navitem.active {
-      background: linear-gradient(90deg, rgba(124, 58, 237, 0.18), rgba(6, 182, 212, 0.12));
-      border-color: rgba(255, 255, 255, 0.06);
+    
 
+    .navitem.active {
+      /* Subtle purple/blue tint for active state */
+      background: linear-gradient(90deg, rgba(105, 236, 142, 0.58), rgba(56, 205, 231, 0.58));
+      border-color: rgba(35, 55, 154, 0.9);
+      color: var(--text-main);
     }
 
     .navitem h4 {
       margin: 0 0 6px 0;
-      font-size: 14px
+      font-size: 14px;
+      color: var(--text-main);
+    }
+
+    .sidebar .brand {
+      font-size: 25px;
     }
 
     .navitem p {
@@ -133,10 +145,12 @@
     .detail {
       padding: 24px;
       border-radius: 12px;
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.01), rgba(255, 255, 255, 0.01));
+      background: #ffffff;
       border: 1px solid var(--card-border);
       min-height: 72vh;
-      overflow: auto
+      overflow: auto;
+      margin: 15px 0px 0px 0px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
     }
 
     .top {
@@ -147,49 +161,53 @@
 
     .title h1 {
       margin: 0;
-      font-size: 22px
+      font-size: 22px;
+      color: var(--text-main);
     }
 
     .badge {
       padding: 6px 10px;
       border-radius: 10px;
-      background: rgba(255, 255, 255, 0.02);
+      background: #f1f5f9;
       color: var(--muted);
       font-weight: 700;
-      border: 1px solid rgba(255, 255, 255, 0.03)
+      border: 1px solid #e2e8f0;
     }
 
     .hero {
       width: 100%;
-      height: 260px;
+      height: 300px;
       margin-top: 14px;
       border-radius: 10px;
       overflow: hidden;
-      background: linear-gradient(90deg, #081827, #0b1f2f);
+      /* Lighter gradient for hero background */
+      background: linear-gradient(90deg, #e0e7ff, #dbeafe);
       display: flex;
       align-items: center;
       justify-content: center;
-      background:transparent;
+      border: 1px solid var(--card-border);
     }
 
-    .hero .images{
-      width: 100%;
-      height: 100%;
-      object-fit:contain;
+    .hero .images {
+      width: 80%;
+      height: 300px;
+      object-fit: contain;
+      padding: 0px 5px 0px 10px;
+      mix-blend-mode: multiply; /* Helps images blend better on light bg */
+    }
 
-      }
     .hero img {
       width: 100%;
       height: 100%;
-      object-fit: cover
+      object-fit: contain;
     }
 
     .block {
       margin-top: 14px;
       padding: 14px;
       border-radius: 10px;
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid rgba(255, 255, 255, 0.03)
+      background: var(--block-bg);
+      border: 1px solid var(--card-border);
     }
 
     .algos {
@@ -202,10 +220,11 @@
     .algo {
       padding: 8px 10px;
       border-radius: 8px;
-      background: linear-gradient(90deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
-      border: 1px solid rgba(255, 255, 255, 0.03);
-      color: var(--muted);
-      font-weight: 700
+      background: rgb(192, 224, 237);
+      border: 1px solid #cbd5e1;
+      color: var(--text-secondary);
+      font-weight: 700;
+      font-size: 0.9em;
     }
 
     .actions {
@@ -215,36 +234,147 @@
     }
 
     .btn {
-      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      background: linear-gradient(90deg, rgb(66, 186, 188), rgb(68, 102, 227));
       padding: 8px 12px;
       border-radius: 10px;
       border: none;
-      color: #021;
+      color: #fff;
       font-weight: 700;
       cursor: pointer;
       transition: border-radius 0.4s ease, transform 0.4s ease;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
+
     .btn:hover {
       transform: translateY(-4px) scale(1.01);
-    box-shadow: 0 1px 4px rgba(148, 163, 184, 0.5);
-    border-color: rgba(59, 130, 246, 0.4);
+      box-shadow: 0 4px 12px rgba(68, 102, 227, 0.3);
     }
+
     .ghost {
       background: transparent;
-      border: 1px solid rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--card-border);
       padding: 8px 10px;
       border-radius: 8px;
       color: var(--muted);
       cursor: pointer
     }
 
+    .modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.45); /* dark overlay */
+  display: none;                      /* hidden by default */
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.modal {
+  background: #020617;                /* very dark panel */
+  color: #e2e8f0;
+  border-radius: 12px;
+  max-width: 850px;
+  width: min(90vw, 850px);
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 24px 48px rgba(15, 23, 42, 0.7);
+  border: 1px solid #1e293b;
+  overflow: hidden;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-bottom: 1px solid #1e293b;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.modal-title {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.modal-title span.zone {
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #0f172a;
+  font-size: 11px;
+  color: #38bdf8;
+}
+
+.modal-close {
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  font-size: 20px;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.modal-close:hover {
+  color: #e2e8f0;
+}
+
+/* reuse your existing dark code style, but allow scrolling */
+#codeModalContent {
+  margin: 0;
+  max-height: 60vh;
+  overflow: auto;
+}
+
+    /* Code blocks kept dark for contrast/developer feel */
     pre.code {
-      background: #071827;
+      background: #1e293b;
       padding: 12px;
       border-radius: 8px;
       overflow: auto;
-      color: #cfeffd;
+      color: #e2e8f0;
       margin: 0
+    }
+
+    .solutions {
+      color: black; /* Darker blue for readability on white */
+      font-size: 18px;
+      font-weight: 500;
+      white-space: pre-line;
+    }
+
+    .headlines {
+      font-size: 25px;
+      color: var(--text-main);
+    }
+    .sdg-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.sdg-pill {
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: #daf0f3;            /* light green */
+  border: 1px solid #bbf7d0;       /* soft green border */
+  font-size: 13px;
+  color: #8486e5;                  /* dark green text */
+  font-weight: 600;
+}
+
+
+    .metadata {
+      color: #0ea5e9; /* Sky blue */
+      opacity: 1;
+      background: #e0f2fe; /* Light sky background */
+      border-radius: 5px;
+      min-height: 25px;
+      padding: 5px 0px 5px 10px;
+      font-weight: 600;
+      border:1px solid #82bcdc;
     }
 
     @media (max-width:800px) {
@@ -256,9 +386,9 @@
       .hero {
         height: 400px;
       }
-      
 
-      @media (max-width: 800px) {
+
+      @media (max-width: 700px) {
         .home {
           left: 18px;
           /* same padding as .app */
@@ -282,21 +412,34 @@
       <div class="brand">
         <div class="logo">CP</div>
         <div>
-          <div style="font-weight:700">City — Problems </div>
-          <div class="muted">Problems related to Salt farming and residential area</div>
+          <div style="font-weight:700">City — Problems (Sample)</div>
+          <div class="muted">10 pages — editable HTML</div>
         </div>
       </div>
 
-      <div class="muted" style="margin-bottom:8px">Click any problem to open its detail page.</div>
+      <div class="muted" style="margin-bottom:8px">Click any problem to open its detail page. Edit the HTML to change
+        content or replace images.</div>
 
       <div class="list" id="nav">
-        <!-- nav items inserted by JS -->
-      </div>
+        </div>
     </aside>
+      <!-- Code modal -->
+  <div id="codeModal" class="modal-backdrop">
+    <div class="modal" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <div class="modal-title">
+          <span id="codeModalTitle"></span>
+          <span class="zone" id="codeModalZone"></span>
+        </div>
+        <button class="modal-close" onclick="closeCodeModal()">&times;</button>
+      </div>
+      <pre class="code" id="codeModalContent"></pre>
+    </div>
+  </div>
+
 
     <main class="detail" id="detail">
-      <!-- detail content injected here -->
-    </main>
+      </main>
   </div>
 
   <script>
@@ -305,120 +448,196 @@
       Each page has: id, zone, title, photo (data URL or external URL), problem, solution, algos (array), codeSnippet (optional)
     */
     const pages = [
-      {
-        id: 'p1',
-        zone: 'Salt Field',
-        title: 'Weather Impact Prediction for Salt Farming',
-        photo: './saish/Rabin-Karp.jpg',
-        phototitle:'Rabin-Karp',
-        problem: `Salt farmers in coastal regions face sudden weather changes like cyclones and heavy rain that can damage large portions of their salt pans. Although general weather forecasts exist, farmers do not get precise, farm-level information about which pans are at risk and how much total area may be affected if no preventive action is taken. This uncertainty leads to poor decisions, unnecessary work, or large losses when storms hit unexpectedly. There is a need for a system that can detect dangerous weather patterns early and estimate the affected pan area clearly and quickly.`,
-        solution: `The system continuously reads sensor data (like pressure or wind speed) and uses a pattern-matching algorithm to detect dangerous weather signatures. When a risk is detected, it checks which salt pans lie within a given storm radius and then uses a graph model of neighboring pans to propagate risk to connected pans that may also be impacted. Finally, it ranks all affected pans based on area so that farmers know which pans are most critical and computes the total affected area. The output is a simple report: which pans are affected and how much area will be damaged if no action is taken.`,
-        algos: ['Rabin-Karp Algorithm', 'Tree-based Spatial Index(QuadTree)','Graph Algorithms (BFS)','Lookup table','Arrays'],
-        codeSnippet: `// After removing blocked edge, test connectivity via BFS\nfunction bfs(graph, source){ /* ... */ }\n// Run Dijkstra for best pressure-loss path`
-      },
-      {
-        id: 'p2',
-        zone: 'Salt Godown',
-        title: 'Moisture-Safe Storage Planning.' ,
-        photo: './shivaraj/Dijkstra.jpg',
-        phototitle:'Dijkstra Algorithm',
-        problem: `After harvesting, salt heaps are left in the open and gradually absorb moisture from the air, which reduces their quality and value. Farmers have multiple heaps produced at different times and a limited number of salt godowns at different distances. Without a systematic way to check how long each heap can safely remain exposed and which godown can be reached fastest or at the lowest travel cost, farmers often move heaps too late or to inefficient locations. This leads to avoidable quality loss and higher operational costs.`,
-
-        solution: `The system records, for each salt heap, when it was produced and how long it can remain safely in the open before moisture damage begins. It computes the remaining safe time for every heap and ranks them by urgency. The farm and road layout, including heaps and godowns, is represented as a weighted graph, where edge weights denote realistic travel time or cost. Using Dijkstra’s algorithm, the system finds the shortest travel time from the farmer’s location (or heap location) to each salt godown. Finally, it sorts heaps and suggests for each heap the best godown to move to, prioritizing heaps with less safe time and godowns reachable with minimal travel time or cost.`,
-        algos: ["Dijkstra's algorithm",'Heap','Merge Sort'],
-        codeSnippet: `// Simulate arrival as BFS layers; find nodes with high visit counts -> bottlenecks`
-      },
-      {
-        id: 'p3',
-        zone: 'Residency area',
-        title: 'Home Service Finder',
-        photo: '',
-        phototitle:'',
-        problem: `Residents in a city often face sudden household issues like plumbing leaks or electrical faults and need technicians quickly. However, they struggle to know who is available, what each technician charges, and how long it will actually take them to reach the house using real roads, not just straight-line distance. Without a system that considers both realistic travel time and service price, residents may overpay, wait too long, or fail to choose the best technician for their needs.`,
-        solution: `The system takes the user’s location and problem type (plumber, electrician, etc.), finds all workers who can handle that service, and models the city as a weighted graph where nodes are areas/junctions and edges are roads with travel time or cost. It uses Dijkstra’s algorithm to compute the shortest travel time from the user’s node to each worker’s node. Then it applies a custom Merge Sort to order workers primarily by their service price and secondarily by their travel time so that cheaper and faster options appear first. The app presents this ranked list to the user, who can then choose a worker (even a farther but cheaper one) and later confirm after seeing the worker’s stated travel cost.`,
-        algos: ['Array list','Graph','Dijkstra','Heap(priority queue)','Merge sort'],
-        codeSnippet: `// Model floors as tree; compute path 'cost' to each floor; identify long paths.`
-      },
-      {
-        id: 'p4',
-        zone: 'Residential area',
-        title: 'Waste Management',
-        photo: './shivaraj/Graph.webp',
-        phototitle:'Greedy Algorithm',
-        problem: `In many residential areas, there is only one or very few garbage collection points, which are far for some localities. People living far away often dump waste on streets or open spaces instead of walking a long distance to the bin. This creates hygiene issues and pollution. The aim is to place 4–5 dustbins at different locations in such a way that each locality has at least one nearby dustbin, instead of only one central bin, and later these bins can also be collected efficiently by the garbage truck.`,
-        solution: `We model the residential area as a graph, where junctions or localities are nodes and roads between them are edges with distance or time as weights. We decide to place K = 4 or 5 dustbins. First, we select one initial dustbin location (for example, a central or important locality). Then we repeatedly do the following: we run multi-source shortest path from all currently chosen dustbin nodes to find, for every locality, the distance to its nearest dustbin. We then find the locality that is farthest from any existing dustbin and place the next dustbin there. We repeat this until we have 4–5 dustbins. This greedy method spreads the dustbins across the area so that no locality is too far from a bin, and each locality naturally gets a nearest dustbin that serves it.`,
-        algos: ['Arrays','Graph as Adjancency List','Dijkstra','Greedy Algorithm'],
-        codeSnippet: `// Compare shortest 'official' vs 'actual' path lengths; if ratio > threshold add new edge.`
-      },
-      {
-        id: 'p5',
-        zone: 'Residential Area',
-        title: 'Gas Pipeline Layout Optimization',
-        photo: './shivaraj/Kruskal.png',
-        phototitle:'Kruskal Algorithm',
-        problem: `In many residential areas, gas pipelines are not planned in an efficient manner. Because of this, the total pipe length becomes very high, which increases the construction cost and also creates more chances of leakage. Homes that are far from the gas source face low gas pressure, and maintenance also becomes difficult as the network becomes too complicated. If the gas line is not constructed optimally, it leads to high expenses, safety issues, and poor gas supply to some houses. So, there is a need for a proper method to connect all houses using the minimum possible pipeline length while still ensuring that every home gets reliable gas supply.`,
-        solution: `To solve this issue, we can model the entire residential area as a graph where each house and main gas outlet is treated as a node, and possible pipeline routes between them are edges with distances. Using this graph, we apply Kruskal’s Minimum Spanning Tree algorithm to select only those pipeline connections that give the minimum total pipe length while still connecting every home. After constructing this optimized network, we use Dijkstra’s algorithm to measure the actual distance from the gas source to each house, which helps us identify if any home is too far and may face pressure issues. This approach ensures the gas line is laid out in a cost-effective, safe, and efficient way while reducing maintenance problems in the future.`,
-        algos: ['Arrays', 'Graph','Merge sort','union Find','Kruskal','Dijkstra'],
-        codeSnippet: ` 
-<a href="./saish/p5.cpp" target="_blank">Open p5.cpp</a>
-`
-      },
-      {
-        id: 'p6',
-        zone: 'Residential Area',
-        title: 'Optimized Parking Allocation in Residential Areas',
-        photo: '',
-        phototitle:'BFS (Graph Algorithm)',
-        problem: `In many residential buildings and apartment complexes parking is chaotic. Vehicles arrive from different entry points but parking bays are limited and not tracked properly. Residents and visitors waste time searching for free slots, sometimes park in wrong places, and security can’t quickly tell which slots are free. This causes congestion inside the premises and general inconvenience. We need a system that allocates the nearest available parking slot to each incoming vehicle, keeps an updated map of occupied/free slots, and supports release (when a car leaves) — all while minimising driving time inside the complex. `,
-        solution: `Model the building roads/lanes as a weighted graph (nodes = junctions / slot locations / entries, edges = short travel times). Mark specific nodes as parking slots. When a vehicle arrives at an entry node, run Dijkstra from that entry to get shortest travel times to all nodes, then pick the nearest node that currently has a free slot. Maintain a hash/map of slot occupancy to allow O(1) checks and updates when cars arrive or depart. For listing or reporting (e.g., show top-k nearest free slots), use a min-heap (priority queue) or sort when needed. This approach gives a fast, realistic nearest-slot allocation and clean tracking for releases.`,
-        algos: ['Adjacency list','Hash Table','Min heap','Dijkstra Algo','Arrays'],
-        codeSnippet: `// Find nearest free slot via BFS on lane graph; compute driving path by Dijkstra.`
-      },
-      {
-        id: 'p7',
-        zone: 'IT Park',
-        title: 'EV chargers at northwest corner are overcrowded',
-        photo: '',
-        phototitle:'',
-        problem: `Several chargers are clustered causing long waiting times while other chargers remain unused.`,
-        solution: `Rebalance charger locations by clustering parking demand and add a reservation token system.`,
-        algos: ['Graph clustering', 'Sorting'],
-        codeSnippet: `// Cluster parking nodes by demand, rank candidate charger sites by distance`
-      },
-      {
-        id: 'p8',
-        zone: 'IT Park',
-        title: 'Garbage trucks follow inefficient pickup routes',
-        photo: '',
-        phototitle:'',
-        problem: `The daily cleaner route is long and doubles back multiple times, increasing fuel and time.`,
-        solution: `Recompute an efficient route that connects all bins using shortest-path distances and a greedy tour heuristic.`,
-        algos: ['Dijkstra', 'Sorting (greedy TSP approx)'],
-        codeSnippet: `// Build pairwise shortest distances (Dijkstra), then run greedy traversal to approximate route`
-      },
-      {
-        id: 'p9',
-        zone: 'IT Park',
-        title: 'One pipe burst disconnects a whole block of offices',
-        photo: '',
-        phototitle:'',
-        problem: `A single failure in the feed line causes many offices to lose water (single point-of-failure).`,
-        solution: `Detect bridge edges in the network and add redundant loops; reorganize into ring topology where possible.`,
-        algos: ['Graph algorithms', 'Kruskal'],
-        codeSnippet: `// Run bridge-detection (DFS) and compute MST/Kruskal to plan rewiring`
-      },
-      {
-        id: 'p10',
-        zone: 'IT Park',
-        title: 'Food court stall queues form long lines and block walkway',
-        photo: '',
-        phototitle:'',
-        problem: `A popular stall leads to queuing that blocks the main walkway and creates congestion.`,
-        solution: `Redistribute stalls, increase service capacity, and introduce virtual token queuing (SMS/app).`,
-        algos: ['BFS (flow)', 'Sorting'],
-        codeSnippet: `// Simulate arrivals and queue growth using BFS layers; rank stalls by throughput`
-      }
-    ];
+  {
+    id: 'p1',
+    zone: 'School',
+    title: 'Going from one destination to another in large Campus',
+    photo: './shivaraj/Dijkstra.jpg',
+    phototitle: 'Dijkstra Algorithm',
+    problem: `In a complex school or universities, a parent who visits once in a while will face issue to walk across department building
+    , canteens, seminar halls, hostels, and other venues. There are situations where a parent want to visit a particular venue in a very short path and time
+    but there could bea situations where parent wants to visit certain venue with his child not in very short span of time, as he wants to spend time with child and also
+    want to visit the venue(in longest distance)`,
+    solution: `This particular problem can be solved using Dijkstra's algorithm for both shortest and longest path. Usually Dijkstra gives shortest path with condition -- dist[u]+cost[v][u] < dist[v] , 
+    this condtion can be use to find the shortest path between two point through different paths. But for the longest path one can change condition to --  dist[u]+cost[v][u] > dist[v], 
+    in Dijkstra's algorithm changing this condition along with min value will give the longest path
+    between two point through other paths.`,
+    algos: ['Dijkstra', 'Longest Dijkstra(modified Dijkstra)'],
+    sdgs: [
+      'SDG 4 – Quality Education',
+      'SDG 9 – Industry, Innovation and Infrastructure',
+      'SDG 11 – Sustainable Cities and Communities'
+    ],
+    codeSnippet: `// After removing blocked edge, test connectivity via BFS
+function bfs(graph, source){ /* ... */ }
+// Run Dijkstra for best pressure-loss path`
+  },
+  {
+    id: 'p2',
+    zone: 'School',
+    title: 'Wiring and adding fiber cable to whole campur efficiently.',
+    photo: './shivaraj/Kruskal.png',
+    phototitle: 'Kruskal Algorithm',
+    problem: `A large campus needs to be wired and have fiber cables for wifi, but without proper planning, the cost or weight of the cables can become very high and useless.
+    In here just using tree structure will be not efficient as it may lead to long cables and can cut the whole system if one edge gets disconnected.
+    Using Graph structure alone can be also inefficient as it also lead to long cables and high cost, but it can reduce the dependecy of one edge on othere node.`,
+    solution: `As seen in the problem part, using Graph alone is ineffiecient. So to solve this we can use Kruskal's along with Graph algorithms. 
+    The method here is first create a cheapest spanning tree using Kruskal's algorithm, then taking the edges which were neglected by kruskal's algorithm and adding them back in same order until all the nodes have atleast 1 edge connected to it. 
+    By this way we can reduce the weight of cables used overall and also reduce dependecy of one edge on other single edge.`,
+    algos: ["Kruskal's algorithm", 'Graph algorithms'],
+    sdgs: [
+      'SDG 9 – Industry, Innovation and Infrastructure',
+      'SDG 11 – Sustainable Cities and Communities'
+    ],
+    codeSnippet: `// Simulate arrival as BFS layers; find nodes with high visit counts -> bottlenecks`
+  },
+  {
+    id: 'p3',
+    zone: 'School',
+    title: 'Searching for particular topic on digital library provide by school',
+    photo: './shivaraj/KMP.png',
+    phototitle: 'Knuth-Morris-Pratt (KMP) Algorithm',
+    problem: `In this new era of technology, schools and universities are providing digital libraries for students to access books and research papers online.
+    However, in the digital book or research paper if a student want to search for particular keyword or topic then without prior knowledge of the topic it can be hard to find the topic or keyword in the book with a small font size
+    letters.`,
+    solution: `To solve this problem we have three method BFSS, Knuth-Morris-Pratt algorithm and Rabin karp algorithm. But only KMP is efficient among these three algorithms.
+    BFSS will search for each character one by one which is inefficient and have O(n) time complexity = N*M where N is the length of pattern and M is the length of text.
+    Rabin karp algorithm uses hashing technique and have to compute modulus which is not efficient for large book or library, but it can lead to collision and false match. and has time complexity O(n)= N*M.
+    The best among these three is KMP algorithm, this is different from BFSS as BFSS will transverse through each character one by one, KMP checks the first character and if it doesn't matches then it will shift by K-pi(K-1) places and check again.
+    It has time complexity O(n)=N always where N is the length of pattern.`,
+    algos: ['Knuth-Morris-Pratt (KMP)'],
+    sdgs: [
+      'SDG 4 – Quality Education',
+      'SDG 9 – Industry, Innovation and Infrastructure'
+    ],
+    codeSnippet: `// Model floors as tree; compute path 'cost' to each floor; identify long paths.`
+  },
+  {
+    id: 'p4',
+    zone: 'School',
+    title: 'Water from Syntax to every section of School or University without getting blocked',
+    photo: './shivaraj/Graph.webp',
+    phototitle: 'Graph Algorithm',
+    problem: `In general School or Universitites which are large and have water sytsem for drinking, washroom all connected from Top floor Syntax,
+    the problem is that single pipe burst or blockage in any section will disconnect the whole section from water supply causing inconvenience to students and staff.`,
+    solution: `The problem is caused because it the water sysetm is designed in tree structure, where if higher level node gets disrupted then all the child node gets disconnected. 
+    To solve this we can use Graph structure instead of tree structure, where a single corner or node is connected to more than one edge or pipe.
+    By this way if one edge or pipe get's blocked or burst, we can still run water through alternate pipes or edges.`,
+    algos: ['Graph algorithms'],
+    sdgs: [
+      'SDG 6 – Clean Water and Sanitation',
+      'SDG 9 – Industry, Innovation and Infrastructure',
+      'SDG 11 – Sustainable Cities and Communities'
+    ],
+    codeSnippet: `// Compare shortest 'official' vs 'actual' path lengths; if ratio > threshold add new edge.`
+  },
+  {
+    id: 'p5',
+    zone: 'School',
+    title: 'Finding shortest path to visit all bustop and return back to school',
+    photo: '',
+    phototitle: '',
+    problem: `For a large city or a huge population of students, dividing students bases on their location and assigning them to particular bus and
+    the bus should have to choose the shortest path to visit all the points and reach back to starting point (school/University).`,
+    solution: `This problem can be solved with different layer of solutions.
+    1. At first we divide locations into different regions, and assign a bus to each region.
+    2. Then for each region, we use Kruskal's algorithm to find min weight or cheapest route.
+    3. Then using DFS to traversing till we reach the end of depth and before coming back or back tracking, we apply Dijkstra algorithm
+    to check where the other child node of parent node is nearer to current node instead of back tracking to parent node.
+    If the direct length is less than back tracking length then we go directly to child node instead of back tracking to parent node.
+    4. When we visit all nodes then again using Dijkstra to reach back to starting point (school/University).`,
+    algos: ['DFS(Graph)', 'Dijkstra', 'Kruskal'],
+    sdgs: [
+      'SDG 11 – Sustainable Cities and Communities',
+      'SDG 13 – Climate Action'
+    ],
+    codeSnippet: `// Multi-key sort: category, author, year
+books.sort((a,b)=> /* compare category, then author, then year */ );`
+  },
+  {
+    id: 'p6',
+    zone: 'IT Hub',
+    title: 'Implementing smart emergency exit in building complex from any floor',
+    photo: './shivaraj/bfs.jpg',
+    phototitle: 'BFS (Graph Algorithm)',
+    problem: `The IT buildings are large and mainly have high electrical equipment, in case of emergency like fire or earthquake, people from higher floors find it hard to exit quickly
+    as they have to do down multiple floors and then exit through main door which could be crowded and could have been on fire or blocked.
+    This can lead to casualties and injuries.  `,
+    solution: `To solve this problem we can use Graph algorithm for multiple exits and BFS for finding nearest exit from any floor.
+    Why BFS over DFS? Let's imagine a situation where fire broke out on floor 5 and there are emergencies exits on floor 3, 6, 15, and people are on floor - 12
+    if a smart device uses DFS it may suggest exit from floor 6 as it search in depth first manner, but in the given case the nearest emergency exit at floor 15, but if the device uses BFS
+    it will suggest exit from floor 15 as it search in Layer by layer manner. Hence BFS if better solution for this problem.`,
+    algos: ['BFS'],
+    sdgs: [
+      'SDG 3 – Good Health and Well-being',
+      'SDG 11 – Sustainable Cities and Communities'
+    ],
+    codeSnippet: `// Find nearest free slot via BFS on lane graph; compute driving path by Dijkstra.`
+  },
+  {
+    id: 'p7',
+    zone: 'Shopping Mall',
+    title: 'Business model for Shopping Malls',
+    photo: '',
+    phototitle: '',
+    problem: ``,
+    solution: `Rebalance charger locations by clustering parking demand and add a reservation token system.`,
+    algos: ['Graph clustering', 'Sorting'],
+    sdgs: [
+      'SDG 8 – Decent Work and Economic Growth',
+      'SDG 12 – Responsible Consumption and Production'
+    ],
+    codeSnippet: `// Cluster parking nodes by demand, rank candidate charger sites by distance`
+  },
+  {
+    id: 'p8',
+    zone: 'IT Park',
+    title: 'Garbage trucks follow inefficient pickup routes',
+    photo: '',
+    phototitle: '',
+    problem: `The daily cleaner route is long and doubles back multiple times, increasing fuel and time.`,
+    solution: `Recompute an efficient route that connects all bins using shortest-path distances and a greedy tour heuristic.`,
+    algos: ['Dijkstra', 'Sorting (greedy TSP approx)'],
+    sdgs: [
+      'SDG 11 – Sustainable Cities and Communities',
+      'SDG 12 – Responsible Consumption and Production',
+      'SDG 13 – Climate Action'
+    ],
+    codeSnippet: `// Build pairwise shortest distances (Dijkstra), then run greedy traversal to approximate route`
+  },
+  {
+    id: 'p9',
+    zone: 'IT Park',
+    title: 'One pipe burst disconnects a whole block of offices',
+    photo: '',
+    phototitle: '',
+    problem: `A single failure in the feed line causes many offices to lose water (single point-of-failure).`,
+    solution: `Detect bridge edges in the network and add redundant loops; reorganize into ring topology where possible.`,
+    algos: ['Graph algorithms', 'Kruskal'],
+    sdgs: [
+      'SDG 6 – Clean Water and Sanitation',
+      'SDG 9 – Industry, Innovation and Infrastructure',
+      'SDG 11 – Sustainable Cities and Communities'
+    ],
+    codeSnippet: `// Run bridge-detection (DFS) and compute MST/Kruskal to plan rewiring`
+  },
+  {
+    id: 'p10',
+    zone: 'IT Park',
+    title: 'Food court stall queues form long lines and block walkway',
+    photo: '',
+    phototitle: '',
+    problem: `A popular stall leads to queuing that blocks the main walkway and creates congestion.`,
+    solution: `Redistribute stalls, increase service capacity, and introduce virtual token queuing (SMS/app).`,
+    algos: ['BFS (flow)', 'Sorting'],
+    sdgs: [
+      'SDG 3 – Good Health and Well-being',
+      'SDG 8 – Decent Work and Economic Growth',
+      'SDG 11 – Sustainable Cities and Communities'
+    ],
+    codeSnippet: `// Simulate arrivals and queue growth using BFS layers; rank stalls by throughput`
+  }
+];
 
     // helper to create nav and details
     const nav = document.getElementById('nav');
@@ -430,7 +649,7 @@
         const d = document.createElement('div');
         d.className = 'navitem';
         d.dataset.id = p.id;
-        d.innerHTML = `<h4>${p.title}</h4><p>${p.zone} • ${p.algos.join(', ')}</p>`;
+        d.innerHTML = `<h4>${p.title}</h4><p class ='metadata' style='color:#0284c7;'>${p.zone} • ${p.algos.join(', ')}</p>`;
         d.onclick = () => { select(p.id); };
         nav.appendChild(d);
       });
@@ -444,8 +663,8 @@
       // render detail page like the screenshot style
       detail.innerHTML = `
     <div class="top">
-      <div class="title">
-        <h1>${escapeHtml(p.title)}</h1>
+      <div class="title ">
+        <h1 class='headlines'>${escapeHtml(p.title)}</h1>
         <div style="display:flex;gap:12px;align-items:center;margin-top:10px">
           <div class="badge">${escapeHtml(p.zone)}</div>
           
@@ -457,24 +676,31 @@
     </div>
 
     
-    <div class="hero">${p.photo ? `<img class="images" src="${p.photo}" alt="photo" style="object-fit:contain;"> <h1 style="color:white; background-color:transparent; font-size:15px; padding:0px 0px 0px 5px;">${p.phototitle}</h1> ` : `<svg width="100%" height="100%" viewBox="0 0 600 260" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#0b2740"/>
-      <stop offset="1" stop-color="#083241"/></linearGradient></defs><rect width="100%" height="100%" fill="url(#g)"/><text x="50%" y="50%" fill="#8fbfd6" font-size="20" text-anchor="middle" dominant-baseline="middle">Replace this with your photo</text></svg>`}
+    <div class="hero">${p.photo ? `<img class="images" src="${p.photo}" alt="photo" style="object-fit:contain;"> <h1 style="color:#1e293b; background-color:transparent; font-size:15px; padding:0px 0px 0px 5px; margin-left:10px;">${p.phototitle}</h1> ` : `<svg width="100%" height="100%" viewBox="0 0 600 260" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#e0e7ff"/>
+      <stop offset="1" stop-color="#dbeafe"/></linearGradient></defs><rect width="100%" height="100%" fill="url(#g)"/><text x="50%" y="50%" fill="#64748b" font-size="20" text-anchor="middle" dominant-baseline="middle">Replace this with your photo</text></svg>`}
       </div>
       
 
-    <div class="block"><strong>1. Problem</strong><p style="margin-top:10px">${escapeHtml(p.problem)}</p></div>
+    <div class="block"><strong class='headlines'>1. Problem</strong><p style="margin-top:10px">${escapeHtml(p.problem)}</p></div>
 
-    <div class="block"><strong>2. Practical Solution</strong><p style="margin-top:10px" class="muted">${escapeHtml(p.solution)}</p></div>
+    <div class="block"><strong class='headlines'>2. Practical Solution</strong><p style="margin-top:10px" class="muted solutions">${escapeHtml(p.solution)}</p></div>
 
-    <div class="block"><strong>3. Algorithm(s) used</strong>
-      <div class="algos">${p.algos.map(a => `<div class="algo">${a}</div>`).join('')}</div>
-    </div>
+    <div class="block"><strong class='headlines'>3. Algorithm(s) used</strong>
+  <div class="algos">${p.algos.map(a => `<div class="algo">${a}</div>`).join('')}</div>
+</div>
 
-    
+${p.sdgs && p.sdgs.length ? `
+<div class="block">
+  <strong class='headlines'>4. Related SDG(s)</strong>
+  <div class="sdg-list">
+    ${p.sdgs.map(s => `<div class="sdg-pill">${escapeHtml(s)}</div>`).join('')}
+  </div>
+</div>` : ''}
 
-    <div style="margin-top:16px;display:flex;gap:10px">
-      <a class="btn" href="#${p.id}" style="text-decoration:none;" onclick="copyLink(event,'${p.id}')">Share link</a>
-      </div>
+<div style="margin-top:16px;display:flex;gap:10px">
+  <a class="btn" href="#${p.id}" style="text-decoration:none;" onclick="copyLink(event,'${p.id}')">Share link</a>
+</div>
+
   `;
       // set URL hash for share
       location.hash = id;
@@ -483,43 +709,43 @@
     function escapeHtml(s) { return (s || '').toString().replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;'); }
 
     function viewCode(id) {
-      const p = pages.find(x => x.id === id);
-      alert('Algorithms: ' + p.algos.join(', ') + "\\n\\nOpen this file and edit the code snippet or add your implementation.");
-    }
+  const p = pages.find(x => x.id === id);
+  if (!p) return;
 
-    function copyLink(e, id) {
-      e.preventDefault();
-      const url = location.href.split('#')[0] + '#' + id;
-      navigator.clipboard?.writeText(url).then(() => alert('Link copied to clipboard'));
-    }
+  const modal = document.getElementById('codeModal');
+  const titleEl = document.getElementById('codeModalTitle');
+  const zoneEl = document.getElementById('codeModalZone');
+  const contentEl = document.getElementById('codeModalContent');
 
-    // export a single page as static html file for upload
-    function downloadHTML(id) {
-      const p = pages.find(x => x.id === id);
-      if (!p) return;
-      const html = buildStandaloneHTML(p);
-      const blob = new Blob([html], { type: 'text/html' });
-      const a = document.createElement('a');
-      a.href = URL.createObjectURL(blob);
-      a.download = (p.title.replaceAll(/[^a-z0-9]+/ig, '_').slice(0, 60) || 'page') + '.html';
-      a.click();
-      URL.revokeObjectURL(a.href);
-    }
+  titleEl.textContent = p.title + ' — Code';
+  zoneEl.textContent = p.zone || '';
+  contentEl.textContent = p.codeSnippet && p.codeSnippet.trim()
+    ? p.codeSnippet
+    : `// No code snippet added yet for this problem.
+    // Open this HTML file and edit the "codeSnippet" field for "${p.id}".`;
+
+  modal.style.display = 'flex';
+}
+
+function closeCodeModal() {
+  const modal = document.getElementById('codeModal');
+  modal.style.display = 'none';
+}
 
     function buildStandaloneHTML(p) {
       // minimal standalone page with same styling and content
       return `<!doctype html>
 <html>
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${escapeHtml(p.title)}</title>
-<style>body{font-family:Inter,system-ui,Arial;background:#041025;color:#eaf2ff;padding:28px} 
-.wrap{max-width:900px;margin:0 auto} h1{font-size:24px} .hero{height:300px;background:#082734;margin-top:12px;border-radius:10px;display:flex;align-items:center;justify-content:center} 
-pre{background:#071827;padding:12px;border-radius:8px;overflow:auto}</style>
+<style>body{font-family:Inter,system-ui,Arial;background:#f8fafc;color:#334155;padding:28px} 
+.wrap{max-width:900px;margin:0 auto} h1{font-size:24px;color:#0f172a} .hero{height:300px;background:#e2e8f0;margin-top:12px;border-radius:10px;display:flex;align-items:center;justify-content:center} 
+pre{background:#1e293b;padding:12px;border-radius:8px;overflow:auto;color:#f1f5f9}</style>
 </head>
 <body><div class="wrap">
 <h1>${escapeHtml(p.title)}</h1>
-<div style="color:#98a6b8">${escapeHtml(p.zone)}</div>
+<div style="color:#64748b;">${escapeHtml(p.zone)}</div>
 
-<div class="hero">${p.photo ? `<img src=${p.photo} style="width:100%;height:100%;object-fit:cover;border-radius:10px">` : '<div style="color:#8fbfd6">Replace with your photo</div>'}</div>
+<div class="hero">${p.photo ? `<img src=${p.photo} style="width:100%;height:100%;object-fit:cover;border-radius:10px">` : '<div style="color:#64748b">Replace with your photo</div>'}</div>
 
 <h2>1. Problem</h2><p>${escapeHtml(p.problem)}</p>
 <h2>2. Solution</h2><p>${escapeHtml(p.solution)}</p>
@@ -563,6 +789,11 @@ pre{background:#071827;padding:12px;border-radius:8px;overflow:auto}</style>
 
     // allow copy link behavior if user clicks a link with hash
     if (location.hash) { window.addEventListener('load', () => select(location.hash.slice(1))); }
+
+    // close modal when clicking on dark backdrop
+document.getElementById('codeModal').addEventListener('click', () => {
+  closeCodeModal();
+});
 
   </script>
 </body>
