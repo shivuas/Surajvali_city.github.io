@@ -220,7 +220,7 @@
     .algo {
       padding: 8px 10px;
       border-radius: 8px;
-      background: linear-gradient(90deg,#dee9f3,rgb(226, 243, 232));
+      background: rgb(192, 224, 237);
       border: 1px solid #cbd5e1;
       color: var(--text-secondary);
       font-weight: 700;
@@ -259,6 +259,74 @@
       cursor: pointer
     }
 
+    .modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.45); /* dark overlay */
+  display: none;                      /* hidden by default */
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.modal {
+  background: #020617;                /* very dark panel */
+  color: #e2e8f0;
+  border-radius: 12px;
+  max-width: 850px;
+  width: min(90vw, 850px);
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 24px 48px rgba(15, 23, 42, 0.7);
+  border: 1px solid #1e293b;
+  overflow: hidden;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-bottom: 1px solid #1e293b;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.modal-title {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.modal-title span.zone {
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #0f172a;
+  font-size: 11px;
+  color: #38bdf8;
+}
+
+.modal-close {
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  font-size: 20px;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.modal-close:hover {
+  color: #e2e8f0;
+}
+
+/* reuse your existing dark code style, but allow scrolling */
+#codeModalContent {
+  margin: 0;
+  max-height: 60vh;
+  overflow: auto;
+}
+
     /* Code blocks kept dark for contrast/developer feel */
     pre.code {
       background: #1e293b;
@@ -273,12 +341,30 @@
       color: black; /* Darker blue for readability on white */
       font-size: 18px;
       font-weight: 500;
+      white-space: pre-line;
     }
 
     .headlines {
       font-size: 25px;
       color: var(--text-main);
     }
+    .sdg-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.sdg-pill {
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: #daf0f3;            /* light green */
+  border: 1px solid #bbf7d0;       /* soft green border */
+  font-size: 13px;
+  color: #8486e5;                  /* dark green text */
+  font-weight: 600;
+}
+
 
     .metadata {
       color: #0ea5e9; /* Sky blue */
@@ -337,6 +423,20 @@
       <div class="list" id="nav">
         </div>
     </aside>
+      <!-- Code modal -->
+  <div id="codeModal" class="modal-backdrop">
+    <div class="modal" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <div class="modal-title">
+          <span id="codeModalTitle"></span>
+          <span class="zone" id="codeModalZone"></span>
+        </div>
+        <button class="modal-close" onclick="closeCodeModal()">&times;</button>
+      </div>
+      <pre class="code" id="codeModalContent"></pre>
+    </div>
+  </div>
+
 
     <main class="detail" id="detail">
       </main>
@@ -348,149 +448,196 @@
       Each page has: id, zone, title, photo (data URL or external URL), problem, solution, algos (array), codeSnippet (optional)
     */
     const pages = [
-      {
-        id: 'p1',
-        zone: 'School',
-        title: 'Going from one destination to another in large Campus',
-        photo: './shivaraj/Dijkstra.jpg',
-        phototitle: 'Dijkstra Algorithm',
-        problem: `In a complex school or universities, a parent who visits once in a while will face issue to walk across department building
-        , canteens, seminar halls, hostels, and other venues. There are situations where a parent want to visit a particular venue in a very short path and time
-        but there could bea situations where parent wants to visit certain venue with his child not in very short span of time, as he wants to spend time with child and also
-        want to visit the venue(in longest distance)`,
-        solution: `This particular problem can be solved using Dijkstra's algorithm for both shortest and longest path. Usually Dijkstra gives shortest path
-        with condition -- dist[u]+cost[v][u] < dist[v] , this condtion can be use to find the shortest path between two point through different paths. But for the longest
-        path one can change condition to --  dist[u]+cost[v][u] > dist[v], in Dijkstra's algorithm changing this condition along with min value will give the longest path
-        between two point through other paths.`,
-        algos: ['Dijkstra', 'Longest Dijkstra(modified Dijkstra)'],
-        codeSnippet: `// After removing blocked edge, test connectivity via BFS\nfunction bfs(graph, source){ /* ... */ }\n// Run Dijkstra for best pressure-loss path`
-      },
-      {
-        id: 'p2',
-        zone: 'School',
-        title: 'Wiring and adding fiber cable to whole campur efficiently.',
-        photo: './shivaraj/Kruskal.png',
-        phototitle: 'Kruskal Algorithm',
-        problem: `A large campus needs to be wired and have fiber cables for wifi, but without proper planning, the cost or weight of the cables can become very high and useless.
+  {
+    id: 'p1',
+    zone: 'School',
+    title: 'Going from one destination to another in large Campus',
+    photo: './shivaraj/Dijkstra.jpg',
+    phototitle: 'Dijkstra Algorithm',
+    problem: `In a complex school or universities, a parent who visits once in a while will face issue to walk across department building
+    , canteens, seminar halls, hostels, and other venues. There are situations where a parent want to visit a particular venue in a very short path and time
+    but there could bea situations where parent wants to visit certain venue with his child not in very short span of time, as he wants to spend time with child and also
+    want to visit the venue(in longest distance)`,
+    solution: `This particular problem can be solved using Dijkstra's algorithm for both shortest and longest path. Usually Dijkstra gives shortest path with condition -- dist[u]+cost[v][u] < dist[v] , 
+    this condtion can be use to find the shortest path between two point through different paths. But for the longest path one can change condition to --  dist[u]+cost[v][u] > dist[v], 
+    in Dijkstra's algorithm changing this condition along with min value will give the longest path
+    between two point through other paths.`,
+    algos: ['Dijkstra', 'Longest Dijkstra(modified Dijkstra)'],
+    sdgs: [
+      'SDG 4 – Quality Education',
+      'SDG 9 – Industry, Innovation and Infrastructure',
+      'SDG 11 – Sustainable Cities and Communities'
+    ],
+    codeSnippet: `// After removing blocked edge, test connectivity via BFS
+function bfs(graph, source){ /* ... */ }
+// Run Dijkstra for best pressure-loss path`
+  },
+  {
+    id: 'p2',
+    zone: 'School',
+    title: 'Wiring and adding fiber cable to whole campur efficiently.',
+    photo: './shivaraj/Kruskal.png',
+    phototitle: 'Kruskal Algorithm',
+    problem: `A large campus needs to be wired and have fiber cables for wifi, but without proper planning, the cost or weight of the cables can become very high and useless.
     In here just using tree structure will be not efficient as it may lead to long cables and can cut the whole system if one edge gets disconnected.
     Using Graph structure alone can be also inefficient as it also lead to long cables and high cost, but it can reduce the dependecy of one edge on othere node.`,
-        solution: `As seen in the problem part, using Graph alone is ineffiecient. So to solve this we can use Kruskal's along with Graph algorithms. the method here is first create
-    a cheapest spanning tree using Kruskal's algorithm, then taking the edges which were neglected by kruskal's algorithm and adding them back in same order until all the nodes have atleast 1 edge
-    connected to it. By this way we can reduce the weight of cables used overall and also reduce dependecy of one edge on other single edge.`,
-        algos: ["Kruskal's algorithm", 'Graph algorithms'],
-        codeSnippet: `// Simulate arrival as BFS layers; find nodes with high visit counts -> bottlenecks`
-      },
-      {
-        id: 'p3',
-        zone: 'School',
-        title: 'Searching for particular topic on digital library provide by school',
-        photo: './shivaraj/KMP.png',
-        phototitle: 'Knuth-Morris-Pratt (KMP) Algorithm',
-        problem: `In this new era of technology, schools and universities are providing digital libraries for students to access books and research papers online.
+    solution: `As seen in the problem part, using Graph alone is ineffiecient. So to solve this we can use Kruskal's along with Graph algorithms. 
+    The method here is first create a cheapest spanning tree using Kruskal's algorithm, then taking the edges which were neglected by kruskal's algorithm and adding them back in same order until all the nodes have atleast 1 edge connected to it. 
+    By this way we can reduce the weight of cables used overall and also reduce dependecy of one edge on other single edge.`,
+    algos: ["Kruskal's algorithm", 'Graph algorithms'],
+    sdgs: [
+      'SDG 9 – Industry, Innovation and Infrastructure',
+      'SDG 11 – Sustainable Cities and Communities'
+    ],
+    codeSnippet: `// Simulate arrival as BFS layers; find nodes with high visit counts -> bottlenecks`
+  },
+  {
+    id: 'p3',
+    zone: 'School',
+    title: 'Searching for particular topic on digital library provide by school',
+    photo: './shivaraj/KMP.png',
+    phototitle: 'Knuth-Morris-Pratt (KMP) Algorithm',
+    problem: `In this new era of technology, schools and universities are providing digital libraries for students to access books and research papers online.
     However, in the digital book or research paper if a student want to search for particular keyword or topic then without prior knowledge of the topic it can be hard to find the topic or keyword in the book with a small font size
     letters.`,
-        solution: `To solve this problem we have three method BFSS, Knuth-Morris-Pratt algorithm and Rabin karp algorithm. But only KMP is efficient among these three algorithms.
+    solution: `To solve this problem we have three method BFSS, Knuth-Morris-Pratt algorithm and Rabin karp algorithm. But only KMP is efficient among these three algorithms.
     BFSS will search for each character one by one which is inefficient and have O(n) time complexity = N*M where N is the length of pattern and M is the length of text.
     Rabin karp algorithm uses hashing technique and have to compute modulus which is not efficient for large book or library, but it can lead to collision and false match. and has time complexity O(n)= N*M.
-
     The best among these three is KMP algorithm, this is different from BFSS as BFSS will transverse through each character one by one, KMP checks the first character and if it doesn't matches then it will shift by K-pi(K-1) places and check again.
     It has time complexity O(n)=N always where N is the length of pattern.`,
-        algos: ['Knuth-Morris-Pratt (KMP)'],
-        codeSnippet: `// Model floors as tree; compute path 'cost' to each floor; identify long paths.`
-      },
-      {
-        id: 'p4',
-        zone: 'School',
-        title: 'Water from Syntax to every section of School or University without getting blocked',
-        photo: './shivaraj/Graph.webp',
-        phototitle: 'Graph Algorithm',
-        problem: `In general School or Universitites which are large and have water sytsem for drinking, washroom all connected from Top floor Syntax, 
+    algos: ['Knuth-Morris-Pratt (KMP)'],
+    sdgs: [
+      'SDG 4 – Quality Education',
+      'SDG 9 – Industry, Innovation and Infrastructure'
+    ],
+    codeSnippet: `// Model floors as tree; compute path 'cost' to each floor; identify long paths.`
+  },
+  {
+    id: 'p4',
+    zone: 'School',
+    title: 'Water from Syntax to every section of School or University without getting blocked',
+    photo: './shivaraj/Graph.webp',
+    phototitle: 'Graph Algorithm',
+    problem: `In general School or Universitites which are large and have water sytsem for drinking, washroom all connected from Top floor Syntax,
     the problem is that single pipe burst or blockage in any section will disconnect the whole section from water supply causing inconvenience to students and staff.`,
-        solution: `The problem is caused because it the water sysetm is designed in tree structure, where if higher level node gets disrupted then all the child
-    node gets disconnected. To solve this we can use Graph structure instead of tree structure, where a single corner or node is connected to more than one edge or pipe.
+    solution: `The problem is caused because it the water sysetm is designed in tree structure, where if higher level node gets disrupted then all the child node gets disconnected. 
+    To solve this we can use Graph structure instead of tree structure, where a single corner or node is connected to more than one edge or pipe.
     By this way if one edge or pipe get's blocked or burst, we can still run water through alternate pipes or edges.`,
-        algos: ['Graph algorithms'],
-        codeSnippet: `// Compare shortest 'official' vs 'actual' path lengths; if ratio > threshold add new edge.`
-      },
-      {
-        id: 'p5',
-        zone: 'School',
-        title: 'Finding shortest path to visit all bustop and return back to school',
-        photo: '',
-        phototitle: '',
-        problem: `For a large city or a huge population of students, dividing students bases on their location and assigning them to particular bus and
-        the bus should have to choose the shortest path to visit all the points and reach back to starting point (school/University).`,
-        solution: `This problem can be solved with different layer of solutions.
-        1. At first we divide locations into different regions, and assign a bus to each region.
-        2. Then for each region, we use Kruskal's algorithm to find min weight or cheapest route.
-        3. Then using DFS to traversing till we reach the end of depth and before coming back or back tracking, we apply Dijkstra algorithm
-        to check where the other child node of parent node is nearer to current node instead of back tracking to parent node.
-        If the direct length is less than back tracking length then we go directly to child node instead of back tracking to parent node.
-        4. When we visit all nodes then again using Dijkstra to reach back to starting point (school/University).`,
-        algos: ['DFS(Graph)', 'Dijkstra', 'Kruskal'],
-        codeSnippet: `// Multi-key sort: category, author, year\nbooks.sort((a,b)=> /* compare category, then author, then year */ );`
-      },
-      {
-        id: 'p6',
-        zone: 'IT Hub',
-        title: 'Implementing smart emergency exit in building complex from any floor',
-        photo: './shivaraj/bfs.jpg',
-        phototitle: 'BFS (Graph Algorithm)',
-        problem: `The IT buildings are large and mainly have high electrical equipment, in case of emergency like fire or earthquake, people from higher floors find it hard to exit quickly
-        as they have to do down multiple floors and then exit through main door which could be crowded and could have been on fire or blocked.
-        This can lead to casualties and injuries.  `,
-        solution: `To solve this problem we can use Graph algorithm for multiple exits and BFS for finding nearest exit from any floor.
-        Why BFS over DFS? Let's imagine a situation where fire broke out on floor 5 and there are emergencies exits on floor 3, 6, 15, and people are on floor - 12
-        if a smart device uses DFS it may suggest exit from floor 5 as it search in depth first manner, but in the given case the nearest emergency exit at floor 15, but if the device uses BFS
-        it will suggest exit from floor 15 as it search in Layer by layer manner. Hence BFS if better solution for this problem.`,
-        algos: ['BFS'],
-        codeSnippet: `// Find nearest free slot via BFS on lane graph; compute driving path by Dijkstra.`
-      },
-      {
-        id: 'p7',
-        zone: 'Shopping Mall',
-        title: 'Business model for Shopping Malls',
-        photo: '',
-        phototitle: '',
-        problem: ``,
-        solution: `Rebalance charger locations by clustering parking demand and add a reservation token system.`,
-        algos: ['Graph clustering', 'Sorting'],
-        codeSnippet: `// Cluster parking nodes by demand, rank candidate charger sites by distance`
-      },
-      {
-        id: 'p8',
-        zone: 'IT Park',
-        title: 'Garbage trucks follow inefficient pickup routes',
-        photo: '',
-        phototitle: '',
-        problem: `The daily cleaner route is long and doubles back multiple times, increasing fuel and time.`,
-        solution: `Recompute an efficient route that connects all bins using shortest-path distances and a greedy tour heuristic.`,
-        algos: ['Dijkstra', 'Sorting (greedy TSP approx)'],
-        codeSnippet: `// Build pairwise shortest distances (Dijkstra), then run greedy traversal to approximate route`
-      },
-      {
-        id: 'p9',
-        zone: 'IT Park',
-        title: 'One pipe burst disconnects a whole block of offices',
-        photo: '',
-        phototitle: '',
-        problem: `A single failure in the feed line causes many offices to lose water (single point-of-failure).`,
-        solution: `Detect bridge edges in the network and add redundant loops; reorganize into ring topology where possible.`,
-        algos: ['Graph algorithms', 'Kruskal'],
-        codeSnippet: `// Run bridge-detection (DFS) and compute MST/Kruskal to plan rewiring`
-      },
-      {
-        id: 'p10',
-        zone: 'IT Park',
-        title: 'Food court stall queues form long lines and block walkway',
-        photo: '',
-        phototitle: '',
-        problem: `A popular stall leads to queuing that blocks the main walkway and creates congestion.`,
-        solution: `Redistribute stalls, increase service capacity, and introduce virtual token queuing (SMS/app).`,
-        algos: ['BFS (flow)', 'Sorting'],
-        codeSnippet: `// Simulate arrivals and queue growth using BFS layers; rank stalls by throughput`
-      }
-    ];
+    algos: ['Graph algorithms'],
+    sdgs: [
+      'SDG 6 – Clean Water and Sanitation',
+      'SDG 9 – Industry, Innovation and Infrastructure',
+      'SDG 11 – Sustainable Cities and Communities'
+    ],
+    codeSnippet: `// Compare shortest 'official' vs 'actual' path lengths; if ratio > threshold add new edge.`
+  },
+  {
+    id: 'p5',
+    zone: 'School',
+    title: 'Finding shortest path to visit all bustop and return back to school',
+    photo: '',
+    phototitle: '',
+    problem: `For a large city or a huge population of students, dividing students bases on their location and assigning them to particular bus and
+    the bus should have to choose the shortest path to visit all the points and reach back to starting point (school/University).`,
+    solution: `This problem can be solved with different layer of solutions.
+    1. At first we divide locations into different regions, and assign a bus to each region.
+    2. Then for each region, we use Kruskal's algorithm to find min weight or cheapest route.
+    3. Then using DFS to traversing till we reach the end of depth and before coming back or back tracking, we apply Dijkstra algorithm
+    to check where the other child node of parent node is nearer to current node instead of back tracking to parent node.
+    If the direct length is less than back tracking length then we go directly to child node instead of back tracking to parent node.
+    4. When we visit all nodes then again using Dijkstra to reach back to starting point (school/University).`,
+    algos: ['DFS(Graph)', 'Dijkstra', 'Kruskal'],
+    sdgs: [
+      'SDG 11 – Sustainable Cities and Communities',
+      'SDG 13 – Climate Action'
+    ],
+    codeSnippet: `// Multi-key sort: category, author, year
+books.sort((a,b)=> /* compare category, then author, then year */ );`
+  },
+  {
+    id: 'p6',
+    zone: 'IT Hub',
+    title: 'Implementing smart emergency exit in building complex from any floor',
+    photo: './shivaraj/bfs.jpg',
+    phototitle: 'BFS (Graph Algorithm)',
+    problem: `The IT buildings are large and mainly have high electrical equipment, in case of emergency like fire or earthquake, people from higher floors find it hard to exit quickly
+    as they have to do down multiple floors and then exit through main door which could be crowded and could have been on fire or blocked.
+    This can lead to casualties and injuries.  `,
+    solution: `To solve this problem we can use Graph algorithm for multiple exits and BFS for finding nearest exit from any floor.
+    Why BFS over DFS? Let's imagine a situation where fire broke out on floor 5 and there are emergencies exits on floor 3, 6, 15, and people are on floor - 12
+    if a smart device uses DFS it may suggest exit from floor 6 as it search in depth first manner, but in the given case the nearest emergency exit at floor 15, but if the device uses BFS
+    it will suggest exit from floor 15 as it search in Layer by layer manner. Hence BFS if better solution for this problem.`,
+    algos: ['BFS'],
+    sdgs: [
+      'SDG 3 – Good Health and Well-being',
+      'SDG 11 – Sustainable Cities and Communities'
+    ],
+    codeSnippet: `// Find nearest free slot via BFS on lane graph; compute driving path by Dijkstra.`
+  },
+  {
+    id: 'p7',
+    zone: 'Shopping Mall',
+    title: 'Business model for Shopping Malls',
+    photo: '',
+    phototitle: '',
+    problem: ``,
+    solution: `Rebalance charger locations by clustering parking demand and add a reservation token system.`,
+    algos: ['Graph clustering', 'Sorting'],
+    sdgs: [
+      'SDG 8 – Decent Work and Economic Growth',
+      'SDG 12 – Responsible Consumption and Production'
+    ],
+    codeSnippet: `// Cluster parking nodes by demand, rank candidate charger sites by distance`
+  },
+  {
+    id: 'p8',
+    zone: 'IT Park',
+    title: 'Garbage trucks follow inefficient pickup routes',
+    photo: '',
+    phototitle: '',
+    problem: `The daily cleaner route is long and doubles back multiple times, increasing fuel and time.`,
+    solution: `Recompute an efficient route that connects all bins using shortest-path distances and a greedy tour heuristic.`,
+    algos: ['Dijkstra', 'Sorting (greedy TSP approx)'],
+    sdgs: [
+      'SDG 11 – Sustainable Cities and Communities',
+      'SDG 12 – Responsible Consumption and Production',
+      'SDG 13 – Climate Action'
+    ],
+    codeSnippet: `// Build pairwise shortest distances (Dijkstra), then run greedy traversal to approximate route`
+  },
+  {
+    id: 'p9',
+    zone: 'IT Park',
+    title: 'One pipe burst disconnects a whole block of offices',
+    photo: '',
+    phototitle: '',
+    problem: `A single failure in the feed line causes many offices to lose water (single point-of-failure).`,
+    solution: `Detect bridge edges in the network and add redundant loops; reorganize into ring topology where possible.`,
+    algos: ['Graph algorithms', 'Kruskal'],
+    sdgs: [
+      'SDG 6 – Clean Water and Sanitation',
+      'SDG 9 – Industry, Innovation and Infrastructure',
+      'SDG 11 – Sustainable Cities and Communities'
+    ],
+    codeSnippet: `// Run bridge-detection (DFS) and compute MST/Kruskal to plan rewiring`
+  },
+  {
+    id: 'p10',
+    zone: 'IT Park',
+    title: 'Food court stall queues form long lines and block walkway',
+    photo: '',
+    phototitle: '',
+    problem: `A popular stall leads to queuing that blocks the main walkway and creates congestion.`,
+    solution: `Redistribute stalls, increase service capacity, and introduce virtual token queuing (SMS/app).`,
+    algos: ['BFS (flow)', 'Sorting'],
+    sdgs: [
+      'SDG 3 – Good Health and Well-being',
+      'SDG 8 – Decent Work and Economic Growth',
+      'SDG 11 – Sustainable Cities and Communities'
+    ],
+    codeSnippet: `// Simulate arrivals and queue growth using BFS layers; rank stalls by throughput`
+  }
+];
 
     // helper to create nav and details
     const nav = document.getElementById('nav');
@@ -539,14 +686,21 @@
     <div class="block"><strong class='headlines'>2. Practical Solution</strong><p style="margin-top:10px" class="muted solutions">${escapeHtml(p.solution)}</p></div>
 
     <div class="block"><strong class='headlines'>3. Algorithm(s) used</strong>
-      <div class="algos">${p.algos.map(a => `<div class="algo">${a}</div>`).join('')}</div>
-    </div>
+  <div class="algos">${p.algos.map(a => `<div class="algo">${a}</div>`).join('')}</div>
+</div>
 
-    
+${p.sdgs && p.sdgs.length ? `
+<div class="block">
+  <strong class='headlines'>4. Related SDG(s)</strong>
+  <div class="sdg-list">
+    ${p.sdgs.map(s => `<div class="sdg-pill">${escapeHtml(s)}</div>`).join('')}
+  </div>
+</div>` : ''}
 
-    <div style="margin-top:16px;display:flex;gap:10px">
-      <a class="btn" href="#${p.id}" style="text-decoration:none;" onclick="copyLink(event,'${p.id}')">Share link</a>
-      </div>
+<div style="margin-top:16px;display:flex;gap:10px">
+  <a class="btn" href="#${p.id}" style="text-decoration:none;" onclick="copyLink(event,'${p.id}')">Share link</a>
+</div>
+
   `;
       // set URL hash for share
       location.hash = id;
@@ -555,28 +709,28 @@
     function escapeHtml(s) { return (s || '').toString().replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;'); }
 
     function viewCode(id) {
-      const p = pages.find(x => x.id === id);
-      alert('Algorithms: ' + p.algos.join(', ') + "\\n\\nOpen this file and edit the code snippet or add your implementation.");
-    }
+  const p = pages.find(x => x.id === id);
+  if (!p) return;
 
-    function copyLink(e, id) {
-      e.preventDefault();
-      const url = location.href.split('#')[0] + '#' + id;
-      navigator.clipboard?.writeText(url).then(() => alert('Link copied to clipboard'));
-    }
+  const modal = document.getElementById('codeModal');
+  const titleEl = document.getElementById('codeModalTitle');
+  const zoneEl = document.getElementById('codeModalZone');
+  const contentEl = document.getElementById('codeModalContent');
 
-    // export a single page as static html file for upload
-    function downloadHTML(id) {
-      const p = pages.find(x => x.id === id);
-      if (!p) return;
-      const html = buildStandaloneHTML(p);
-      const blob = new Blob([html], { type: 'text/html' });
-      const a = document.createElement('a');
-      a.href = URL.createObjectURL(blob);
-      a.download = (p.title.replaceAll(/[^a-z0-9]+/ig, '_').slice(60) || 'page') + '.html';
-      a.click();
-      URL.revokeObjectURL(a.href);
-    }
+  titleEl.textContent = p.title + ' — Code';
+  zoneEl.textContent = p.zone || '';
+  contentEl.textContent = p.codeSnippet && p.codeSnippet.trim()
+    ? p.codeSnippet
+    : `// No code snippet added yet for this problem.
+    // Open this HTML file and edit the "codeSnippet" field for "${p.id}".`;
+
+  modal.style.display = 'flex';
+}
+
+function closeCodeModal() {
+  const modal = document.getElementById('codeModal');
+  modal.style.display = 'none';
+}
 
     function buildStandaloneHTML(p) {
       // minimal standalone page with same styling and content
@@ -635,6 +789,11 @@ pre{background:#1e293b;padding:12px;border-radius:8px;overflow:auto;color:#f1f5f
 
     // allow copy link behavior if user clicks a link with hash
     if (location.hash) { window.addEventListener('load', () => select(location.hash.slice(1))); }
+
+    // close modal when clicking on dark backdrop
+document.getElementById('codeModal').addEventListener('click', () => {
+  closeCodeModal();
+});
 
   </script>
 </body>
