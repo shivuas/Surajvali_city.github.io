@@ -454,13 +454,12 @@
       <div class="brand">
         <div class="logo">CP</div>
         <div>
-          <div style="font-weight:700">City — Problems (Sample)</div>
-          <div class="muted">10 pages — editable HTML</div>
+          <div style="font-weight:700">City — Problems </div>
+          <div class="muted">Problems related to Salt farms and Residential Areas</div>
         </div>
       </div>
 
-      <div class="muted" style="margin-bottom:8px">Click any problem to open its detail page. Edit the HTML to change
-        content or replace images.</div>
+      <div class="muted" style="margin-bottom:8px">List of problems with there solution.</div>
 
       <div class="list" id="nav">
         </div>
@@ -1637,67 +1636,255 @@ int main() {
   },
   {
     id: 'p7',
-    zone: 'Shopping Mall',
-    title: 'Business model for Shopping Malls',
-    photo: '',
-    phototitle: '',
-    problem: ``,
-    solution: `Rebalance charger locations by clustering parking demand and add a reservation token system.`,
-    algos: ['Graph clustering', 'Sorting'],
+    zone: 'Residential area',
+    title: "Installation of CCTV's",
+    photo: './saish/Greedy algo.webp',
+    phototitle: 'Greedy Algorithm',
+    problem: `In many residential areas, CCTV cameras are placed without proper planning, leading to blind spots, wasted cameras, and high wiring cost. Critical locations like entrances, parking, and staircases may not be fully covered, reducing security effectiveness. The challenge is to place the minimum number of cameras so that all important spots are monitored while keeping installation and cabling cost low.`,
+    solution: `We store camera spots and critical locations using simple arrays and structures for quick access. A Greedy Set-Cover method is used to choose the fewest cameras because it always picks the one covering the most uncovered points. A basic sorting algorithm helps rank these choices. For wiring, we apply Kruskal’s MST since it finds the minimum cable layout, with Union-Find ensuring efficient cycle checks. If real road distances are needed, Dijkstra provides accurate wiring paths. This keeps coverage complete while reducing both camera count and cabling cost.`,
+    algos: ['Arrays','Greedy Algorithm','Merge Sort','Graph Algorithms','Kruskal','Dijkstra'],
     sdgs: [
-      'SDG 8 – Decent Work and Economic Growth',
-      'SDG 12 – Responsible Consumption and Production'
-    ],
-    codeSnippet: `// Cluster parking nodes by demand, rank candidate charger sites by distance`
-  },
-  {
-    id: 'p8',
-    zone: 'IT Park',
-    title: 'Garbage trucks follow inefficient pickup routes',
-    photo: '',
-    phototitle: '',
-    problem: `The daily cleaner route is long and doubles back multiple times, increasing fuel and time.`,
-    solution: `Recompute an efficient route that connects all bins using shortest-path distances and a greedy tour heuristic.`,
-    algos: ['Dijkstra', 'Sorting (greedy TSP approx)'],
-    sdgs: [
-      'SDG 11 – Sustainable Cities and Communities',
-      'SDG 12 – Responsible Consumption and Production',
-      'SDG 13 – Climate Action'
-    ],
-    codeSnippet: `// Build pairwise shortest distances (Dijkstra), then run greedy traversal to approximate route`
-  },
-  {
-    id: 'p9',
-    zone: 'IT Park',
-    title: 'One pipe burst disconnects a whole block of offices',
-    photo: '',
-    phototitle: '',
-    problem: `A single failure in the feed line causes many offices to lose water (single point-of-failure).`,
-    solution: `Detect bridge edges in the network and add redundant loops; reorganize into ring topology where possible.`,
-    algos: ['Graph algorithms', 'Kruskal'],
-    sdgs: [
-      'SDG 6 – Clean Water and Sanitation',
       'SDG 9 – Industry, Innovation and Infrastructure',
-      'SDG 11 – Sustainable Cities and Communities'
+      'SDG 11 – Sustainable Cities and Communities',
+      'SDG 16 – Peace, Justice and Strong Institutions'
     ],
-    codeSnippet: `// Run bridge-detection (DFS) and compute MST/Kruskal to plan rewiring`
-  },
-  {
-    id: 'p10',
-    zone: 'IT Park',
-    title: 'Food court stall queues form long lines and block walkway',
-    photo: '',
-    phototitle: '',
-    problem: `A popular stall leads to queuing that blocks the main walkway and creates congestion.`,
-    solution: `Redistribute stalls, increase service capacity, and introduce virtual token queuing (SMS/app).`,
-    algos: ['BFS (flow)', 'Sorting'],
-    sdgs: [
-      'SDG 3 – Good Health and Well-being',
-      'SDG 8 – Decent Work and Economic Growth',
-      'SDG 11 – Sustainable Cities and Communities'
-    ],
-    codeSnippet: `// Simulate arrivals and queue growth using BFS layers; rank stalls by throughput`
+    codeSnippet: `#include <bits/stdc++.h>
+using namespace std;
+
+struct Point {
+    int id;
+    double x, y;
+};
+
+struct CameraCandidate {
+    int id;
+    double x, y;
+    double range; // coverage radius
+};
+
+// Edge for MST
+struct Edge {
+    int u, v;
+    double w;
+    bool operator<(const Edge& other) const { return w < other.w; }
+};
+
+/* ------------------- Utility ------------------- */
+double distEuclid(const Point &a, const Point &b) {
+    double dx = a.x - b.x;
+    double dy = a.y - b.y;
+    return sqrt(dx*dx + dy*dy);
+}
+double distCamPoint(const CameraCandidate &c, const Point &p) {
+    double dx = c.x - p.x;
+    double dy = c.y - p.y;
+    return sqrt(dx*dx + dy*dy);
+}
+
+/* ------------------- DSU for Kruskal ------------------- */
+struct DSU {
+    int n;
+    vector<int> parent, rankv;
+    DSU(int n=0): n(n), parent(n), rankv(n,0) {
+        for (int i=0;i<n;i++) parent[i]=i;
+    }
+    int find(int x) {
+        if (parent[x]==x) return x;
+        return parent[x]=find(parent[x]);
+    }
+    bool unite(int a,int b) {
+        a=find(a); b=find(b);
+        if (a==b) return false;
+        if (rankv[a]<rankv[b]) swap(a,b);
+        parent[b]=a;
+        if (rankv[a]==rankv[b]) rankv[a]++;
+        return true;
+    }
+};
+
+/* ------------------- Greedy Set-Cover -------------------
+   Inputs:
+     criticalPoints: list of points to cover
+     candidates: list of camera candidates
+   Output:
+     selectedIndices: indices into candidates that are chosen
+*/
+vector<int> greedySetCover(const vector<Point>& criticalPoints,
+                           const vector<CameraCandidate>& candidates) {
+    int P = criticalPoints.size();
+    int C = candidates.size();
+
+    // Precompute coverage: for each candidate, which critical point ids it covers
+    vector<vector<int>> covers(C);
+    for (int ci = 0; ci < C; ++ci) {
+        for (int pi = 0; pi < P; ++pi) {
+            if (distCamPoint(candidates[ci], criticalPoints[pi]) <= candidates[ci].range + 1e-9) {
+                covers[ci].push_back(pi);
+            }
+        }
+    }
+
+    vector<bool> covered(P, false);
+    vector<int> selected;
+    int coveredCount = 0;
+
+    while (coveredCount < P) {
+        // pick candidate that covers maximum number of uncovered points
+        int bestIdx = -1;
+        int bestCovers = -1;
+        for (int ci = 0; ci < C; ++ci) {
+            // skip if already selected
+            if (find(selected.begin(), selected.end(), ci) != selected.end()) continue;
+            int newcovers = 0;
+            for (int pid : covers[ci]) if (!covered[pid]) ++newcovers;
+            if (newcovers > bestCovers) {
+                bestCovers = newcovers;
+                bestIdx = ci;
+            }
+        }
+        if (bestIdx == -1 || bestCovers == 0) {
+            // no candidate can cover more uncovered points -> impossible to cover all
+            break;
+        }
+        // select bestIdx
+        selected.push_back(bestIdx);
+        for (int pid : covers[bestIdx]) {
+            if (!covered[pid]) {
+                covered[pid] = true;
+                coveredCount++;
+            }
+        }
+    }
+
+    // Verify full coverage
+    if (coveredCount < P) {
+        // return empty to indicate failure to fully cover
+        return vector<int>();
+    }
+    return selected;
+}
+
+/* ------------------- Kruskal MST on selected cameras + control room -------------------
+   Nodes: 0 -> control room, 1..k -> selected cameras
+*/
+vector<Edge> buildMST(const vector<CameraCandidate>& selectedCams, const Point& controlRoom) {
+    int k = selectedCams.size();
+    int N = k + 1; // include control room as node 0
+    vector<Edge> edges;
+
+    // build complete graph edges (Euclidean)
+    // node 0 is control room, node i (1..k) is selectedCams[i-1]
+    for (int i = 0; i < N; ++i) {
+        for (int j = i+1; j < N; ++j) {
+            double w;
+            if (i == 0 && j == 0) continue;
+            else if (i == 0) {
+                Point p = { -1, selectedCams[j-1].x, selectedCams[j-1].y };
+                w = distEuclid(controlRoom, p);
+            } else if (j == 0) {
+                Point p = { -1, selectedCams[i-1].x, selectedCams[i-1].y };
+                w = distEuclid(controlRoom, p);
+            } else {
+                Point pa = { -1, selectedCams[i-1].x, selectedCams[i-1].y };
+                Point pb = { -1, selectedCams[j-1].x, selectedCams[j-1].y };
+                w = distEuclid(pa, pb);
+            }
+            edges.push_back({i, j, w});
+        }
+    }
+
+    sort(edges.begin(), edges.end());
+    DSU dsu(N);
+    vector<Edge> mst;
+    for (auto &e : edges) {
+        if (dsu.unite(e.u, e.v)) {
+            mst.push_back(e);
+            if ((int)mst.size() == N-1) break;
+        }
+    }
+    return mst;
+}
+
+/* ------------------- Example / Demo main ------------------- */
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    // Example critical spots (these should be determined by site survey)
+    vector<Point> criticalPoints = {
+        {0, 0.0, 0.0},   // main gate
+        {1, 20.0, 2.0},  // parking entry
+        {2, 18.0, 20.0}, // parking center
+        {3, -5.0, 8.0},  // rear gate
+        {4, 10.0, 10.0}, // lobby
+        {5, -8.0, -2.0}  // back staircase
+    };
+
+    // Candidate camera positions (could be corners, poles, lamp posts)
+    vector<CameraCandidate> candidates = {
+        {0, 0.0, 0.0, 8.0},   // covers near gate
+        {1, 15.0, 3.0, 7.0},
+        {2, 20.0, 18.0, 6.0},
+        {3, -3.0, 6.0, 6.0},
+        {4, 9.0, 11.0, 6.0},
+        {5, -7.0, -1.0, 6.0},
+        {6, 5.0, 5.0, 5.0},
+        {7, 12.0, 0.0, 6.0}
+    };
+
+    // Control room location (where cables should connect)
+    Point controlRoom = { -1, 2.0, 1.0 };
+
+    // 1) Run greedy set-cover to pick minimal cameras
+    vector<int> selectedIdx = greedySetCover(criticalPoints, candidates);
+    if (selectedIdx.empty()) {
+        cout << "Unable to cover all critical points with given candidates and ranges.\n";
+        return 0;
+    }
+
+    cout << "Selected camera candidates (ids): ";
+    for (int id : selectedIdx) cout << candidates[id].id << " ";
+    cout << "\n\n";
+
+    // Prepare selected camera list for MST
+    vector<CameraCandidate> selectedCams;
+    for (int id : selectedIdx) selectedCams.push_back(candidates[id]);
+
+    // 2) Build MST (minimal cabling) connecting control room + selected cameras
+    vector<Edge> mst = buildMST(selectedCams, controlRoom);
+
+    cout << "MST (wiring) edges (node numbering: 0=control-room, 1..k = selected camera indices):\n";
+    for (auto &e : mst) {
+        cout << "  " << e.u << " -- " << e.v << " (length = " << fixed << setprecision(2) << e.w << ")\n";
+    }
+
+    // total cable length:
+    double totalCable = 0.0;
+    for (auto &e : mst) totalCable += e.w;
+    cout << "\nTotal cable length (approx): " << fixed << setprecision(2) << totalCable << "\n";
+
+    // 3) For reader: print which critical points are covered by which selected camera
+    cout << "\nCoverage mapping (critical point -> camera id):\n";
+    // recompute mapping
+    for (const auto &p : criticalPoints) {
+        int bestCam = -1;
+        double bestDist = 1e18;
+        for (const auto &cam : selectedCams) {
+            double d = sqrt((cam.x - p.x)*(cam.x - p.x) + (cam.y - p.y)*(cam.y - p.y));
+            if (d <= cam.range + 1e-9 && d < bestDist) {
+                bestDist = d;
+                bestCam = cam.id;
+            }
+        }
+        if (bestCam >= 0) cout << "  Point " << p.id << " -> Camera " << bestCam << "\n";
+        else cout << "  Point " << p.id << " -> NOT COVERED (error)\n";
+    }
+
+    return 0;
+}
+`
   }
+   
 ];
 
     // helper to create nav and details
