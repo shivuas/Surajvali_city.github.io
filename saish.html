@@ -220,7 +220,7 @@
     .algo {
       padding: 8px 10px;
       border-radius: 8px;
-      background: rgb(192, 224, 237);
+      background: rgb(233, 236, 249);
       border: 1px solid #cbd5e1;
       color: var(--text-secondary);
       font-weight: 700;
@@ -339,9 +339,12 @@
 
     .solutions {
       color: black; /* Darker blue for readability on white */
-      font-size: 18px;
+      font-size: 15px;
       font-weight: 500;
       white-space: pre-line;
+      background:rgb(233, 236, 249);
+      border-radius:8px;
+      padding:10px;
     }
 
     .headlines {
@@ -358,10 +361,10 @@
 .sdg-pill {
   padding: 6px 10px;
   border-radius: 999px;
-  background: #daf0f3;            /* light green */
+  background: rgb(233, 236, 249);            /* light green */
   border: 1px solid #bbf7d0;       /* soft green border */
   font-size: 13px;
-  color: #8486e5;                  /* dark green text */
+  color: #8484bc;                  /* dark green text */
   font-weight: 600;
 }
 
@@ -681,7 +684,7 @@ books.sort((a,b)=> /* compare category, then author, then year */ );`
       </div>
       
 
-    <div class="block"><strong class='headlines'>1. Problem</strong><p style="margin-top:10px">${escapeHtml(p.problem)}</p></div>
+    <div class="block"><strong class='headlines'>1. Problem</strong><p class='solutions' style="margin-top:10px">${escapeHtml(p.problem)}</p></div>
 
     <div class="block"><strong class='headlines'>2. Practical Solution</strong><p style="margin-top:10px" class="muted solutions">${escapeHtml(p.solution)}</p></div>
 
