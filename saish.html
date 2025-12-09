@@ -945,7 +945,7 @@ int main() {
     zone: 'Residential Area',
     title: 'Home Service Finder',
     photo: './shivaraj/Graph.webp',
-    phototitle: 'Knuth-Morris-Pratt (KMP) Algorithm',
+    phototitle: 'Graph',
     problem: `Residents in a city often face sudden household issues like plumbing leaks or electrical faults and need technicians quickly. However, they struggle to know who is available, what each technician charges, and how long it will actually take them to reach the house using real roads, not just straight-line distance. Without a system that considers both realistic travel time and service price, residents may overpay, wait too long, or fail to choose the best technician for their needs.
 `,
     solution: `Represent the city as a weighted road graph (nodes = junctions / worker locations / user). On a service request, run Dijkstra from the user node to get realistic travel times to each worker. Compute worker comparator (primary: price, secondary: travel time) and apply Merge Sort to produce a stable ranked list shown to the user. Use hash tables to index workers by service type for fast filtering.
