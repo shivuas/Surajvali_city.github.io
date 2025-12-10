@@ -520,12 +520,12 @@
         
         int main() {
             int n;
-            cout << "Enter the number of Vertices\n";
+            cout << "Enter the number of Vertices ";
             cin >> n;
         
             int cost[MAXN][MAXN];
         
-            cout << "Enter the cost matrix: (Enter 999 for Infinity)\n";
+            cout << "Enter the cost matrix: (Enter 999 for Infinity) ";
             for (int i = 0; i < n; i++) {
                 for (int j = 0; j < n; j++) {
                     cin >> cost[i][j];
@@ -533,7 +533,7 @@
             }
         
             int source;
-            cout << "Enter the source\n";
+            cout << "Enter the source ";
             cin >> source;
         
             int dist[MAXN], path[MAXN], visited[MAXN];
@@ -575,9 +575,9 @@
                 }
             }
         
-            cout << "\nVertex   Dist   Path\n";
+            cout << " Vertex   Dist   Path ";
             for (int i = 0; i < n; i++) {
-                cout << i << "        " << dist[i] << "      " << path[i] << "\n";
+                cout << i << "        " << dist[i] << "      " << path[i] << " ";
             }
         
             return 0;
@@ -715,7 +715,7 @@ DFS Algorithm:
                   }
           
                   if (j == m) {
-                      printf("Pattern found at index %d\n", i - j);
+                      printf("Pattern found at index %d ", i - j);
                       j = lps[j - 1];
                   }
           
@@ -828,8 +828,8 @@ DFS Algorithm:
         
             WaterNetwork net(n);
         
-            cout << "Enter " << m << " pipes (u v, 0-indexed):\n";
-            cout << "Example: 0 1 means pipe between junction 0 and 1\n";
+            cout << "Enter " << m << " pipes (u v, 0-indexed): ";
+            cout << "Example: 0 1 means pipe between junction 0 and 1 ";
             for (int i = 0; i < m; ++i) {
                 int u, v;
                 cin >> u >> v;
@@ -840,7 +840,7 @@ DFS Algorithm:
             cout << "Enter index of main tank junction: ";
             cin >> source;
         
-            cout << "Enter a pipe to simulate burst (u v), or -1 -1 for no failure:\n";
+            cout << "Enter a pipe to simulate burst (u v), or -1 -1 for no failure: ";
             int fu, fv;
             cin >> fu >> fv;
         
@@ -851,9 +851,9 @@ DFS Algorithm:
                 ok = net.canSupplyAll(source, fu, fv);      // with one pipe broken
         
             if (ok)
-                cout << "All sections STILL receive water. Graph design is robust.\n";
+                cout << "All sections STILL receive water. Graph design is robust. ";
             else
-                cout << "Some sections LOSE water. Need more alternate pipes.\n";
+                cout << "Some sections LOSE water. Need more alternate pipes. ";
         
             return 0;
         }
@@ -931,7 +931,7 @@ DFS Algorithm:
             // adjacency list for original road graph
             vector<vector<pair<int,double>>> g(n);
         
-            cout << "Enter each road as: u v distance (0-indexed nodes)\n";
+            cout << "Enter each road as: u v distance (0-indexed nodes) ";
             for (int i = 0; i < m; ++i) {
                 int u, v;
                 double w;
@@ -964,10 +964,10 @@ DFS Algorithm:
         
             if (usedEdges != n - 1) {
                 cout << "Warning: Graph is not fully connected. "
-                        "Some locations may be unreachable.\n";
+                        "Some locations may be unreachable. ";
             }
         
-            cout << "\nMST total cost (backbone for region): " << mstCost << "\n";
+            cout << " MST total cost (backbone for region): " << mstCost << " ";
         
             /* -------- 2) DFS on MST to get visiting order -------- */
             vector<int> dfsOrder;
@@ -992,9 +992,9 @@ DFS Algorithm:
                 if (tour.empty() || tour.back() != x) tour.push_back(x);
             }
         
-            cout << "\nMST DFS visiting order (tree walk): ";
+            cout << " MST DFS visiting order (tree walk): ";
             for (int x : tour) cout << x << " ";
-            cout << "\n";
+            cout << " ";
         
             /* -------- 3) Dijkstra to follow real shortest roads -------- */
         
@@ -1034,14 +1034,14 @@ DFS Algorithm:
             totalRoute += distBack[start];
         
             cout << "Total route distance using MST + DFS + Dijkstra: "
-                 << totalRoute << "\n";
+                 << totalRoute << " ";
         
-            cout << "\nInterpretation:\n"
-                 << "1. We first divided the city into regions (not coded here).\n"
-                 << "2. For this region we built a cheap backbone with Kruskal (MST).\n"
-                 << "3. DFS gave us a logical visiting order of all stops.\n"
-                 << "4. Dijkstra was used to travel between stops along true shortest roads\n"
-                 << "   and finally to return to the school.\n";
+            cout << " Interpretation: "
+                 << "1. We first divided the city into regions (not coded here). "
+                 << "2. For this region we built a cheap backbone with Kruskal (MST). "
+                 << "3. DFS gave us a logical visiting order of all stops. "
+                 << "4. Dijkstra was used to travel between stops along true shortest roads "
+                 << "   and finally to return to the school. ";
         
             return 0;
         }
@@ -1088,8 +1088,8 @@ DFS Algorithm:
         
             vector<vector<int>> g(n);
         
-            cout << "Enter " << m << " connections (u v, 0-indexed):\n";
-            cout << "Example: 4 5 means you can move between floor 4 and 5\n";
+            cout << "Enter " << m << " connections (u v, 0-indexed): ";
+            cout << "Example: 4 5 means you can move between floor 4 and 5 ";
             for (int i = 0; i < m; ++i) {
                 int u, v;
                 cin >> u >> v;
@@ -1102,7 +1102,7 @@ DFS Algorithm:
             cin >> k;
         
             vector<int> isExit(n, 0);
-            cout << "Enter the floor numbers that are emergency exits:\n";
+            cout << "Enter the floor numbers that are emergency exits: ";
             for (int i = 0; i < k; ++i) {
                 int x; 
                 cin >> x;
@@ -1141,7 +1141,7 @@ DFS Algorithm:
             }
         
             if (nearestExit == -1) {
-                cout << "No reachable emergency exit from this floor!\n";
+                cout << "No reachable emergency exit from this floor! ";
                 return 0;
             }
         
@@ -1151,15 +1151,15 @@ DFS Algorithm:
                 path.push_back(v);
             reverse(path.begin(), path.end());
         
-            cout << "\nNearest emergency exit is at floor: " << nearestExit << "\n";
+            cout << " Nearest emergency exit is at floor: " << nearestExit << " ";
             cout << "Number of steps (edges) to reach it: " 
-                 << dist[nearestExit] << "\n";
-            cout << "Recommended evacuation route:\n";
+                 << dist[nearestExit] << " ";
+            cout << "Recommended evacuation route: ";
             for (size_t i = 0; i < path.size(); ++i) {
                 cout << path[i];
                 if (i + 1 < path.size()) cout << " -> ";
             }
-            cout << "\n";
+            cout << " ";
         
             return 0;
         }
