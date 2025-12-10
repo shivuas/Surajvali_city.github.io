@@ -1049,6 +1049,168 @@ DFS Algorithm:
   },
   {
     id: 'p6',
+    zone: 'School',
+    title: 'Canteen Queue Management System',
+    photo: './shivaraj/sh6.png',
+    phototitle: 'Queue + Priority Queue (Heap)',
+    problem: `In a university canteen during lunch break, hundreds of students stand in a huge line.
+    If everyone uses a single random line:
+    People who came earlier may get served later,
+    Staff/faculty or emergency cases can’t be given priority cleanly.`,
+    solution: `Use a token system with queues:
+    Each person takes a token number when entering.
+    A display shows which token is being served.
+    Normal students go in a normal queue.
+    Staff / disabled / emergency tokens go into a priority queue so they can be handled earlier without breaking the system.`,
+    algos: ['Queue','Priority Queue (Heap)'],
+    sdgs: [
+      'SDG 3 – Good Health and Well-being',
+      'SDG 11 – Sustainable Cities and Communities'
+    ],
+    codeSnippet: `
+    #include <bits/stdc++.h>
+        using namespace std;
+
+        struct Token {
+            int id;         // token number
+            string name;    // person name (optional, for display)
+            string type;    // "STUDENT", "STAFF", "EMERGENCY"
+            int priority;   // higher value = higher priority
+        };
+
+        // Comparator for priority queue (max-heap by priority)
+        struct TokenCompare {
+            bool operator()(const Token &a, const Token &b) const {
+                // priority_queue puts "largest" on top
+                return a.priority < b.priority;
+            }
+        };
+
+        int main() {
+            ios::sync_with_stdio(false);
+            cin.tie(nullptr);
+
+            queue<Token> normalQueue; // for regular students
+            priority_queue<Token, vector<Token>, TokenCompare> priorityQueue; // staff + emergency
+
+            int tokenCounter = 1;
+            int choice;
+
+            while (true) {
+                cout << " === CANTEEN QUEUE MANAGEMENT === ";
+                cout << "1. Generate new token ";
+                cout << "2. Serve next person ";
+                cout << "3. Display current queues ";
+                cout << "4. Exit ";
+                cout << "Enter your choice: ";
+                cin >> choice;
+
+                if (!cin) {
+                    cout << "Invalid input. Exiting. ";
+                    break;
+                }
+
+                if (choice == 1) {
+                    // Generate new token
+                    string name;
+                    int cat;
+                    cout << " Enter name: ";
+                    cin >> name;
+                    cout << "Select category: ";
+                    cout << "1. Student (normal) ";
+                    cout << "2. Staff ";
+                    cout << "3. Emergency ";
+                    cout << "Enter option: ";
+                    cin >> cat;
+
+                    Token t;
+                    t.id = tokenCounter++;
+                    t.name = name;
+
+                    if (cat == 1) {
+                        t.type = "STUDENT";
+                        t.priority = 0;   // lowest
+                        normalQueue.push(t);
+                        cout << "Generated STUDENT token #" << t.id << " for " << t.name << " ";
+                    } else if (cat == 2) {
+                        t.type = "STAFF";
+                        t.priority = 1;   // medium
+                        priorityQueue.push(t);
+                        cout << "Generated STAFF token #" << t.id << " for " << t.name << " ";
+                    } else if (cat == 3) {
+                        t.type = "EMERGENCY";
+                        t.priority = 2;   // highest
+                        priorityQueue.push(t);
+                        cout << "Generated EMERGENCY token #" << t.id << " for " << t.name << " ";
+                    } else {
+                        cout << "Invalid category. Token discarded. ";
+                        tokenCounter--; // rollback token number
+                    }
+
+                } else if (choice == 2) {
+                    // Serve next person
+                    if (!priorityQueue.empty()) {
+                        // Serve from priority queue first
+                        Token t = priorityQueue.top();
+                        priorityQueue.pop();
+                        cout << " Serving (PRIORITY): ";
+                        cout << "Token #" << t.id << " | " << t.name 
+                            << " | " << t.type << " ";
+                    } else if (!normalQueue.empty()) {
+                        // Then from normal queue
+                        Token t = normalQueue.front();
+                        normalQueue.pop();
+                        cout << " Serving (NORMAL): ";
+                        cout << "Token #" << t.id << " | " << t.name 
+                            << " | " << t.type << " ";
+                    } else {
+                        cout << " No one in queue. ";
+                    }
+
+                } else if (choice == 3) {
+                    // Display queues (shallow copy so we don't destroy real queues)
+                    cout << " --- Priority Queue (Emergency + Staff) --- ";
+                    if (priorityQueue.empty()) {
+                        cout << "Empty ";
+                    } else {
+                        auto pqCopy = priorityQueue;
+                        while (!pqCopy.empty()) {
+                            Token t = pqCopy.top();
+                            pqCopy.pop();
+                            cout << "Token #" << t.id 
+                                << " | " << t.name 
+                                << " | " << t.type 
+                                << " | priority=" << t.priority << " ";
+                        }
+                    }
+
+                    cout << " --- Normal Queue (Students) --- ";
+                    if (normalQueue.empty()) {
+                        cout << "Empty ";
+                    } else {
+                        auto qCopy = normalQueue;
+                        while (!qCopy.empty()) {
+                            Token t = qCopy.front();
+                            qCopy.pop();
+                            cout << "Token #" << t.id 
+                                << " | " << t.name 
+                                << " | " << t.type << " ";
+                        }
+                    }
+
+                } else if (choice == 4) {
+                    cout << "Exiting system. ";
+                    break;
+                } else {
+                    cout << "Invalid choice. Try again. ";
+                }
+            }
+
+            return 0;
+        }
+`},
+  {
+    id: 'p7',
     zone: 'IT Hub',
     title: 'Implementing smart emergency exit in building complex from any floor',
     photo: './shivaraj/bfs.jpg',
@@ -1163,6 +1325,547 @@ DFS Algorithm:
         
             return 0;
         }
+`
+  },
+  
+{
+    id: 'p8',
+    zone: 'IT Hub',
+    title: 'Smart Meeting Room Scheduling in an IT Hub.',
+    photo: './shivaraj/sh8.png',
+    phototitle: 'Min-Heap',
+    problem: `In a large IT hub, many teams request meeting rooms with different start–end times.
+    Manual booking causes:
+    Double-booked meeting rooms
+    Unused empty gaps between meetings
+    Important client meetings getting rejected
+    Continuous conflicts and rescheduling
+    This leads to poor space utilization and operational delays.`,
+    solution: `Use an automated meeting-room scheduler:
+    Treat every meeting request as a time interval
+    Sort all requests by ending time
+    Assign meetings to rooms only if they don’t overlap
+    Use priority levels to decide which meeting gets a room when multiple clash
+    Track each room’s next free time using a min-heap
+    This eliminates double-booking and maximizes room usage.`,
+    algos: ['Min-Heap'],
+    sdgs: [
+      'SDG 3 – Good Health and Well-being',
+      'SDG 11 – Sustainable Cities and Communities'
+    ],
+    codeSnippet: `
+    #include <bits/stdc++.h>
+    using namespace std;
+
+    struct Meeting {
+        int id;
+        int start;
+        int end;
+    };
+
+    int main() {
+        ios::sync_with_stdio(false);
+        cin.tie(nullptr);
+
+        int n;
+        cout << "Enter number of meetings: ";
+        cin >> n;
+
+        vector<Meeting> meetings(n);
+        cout << "Enter meetings as: start end (as integers, e.g., 900 1030) ";
+        for (int i = 0; i < n; ++i) {
+            int s, e;
+            cin >> s >> e;
+            meetings[i] = {i + 1, s, e};   // id = 1..n
+        }
+
+        // 1) Sort meetings by start time (if tie, by end time)
+        sort(meetings.begin(), meetings.end(),
+            [](const Meeting &a, const Meeting &b) {
+                if (a.start == b.start) return a.end < b.end;
+                return a.start < b.start;
+            });
+
+        /*
+            2) Min-heap (priority_queue with greater)
+              Each entry: (roomFreeTime, roomId)
+              - roomFreeTime = when that room becomes available
+              - roomId = index of the room (0,1,2,...)
+        */
+        priority_queue<
+            pair<int,int>,
+            vector<pair<int,int>>,
+            greater<pair<int,int>>
+        > minHeap;
+
+        // roomAssignments[roomId] = list of meeting IDs assigned to that room
+        vector<vector<int>> roomAssignments;
+
+        int roomCount = 0;
+
+        for (const auto &mt : meetings) {
+            // Check if any room is free before this meeting starts
+            if (!minHeap.empty() && minHeap.top().first <= mt.start) {
+                // Reuse room with earliest free time
+                auto top = minHeap.top();
+                minHeap.pop();
+                int roomId = top.second;
+
+                roomAssignments[roomId].push_back(mt.id);
+
+                // Update that room's new free time
+                minHeap.push({mt.end, roomId});
+            } else {
+                // Need a new room
+                int roomId = roomCount++;
+                roomAssignments.push_back(vector<int>());
+                roomAssignments[roomId].push_back(mt.id);
+
+                // This room is now occupied until mt.end
+                minHeap.push({mt.end, roomId});
+            }
+        }
+
+        cout << " Total rooms required: " << roomCount << " ";
+
+        // Print schedule
+        for (int r = 0; r < roomCount; ++r) {
+            cout << "Room " << r + 1 << " has meetings (by ID): ";
+            for (int id : roomAssignments[r]) {
+                cout << id << " ";
+            }
+            cout << " ";
+        }
+
+        cout << " Note: ";
+        cout << "- Each meeting ID is the order you entered (1..n). ";
+        cout << "- No two meetings in the same room overlap in time. ";
+        cout << "- Min-heap ensures we always reuse the room that becomes free earliest. ";
+
+        return 0;
+    }
+
+`
+  },
+{
+    id: 'p9',
+    zone: 'IT Hub',
+    title: 'Optimized Shuttle/Bus Routing in Corporate Campus',
+    photo: './shivaraj/sh9.png',
+    phototitle: 'Kruskal + DFS + Dijkstra',
+    problem: `Large IT campuses operate shuttle buses connecting parking, hostels, cafeteria, and office towers.
+    Issues include:
+    Long travel times
+    Inefficient routes with unnecessary detours
+    Some stops getting skipped
+    Higher fuel cost
+    A system is needed that visits all required stops efficiently and returns to start.`,
+    solution: `Divide the whole map into zones, assign one shuttle per zone:
+    Build a graph where nodes = stops, edges = distances
+    Use Kruskal’s algorithm to generate a minimum spanning tree for that zone
+    Perform DFS traversal to get a logical visiting order
+    For each move, run Dijkstra to use the actual shortest road between stops
+    After covering all stops, use Dijkstra again to return to the origin
+    This produces a cost-efficient shuttle path.`,
+    algos: ['Kruskal','DFS','Dijkstra'],
+    sdgs: [
+      'SDG 3 – Good Health and Well-being',
+      'SDG 11 – Sustainable Cities and Communities'
+    ],
+    codeSnippet: `
+    #include <bits/stdc++.h>
+    using namespace std;
+
+    /* ---------- Disjoint Set Union (for Kruskal) ---------- */
+    struct DSU {
+        vector<int> parent, rnk;
+
+        DSU(int n) : parent(n), rnk(n, 0) {
+            for (int i = 0; i < n; ++i) parent[i] = i;
+        }
+
+        int find(int x) {
+            if (parent[x] == x) return x;
+            return parent[x] = find(parent[x]);
+        }
+
+        bool unite(int a, int b) {
+            a = find(a);
+            b = find(b);
+            if (a == b) return false;
+            if (rnk[a] < rnk[b]) swap(a, b);
+            parent[b] = a;
+            if (rnk[a] == rnk[b]) rnk[a]++;
+            return true;
+        }
+    };
+
+    /* ---------- Edge structure ---------- */
+    struct Edge {
+        int u, v;
+        double w;
+    };
+
+    const double INF = 1e18;
+
+    int main() {
+        ios::sync_with_stdio(false);
+        cin.tie(nullptr);
+
+        int n, m;
+        cout << "Enter number of stops (including depot) and number of roads: ";
+        cin >> n >> m;
+
+        // Full campus road graph (for real distances)
+        vector<vector<pair<int,double>>> graph(n);
+        vector<Edge> edges;
+        edges.reserve(m);
+
+        cout << "Enter each road as: u v distance (0-indexed nodes) ";
+        cout << "Example: 0 3 120.5 ";
+        for (int i = 0; i < m; ++i) {
+            int u, v;
+            double w;
+            cin >> u >> v >> w;
+            edges.push_back({u, v, w});
+            graph[u].push_back({v, w});
+            graph[v].push_back({u, w});    // undirected
+        }
+
+        int depot = 0;   // shuttle start/end stop
+
+        /* ---------- 1) Kruskal: build MST backbone ---------- */
+
+        sort(edges.begin(), edges.end(),
+            [](const Edge &a, const Edge &b) {
+                return a.w < b.w;
+            });
+
+        DSU dsu(n);
+        vector<vector<pair<int,double>>> mst(n);  // MST adjacency list
+        double mstCost = 0.0;
+        int usedEdges = 0;
+
+        for (auto &e : edges) {
+            if (dsu.unite(e.u, e.v)) {
+                mst[e.u].push_back({e.v, e.w});
+                mst[e.v].push_back({e.u, e.w});
+                mstCost += e.w;
+                usedEdges++;
+                if (usedEdges == n - 1) break;
+            }
+        }
+
+        if (usedEdges != n - 1) {
+            cout << " Warning: Graph is not fully connected. "
+                    "Some stops may be unreachable. ";
+        }
+
+        cout << " MST total backbone cost (for this zone): " << mstCost << " ";
+
+        /* ---------- 2) DFS on MST to get visiting order ---------- */
+
+        vector<int> dfsOrder;
+        vector<int> vis(n, 0);
+
+        function<void(int)> dfs = [&](int u) {
+            vis[u] = 1;
+            dfsOrder.push_back(u);
+            for (auto [v, w] : mst[u]) {
+                if (!vis[v]) {
+                    dfs(v);
+                    dfsOrder.push_back(u);   // backtrack to u
+                }
+            }
+        };
+
+        dfs(depot);
+
+        // Remove consecutive duplicates (u, u)
+        vector<int> tour;
+        for (int x : dfsOrder) {
+            if (tour.empty() || tour.back() != x) tour.push_back(x);
+        }
+
+        cout << " MST DFS order (logical visiting sequence): ";
+        for (int x : tour) cout << x << " ";
+        cout << " ";
+
+        /* ---------- 3) Dijkstra on full graph for real shortest paths ---------- */
+
+        auto dijkstra = [&](int src) {
+            vector<double> dist(n, INF);
+            priority_queue<
+                pair<double,int>,
+                vector<pair<double,int>>,
+                greater<pair<double,int>>
+            > pq;
+
+            dist[src] = 0.0;
+            pq.push({0.0, src});
+
+            while (!pq.empty()) {
+                auto [d, u] = pq.top();
+                pq.pop();
+                if (d > dist[u]) continue;
+
+                for (auto [v, w] : graph[u]) {
+                    if (dist[v] > d + w) {
+                        dist[v] = d + w;
+                        pq.push({dist[v], v});
+                    }
+                }
+            }
+            return dist;
+        };
+
+        double totalRoute = 0.0;
+
+        // Travel along the tour using shortest paths in the real graph
+        for (size_t i = 0; i + 1 < tour.size(); ++i) {
+            int u = tour[i];
+            int v = tour[i + 1];
+            auto dist = dijkstra(u);
+            if (dist[v] >= INF / 2) {
+                cout << "No path between " << u << " and " << v 
+                    << " in real graph! ";
+            } else {
+                totalRoute += dist[v];
+            }
+        }
+
+        // Finally return to depot from last stop
+        int lastStop = tour.back();
+        auto distBack = dijkstra(lastStop);
+        if (distBack[depot] >= INF / 2) {
+            cout << "No path from last stop " << lastStop 
+                << " back to depot " << depot << "! ";
+        } else {
+            totalRoute += distBack[depot];
+        }
+
+        cout << " Total shuttle route distance (MST + DFS + Dijkstra): "
+            << totalRoute << " ";
+
+        cout << " Summary: ";
+        cout << "1. Kruskal built a minimum-cost backbone connecting all stops. ";
+        cout << "2. DFS gave a simple visiting sequence covering every stop. ";
+        cout << "3. Dijkstra replaced tree edges with real shortest paths on the ";
+        cout << "   campus road network and also used to return to the depot. ";
+
+        return 0;
+    }
+
+`
+  },
+{
+    id: 'p10',
+    zone: 'IT Hub',
+    title: 'Smart Energy Load Balancing for IT Data Centers.',
+    photo: './shivaraj/bfs.jpg',
+    phototitle: 'Min-Heap Priority Queue',
+    problem: `Data centers in IT hubs run thousands of servers.
+    Sudden spikes in CPU/GPU load cause:
+    Overheating
+    Power inefficiency
+    Unbalanced usage across servers
+    Risk of server shutdown or thermal throttling
+    Engineers need automatic load distribution.`,
+    solution: `Model each server as a node, connections representing resource availability or load-transfer capability.
+    When a server gets overloaded:
+    Run a shortest path check to identify nearby underutilized servers
+    Redirect tasks to them
+    Continuously monitor system load and redistribute jobs
+    Servers with least load receive tasks first, maintaining temperature and performance stability.`,
+    algos: ['Min-Heap Priority Queue'],
+    sdgs: [
+      'SDG 3 – Good Health and Well-being',
+      'SDG 11 – Sustainable Cities and Communities'
+    ],
+    codeSnippet: `
+    #include <bits/stdc++.h>
+    using namespace std;
+
+    /* ---------- Disjoint Set Union (for Kruskal) ---------- */
+    struct DSU {
+        vector<int> parent, rnk;
+
+        DSU(int n) : parent(n), rnk(n, 0) {
+            for (int i = 0; i < n; ++i) parent[i] = i;
+        }
+
+        int find(int x) {
+            if (parent[x] == x) return x;
+            return parent[x] = find(parent[x]);
+        }
+
+        bool unite(int a, int b) {
+            a = find(a);
+            b = find(b);
+            if (a == b) return false;
+            if (rnk[a] < rnk[b]) swap(a, b);
+            parent[b] = a;
+            if (rnk[a] == rnk[b]) rnk[a]++;
+            return true;
+        }
+    };
+
+    /* ---------- Edge structure ---------- */
+    struct Edge {
+        int u, v;
+        double w;
+    };
+
+    const double INF = 1e18;
+
+    int main() {
+        ios::sync_with_stdio(false);
+        cin.tie(nullptr);
+
+        int n, m;
+        cout << "Enter number of stops (including depot) and number of roads: ";
+        cin >> n >> m;
+
+        // Full campus road graph (for real distances)
+        vector<vector<pair<int,double>>> graph(n);
+        vector<Edge> edges;
+        edges.reserve(m);
+
+        cout << "Enter each road as: u v distance (0-indexed nodes) ";
+        cout << "Example: 0 3 120.5 ";
+        for (int i = 0; i < m; ++i) {
+            int u, v;
+            double w;
+            cin >> u >> v >> w;
+            edges.push_back({u, v, w});
+            graph[u].push_back({v, w});
+            graph[v].push_back({u, w});    // undirected
+        }
+
+        int depot = 0;   // shuttle start/end stop
+
+        /* ---------- 1) Kruskal: build MST backbone ---------- */
+
+        sort(edges.begin(), edges.end(),
+            [](const Edge &a, const Edge &b) {
+                return a.w < b.w;
+            });
+
+        DSU dsu(n);
+        vector<vector<pair<int,double>>> mst(n);  // MST adjacency list
+        double mstCost = 0.0;
+        int usedEdges = 0;
+
+        for (auto &e : edges) {
+            if (dsu.unite(e.u, e.v)) {
+                mst[e.u].push_back({e.v, e.w});
+                mst[e.v].push_back({e.u, e.w});
+                mstCost += e.w;
+                usedEdges++;
+                if (usedEdges == n - 1) break;
+            }
+        }
+
+        if (usedEdges != n - 1) {
+            cout << " Warning: Graph is not fully connected. "
+                    "Some stops may be unreachable. ";
+        }
+
+        cout << " MST total backbone cost (for this zone): " << mstCost << " ";
+
+        /* ---------- 2) DFS on MST to get visiting order ---------- */
+
+        vector<int> dfsOrder;
+        vector<int> vis(n, 0);
+
+        function<void(int)> dfs = [&](int u) {
+            vis[u] = 1;
+            dfsOrder.push_back(u);
+            for (auto [v, w] : mst[u]) {
+                if (!vis[v]) {
+                    dfs(v);
+                    dfsOrder.push_back(u);   // backtrack to u
+                }
+            }
+        };
+
+        dfs(depot);
+
+        // Remove consecutive duplicates (u, u)
+        vector<int> tour;
+        for (int x : dfsOrder) {
+            if (tour.empty() || tour.back() != x) tour.push_back(x);
+        }
+
+        cout << " MST DFS order (logical visiting sequence): ";
+        for (int x : tour) cout << x << " ";
+        cout << " ";
+
+        /* ---------- 3) Dijkstra on full graph for real shortest paths ---------- */
+
+        auto dijkstra = [&](int src) {
+            vector<double> dist(n, INF);
+            priority_queue<
+                pair<double,int>,
+                vector<pair<double,int>>,
+                greater<pair<double,int>>
+            > pq;
+
+            dist[src] = 0.0;
+            pq.push({0.0, src});
+
+            while (!pq.empty()) {
+                auto [d, u] = pq.top();
+                pq.pop();
+                if (d > dist[u]) continue;
+
+                for (auto [v, w] : graph[u]) {
+                    if (dist[v] > d + w) {
+                        dist[v] = d + w;
+                        pq.push({dist[v], v});
+                    }
+                }
+            }
+            return dist;
+        };
+
+        double totalRoute = 0.0;
+
+        // Travel along the tour using shortest paths in the real graph
+        for (size_t i = 0; i + 1 < tour.size(); ++i) {
+            int u = tour[i];
+            int v = tour[i + 1];
+            auto dist = dijkstra(u);
+            if (dist[v] >= INF / 2) {
+                cout << "No path between " << u << " and " << v 
+                    << " in real graph! ";
+            } else {
+                totalRoute += dist[v];
+            }
+        }
+
+        // Finally return to depot from last stop
+        int lastStop = tour.back();
+        auto distBack = dijkstra(lastStop);
+        if (distBack[depot] >= INF / 2) {
+            cout << "No path from last stop " << lastStop 
+                << " back to depot " << depot << "! ";
+        } else {
+            totalRoute += distBack[depot];
+        }
+
+        cout << " Total shuttle route distance (MST + DFS + Dijkstra): "
+            << totalRoute << " ";
+
+        cout << " Summary: ";
+        cout << "1. Kruskal built a minimum-cost backbone connecting all stops. ";
+        cout << "2. DFS gave a simple visiting sequence covering every stop. ";
+        cout << "3. Dijkstra replaced tree edges with real shortest paths on the ";
+        cout << "   campus road network and also used to return to the depot. ";
+
+        return 0;
+    }
+
 `
   }
 ];
