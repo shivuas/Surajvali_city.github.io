@@ -511,9 +511,77 @@
       'SDG 9 – Industry, Innovation and Infrastructure',
       'SDG 11 – Sustainable Cities and Communities'
     ],
-    codeSnippet: `// After removing blocked edge, test connectivity via BFS
-function bfs(graph, source){ /* ... */ }
-// Run Dijkstra for best pressure-loss path`
+    codeSnippet: `
+    #include <iostream>
+        using namespace std;
+        
+        #define MAXN 100
+        #define INF 999
+        
+        int main() {
+            int n;
+            cout << "Enter the number of Vertices\n";
+            cin >> n;
+        
+            int cost[MAXN][MAXN];
+        
+            cout << "Enter the cost matrix: (Enter 999 for Infinity)\n";
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < n; j++) {
+                    cin >> cost[i][j];
+                }
+            }
+        
+            int source;
+            cout << "Enter the source\n";
+            cin >> source;
+        
+            int dist[MAXN], path[MAXN], visited[MAXN];
+        
+        
+            for (int i = 0; i < n; i++) {
+                dist[i] = cost[source][i];
+                path[i] = source;
+                visited[i] = 0;
+            }
+            visited[source] = 1;
+        
+        
+            for (int iter = 0; iter < n - 1; iter++) {
+                int u = -1;
+                int min = INF + 1;
+        
+        
+                for (int i = 0; i < n; i++) {
+                    if (!visited[i] && dist[i] < min) {
+                        min = dist[i];
+                        u = i;
+                    }
+                }
+        
+                if (u == -1)
+                    break;
+        
+                visited[u] = 1;
+        
+        
+                for (int v = 0; v < n; v++) {
+                    if (!visited[v] && cost[u][v] != INF) {
+                        if (dist[u] + cost[u][v] < dist[v]) {
+                            dist[v] = dist[u] + cost[u][v];
+                            path[v] = u;
+                        }
+                    }
+                }
+            }
+        
+            cout << "\nVertex   Dist   Path\n";
+            for (int i = 0; i < n; i++) {
+                cout << i << "        " << dist[i] << "      " << path[i] << "\n";
+            }
+        
+            return 0;
+        }`
   },
   {
     id: 'p2',
@@ -703,13 +771,99 @@ DFS Algorithm:
       'SDG 9 – Industry, Innovation and Infrastructure',
       'SDG 11 – Sustainable Cities and Communities'
     ],
-    codeSnippet: `// Compare shortest 'official' vs 'actual' path lengths; if ratio > threshold add new edge.`
+    codeSnippet: `
+    #include <bits/stdc++.h>
+        using namespace std;
+        
+        // Water network represented as an undirected graph
+        struct WaterNetwork {
+            int n;                          // number of junctions / corners
+            vector<vector<int>> adj;        // adjacency list
+        
+            WaterNetwork(int n) : n(n), adj(n) {}
+        
+            // Add a pipe between two junctions (u, v)
+            void addPipe(int u, int v) {
+                adj[u].push_back(v);
+                adj[v].push_back(u);
+            }
+        
+            // Check if all junctions still receive water from 'source'
+            // when pipe (failU, failV) is broken.
+            bool canSupplyAll(int source, int failU = -1, int failV = -1) {
+                vector<int> vis(n, 0);
+                queue<int> q;
+                q.push(source);
+                vis[source] = 1;
+        
+                auto isFailed = [&](int a, int b) {
+                    if (failU == -1 && failV == -1) return false; // no failure
+                    return (a == failU && b == failV) || (a == failV && b == failU);
+                };
+        
+                while (!q.empty()) {
+                    int u = q.front(); q.pop();
+                    for (int v : adj[u]) {
+                        // Skip the broken pipe
+                        if (isFailed(u, v)) continue;
+                        if (!vis[v]) {
+                            vis[v] = 1;
+                            q.push(v);
+                        }
+                    }
+                }
+        
+                // If every junction was visited, water reached the whole building
+                return all_of(vis.begin(), vis.end(), [](int x){ return x == 1; });
+            }
+        };
+        
+        int main() {
+            ios::sync_with_stdio(false);
+            cin.tie(nullptr);
+        
+            int n, m;
+            cout << "Enter number of junctions and pipes: ";
+            cin >> n >> m;
+        
+            WaterNetwork net(n);
+        
+            cout << "Enter " << m << " pipes (u v, 0-indexed):\n";
+            cout << "Example: 0 1 means pipe between junction 0 and 1\n";
+            for (int i = 0; i < m; ++i) {
+                int u, v;
+                cin >> u >> v;
+                net.addPipe(u, v);
+            }
+        
+            int source;
+            cout << "Enter index of main tank junction: ";
+            cin >> source;
+        
+            cout << "Enter a pipe to simulate burst (u v), or -1 -1 for no failure:\n";
+            int fu, fv;
+            cin >> fu >> fv;
+        
+            bool ok;
+            if (fu == -1 && fv == -1)
+                ok = net.canSupplyAll(source);              // normal case
+            else
+                ok = net.canSupplyAll(source, fu, fv);      // with one pipe broken
+        
+            if (ok)
+                cout << "All sections STILL receive water. Graph design is robust.\n";
+            else
+                cout << "Some sections LOSE water. Need more alternate pipes.\n";
+        
+            return 0;
+        }
+`
   },
   {
     id: 'p5',
     zone: 'School',
     title: 'Finding shortest path to visit all bustop and return back to school',
-    photo: '',
+    photo: './shivaraj/sh5.png',
     phototitle: '',
     problem: `For a large city or a huge population of students, dividing students bases on their location and assigning them to particular bus and
     the bus should have to choose the shortest path to visit all the points and reach back to starting point (school/University).`,
@@ -725,8 +879,173 @@ DFS Algorithm:
       'SDG 11 – Sustainable Cities and Communities',
       'SDG 13 – Climate Action'
     ],
-    codeSnippet: `// Multi-key sort: category, author, year
-books.sort((a,b)=> /* compare category, then author, then year */ );`
+    codeSnippet: `
+    #include <bits/stdc++.h>
+        using namespace std;
+        
+        /* ---------- Disjoint Set Union for Kruskal ---------- */
+        struct DSU {
+            vector<int> parent, rnk;
+        
+            DSU(int n) : parent(n), rnk(n, 0) {
+                for (int i = 0; i < n; ++i) parent[i] = i;
+            }
+        
+            int find(int x) {
+                if (parent[x] == x) return x;
+                return parent[x] = find(parent[x]);
+            }
+        
+            bool unite(int a, int b) {
+                a = find(a);
+                b = find(b);
+                if (a == b) return false;
+                if (rnk[a] < rnk[b]) swap(a, b);
+                parent[b] = a;
+                if (rnk[a] == rnk[b]) rnk[a]++;
+                return true;
+            }
+        };
+        
+        /* ---------- Graph + Algorithms ---------- */
+        
+        struct Edge {
+            int u, v;
+            double w;
+        };
+        
+        const double INF = 1e18;
+        
+        int main() {
+            ios::sync_with_stdio(false);
+            cin.tie(nullptr);
+        
+            int n, m;
+            cout << "Enter number of locations (including school) and roads: ";
+            cin >> n >> m;
+        
+            // 0 .. n-1  are locations, assume 0 is SCHOOL/UNIVERSITY
+            vector<Edge> edges;
+            edges.reserve(m);
+        
+            // adjacency list for original road graph
+            vector<vector<pair<int,double>>> g(n);
+        
+            cout << "Enter each road as: u v distance (0-indexed nodes)\n";
+            for (int i = 0; i < m; ++i) {
+                int u, v;
+                double w;
+                cin >> u >> v >> w;
+                edges.push_back({u, v, w});
+                g[u].push_back({v, w});
+                g[v].push_back({u, w}); // undirected road
+            }
+        
+            int start = 0; // school node
+        
+            /* -------- 1) Kruskal: build MST for this region -------- */
+            sort(edges.begin(), edges.end(),
+                 [](const Edge &a, const Edge &b){ return a.w < b.w; });
+        
+            DSU dsu(n);
+            vector<vector<pair<int,double>>> mst(n); // MST adjacency
+        
+            double mstCost = 0.0;
+            int usedEdges = 0;
+            for (auto &e : edges) {
+                if (dsu.unite(e.u, e.v)) {
+                    mst[e.u].push_back({e.v, e.w});
+                    mst[e.v].push_back({e.u, e.w});
+                    mstCost += e.w;
+                    usedEdges++;
+                    if (usedEdges == n - 1) break;
+                }
+            }
+        
+            if (usedEdges != n - 1) {
+                cout << "Warning: Graph is not fully connected. "
+                        "Some locations may be unreachable.\n";
+            }
+        
+            cout << "\nMST total cost (backbone for region): " << mstCost << "\n";
+        
+            /* -------- 2) DFS on MST to get visiting order -------- */
+            vector<int> dfsOrder;
+            vector<int> vis(n, 0);
+        
+            function<void(int)> dfs = [&](int u) {
+                vis[u] = 1;
+                dfsOrder.push_back(u);
+                for (auto [v, w] : mst[u]) {
+                    if (!vis[v]) {
+                        dfs(v);
+                        dfsOrder.push_back(u); // backtrack to u in tree walk
+                    }
+                }
+            };
+        
+            dfs(start);
+        
+            // Remove consecutive duplicates in dfsOrder
+            vector<int> tour;
+            for (int x : dfsOrder) {
+                if (tour.empty() || tour.back() != x) tour.push_back(x);
+            }
+        
+            cout << "\nMST DFS visiting order (tree walk): ";
+            for (int x : tour) cout << x << " ";
+            cout << "\n";
+        
+            /* -------- 3) Dijkstra to follow real shortest roads -------- */
+        
+            auto dijkstra = [&](int src) {
+                vector<double> dist(n, INF);
+                priority_queue<pair<double,int>,
+                               vector<pair<double,int>>,
+                               greater<pair<double,int>>> pq;
+                dist[src] = 0;
+                pq.push({0, src});
+                while (!pq.empty()) {
+                    auto [d, u] = pq.top(); pq.pop();
+                    if (d > dist[u]) continue;
+                    for (auto [v, w] : g[u]) {
+                        if (dist[v] > d + w) {
+                            dist[v] = d + w;
+                            pq.push({dist[v], v});
+                        }
+                    }
+                }
+                return dist;
+            };
+        
+            double totalRoute = 0.0;
+        
+            // Move along the tour using shortest paths in the real graph
+            for (size_t i = 0; i + 1 < tour.size(); ++i) {
+                int u = tour[i];
+                int v = tour[i + 1];
+                auto dist = dijkstra(u);
+                totalRoute += dist[v];
+            }
+        
+            // Finally come back to school from last node
+            int lastNode = tour.back();
+            auto distBack = dijkstra(lastNode);
+            totalRoute += distBack[start];
+        
+            cout << "Total route distance using MST + DFS + Dijkstra: "
+                 << totalRoute << "\n";
+        
+            cout << "\nInterpretation:\n"
+                 << "1. We first divided the city into regions (not coded here).\n"
+                 << "2. For this region we built a cheap backbone with Kruskal (MST).\n"
+                 << "3. DFS gave us a logical visiting order of all stops.\n"
+                 << "4. Dijkstra was used to travel between stops along true shortest roads\n"
+                 << "   and finally to return to the school.\n";
+        
+            return 0;
+        }
+`
   },
   {
     id: 'p6',
@@ -746,7 +1065,105 @@ books.sort((a,b)=> /* compare category, then author, then year */ );`
       'SDG 3 – Good Health and Well-being',
       'SDG 11 – Sustainable Cities and Communities'
     ],
-    codeSnippet: `// Find nearest free slot via BFS on lane graph; compute driving path by Dijkstra.`
+    codeSnippet: `
+    #include <bits/stdc++.h>
+        using namespace std;
+        
+        /*
+           Building evacuation helper using BFS
+        
+           - Each node = floor / area in the building
+           - Each edge = a possible movement (stairs, hallway, internal door)
+           - Some nodes are marked as EMERGENCY EXITS
+           - For a given starting floor, BFS finds the NEAREST exit
+        */
+        
+        int main() {
+            ios::sync_with_stdio(false);
+            cin.tie(nullptr);
+        
+            int n, m;
+            cout << "Enter number of floors/nodes and connections: ";
+            cin >> n >> m;
+        
+            vector<vector<int>> g(n);
+        
+            cout << "Enter " << m << " connections (u v, 0-indexed):\n";
+            cout << "Example: 4 5 means you can move between floor 4 and 5\n";
+            for (int i = 0; i < m; ++i) {
+                int u, v;
+                cin >> u >> v;
+                g[u].push_back(v);
+                g[v].push_back(u);   // undirected movement
+            }
+        
+            int k;
+            cout << "Enter number of emergency exits: ";
+            cin >> k;
+        
+            vector<int> isExit(n, 0);
+            cout << "Enter the floor numbers that are emergency exits:\n";
+            for (int i = 0; i < k; ++i) {
+                int x; 
+                cin >> x;
+                isExit[x] = 1;
+            }
+        
+            int start;
+            cout << "Enter current floor (start node): ";
+            cin >> start;
+        
+            // ---------- BFS for nearest exit ----------
+            vector<int> dist(n, -1), parent(n, -1);
+            queue<int> q;
+        
+            dist[start] = 0;
+            q.push(start);
+        
+            int nearestExit = -1;
+        
+            while (!q.empty()) {
+                int u = q.front(); q.pop();
+        
+                // As soon as we see an exit, it's the NEAREST one (BFS property)
+                if (isExit[u]) {
+                    nearestExit = u;
+                    break;
+                }
+        
+                for (int v : g[u]) {
+                    if (dist[v] == -1) {
+                        dist[v] = dist[u] + 1;
+                        parent[v] = u;
+                        q.push(v);
+                    }
+                }
+            }
+        
+            if (nearestExit == -1) {
+                cout << "No reachable emergency exit from this floor!\n";
+                return 0;
+            }
+        
+            // Reconstruct path from start to nearestExit
+            vector<int> path;
+            for (int v = nearestExit; v != -1; v = parent[v])
+                path.push_back(v);
+            reverse(path.begin(), path.end());
+        
+            cout << "\nNearest emergency exit is at floor: " << nearestExit << "\n";
+            cout << "Number of steps (edges) to reach it: " 
+                 << dist[nearestExit] << "\n";
+            cout << "Recommended evacuation route:\n";
+            for (size_t i = 0; i < path.size(); ++i) {
+                cout << path[i];
+                if (i + 1 < path.size()) cout << " -> ";
+            }
+            cout << "\n";
+        
+            return 0;
+        }
+`
   }
 ];
 
