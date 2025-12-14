@@ -1985,13 +1985,11 @@
       </div>
       <div class="actions">
         <button class="btn" onclick="viewCode('${p.id}')">View code</button>
-        ${p.datasetLink ? `
+        
     <button class="btn"
-       onclick="${p.datasetLink}"
-       rel="noopener noreferrer"
-       style="text-decoration:none">
-       View dataset
-    </button>
+  onclick="window.open('${p.datasetLink}', '_blank')">
+  View dataset
+</button>
       </div>
     </div>
 
