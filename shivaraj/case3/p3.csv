@@ -1,50 +1,391 @@
-Zone15,Zone16,260,8600,suburban,medium
-Zone14,Zone16,420,13800,rural,high
-Zone13,Zone16,380,12500,suburban,medium
-Zone12,Zone16,340,11100,mixed,medium
-Zone11,Zone16,300,9800,urban,low
-Zone10,Zone16,410,13500,rural,medium
-Zone9,Zone16,580,19200,rural,very_high
-Zone8,Zone16,460,14900,rural,high
-Zone7,Zone16,390,12800,suburban,medium
-Zone6,Zone16,520,17200,rural,high
-Zone15,Zone17,310,10200,mixed,medium
-Zone14,Zone17,470,15200,rural,high
-Zone13,Zone17,430,14000,rural,medium
-Zone12,Zone17,360,11800,suburban,medium
-Zone11,Zone17,290,9400,urban,low
-Zone10,Zone17,450,15000,rural,high
-Zone9,Zone17,610,19800,rural,very_high
-Zone8,Zone17,500,16500,rural,high
-Zone7,Zone17,420,13800,rural,medium
-Zone6,Zone17,560,18500,rural,high
-Zone15,Zone18,380,12500,suburban,medium
-Zone14,Zone18,540,18000,rural,high
-Zone13,Zone18,490,16200,rural,high
-Zone12,Zone18,410,13500,rural,medium
-Zone11,Zone18,330,10800,mixed,medium
-Zone10,Zone18,470,15200,rural,high
-Zone9,Zone18,650,21500,rural,very_high
-Zone8,Zone18,520,17200,rural,high
-Zone7,Zone18,450,15000,rural,medium
-Zone6,Zone18,600,20000,rural,very_high
-Zone15,Zone19,420,13800,rural,medium
-Zone14,Zone19,580,19200,rural,very_high
-Zone13,Zone19,520,17200,rural,high
-Zone12,Zone19,460,14900,rural,medium
-Zone11,Zone19,360,11800,suburban,medium
-Zone10,Zone19,500,16500,rural,high
-Zone9,Zone19,700,23500,rural,very_high
-Zone8,Zone19,560,18500,rural,high
-Zone7,Zone19,480,15800,rural,high
-Zone6,Zone19,630,20800,rural,very_high
-Zone15,Zone20,480,15800,rural,high
-Zone14,Zone20,620,20500,rural,very_high
-Zone13,Zone20,560,18500,rural,high
-Zone12,Zone20,500,16500,rural,high
-Zone11,Zone20,400,13200,suburban,medium
-Zone10,Zone20,540,18000,rural,high
-Zone9,Zone20,720,24000,rural,very_high
-Zone8,Zone20,600,20000,rural,very_high
-Zone7,Zone20,520,17200,rural,high
-Zone6,Zone20,680,22500,rural,very_high
+document_id,title,content_preview,file_size_kb,category,date_indexed,search_keywords
+DOC011,Object Oriented Programming with Java,Classes objects inheritance polymorphism Java concepts,850,programming,2024-02-01,java oop classes inheritance
+DOC012,Python for Data Science,Pandas NumPy Matplotlib data analysis tutorial,1200,data_science,2024-02-03,python pandas numpy analysis
+DOC013,Digital Logic Design,Boolean algebra logic gates flip flops counters,950,electronics,2024-02-05,logic gates boolean digital
+DOC014,Discrete Mathematics,Sets relations functions graph theory logic,1100,mathematics,2024-02-07,sets graph theory logic
+DOC015,Computer Organization Architecture,CPU design pipelines cache memory instruction sets,1300,systems,2024-02-10,cpu pipeline cache architecture
+DOC016,Software Engineering Principles,SDLC models agile testing requirements analysis,1050,software_eng,2024-02-12,agile sdlc testing requirements
+DOC017,Automata Theory and Computation,Finite automata regular expressions turing machines,1150,theory_computation,2024-02-15,automata turing machine computation
+DOC018,Artificial Intelligence Modern Approach,Search algorithms game playing logic agents,1600,ai_ml,2024-02-18,ai search agents logic
+DOC019,Cyber Security Fundamentals,Cryptography network security firewalls malware,1250,security,2024-02-20,cryptography security firewall malware
+DOC020,Cloud Computing Services,AWS Azure Google Cloud IaaS PaaS SaaS,1400,cloud,2024-02-22,aws azure cloud saas
+DOC021,Big Data Analytics,Hadoop Spark MapReduce data mining techniques,1500,data_science,2024-02-25,hadoop spark big data
+DOC022,Internet of Things IoT,Sensors actuators microcontrollers IoT protocols,1100,electronics,2024-02-28,iot sensors arduino raspberry
+DOC023,Mobile App Development,Android Studio Kotlin Flutter iOS development,1350,mobile_dev,2024-03-01,android kotlin flutter app
+DOC024,Full Stack Web Development,MERN stack React Node Express MongoDB,1450,web,2024-03-03,react node mongodb full stack
+DOC025,Blockchain Technology,Cryptocurrency smart contracts distributed ledger,1200,blockchain,2024-03-05,blockchain crypto smart contracts
+DOC026,Deep Learning Neural Networks,CNN RNN TensorFlow PyTorch backpropagation,1700,ai_ml,2024-03-08,deep learning cnn pytorch
+DOC027,Natural Language Processing,Text processing sentiment analysis chatbots NLP,1550,ai_ml,2024-03-10,nlp text sentiment chatbot
+DOC028,Computer Graphics,Rasterization ray tracing OpenGL rendering,1300,graphics,2024-03-12,graphics opengl rendering ray tracing
+DOC029,Human Computer Interaction,UI UX design usability testing interface design,1000,design,2024-03-15,ui ux design interface
+DOC030,Advanced Database Systems,NoSQL MongoDB Cassandra indexing query optimization,1400,databases,2024-03-18,nosql mongodb database indexing
+DOC031,Signals and Systems,Fourier transform Laplace Z-transform signal processing,1150,electronics,2024-03-20,fourier signals laplace processing
+DOC032,Microprocessors and Interfacing,8086 architecture assembly language interrupts,1250,electronics,2024-03-22,microprocessor 8086 assembly interrupts
+DOC033,Analog Electronic Circuits,Amplifiers oscillators op-amps transistors,1100,electronics,2024-03-25,analog circuits amplifiers transistors
+DOC034,Control Systems Engineering,Stability analysis PID controllers frequency response,1200,electronics,2024-03-28,control pid stability frequency
+DOC035,VLSI Design,CMOS logic layout design fabrication process,1350,electronics,2024-03-30,vlsi cmos layout design
+DOC036,Embedded Systems Design,Real-time OS firmware development hardware interface,1300,electronics,2024-04-01,embedded rtos firmware hardware
+DOC037,Digital Signal Processing,Filters FFT IIR FIR image processing,1400,electronics,2024-04-03,dsp filters fft processing
+DOC038,Communication Systems,Modulation demodulation AM FM digital comms,1250,electronics,2024-04-05,modulation communication am fm
+DOC039,Engineering Electromagnetics,Maxwell equations transmission lines wave propagation,1150,electronics,2024-04-08,electromagnetics maxwell wave
+DOC040,Power Electronics,Inverters converters thyristors motor drives,1300,electrical,2024-04-10,power inverters motor drives
+DOC041,Engineering Mechanics,Statics dynamics force systems friction,1050,mechanical,2024-04-12,mechanics statics dynamics force
+DOC042,Thermodynamics,Laws of thermodynamics entropy heat engines,1100,mechanical,2024-04-15,thermodynamics heat entropy engines
+DOC043,Fluid Mechanics,Fluid properties flow dynamics viscosity pumps,1200,mechanical,2024-04-18,fluid mechanics flow pumps
+DOC044,Strength of Materials,Stress strain bending torsion deflection,1150,mechanical,2024-04-20,stress strain materials bending
+DOC045,Manufacturing Processes,Casting welding machining forming processes,1300,mechanical,2024-04-22,manufacturing welding casting machining
+DOC046,Machine Design,Design of shafts gears bearings springs,1400,mechanical,2024-04-25,machine design gears bearings
+DOC047,Heat Transfer,Conduction convection radiation heat exchangers,1250,mechanical,2024-04-28,heat transfer conduction radiation
+DOC048,Theory of Machines,Kinematics mechanisms cams gears vibrations,1350,mechanical,2024-04-30,machines kinematics gears vibration
+DOC049,CAD CAM CAE,Computer aided design modeling simulation,1500,mechanical,2024-05-01,cad cam design simulation
+DOC050,Robotics and Automation,Kinematics dynamics robot programming sensors,1450,robotics,2024-05-03,robotics automation kinematics sensors
+DOC051,Engineering Mathematics I,Calculus matrices differential equations,900,mathematics,2024-05-05,calculus matrices math
+DOC052,Engineering Mathematics II,Vector calculus complex variables laplace,950,mathematics,2024-05-08,vector complex math laplace
+DOC053,Engineering Physics,Quantum mechanics lasers optics semiconductor,1000,physics,2024-05-10,physics quantum laser optics
+DOC054,Engineering Chemistry,Polymers corrosion fuels water technology,1000,chemistry,2024-05-12,chemistry polymers corrosion fuels
+DOC055,Environmental Studies,Ecosystems biodiversity pollution control sustainable,850,general,2024-05-15,environment pollution sustainable nature
+DOC056,Professional Ethics,Engineering ethics moral issues code of conduct,800,general,2024-05-18,ethics moral conduct engineering
+DOC057,Technical English,Communication skills report writing presentation,900,general,2024-05-20,english communication writing skills
+DOC058,Constitution of India,Preamble fundamental rights duties governance,850,general,2024-05-22,constitution rights law india
+DOC059,Economics for Engineers,Cost estimation microeconomics financial analysis,950,economics,2024-05-25,economics cost finance analysis
+DOC060,Management Principles,Planning organizing leading controlling management,900,management,2024-05-28,management planning leadership
+DOC061,Placement Brochure 2025,Placement statistics recruiters profiles packages,2500,placement,2024-06-01,placement jobs recruiters package
+DOC062,Resume Writing Guide,Templates formatting tips action verbs resume,500,placement,2024-06-02,resume cv writing tips
+DOC063,Interview Preparation Kit,Common questions HR rounds technical interview,1200,placement,2024-06-03,interview hr technical questions
+DOC064,Aptitude Test Formulas,Quantitative reasoning logical reasoning verbal,800,placement,2024-06-04,aptitude math reasoning test
+DOC065,Group Discussion Topics,Current affairs social issues abstract topics,600,placement,2024-06-05,group discussion gd topics
+DOC066,Coding Interview Patterns,Sliding window two pointers dynamic programming,1300,placement,2024-06-06,coding interview patterns algorithm
+DOC067,Internship Guidelines,Rules reporting format evaluation criteria,400,admin,2024-06-07,internship rules report guidelines
+DOC068,Industrial Visit Report,Format guidelines templates sample reports,500,admin,2024-06-08,industrial visit report format
+DOC069,Project Thesis Format,Latex template bibliography citation rules,750,admin,2024-06-09,thesis project format citation
+DOC070,Exam Timetable May 2025,Semester end examination schedule dates,200,admin,2024-06-10,exam timetable schedule dates
+DOC071,Hostel Rules and Regulations,Code of conduct timings mess rules hostel,300,admin,2024-06-11,hostel rules conduct mess
+DOC072,Library Handbook,Membership book borrowing fines digital access,400,admin,2024-06-12,library rules books borrowing
+DOC073,Bus Route Map,College bus timings stops routes transport,500,transport,2024-06-13,bus route transport timings
+DOC074,Scholarship Information,Merit based need based government scholarships,600,admin,2024-06-14,scholarship financial aid merit
+DOC075,Student Club Activities,Robotics coding music dance club details,800,student_life,2024-06-15,clubs activities robotics music
+DOC076,Sports Facilities Guide,Gym swimming pool ground timings rules,450,student_life,2024-06-16,sports gym pool ground
+DOC077,Canteen Menu Price List,Breakfast lunch snacks beverages prices,150,student_life,2024-06-17,canteen food menu price
+DOC078,Academic Calendar 2025,Semester start end holidays events calendar,250,admin,2024-06-18,calendar dates holidays semester
+DOC079,Faculty Directory CSE,Professor contacts emails office hours CSE,300,admin,2024-06-19,faculty professors cse contact
+DOC080,Research Paper Writing,Structure abstract introduction conclusion references,900,research,2024-06-20,research paper writing structure
+DOC081,Innovation Policy,Startup incubation funding IPR patent rules,700,research,2024-06-21,innovation startup patent policy
+DOC082,Safety Manual Lab,Chemical safety fire safety emergency procedures,600,admin,2024-06-22,safety lab fire emergency
+DOC083,WiFi Access Guide,Login credentials setup eduroam configuration,200,it_services,2024-06-23,wifi internet login setup
+DOC084,Moodle User Guide,LMS assignment submission quiz attempt guide,800,it_services,2024-06-24,moodle lms assignment quiz
+DOC085,VPN Configuration,Remote access library resources vpn setup,300,it_services,2024-06-25,vpn remote access setup
+DOC086,Software License Keys,Matlab AutoCAD Windows student licenses,100,it_services,2024-06-26,software license key matlab
+DOC087,Computer Lab Rules,Do's and don'ts internet usage printing policy,200,it_services,2024-06-27,lab rules internet printing
+DOC088,Convocation Procedure,Registration dress code certificate collection,400,admin,2024-06-28,convocation degree certificate ceremony
+DOC089,Alumni Network Guide,Registration events mentorship donation alumni,500,alumni,2024-06-29,alumni network mentorship events
+DOC090,Anti Ragging Policy,Helpline numbers rules legal consequences,250,admin,2024-06-30,ragging safety rules policy
+DOC091,Grievance Redressal,Complaint portal procedure committee contact,300,admin,2024-07-01,grievance complaint redressal help
+DOC092,IEEE Student Branch,Membership benefits events workshop details,600,student_life,2024-07-02,ieee membership events student
+DOC093,NSS Activity Report,Social service camps village adoption report,800,student_life,2024-07-03,nss social service report
+DOC094,NCC Training Schedule,Drills parades camps uniform guidelines,500,student_life,2024-07-04,ncc training parade camp
+DOC095,Cultural Fest Brochure,Events rules registration prizes schedule,2000,student_life,2024-07-05,fest cultural events brochure
+DOC096,Tech Fest Schedule,Hackathons coding contests robotics expo,1800,student_life,2024-07-06,tech fest hackathon coding
+DOC097,Magazine 2024 Edition,Student articles poems art college magazine,5000,publication,2024-07-07,magazine articles photos college
+DOC098,Newsletter Monthly,Department news achievements events updates,400,publication,2024-07-08,newsletter news events updates
+DOC099,Conference Proceedings,International conference on computing research,6000,research,2024-07-09,conference research proceedings papers
+DOC100,Workshop on AI,Hands-on session machine learning python code,900,events,2024-07-10,workshop ai learning python
+DOC101,Seminar on 5G,Wireless communication future trends 5G tech,700,events,2024-07-11,seminar 5g communication wireless
+DOC102,Guest Lecture Data,Big data industry insights guest speaker,600,events,2024-07-12,lecture data industry guest
+DOC103,Code of Conduct,Student behavior academic integrity discipline,300,admin,2024-07-13,conduct discipline rules behavior
+DOC104,Health Insurance,Student mediclaim policy hospital network,500,admin,2024-07-14,insurance health mediclaim policy
+DOC105,Bank Loan Guide,Education loan interest rates documents bank,400,admin,2024-07-15,loan bank education finance
+DOC106,Railway Concession,Form procedure student concession train,100,admin,2024-07-16,railway concession train travel
+DOC107,Transcript Request,Application process fee sealing transcripts,200,admin,2024-07-17,transcript application fee record
+DOC108,Migration Certificate,Leaving university transfer migration procedure,200,admin,2024-07-18,migration transfer certificate leaving
+DOC109,Bonafide Certificate,Purpose application format student proof,150,admin,2024-07-19,bonafide certificate proof student
+DOC110,Lost ID Card Process,Fine replacement procedure affidavit,150,admin,2024-07-20,id card lost replacement fine
+DOC111,Introduction to Bioinformatics,DNA sequencing protein structure algorithms,1100,biotech,2024-07-21,bioinformatics dna protein algorithms
+DOC112,Genetic Engineering,Recombinant DNA gene cloning CRISPR,1250,biotech,2024-07-22,genetics dna crispr cloning
+DOC113,Microbiology Lab Manual,Staining techniques culture media microscope,900,biotech,2024-07-23,microbiology lab staining bacteria
+DOC114,Bioprocess Engineering,Fermentation bioreactors downstream processing,1300,biotech,2024-07-24,bioprocess fermentation bioreactor
+DOC115,Immunology Basics,Immune system antibodies vaccines antigens,1000,biotech,2024-07-25,immunology vaccine antibody immune
+DOC116,Concrete Technology,Cement aggregates mix design curing,1150,civil,2024-07-26,concrete cement mix civil
+DOC117,Structural Analysis,Beams arches trusses energy methods,1200,civil,2024-07-27,structure beams trusses analysis
+DOC118,Geotechnical Engineering,Soil mechanics foundations earth pressure,1300,civil,2024-07-28,soil geotechnical foundation earth
+DOC119,Transportation Engineering,Highway design traffic engineering pavement,1250,civil,2024-07-29,highway traffic road pavement
+DOC120,Environmental Engineering,Water treatment sewage waste management,1100,civil,2024-07-30,water sewage environment waste
+DOC121,Surveying Lab Manual,Total station theodolite leveling mapping,950,civil,2024-07-31,surveying leveling map civil
+DOC122,Hydraulics and Machines,Open channel flow turbines pumps fluid,1150,civil,2024-08-01,hydraulics flow pumps turbines
+DOC123,Construction Management,PERT CPM project planning estimation,1050,civil,2024-08-02,construction management planning pert
+DOC124,Reinforced Concrete Design,IS456 slabs beams columns footing,1400,civil,2024-08-03,rcc concrete design beams
+DOC125,Steel Structures,Connections tension members compression plate,1300,civil,2024-08-04,steel structures beam connection
+DOC126,Python Lab Manual,Basic programs lists dictionaries functions,600,programming,2024-08-05,python lab code programs
+DOC127,Java Lab Manual,Classes inheritance exception handling GUI,700,programming,2024-08-06,java lab code programs
+DOC128,DBMS Lab Manual,SQL queries PLSQL triggers cursors,800,databases,2024-08-07,dbms sql lab queries
+DOC129,Web Tech Lab Manual,HTML CSS Javascript PHP forms validation,750,web,2024-08-08,web html css lab
+DOC130,OS Lab Manual,Linux commands shell script scheduling process,650,systems,2024-08-09,linux os lab commands
+DOC131,Data Structures Lab,Stack queue linked list tree implementation,850,data_structures,2024-08-10,ds lab stack tree code
+DOC132,Networks Lab Manual,Socket programming packet tracer simulation,900,networking,2024-08-11,networks lab socket packet
+DOC133,Electronics Lab Manual,Diode characteristics transistor amplifier,700,electronics,2024-08-12,electronics lab circuit diode
+DOC134,Microprocessor Lab,8086 assembly masm kit programming,600,electronics,2024-08-13,microprocessor lab 8086 assembly
+DOC135,Physics Lab Manual,Vernier caliper screw gauge optics laser,500,physics,2024-08-14,physics lab optics experiment
+DOC136,Chemistry Lab Manual,Titration salt analysis pH measurement,500,chemistry,2024-08-15,chemistry lab titration salt
+DOC137,Workshop Practice Manual,Carpentry fitting welding tin smithy,550,mechanical,2024-08-16,workshop carpentry welding manual
+DOC138,Machine Drawing,Orthographic projection assembly drawing,1200,mechanical,2024-08-17,drawing machine assembly projection
+DOC139,AutoCAD Tutorial,2D drafting 3D modeling commands layout,1500,mechanical,2024-08-18,autocad drafting design modeling
+DOC140,MATLAB for Engineers,Matrix operations plotting simulink scripts,1600,general,2024-08-19,matlab plot simulink code
+DOC141,Latex Tutorial,Document preparation bibliography equations,800,general,2024-08-20,latex report writing equations
+DOC142,Excel for Data Analysis,Pivot tables vlookup charts formulas,900,general,2024-08-21,excel data chart formula
+DOC143,Git and GitHub Guide,Version control commit push pull branch,700,programming,2024-08-22,git github version control
+DOC144,Linux Command Line,Bash shell file permissions grep sed awk,600,systems,2024-08-23,linux bash shell commands
+DOC145,Virtual Machine Setup,VMware VirtualBox ubuntu installation,800,systems,2024-08-24,vm virtualbox linux install
+DOC146,VS Code Shortcuts,Editor setup extensions debugging tips,400,programming,2024-08-25,vscode editor shortcuts code
+DOC147,Docker for Beginners,Container images dockerfile compose,1100,cloud,2024-08-26,docker container cloud devops
+DOC148,Kubernetes Basics,Pods services deployments orchestration,1300,cloud,2024-08-27,kubernetes cloud container pods
+DOC149,Jenkins CI CD,Pipeline build automation testing devops,1200,cloud,2024-08-28,jenkins cicd pipeline devops
+DOC150,Agile Scrum Guide,Sprints backlog standup meetings roles,900,management,2024-08-29,agile scrum sprint project
+DOC151,Entrepreneurship 101,Business model canvas lean startup funding,1000,management,2024-08-30,business startup entrepreneurship
+DOC152,Digital Marketing Basics,SEO SEM social media content marketing,1100,marketing,2024-08-31,marketing seo social media
+DOC153,Financial Literacy,Savings investment stock market tax,800,finance,2024-09-01,finance money stock tax
+DOC154,Mental Health Awareness,Stress management counseling resources,500,general,2024-09-02,health mental stress help
+DOC155,Yoga for Students,Asanas meditation focus concentration,600,student_life,2024-09-03,yoga health meditation focus
+DOC156,First Aid Guide,CPR wounds burns emergency response,400,general,2024-09-04,health first aid emergency
+DOC157,Foreign Language French,Basic phrases grammar vocabulary french,1200,humanities,2024-09-05,french language learn grammar
+DOC158,Foreign Language German,Basic phrases grammar vocabulary german,1200,humanities,2024-09-06,german language learn grammar
+DOC159,History of Technology,Industrial revolution computers internet,1100,humanities,2024-09-07,history technology computer
+DOC160,Philosophy of Science,Scientific method logic ethics reasoning,1000,humanities,2024-09-08,philosophy science logic ethics
+DOC161,Psychology Basics,Behavior cognition memory perception,1150,humanities,2024-09-09,psychology behavior mind
+DOC162,Sociology Introduction,Society culture social structure groups,1050,humanities,2024-09-10,sociology society culture
+DOC163,Political Science,Governance democracy rights policy,1100,humanities,2024-09-11,politics government law
+DOC164,Music Theory,Notes scales chords rhythm harmony,900,arts,2024-09-12,music theory notes chords
+DOC165,Photography Basics,Exposure aperture shutter speed composition,850,arts,2024-09-13,photography camera photo art
+DOC166,Film Making Guide,Scripting shooting editing direction,1200,arts,2024-09-14,film movie video editing
+DOC167,Graphic Design Principles,Typography color theory layout logo,1000,design,2024-09-15,design graphics art color
+DOC168,Animation Fundamentals,12 principles 2D 3D character motion,1300,design,2024-09-16,animation motion graphics
+DOC169,Fashion Design Basics,Textiles sketching pattern making,950,design,2024-09-17,fashion design cloth style
+DOC170,Interior Design,Space planning materials lighting decor,1050,design,2024-09-18,interior design space home
+DOC171,Architecture History,Gothic renaissance modern styles,1400,architecture,2024-09-19,architecture history building
+DOC172,Urban Planning,City layout zoning transportation housing,1500,architecture,2024-09-20,urban city planning map
+DOC173,Landscape Architecture,Gardens parks plants outdoor space,1200,architecture,2024-09-21,landscape garden design
+DOC174,Sustainable Building,Green energy leed certification materials,1300,architecture,2024-09-22,sustainable green building
+DOC175,Medical Electronics,ECG EEG MRI biomedical instrumentation,1250,electronics,2024-09-23,medical biomedical ecg mri
+DOC176,Optical Communication,Fiber optics laser dispersion attenuation,1150,electronics,2024-09-24,optical fiber laser comm
+DOC177,Satellite Communication,Orbits transponders uplink downlink,1200,electronics,2024-09-25,satellite space communication
+DOC178,Antenna Theory,Dipole yagi patch array antennas,1300,electronics,2024-09-26,antenna wave rf radio
+DOC179,Microwave Engineering,Waveguides klystron radar applications,1250,electronics,2024-09-27,microwave radar wave rf
+DOC180,Information Theory Coding,Entropy huffman channel capacity error,1100,electronics,2024-09-28,information coding entropy
+DOC181,Compiler Construction,Lex yacc parsing code gen optimization,1350,systems,2024-09-29,compiler parser code lex
+DOC182,Distributed Systems,RPC clock sync mutex deadlock,1400,systems,2024-09-30,distributed system rpc
+DOC183,Real Time Systems,Scheduling rtos hard soft constraints,1250,systems,2024-10-01,real time rtos scheduling
+DOC184,Parallel Computing,MPI OpenMP CUDA gpu computing,1450,systems,2024-10-02,parallel gpu cuda mpi
+DOC185,System Administration,User management backup shell scripting,1100,systems,2024-10-03,sysadmin linux server backup
+DOC186,Network Security,Encryption firewall vpn ids ips,1300,security,2024-10-04,security network firewall
+DOC187,Ethical Hacking,Penetration testing kali linux scanning,1400,security,2024-10-05,hacking security pentest
+DOC188,Digital Forensics,Evidence collection cyber crime analysis,1250,security,2024-10-06,forensics cyber crime law
+DOC189,Cryptography,RSA AES DES elliptic curve hashing,1350,security,2024-10-07,crypto security encryption
+DOC190,Biometric Security,Fingerprint iris face recognition,1150,security,2024-10-08,biometric security face
+DOC191,Quantum Computing,Qubits superposition entanglement gates,1600,physics,2024-10-09,quantum physics qubit compute
+DOC192,Nanotechnology,Nanomaterials carbon nanotubes applications,1450,physics,2024-10-10,nano material physics
+DOC193,Astrophysics Basics,Stars galaxies black holes cosmology,1500,physics,2024-10-11,space astronomy stars physics
+DOC194,Nuclear Physics,Radioactivity fission fusion reactors,1300,physics,2024-10-12,nuclear physics energy
+DOC195,Solid State Physics,Crystals semiconductors lattice structure,1250,physics,2024-10-13,solid physics crystal material
+DOC196,Organic Chemistry,Hydrocarbons alcohols ketones reactions,1200,chemistry,2024-10-14,organic chemistry reaction
+DOC197,Inorganic Chemistry,Periodic table metals coordination compounds,1150,chemistry,2024-10-15,inorganic chemistry metal
+DOC198,Physical Chemistry,Kinetics equilibrium electrochemistry,1100,chemistry,2024-10-16,physical chemistry kinetics
+DOC199,Analytical Chemistry,Spectroscopy chromatography analysis,1250,chemistry,2024-10-17,analytical lab chemistry
+DOC200,Biochemistry,Enzymes metabolism proteins dna,1300,chemistry,2024-10-18,biochem protein dna enzyme
+DOC201,Calculus III,Multivariable calculus partial derivatives,1000,mathematics,2024-10-19,calculus math derivative
+DOC202,Linear Algebra,Vector spaces eigenvalues eigenvectors,950,mathematics,2024-10-20,algebra matrix math
+DOC203,Probability Statistics,Distributions hypothesis testing regression,1100,mathematics,2024-10-21,stats probability math
+DOC204,Numerical Methods,Interpolation integration root finding,1050,mathematics,2024-10-22,numerical math algorithm
+DOC205,Operations Research,Linear programming simplex transport,1200,mathematics,2024-10-23,optimization operations math
+DOC206,Graph Theory,Trees cycles coloring flows connectivity,1150,mathematics,2024-10-24,graph math theory network
+DOC207,Differential Equations,ODE PDE boundary value problems,1100,mathematics,2024-10-25,differential equations math
+DOC208,Complex Analysis,Analytic functions residues contour integration,1250,mathematics,2024-10-26,complex math analysis
+DOC209,Number Theory,Primes divisibility modular arithmetic,1000,mathematics,2024-10-27,number math prime logic
+DOC210,Topology Basics,Open sets continuity compactness,1150,mathematics,2024-10-28,topology math space set
+DOC211,Automobile Engineering,Engines transmission braking suspension,1300,mechanical,2024-10-29,automobile car engine gear
+DOC212,Refrigeration AC,Psychrometry cooling load compressors,1200,mechanical,2024-10-30,hvac cooling fridge ac
+DOC213,Power Plant Engineering,Thermal hydro nuclear power plants,1400,mechanical,2024-10-31,power energy plant elect
+DOC214,Mechatronics,Sensors plc actuators control,1350,mechanical,2024-11-01,mechatronics robot sensor
+DOC215,Finite Element Analysis,Meshing stiffness matrix ansys,1500,mechanical,2024-11-02,fea ansys simulation mech
+DOC216,Renewable Energy,Solar wind biomass geothermal,1250,energy,2024-11-03,energy solar wind green
+DOC217,Energy Management,Audit conservation efficiency standards,1100,energy,2024-11-04,energy audit efficiency
+DOC218,Smart Grid Tech,Microgrid metering distribution automation,1300,energy,2024-11-05,smart grid power electric
+DOC219,Electric Vehicles,Battery motor drive charging infrastructure,1400,energy,2024-11-06,ev car battery motor
+DOC220,Biofuels Tech,Biodiesel ethanol production process,1150,energy,2024-11-07,biofuel energy green gas
+DOC221,Supply Chain Mgmt,Logistics inventory procurement shipping,1200,management,2024-11-08,supply chain logistics
+DOC222,Human Resource Mgmt,Recruitment training appraisal labor law,1100,management,2024-11-09,hr management recruitment
+DOC223,Marketing Management,Product price place promotion mix,1150,management,2024-11-10,marketing sales business
+DOC224,Financial Management,Capital budgeting risk return dividend,1250,management,2024-11-11,finance money budget
+DOC225,Strategic Management,SWOT pestle porter five forces,1300,management,2024-11-12,strategy business plan
+DOC226,Business Law,Contracts company law consumer protection,1100,management,2024-11-13,law business legal corporate
+DOC227,Operations Management,Quality six sigma lean production,1200,management,2024-11-14,operations quality lean
+DOC228,Organizational Behavior,Motivation leadership team dynamics,1050,management,2024-11-15,behavior organization hr
+DOC229,Research Methodology,Data collection sampling hypothesis,950,research,2024-11-16,research method data
+DOC230,Intellectual Property,Patents copyright trademark law,1000,research,2024-11-17,ipr patent law research
+DOC231,Yoga Philosophy,Sutras chakras mind body connection,800,humanities,2024-11-18,yoga philosophy mind
+DOC232,Indian Culture,Art heritage festivals traditions,900,humanities,2024-11-19,culture india art history
+DOC233,Gender Studies,Feminism equality roles society,1000,humanities,2024-11-20,gender society sociology
+DOC234,Public Administration,Bureaucracy policy implementation,1100,humanities,2024-11-21,public admin government
+DOC235,Journalism Mass Comm,News reporting media ethics broadcast,1200,humanities,2024-11-22,media news journalism
+DOC236,Creative Writing,Fiction poetry screenwriting style,850,arts,2024-11-23,writing story creative art
+DOC237,Theater Arts,Acting directing stage design script,950,arts,2024-11-24,theater acting drama art
+DOC238,Painting Techniques,Oil acrylic watercolor brush strokes,900,arts,2024-11-25,painting art color draw
+DOC239,Sculpture Basics,Clay stone metal carving modeling,950,arts,2024-11-26,art sculpture clay model
+DOC240,Digital Art,Tablet photoshop illustrator painting,1100,arts,2024-11-27,digital art design draw
+DOC241,Hostel Mess Menu,Weekly breakfast lunch dinner items,100,admin,2024-11-28,mess food menu hostel
+DOC242,Bus Pass Application,Form fee route selection procedure,150,admin,2024-11-29,bus transport pass form
+DOC243,Event Hall Booking,Requisition availability audio video,200,admin,2024-11-30,event hall booking admin
+DOC244,Gate Pass Student,Outing permission hostel warden sign,100,admin,2024-12-01,gate pass hostel permission
+DOC245,Leave Application,Medical casual leave format student,100,admin,2024-12-02,leave application form medical
+DOC246,Wifi Complaint Form,Signal speed connection issue report,150,it_services,2024-12-03,wifi internet complaint slow
+DOC247,Email Password Reset,Procedure helpdesk contact forgot pass,150,it_services,2024-12-04,email password reset login
+DOC248,ID Card Renewal,Expired card renewal process fee,150,admin,2024-12-05,id card renewal admin
+DOC249,Parking Sticker,Vehicle registration parking allotment,200,admin,2024-12-06,parking vehicle sticker car
+DOC250,Gym Membership Form,Application rules timings fees gym,200,student_life,2024-12-07,gym sports fitness form
+DOC251,NCC Camp Notice,Dates location equipment requirement,300,student_life,2024-12-08,ncc camp notice training
+DOC252,NSS Village Visit,Schedule transport activities plan,300,student_life,2024-12-09,nss village social work
+DOC253,Blood Donation Camp,Date venue eligibility volunteers,250,student_life,2024-12-10,blood donation camp health
+DOC254,Tree Plantation Drive,Venue time saplings environment,250,student_life,2024-12-11,tree environment nature nss
+DOC255,Marathon Event,Route registration t-shirt collection,400,student_life,2024-12-12,marathon run sports event
+DOC256,Hackathon 2024,Problem statements rules judging prizes,1500,events,2024-12-13,hackathon code contest tech
+DOC257,RoboWars Rulebook,Bot specifications arena rules safety,800,events,2024-12-14,robot robotics war rules
+DOC258,Coding Contest,Competitive programming format platform,600,events,2024-12-15,coding contest algorithm c++
+DOC259,Quiz Competition,General knowledge tech quiz rounds,400,events,2024-12-16,quiz trivia gk contest
+DOC260,Debate Competition,Topics rules time limit judging,350,events,2024-12-17,debate speech contest speak
+DOC261,Dance Competition,Solo group styles music track,400,events,2024-12-18,dance cultural music event
+DOC262,Battle of Bands,Equipment sound check slots rules,450,events,2024-12-19,music band concert rock
+DOC263,Fashion Show Theme,Costume ramp walk choreography,500,events,2024-12-20,fashion show style ramp
+DOC264,Photography Contest,Themes submission format deadline,300,events,2024-12-21,photo camera contest art
+DOC265,Short Film Fest,Duration format genre screening,600,events,2024-12-22,film movie contest video
+DOC266,Startup Pitch Deck,Problem solution market revenue model,800,events,2024-12-23,startup business pitch idea
+DOC267,Science Exhibition,Model chart demonstration abstract,500,events,2024-12-24,science project expo model
+DOC268,Alumni Meet Invite,Date agenda rsvp dinner details,400,alumni,2024-12-25,alumni meet event invite
+DOC269,Freshers Party Info,Theme dress code timings venue,300,student_life,2024-12-26,freshers party event welcome
+DOC270,Farewell Party Info,Invites speech dinner schedule,300,student_life,2024-12-27,farewell party event bye
+DOC271,Exam Seating Plan,Room numbers roll numbers block,200,admin,2024-12-28,exam seating room plan
+DOC272,Invigilation Duty,Faculty schedule instructions exam,200,admin,2024-12-29,exam faculty duty schedule
+DOC273,Paper Evaluation,Marking scheme deadline center,250,admin,2024-12-30,exam marks paper check
+DOC274,Revaluation Form,Fee subject code procedure marks,150,admin,2024-12-31,revaluation marks exam check
+DOC275,Supplementary Exam,Time table registration fee backlog,200,admin,2025-01-01,exam backlog supply date
+DOC276,Hall Ticket Download,Link login instruction print,100,admin,2025-01-02,hall ticket exam admit
+DOC277,Result Declaration,Link marksheet grade card date,100,admin,2025-01-03,result marks grade score
+DOC278,Topper List CSE,Rank name cgpa distinction,150,admin,2025-01-04,rank topper marks list
+DOC279,Gold Medalist List,Convocation awards academic excellence,150,admin,2025-01-05,award medal rank student
+DOC280,Scholarship List,Beneficiary names amount disbursed,200,admin,2025-01-06,scholarship money list name
+DOC281,Fee Structure 2025,Tuition hostel library mess fees,300,admin,2025-01-07,fee money payment cost
+DOC282,Bank Challan Copy,Fee payment bank details account,100,admin,2025-01-08,bank fee payment challan
+DOC283,Online Payment Guide,Gateway upi netbanking card steps,200,admin,2025-01-09,payment fee online guide
+DOC284,Refund Policy,Fee refund cancellation rules percentage,200,admin,2025-01-10,refund fee money rules
+DOC285,No Due Certificate,Library lab hostel accounts clear,150,admin,2025-01-11,no due certificate clear
+DOC286,Course Registration,Subject selection elective credits,250,admin,2025-01-12,course subject register class
+DOC287,Elective List CSE,AI IoT Cloud Data Science options,300,admin,2025-01-13,elective subject choice cse
+DOC288,Open Elective List,Management languages arts options,300,admin,2025-01-14,open elective subject choice
+DOC289,Attendance Policy,Minimum percentage condonation rules,200,admin,2025-01-15,attendance rules medical fine
+DOC290,Medical Certificate,Format doctor sign leave valid,100,admin,2025-01-16,medical leave certificate sick
+DOC291,Python Project Idea,Library management system code,500,programming,2025-01-17,project python code library
+DOC292,Java Project Idea,Bank management system code,500,programming,2025-01-18,project java code bank
+DOC293,Web Project Idea,E-commerce website code html css,600,web,2025-01-19,project web code site
+DOC294,Android Project Idea,Chat application firebase code,600,mobile_dev,2025-01-20,project app android chat
+DOC295,IoT Project Idea,Home automation arduino code,500,electronics,2025-01-21,project iot arduino home
+DOC296,ML Project Idea,Stock price prediction python,700,ai_ml,2025-01-22,project ml python stock
+DOC297,Mechanical Project,Solar car design report,800,mechanical,2025-01-23,project mech solar car
+DOC298,Civil Project Idea,Green building design report,800,civil,2025-01-24,project civil building green
+DOC299,Electronics Project,Line follower robot circuit,600,electronics,2025-01-25,project robot circuit line
+DOC300,Final Year Thesis,Format guidelines templates doc,400,research,2025-01-26,thesis project report format
+DOC301,IEEE Paper Template,Double column format word latex,300,research,2025-01-27,ieee paper format template
+DOC302,Presentation Tips,Slide design body language voice,400,general,2025-01-28,presentation speech tips ppt
+DOC303,Report Writing,Abstract conclusion methodology,450,general,2025-01-29,report writing format guide
+DOC304,Citation Styles,APA MLA IEEE Harvard guide,350,research,2025-01-30,citation reference format style
+DOC305,Plagiarism Policy,Turnitin check percentage rules,200,research,2025-01-31,plagiarism copy check rules
+DOC306,Campus Map PDF,Buildings roads gates parking,1500,transport,2025-02-01,map location building road
+DOC307,Emergency Contacts,Ambulance fire police warden,100,admin,2025-02-02,emergency contact phone help
+DOC308,Academic Regulations,Credits grading sgpa cgpa rules,600,admin,2025-02-03,rules grade marks credit
+DOC309,Exam Malpractice,Rules punishment squad copy,200,admin,2025-02-04,exam cheat rules punishment
+DOC310,Student Feedback,Faculty course infrastructure form,150,admin,2025-02-05,feedback form survey class
+DOC311,Introduction to C,Variables loops functions pointers,800,programming,2025-02-06,c coding programming loop
+DOC312,C++ Programming,OOP classes inheritance stl,900,programming,2025-02-07,cpp oop coding class
+DOC313,Data Structures C,Linked list stack queue tree c,950,data_structures,2025-02-08,ds c code stack
+DOC314,Algorithms Analysis,Time complexity big o notation,1000,algorithms,2025-02-09,algorithm time complexity math
+DOC315,Operating System Notes,Process thread scheduling deadlock,1100,systems,2025-02-10,os notes process thread
+DOC316,DBMS Notes SQL,Normalization er diagram sql,1050,databases,2025-02-11,dbms notes sql data
+DOC317,Computer Networks Notes,Osi model tcp ip layers,1150,networking,2025-02-12,network notes osi tcp
+DOC318,Software Engg Notes,Waterfall agile testing sdlc,1000,software_eng,2025-02-13,se notes agile testing
+DOC319,Web Tech Notes,Html css js php xml servlets,1100,web,2025-02-14,web notes html php
+DOC320,Java Notes Core,Jvm jdk classes exception multithreading,1200,programming,2025-02-15,java notes core code
+DOC321,Python Notes Basics,Syntax list dict file handling,900,programming,2025-02-16,python notes code basic
+DOC322,Machine Learning Notes,Regression classification clustering,1300,ai_ml,2025-02-17,ml notes python data
+DOC323,Digital Logic Notes,K-map multiplexer flip flop,850,electronics,2025-02-18,digital notes logic circuit
+DOC324,COA Notes CPU,Addressing modes pipeline memory,950,systems,2025-02-19,coa notes cpu memory
+DOC325,Math 1 Notes,Calculus matrix differential eq,900,mathematics,2025-02-20,math notes calculus matrix
+DOC326,Math 2 Notes,Vector complex transform,900,mathematics,2025-02-21,math notes vector complex
+DOC327,Physics Notes,Quantum laser fiber optics,850,physics,2025-02-22,physics notes light laser
+DOC328,Chemistry Notes,Water polymer fuel battery,850,chemistry,2025-02-23,chemistry notes water fuel
+DOC329,English Notes,Grammar letter report writing,700,general,2025-02-24,english notes writing grammar
+DOC330,Constitution Notes,Articles rights duties law,750,general,2025-02-25,constitution notes law india
+DOC331,Placement Aptitude 1,Number system hcf lcm average,600,placement,2025-02-26,aptitude math number average
+DOC332,Placement Aptitude 2,Percentage profit loss ratio,600,placement,2025-02-27,aptitude math profit ratio
+DOC333,Placement Aptitude 3,Time work speed distance train,600,placement,2025-02-28,aptitude math speed time
+DOC334,Placement Aptitude 4,Permutation combination probability,600,placement,2025-03-01,aptitude math probability logic
+DOC335,Logical Reasoning 1,Series coding decoding blood relation,600,placement,2025-03-02,reasoning logic code blood
+DOC336,Logical Reasoning 2,Direction seating arrangement puzzle,600,placement,2025-03-03,reasoning logic puzzle seat
+DOC337,Verbal Ability 1,Reading comprehension vocabulary,600,placement,2025-03-04,verbal english reading word
+DOC338,Verbal Ability 2,Grammar error correction fillers,600,placement,2025-03-05,verbal english grammar error
+DOC339,HR Interview QA,Tell me about yourself strength,500,placement,2025-03-06,hr interview question answer
+DOC340,Technical Interview QA,C Java DBMS OS questions,800,placement,2025-03-07,tech interview coding question
+DOC341,Resume Template 1,Simple fresher format word,200,placement,2025-03-08,resume format template word
+DOC342,Resume Template 2,Modern design format canva,200,placement,2025-03-09,resume design cv template
+DOC343,Cover Letter Guide,Format content sample letter,300,placement,2025-03-10,letter cover job writing
+DOC344,LinkedIn Profile Tips,Headline summary skills photo,400,placement,2025-03-11,linkedin job profile tips
+DOC345,Email Etiquette,Subject body signature tone,300,placement,2025-03-12,email writing professional job
+DOC346,GD Topics Current,AI ethics crypto climate change,400,placement,2025-03-13,gd group discussion topic
+DOC347,GD Do's and Don'ts,Body language speaking listening,300,placement,2025-03-14,gd tips rules speak
+DOC348,Company List TCS,Recruitment process eligibility pattern,500,placement,2025-03-15,tcs job placement company
+DOC349,Company List Infosys,Recruitment process eligibility pattern,500,placement,2025-03-16,infosys job placement company
+DOC350,Company List Wipro,Recruitment process eligibility pattern,500,placement,2025-03-17,wipro job placement company
+DOC351,Company List Accenture,Recruitment process eligibility pattern,500,placement,2025-03-18,accenture job placement company
+DOC352,Startup List Bangalore,Internship job openings contact,600,placement,2025-03-19,startup job bangalore intern
+DOC353,Gate Syllabus CSE,Subjects marks weightage topic,400,competitve_exam,2025-03-20,gate cse syllabus exam
+DOC354,Gate Syllabus ECE,Subjects marks weightage topic,400,competitve_exam,2025-03-21,gate ece syllabus exam
+DOC355,GRE Prep Guide,Verbal quant analytical writing,1000,competitve_exam,2025-03-22,gre exam usa master
+DOC356,TOEFL Prep Guide,Reading listening speaking writing,800,competitve_exam,2025-03-23,toefl english exam usa
+DOC357,IELTS Prep Guide,Reading listening speaking writing,800,competitve_exam,2025-03-24,ielts english exam uk
+DOC358,CAT Exam Syllabus,Quant varc dilr pattern,600,competitve_exam,2025-03-25,cat mba exam syllabus
+DOC359,UPSC Exam Pattern,Prelims mains interview subjects,700,competitve_exam,2025-03-26,upsc ias exam syllabus
+DOC360,Banking Exam Guide,IBPS SBI PO clerk pattern,600,competitve_exam,2025-03-27,bank exam ibps sbi
+DOC361,Remote Internship,Sites tips application wfh,400,placement,2025-03-28,internship remote work home
+DOC362,Freelancing Guide,Upwork fiverr profile gig,500,placement,2025-03-29,freelance money work job
+DOC363,Open Source Guide,Git contribution gsoc hacktoberfest,600,programming,2025-03-30,open source git code
+DOC364,Competitive Coding,Codechef leetcode codeforces tips,700,programming,2025-03-31,coding competitive algo rank
+DOC365,Study Abroad Guide,Application visa university list,800,general,2025-04-01,abroad master usa uk
+DOC366,SOP Writing Guide,Statement of purpose format sample,400,general,2025-04-02,sop writing admission master
+DOC367,LOR Writing Guide,Letter of recommendation format,300,general,2025-04-03,lor letter recommendation prof
+DOC368,Visa Interview Tips,F1 visa questions documents,400,general,2025-04-04,visa usa interview tips
+DOC369,Hostel Packing List,Clothes essentials medicines documents,200,student_life,2025-04-05,hostel packing list item
+DOC370,Budgeting for Students,Expense tracking saving money apps,300,student_life,2025-04-06,money budget save student
+DOC371,Cooking in Hostel,Simple recipes kettle induction,400,student_life,2025-04-07,cooking food hostel recipe
+DOC372,Laundry Tips,Washing clothes iron stain removal,200,student_life,2025-04-08,laundry clothes wash clean
+DOC373,Roommate Agreement,Cleaning quiet hours guests rules,150,student_life,2025-04-09,roommate rules hostel living
+DOC374,Local City Guide,Places to visit food shopping,500,student_life,2025-04-10,city guide travel food
+DOC375,Movie Club List,Screening schedule membership,200,student_life,2025-04-11,movie club film watch
+DOC376,Book Club List,Reading month discussion meet,200,student_life,2025-04-12,book club read meet
+DOC377,Trekking Club,Upcoming treks gear registration,300,student_life,2025-04-13,trekking adventure club trip
+DOC378,Gaming Club,Tournament lan party discord,300,student_life,2025-04-14,gaming esports game lan
+DOC379,Music Band Audition,Vocalist guitarist drummer required,100,student_life,2025-04-15,music band audition join
+DOC380,Dance Team Audition,Hip hop classical contemporary,100,student_life,2025-04-16,dance team audition join
+DOC381,Drama Club Audition,Actors scriptwriters needed,100,student_life,2025-04-17,drama acting club join
+DOC382,Volunteer Request,NGO teaching weekend drive,150,student_life,2025-04-18,volunteer social work help
+DOC383,Lost Watch Found,Black casio watch library,50,admin,2025-04-19,lost found watch library
+DOC384,Lost Wallet Found,Brown leather wallet canteen,50,admin,2025-04-20,lost found wallet canteen
+DOC385,Found Umbrella,Blue umbrella classroom 101,50,admin,2025-04-21,found umbrella lost rain
+DOC386,Found ID Card,Name John Doe civil dept,50,admin,2025-04-22,found id card lost
+DOC387,Sale Old Books,Sem 1 2 books half price,100,student_life,2025-04-23,sale books old buy
+DOC388,Sale Drafter,Engineering drafter condition good,100,student_life,2025-04-24,sale drafter drawing tool
+DOC389,Sale Cycle,Hero cycle blue 1 year old,100,student_life,2025-04-25,sale cycle bike buy
+DOC390,Sale Mattress,Hostel mattress clean cheap,100,student_life,2025-04-26,sale mattress bed hostel
+DOC391,Tutoring Offered,Math physics programming help,100,student_life,2025-04-27,tutor help teach class
+DOC392,Ride Share Request,Weekend home travel share cab,100,student_life,2025-04-28,ride share car travel
+DOC393,Project Partner Need,Final year iot project partner,100,student_life,2025-04-29,project partner need help
+DOC394,Survey Request,Fill google form project data,100,student_life,2025-04-30,survey form help data
+DOC395,Blood Donor Need,B positive hospital city,50,student_life,2025-05-01,blood need emergency help
+DOC396,Introduction to SQL,Select insert update delete,800,databases,2025-05-02,sql database query code
+DOC397,Advanced Java,Servlets jsp jdbc hibernate,1200,programming,2025-05-03,java advanced web code
+DOC398,Spring Boot Guide,Rest api microservices dependency,1400,programming,2025-05-04,spring boot java web
+DOC399,React JS Basics,Components props state hooks,1100,web,2025-05-05,react js frontend web
+DOC400,Node JS Basics,Event loop express api backend,1100,web,2025-05-06,node js backend web
