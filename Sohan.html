@@ -314,6 +314,19 @@
       font-weight: 600;
       border: 1px solid #82bcdc;
     }
+.modal-body {
+  flex: 1;
+  overflow: auto;
+}
+
+.modal-body pre.code {
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  font-size: 12px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Roboto Mono, monospace;
+  white-space: pre;
+}
 
     .sdg-badge {
       display: inline-block;
@@ -490,6 +503,86 @@
         min-width: 62px;
       }
     }
+
+    /* Dataset Table Styling */
+.table-container {
+  overflow-x: auto;
+  margin-top: 12px;
+  border-radius: 8px;
+  border: 1px solid var(--card-border);
+}
+
+.dataset-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: white;
+}
+
+.dataset-table thead {
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.dataset-table th {
+  padding: 12px 16px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid #667eea;
+}
+
+.dataset-table td {
+  padding: 10px 16px;
+  border-bottom: 1px solid #e2e8f0;
+  font-size: 13px;
+  color: #334155;
+}
+
+.dataset-table tbody tr {
+  transition: background-color 0.2s ease;
+}
+
+.dataset-table tbody tr:hover {
+  background-color: #f1f5f9;
+}
+
+.dataset-table tbody tr:nth-child(even) {
+  background-color: #f8fafc;
+}
+
+.dataset-table .section-row {
+  background-color: #e0e7ff;
+  font-weight: 600;
+  color: #3730a3;
+}
+
+.dataset-table .section-row:hover {
+  background-color: #c7d2fe;
+}
+
+.export-btn {
+  background: linear-gradient(90deg, #10b981 0%, #059669 100%);
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 13px;
+  margin-top: 12px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.export-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
   </style>
 </head>
 
@@ -540,25 +633,25 @@
       {
         id: 'p1',
         zone: 'Public Transport',
-        title: 'Smart Real-Time Bus Tracking & Route Recommender (Dijkstra)',
-        photo: './Sohan/Screenshot 2025-12-08 233941.png',
+        title: 'Smart Bus Route & Arrival Information System',
+        photo: './Sohan/1.png',
         phototitle: '',
-        problem: `Passengers often wait at bus stops without knowing when the next bus will arrive. They also do not know which route combination will minimize travel time and number of changes between stops.`,
-        solution: `Equip each city bus with a GPS unit that sends location data to a central server. Model bus stops as graph nodes and road segments as weighted edges with travel time. Use Dijkstra's shortest path algorithm to compute the best route between any two stops and show live arrival times in a mobile app or at bus shelters.`,
+        problem: `Passengers at bus stops often wait without knowing the exact arrival time of buses. Fixed schedules do not account for traffic congestion or delays, leading to uncertainty and longer waiting times. Many passengers also take indirect routes due to lack of route guidance. This increases travel time and reduces trust in public transport. The absence of real-time route optimisation affects daily commuters the most.`,
+        solution: `The bus network is modeled as a graph where stops are nodes and roads are weighted edges. Real-time travel time is assigned as edge weights using GPS data from buses. The system computes the shortest path between any two stops to suggest the fastest route. Arrival times are dynamically updated based on current conditions. This improves passenger experience and system efficiency.`,
         sdg: [
           'SDG 11 – Sustainable Cities and Communities',
           'SDG 9 – Industry, Innovation and Infrastructure'
         ],
-        algos: ["Dijkstra's shortest path"]
+        algos: ["Dijkstra's shortest path", "Priority Queue (for optimisation)"]
       },
       {
         id: 'p2',
         zone: 'Traffic & Emergency Response',
-        title: 'Adaptive Traffic Signals for Emergency Corridors (Floyd)',
-        photo: './Sohan/Screenshot 2025-12-08 234114.png',
+        title: 'Emergency Green-Wave Traffic System',
+        photo: './Sohan/2.png',
         phototitle: '',
-        problem: `Ambulances and fire vehicles lose valuable minutes at busy junctions because signal timings are fixed and do not take into account the current network condition or shortest corridor to the hospital.`,
-        solution: `Model major junctions as graph nodes and roads as edges with travel time. Use Floyd's all-pairs shortest path algorithm to precompute the quickest path between all important locations. When an emergency call comes, the control centre selects the fastest corridor and temporarily adjusts signals along that path to create a green wave.`,
+        problem: `Emergency vehicles such as ambulances and fire engines face delays at busy junctions due to fixed signal timings. Traffic lights do not prioritise emergency situations, causing loss of valuable response time. Even short delays can lead to severe consequences. The lack of a system to quickly identify the fastest route worsens the problem. Current traffic control systems are not adaptive.`,
+        solution: `Major junctions are modeled as nodes and roads as weighted edges based on travel time. Shortest paths between all important locations are precomputed. When an emergency call is received, the fastest corridor is instantly selected. Traffic signals along this path are temporarily synchronised to stay green. This creates a clear and uninterrupted route for emergency vehicles.`,
         sdg: [
           'SDG 3 – Good Health and Well-Being',
           'SDG 11 – Sustainable Cities and Communities'
@@ -568,11 +661,11 @@
       {
         id: 'p3',
         zone: 'Multimodal Hubs',
-        title: 'Backbone Network for Bus, Rail & Airport Hubs (Prim)',
-        photo: './Sohan/Screenshot 2025-12-09 231154',
+        title: 'Multimodal Transport Hub Connectivity',
+        photo: './Sohan/3.png',
         phototitle: '',
-        problem: `The main bus stand, railway station, airport and metro nodes are poorly connected. Passengers must take long, indirect routes and multiple intermediate stops to transfer between modes.`,
-        solution: `Identify all major transport hubs and treat each as a graph node. Estimate travel distance or time between every pair of hubs as weighted edges. Apply Prim's Minimum Spanning Tree algorithm to design a backbone network that connects all hubs with minimum total corridor length. Prioritise these MST edges as high-frequency shuttle or BRT routes.`,
+        problem: `Key transport hubs like bus stands, railway stations, airports, and metro nodes are often poorly connected. Passengers are forced to take long and indirect routes with multiple transfers. This increases travel time and congestion. The lack of planned connectivity reduces the efficiency of public transport systems. It also discourages the use of multimodal travel.`,
+        solution: `All major transport hubs are treated as nodes in a graph. Distances or travel times between hubs are assigned as edge weights. A minimum spanning tree is constructed to connect all hubs with minimum total cost. The selected connections form a backbone network for high-frequency shuttles or BRT routes. This improves connectivity while keeping infrastructure cost low.`,
         sdg: [
           'SDG 9 – Industry, Innovation and Infrastructure',
           'SDG 11 – Sustainable Cities and Communities'
@@ -582,11 +675,11 @@
       {
         id: 'p4',
         zone: 'Power Distribution',
-        title: 'Smart Power Distribution Layout for Neighbourhoods (Prim)',
-        photo: './Sohan/Screenshot 2025-12-09 002552.png',
+        title: 'Optimised Power Distribution Network',
+        photo: './Sohan/4.png',
         phototitle: '',
-        problem: `Some neighbourhoods face frequent low voltage and outages because distribution lines were extended in an ad-hoc manner. Cable routes are too long and create high losses and high maintenance cost.`,
-        solution: `Treat substations and neighbourhood load points as nodes in a graph. Define feasible cable routes between them with cost or length as edge weights. Use Prim's algorithm to construct a minimum spanning tree that reaches all loads with minimum total cable length. This MST layout becomes the base design, which can then be strengthened with a few redundant links.`,
+        problem: `Many neighbourhoods experience low voltage and frequent outages due to poorly planned distribution lines. Cables were extended in an ad-hoc manner without considering optimal routing. Long cable lengths lead to higher power losses and maintenance costs. Faults also take longer to isolate and repair. This reduces the reliability of the power supply.`,
+        solution: `Substations and neighbourhood loads are modeled as nodes in a graph. Possible cable routes are represented as weighted edges based on length or cost. A minimum spanning tree is generated to connect all loads with minimum total cable length. This layout reduces losses and maintenance effort. Additional links can be added later for redundancy.`,
         sdg: [
           'SDG 7 – Affordable and Clean Energy',
           'SDG 9 – Industry, Innovation and Infrastructure'
@@ -596,11 +689,11 @@
       {
         id: 'p5',
         zone: 'Public Transport',
-        title: 'Optimal Bus Shelter Placement with Limited Budget (Brute Force)',
-        photo: './Sohan/Screenshot 2025-12-09 001439.png',
+        title: 'Optimal Bus Shelter Placement',
+        photo: './Sohan/5.png',
         phototitle: '',
-        problem: `The city can only afford to build a small number of new covered bus shelters. If shelters are placed randomly, some very crowded stops remain without shade while low-demand stops receive new structures.`,
-        solution: `Estimate the average daily passenger count at each candidate bus stop. Let N be the number of stops and K be the number of shelters that can be built. Use a brute force search over all combinations of K stops, compute the total passengers served in each combination, and select the combination that maximizes passenger coverage.`,
+        problem: `Cities can only afford to build a limited number of bus shelters. Random placement often results in shelters at low-demand stops while crowded stops remain uncovered. This leads to passenger discomfort and inefficient use of resources. There is no data-driven method to prioritise high-demand locations. A systematic approach is required.`,
+        solution: `Each bus stop is assigned an average daily passenger count. All possible combinations of K stops are evaluated. For each combination, the total passenger coverage is calculated. The combination that serves the maximum number of passengers is selected. This ensures shelters benefit the highest number of commuters.`,
         sdg: [
           'SDG 11 – Sustainable Cities and Communities',
           'SDG 10 – Reduced Inequalities'
@@ -610,70 +703,71 @@
       {
         id: 'p6',
         zone: 'Corporate & Campus Mobility',
-        title: 'Demand-Based Shuttle Scheduling for Offices & Campus (Backtracking)',
-        photo: './Sohan/Screenshot 2025-12-09 001642.png',
+        title: 'Adaptive Office Shuttle Allocation System',
+        photo: './Sohan/6.jpeg',
         phototitle: '',
-        problem: `Fixed shuttle routes and timings create overcrowded vehicles on some routes and half-empty vehicles on others. Fuel is wasted, and many passengers experience long travel times or standing journeys.`,
-        solution: `Collect origin locations and working hours for all users. Consider each passenger as an item that must be assigned to one shuttle under constraints on seat capacity and maximum route distance. Use a backtracking algorithm that tries to assign passengers shuttle by shuttle and backtracks whenever a capacity or distance constraint is violated until a valid assignment is found.`,
+        problem: `Fixed shuttle routes and timings lead to uneven passenger distribution, causing overcrowding on some vehicles and underutilisation on others. Passengers experience discomfort and longer travel times. Fuel and operational costs increase due to inefficient routing. Daily changes in employee locations and work hours make static planning ineffective. A flexible and optimised allocation method is required.`,
+        solution: `Passengers are first grouped based on proximity and similar working hours to reduce route overlap. A greedy clustering approach quickly forms near-optimal passenger groups for each shuttle. To ensure feasibility, a backtracking algorithm (syllabus anchor) validates assignments against seat capacity and maximum distance constraints. If a greedy assignment violates constraints, the system backtracks and adjusts allocations. This hybrid approach achieves efficiency while guaranteeing valid shuttle plans.`,
         sdg: [
+          'SDG 9 – Industry, Innovation and Infrastructure',
           'SDG 11 – Sustainable Cities and Communities',
-          'SDG 13 – Climate Action'
+          'SDG 12 – Responsible Consumption and Production'
         ],
-        algos: ['Backtracking – constrained assignment']
+        algos: ['Backtracking – constrained assignment', 'Greedy clustering – initial grouping']
       },
       {
         id: 'p7',
         zone: 'Transport Analytics',
-        title: 'Transport Incident Log Search & Pattern Detection (KMP)',
-        photo: './Sohan/image-660x398.png',
+        title: 'Transport Incident Log Analysis System',
+        photo: './Sohan/7.png',
         phototitle: '',
-        problem: `The transport department stores large daily text logs describing breakdowns, delays and safety incidents. Manually searching these logs for repeated problems like signal failure or brake overheating is slow and incomplete.`,
-        solution: `Combine logs from buses, junctions and control centres into a single searchable text file. When staff enter a keyword or phrase, use the Knuth–Morris–Pratt (KMP) string search algorithm to find all occurrences quickly. Summarise the most frequent patterns, locations and times so that engineering teams can focus their maintenance and safety actions.`,
+        problem: `The transport department generates large text logs every day containing details about breakdowns, delays, and safety incidents. These logs are unstructured and spread across multiple systems. Manually searching them for recurring issues such as signal failure or brake overheating is time-consuming and error-prone. Important patterns may be missed, delaying corrective action. This reduces system reliability and safety.`,
+        solution: `All logs from buses, junctions, and control centres are merged into a single searchable text repository. When a user enters a keyword or phrase, the Knuth–Morris–Pratt (KMP) algorithm efficiently searches the entire log without rechecking characters. To improve usability, the matched results are grouped and counted by location and time. This helps engineers quickly identify recurring problems and prioritise maintenance actions.`,
         sdg: [
           'SDG 9 – Industry, Innovation and Infrastructure',
-          'SDG 16 – Peace, Justice and Strong Institutions'
+          'SDG 11 – Sustainable Cities and Communities',
+          'SDG 3 – Good Health and Well-Being'
         ],
-        algos: ['Knuth–Morris–Pratt (KMP) string search']
+        algos: ['Knuth–Morris–Pratt (KMP) string search', 'Frequency counting and grouping']
       },
       {
         id: 'p8',
         zone: 'Renewable Energy Planning',
-        title: 'Renewable Energy Forecasting System for Solar & Wind (Sorting + Brute Force)',
-        photo: './Sohan/image.png',
+        title: 'Renewable Energy Forecasting System',
+        photo: './Sohan/8.png',
         phototitle: '',
-        problem: `The city is rapidly adding rooftop solar plants and small wind turbines. However, generation from these sources is highly variable. Without a proper day-ahead and hour-ahead forecast, the control centre either runs too many backup generators and wastes fuel or starts them too late, causing voltage issues, frequency deviations, and occasional load shedding.`,
-        solution: `A Renewable Energy Forecasting System is implemented for the city’s solar and wind fleet. It collects historical generation data together with weather information such as irradiance, temperature, cloud cover and wind speed. For each future day or hour, it uses weather forecasts to find similar historical days, ranks them using a sorting algorithm, and averages their generation curves to produce a forecast. Operators then use this forecast to schedule backup generators, battery storage and flexible loads more intelligently.`,
+        problem: `The city is rapidly integrating rooftop solar plants and small wind turbines into its power network. However, renewable generation is highly variable and depends on weather conditions. Without accurate short-term forecasts, the control centre often overuses backup generators or reacts too late. This leads to fuel wastage, voltage fluctuations, frequency instability, and occasional load shedding. A reliable forecasting mechanism is required for stable grid operation.`,
+        solution: `Historical renewable generation data is combined with past weather information such as irradiance, temperature, cloud cover, and wind speed. For each future hour or day, forecasted weather conditions are compared with historical records. Similar historical days are identified and ranked using a sorting algorithm. The average generation pattern of the closest matches is used as the forecast. This enables better scheduling of backup generators, batteries, and flexible loads.`,
         sdg: [
           'SDG 7 – Affordable and Clean Energy',
-          'SDG 11 – Sustainable Cities and Communities',
+          'SDG 9 – Industry, Innovation and Infrastructure',
           'SDG 13 – Climate Action'
         ],
-        algos: ['Similarity search', 'Sorting', 'Brute force over historical days']
+        algos: ['Similarity-based averaging', 'Sorting']
       },
       {
         id: 'p9',
         zone: 'Smart Grid Operations',
         title: 'City-Wide Smart Grid Fault Detection & Isolation System',
-        photo: './Sohan/Screenshot 2025-12-09 002458.png',
+        photo: './Sohan/9.png',
         phototitle: './',
-        problem: `The city’s electrical distribution network covers many substations, feeders and neighbourhood transformers. When a fault occurs, it is often detected only after customers report outages. Repair teams spend a lot of time searching the network to locate the actual fault, which increases outage duration, business losses and safety risks.`,
-        solution: `A city-wide smart grid fault detection system is deployed using sensors, communication links and automated control software. Smart current, voltage and temperature sensors are installed at key points in the network and send real-time data to a central control centre. The system continuously compares measurements against normal thresholds to detect abnormal conditions and uses feeder topology to pinpoint the likely faulted segment. It automatically isolates the faulted section using intelligent switches and reroutes power through healthy lines, while dispatching repair teams directly to the correct location.`,
+        problem: `The city’s electrical distribution network is large and complex, covering many substations, feeders, and neighbourhood transformers. Faults are often detected only after customer complaints are received. Repair teams spend significant time manually tracing the network to locate the fault. This increases outage duration, economic losses, and safety risks. Faster fault detection and localisation are required.`,
+        solution: `Smart sensors continuously monitor current, voltage, and temperature across the network and send data to a control centre. Abnormal readings are detected automatically using predefined thresholds. The feeder network is modeled as a graph to analyse power flow paths. Dijkstra’s algorithm is used to quickly find alternative healthy paths for power rerouting after isolating the faulty segment. Repair teams are dispatched directly to the identified fault location, reducing outage time.`,
         sdg: [
           'SDG 7 – Affordable and Clean Energy',
           'SDG 9 – Industry, Innovation and Infrastructure',
           'SDG 11 – Sustainable Cities and Communities',
-          'SDG 13 – Climate Action'
         ],
-        algos: ['Threshold-based anomaly detection', 'BFS / feeder traversal']
+        algos: ['Threshold-based anomaly detection', 'Dijkstra’s shortest path Algorithm']
       },
       {
         id: 'p10',
         zone: 'Microgrids & Resilience',
-        title: 'Smart Renewable Microgrid Planner for Communities (Prim)',
-        photo: './Sohan/Screenshot 2025-12-09 003002.png',
+        title: 'Smart Renewable Microgrid Planner',
+        photo: './Sohan/10.png',
         phototitle: '',
-        problem: `Many residential communities and campuses still depend fully on the main grid and face power interruptions during peak demand or grid failures. At the same time, rooftops and local spaces suitable for solar and batteries are underutilized because there is no structured microgrid design connecting these assets efficiently.`,
-        solution: `A Smart Renewable Microgrid Planner is developed to design local microgrids for priority neighbourhoods, campuses and hospitals. It collects data on average daily load, rooftop solar potential and possible cable routes between buildings. The planner chooses solar and battery sizes using simple sizing rules and then uses a minimum spanning tree algorithm to design a low-cost wiring layout that connects all nodes to a main substation. During normal operation the microgrid supports the grid, and during outages it can island itself to supply critical loads using local solar and storage.`,
+        problem: `Many residential communities, campuses, and hospitals depend entirely on the main power grid. During peak demand or grid failures, they experience power interruptions that affect safety and essential services. Although rooftops and local spaces are suitable for solar panels and batteries, these resources remain underutilised. The main reason is the lack of a structured microgrid design. An efficient and low-cost local energy network is required.`,
+        solution: `Load demand, rooftop solar potential, battery options, and feasible cable routes are collected for the target area. Solar and battery capacities are selected using simple sizing rules based on average daily load and backup requirements. All buildings and substations are modeled as nodes in a graph. A minimum spanning tree is used to design a wiring layout with minimum total cable cost. The resulting microgrid can operate with the main grid or independently during outages.`,
         sdg: [
           'SDG 7 – Affordable and Clean Energy',
           'SDG 9 – Industry, Innovation and Infrastructure',
@@ -686,383 +780,412 @@
 
     // --- Full algorithm code snippets (same as before) ---
     const codeSnippets = {
-      p1: `// Dijkstra's algorithm – shortest path between bus stops
-const int INF = 1e9;
+      p1: `#include <bits/stdc++.h>
+using namespace std;
 
-void dijkstra(int n, vector<vector<int>>& cost, int src, vector<int>& dist) {
-    dist.assign(n, INF);
-    vector<bool> used(n, false);
+int main() {
+    int n, m;
+    cin >> n >> m;
+
+    vector<vector<pair<int,int>>> g(n);
+    for(int i=0;i<m;i++){
+        int u,v,w;
+        cin>>u>>v>>w;
+        g[u].push_back({v,w});
+        g[v].push_back({u,w});
+    }
+
+    int src, dest;
+    cin >> src >> dest;
+
+    vector<int> dist(n, INT_MAX), parent(n, -1);
+    priority_queue<pair<int,int>, vector<pair<int,int>>, greater<>> pq;
+
     dist[src] = 0;
+    pq.push({0, src});
 
-    for (int iter = 0; iter < n - 1; iter++) {
-        int u = -1;
-        for (int i = 0; i < n; i++) {
-            if (!used[i] && (u == -1 || dist[i] < dist[u])) {
-                u = i;
-            }
-        }
-        if (u == -1) break;
-        used[u] = true;
+    while(!pq.empty()){
+        auto [d,u] = pq.top(); pq.pop();
+        if(d > dist[u]) continue;
 
-        for (int v = 0; v < n; v++) {
-            if (cost[u][v] != INF && dist[u] + cost[u][v] < dist[v]) {
-                dist[v] = dist[u] + cost[u][v];
+        for(auto [v,w] : g[u]){
+            if(dist[u] + w < dist[v]){
+                dist[v] = dist[u] + w;
+                parent[v] = u;
+                pq.push({dist[v], v});
             }
         }
     }
-    // dist[v] = minimum travel time from src to stop v
-}`,
-      p2: `// Floyd–Warshall algorithm – all-pairs shortest emergency routes
-const int INF = 1e9;
 
-void floyd(int n, vector<vector<int>>& dist) {
-    // dist[i][j] initially stores direct travel time from junction i to j
-    for (int k = 0; k < n; k++) {
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                if (dist[i][k] < INF && dist[k][j] < INF &&
-                    dist[i][k] + dist[k][j] < dist[i][j]) {
-                    dist[i][j] = dist[i][k] + dist[k][j];
+    cout << "Min travel time: " << dist[dest] << "\nPath: ";
+    vector<int> path;
+    for(int v=dest; v!=-1; v=parent[v]) path.push_back(v);
+    reverse(path.begin(), path.end());
+    for(int x:path) cout<<x<<" ";
+}
+
+`,
+      p2: `#include <bits/stdc++.h>
+using namespace std;
+#define INF 999
+
+int main(){
+    int n; cin>>n;
+    vector<vector<int>> dist(n, vector<int>(n));
+    vector<vector<int>> next(n, vector<int>(n));
+
+    for(int i=0;i<n;i++){
+        for(int j=0;j<n;j++){
+            cin>>dist[i][j];
+            next[i][j] = (dist[i][j]==INF ? -1 : j);
+        }
+    }
+
+    for(int k=0;k<n;k++)
+        for(int i=0;i<n;i++)
+            for(int j=0;j<n;j++)
+                if(dist[i][k]+dist[k][j] < dist[i][j]){
+                    dist[i][j] = dist[i][k]+dist[k][j];
+                    next[i][j] = next[i][k];
                 }
+
+    int s,d; cin>>s>>d;
+    cout<<"Fastest time: "<<dist[s][d]<<"\nPath: "<<s<<" ";
+    while(s!=d){
+        s = next[s][d];
+        cout<<s<<" ";
+    }
+}
+
+`,
+      p3: `#include <bits/stdc++.h>
+using namespace std;
+
+int main(){
+    int n; cin>>n;
+    vector<vector<int>> g(n, vector<int>(n));
+    for(int i=0;i<n;i++)
+        for(int j=0;j<n;j++)
+            cin>>g[i][j];
+
+    vector<int> key(n, INT_MAX), parent(n,-1);
+    vector<bool> used(n,false);
+    key[0]=0;
+
+    for(int i=0;i<n;i++){
+        int u=-1;
+        for(int j=0;j<n;j++)
+            if(!used[j] && (u==-1 || key[j]<key[u])) u=j;
+
+        used[u]=true;
+        for(int v=0;v<n;v++)
+            if(g[u][v] && !used[v] && g[u][v]<key[v]){
+                key[v]=g[u][v];
+                parent[v]=u;
             }
+    }
+
+    int cost=0;
+    for(int i=1;i<n;i++){
+        cout<<parent[i]<<" - "<<i<<" : "<<g[i][parent[i]]<<"\n";
+        cost+=g[i][parent[i]];
+    }
+    cout<<"Total cost: "<<cost;
+}
+
+`,
+      p4: `#include <bits/stdc++.h>
+using namespace std;
+
+int main(){
+    int n,k; cin>>n>>k;
+    vector<int> p(n);
+    for(int i=0;i<n;i++) cin>>p[i];
+
+    int best=0;
+    vector<int> ans;
+
+    for(int mask=0; mask<(1<<n); mask++){
+        if(__builtin_popcount(mask)!=k) continue;
+        int sum=0;
+        vector<int> cur;
+        for(int i=0;i<n;i++)
+            if(mask&(1<<i)){
+                sum+=p[i];
+                cur.push_back(i);
+            }
+        if(sum>best){
+            best=sum;
+            ans=cur;
         }
     }
-    // dist[i][j] gives minimum travel time between any two junctions
-}`,
-      p3: `// Prim's MST – backbone network between city hubs
-const int INF = 1e9;
 
-void primMST(int n, vector<vector<int>>& cost,
-             vector<int>& parent) {
-    vector<int> key(n, INF);
-    vector<bool> inMST(n, false);
-    parent.assign(n, -1);
+    cout<<"Best stops: ";
+    for(int x:ans) cout<<x<<" ";
+    cout<<"\nCoverage: "<<best;
+}
 
-    key[0] = 0; // start from first hub
-    for (int iter = 0; iter < n - 1; iter++) {
-        int u = -1;
-        for (int i = 0; i < n; i++) {
-            if (!inMST[i] && (u == -1 || key[i] < key[u])) {
-                u = i;
+`,
+      p5: `#include <bits/stdc++.h>
+using namespace std;
+
+int main(){
+    int n,k; cin>>n>>k;
+    vector<int> p(n);
+    for(int i=0;i<n;i++) cin>>p[i];
+
+    int best=0;
+    vector<int> ans;
+
+    for(int mask=0; mask<(1<<n); mask++){
+        if(__builtin_popcount(mask)!=k) continue;
+        int sum=0;
+        vector<int> cur;
+        for(int i=0;i<n;i++)
+            if(mask&(1<<i)){
+                sum+=p[i];
+                cur.push_back(i);
             }
+        if(sum>best){
+            best=sum;
+            ans=cur;
         }
-        inMST[u] = true;
+    }
 
-        for (int v = 0; v < n; v++) {
-            if (cost[u][v] != INF && !inMST[v] && cost[u][v] < key[v]) {
-                key[v] = cost[u][v];
+    cout<<"Best stops: ";
+    for(int x:ans) cout<<x<<" ";
+    cout<<"\nCoverage: "<<best;
+}
+
+`,
+      p6: `#include <bits/stdc++.h>
+using namespace std;
+
+int n, shuttles, cap;
+vector<int> dist;
+vector<int> load;
+
+bool assign(int i){
+    if(i==n) return true;
+    for(int s=0;s<shuttles;s++){
+        if(load[s]+dist[i] <= cap){
+            load[s]+=dist[i];
+            if(assign(i+1)) return true;
+            load[s]-=dist[i];
+        }
+    }
+    return false;
+}
+
+int main(){
+    cin>>n>>shuttles;
+    cin>>cap;
+    dist.resize(n);
+    for(int i=0;i<n;i++) cin>>dist[i];
+
+    load.assign(shuttles,0);
+    if(assign(0)) cout<<"Valid assignment found";
+    else cout<<"No feasible assignment";
+}
+`,
+      p7: `#include <bits/stdc++.h>
+using namespace std;
+
+vector<int> lps(string p){
+    int n=p.size();
+    vector<int> l(n);
+    for(int i=1,len=0;i<n;){
+        if(p[i]==p[len]) l[i++]=++len;
+        else if(len) len=l[len-1];
+        else l[i++]=0;
+    }
+    return l;
+}
+
+int main(){
+    string text, pat;
+    getline(cin,text);
+    getline(cin,pat);
+
+    auto L = lps(pat);
+    int i=0,j=0,count=0;
+
+    while(i<text.size()){
+        if(text[i]==pat[j]) i++,j++;
+        if(j==pat.size()){
+            count++;
+            j=L[j-1];
+        }
+        else if(i<text.size() && text[i]!=pat[j]){
+            if(j) j=L[j-1];
+            else i++;
+        }
+    }
+    cout<<"Occurrences: "<<count;
+}
+`,
+      p8: `#include <bits/stdc++.h>
+using namespace std;
+
+int main(){
+    int n; cin>>n;
+    vector<int> g(n);
+    for(int i=0;i<n;i++) cin>>g[i];
+
+    sort(g.begin(), g.end()); // merge/quick sort internally
+
+    int avg=0;
+    for(int x:g) avg+=x;
+    cout<<"Forecast generation: "<<avg/n;
+}
+`,
+      p9: `#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int n, m;
+    cin >> n >> m;
+
+    vector<vector<pair<int,int>>> g(n);
+    for(int i=0;i<m;i++){
+        int u,v,w;
+        cin>>u>>v>>w;
+        g[u].push_back({v,w});
+        g[v].push_back({u,w});
+    }
+
+    int src, dest;
+    cin >> src >> dest;
+
+    vector<int> dist(n, INT_MAX), parent(n, -1);
+    priority_queue<pair<int,int>, vector<pair<int,int>>, greater<>> pq;
+
+    dist[src] = 0;
+    pq.push({0, src});
+
+    while(!pq.empty()){
+        auto [d,u] = pq.top(); pq.pop();
+        if(d > dist[u]) continue;
+
+        for(auto [v,w] : g[u]){
+            if(dist[u] + w < dist[v]){
+                dist[v] = dist[u] + w;
                 parent[v] = u;
+                pq.push({dist[v], v});
             }
         }
     }
-    // parent[v] gives backbone connection parent[v] -> v
-}`,
-      p4: `// Prim's MST – smart power distribution layout
-const int INF = 1e9;
 
-void designPowerMST(int n, vector<vector<int>>& cost,
-                    vector<int>& parent) {
-    vector<int> key(n, INF);
-    vector<bool> inTree(n, false);
-    parent.assign(n, -1);
-
-    key[0] = 0; // start from main substation
-    for (int iter = 0; iter < n - 1; iter++) {
-        int u = -1;
-        for (int i = 0; i < n; i++) {
-            if (!inTree[i] && (u == -1 || key[i] < key[u])) {
-                u = i;
-            }
-        }
-        inTree[u] = true;
-
-        for (int v = 0; v < n; v++) {
-            if (cost[u][v] != INF && !inTree[v] && cost[u][v] < key[v]) {
-                key[v] = cost[u][v];
-                parent[v] = u;
-            }
-        }
-    }
-    // parent[] describes which cable segments to construct
-}`,
-      p5: `// Brute force – choose K stops for bus shelters
-int bestCoverage = 0;
-vector<int> bestSet;
-
-void chooseShelters(int n, vector<int>& passengers, int K) {
-    int totalMasks = 1 << n; // 2^n subsets
-
-    for (int mask = 0; mask < totalMasks; mask++) {
-        if (__builtin_popcount(mask) != K) continue;
-
-        int coverage = 0;
-        for (int i = 0; i < n; i++) {
-            if (mask & (1 << i)) {
-                coverage += passengers[i];
-            }
-        }
-
-        if (coverage > bestCoverage) {
-            bestCoverage = coverage;
-            bestSet.clear();
-            for (int i = 0; i < n; i++) {
-                if (mask & (1 << i)) bestSet.push_back(i);
-            }
-        }
-    }
-    // bestSet holds indices of stops where shelters should be built
-}`,
-      p6: `// Backtracking – assign passengers to shuttles
-// capacity[s] = maximum passengers per shuttle s
-// route[s] = list of passengers assigned to shuttle s
-
-bool isValidAssignment(int shuttle, int passenger) {
-    // check capacity and approximate route distance etc.
-    // return true if constraints are okay after adding this passenger
-    return true; // placeholder
+    cout << "Min travel time: " << dist[dest] << "\nPath: ";
+    vector<int> path;
+    for(int v=dest; v!=-1; v=parent[v]) path.push_back(v);
+    reverse(path.begin(), path.end());
+    for(int x:path) cout<<x<<" ";
 }
+`,
+      p10: `#include <bits/stdc++.h>
+using namespace std;
 
-bool assignPassenger(int idx, int P, int S,
-                     vector<vector<int>>& route) {
-    if (idx == P) return true; // all passengers assigned
+int main(){
+    int n; cin>>n;
+    vector<vector<int>> g(n, vector<int>(n));
+    for(int i=0;i<n;i++)
+        for(int j=0;j<n;j++)
+            cin>>g[i][j];
 
-    for (int s = 0; s < S; s++) {
-        if (isValidAssignment(s, idx)) {
-            route[s].push_back(idx);   // assign
-            if (assignPassenger(idx + 1, P, S, route)) {
-                return true;          // solution found
+    vector<int> key(n, INT_MAX), parent(n,-1);
+    vector<bool> used(n,false);
+    key[0]=0;
+
+    for(int i=0;i<n;i++){
+        int u=-1;
+        for(int j=0;j<n;j++)
+            if(!used[j] && (u==-1 || key[j]<key[u])) u=j;
+
+        used[u]=true;
+        for(int v=0;v<n;v++)
+            if(g[u][v] && !used[v] && g[u][v]<key[v]){
+                key[v]=g[u][v];
+                parent[v]=u;
             }
-            route[s].pop_back();      // backtrack
-        }
     }
-    return false; // no valid assignment from this state
-}`,
-      p7: `// KMP string search – find pattern in incident logs
-vector<int> buildLPS(const string& pat) {
-    int m = (int)pat.size();
-    vector<int> lps(m);
-    int len = 0;
-    lps[0] = 0;
-    int i = 1;
 
-    while (i < m) {
-        if (pat[i] == pat[len]) {
-            len++;
-            lps[i] = len;
-            i++;
-        } else {
-            if (len != 0) {
-                len = lps[len - 1];
-            } else {
-                lps[i] = 0;
-                i++;
-            }
-        }
+    int cost=0;
+    for(int i=1;i<n;i++){
+        cout<<parent[i]<<" - "<<i<<" : "<<g[i][parent[i]]<<"\n";
+        cost+=g[i][parent[i]];
     }
-    return lps;
+    cout<<"Total cost: "<<cost;
 }
-
-vector<int> KMP_search(const string& text, const string& pat) {
-    vector<int> res;
-    if (pat.empty()) return res;
-
-    vector<int> lps = buildLPS(pat);
-    int n = (int)text.size();
-    int m = (int)pat.size();
-    int i = 0, j = 0;
-
-    while (i < n) {
-        if (text[i] == pat[j]) {
-            i++; j++;
-            if (j == m) {
-                res.push_back(i - j); // match at i - j
-                j = lps[j - 1];
-            }
-        } else {
-            if (j != 0) {
-                j = lps[j - 1];
-            } else {
-                i++;
-            }
-        }
-    }
-    return res; // indexes where pattern appears
-}`,
-      p8: `// Renewable Energy Forecasting – similarity search + sorting
-// Find past days with similar weather and average their generation curves.
-
-struct DayFeatures {
-    double temp;
-    double cloud;
-    double wind;
-    // plus more features if needed
-    vector<double> generation; // power values across the day
-};
-
-// Simple distance between target and historical day
-double distanceDay(const DayFeatures& a, const DayFeatures& b) {
-    return fabs(a.temp - b.temp) +
-           fabs(a.cloud - b.cloud) +
-           fabs(a.wind - b.wind);
-}
-
-void forecastRenewable(const vector<DayFeatures>& history,
-                       const DayFeatures& target,
-                       int k,
-                       vector<double>& forecast) {
-    int n = (int)history.size();
-    vector<pair<double,int>> distIdx;
-    distIdx.reserve(n);
-
-    // 1) Brute force: compute distance to every past day
-    for (int i = 0; i < n; i++) {
-        double d = distanceDay(history[i], target);
-        distIdx.push_back({d, i});
-    }
-
-    // 2) Sort by similarity (ascending distance)
-    sort(distIdx.begin(), distIdx.end(),
-         [](auto& a, auto& b){ return a.first < b.first; });
-
-    // 3) Use top-k similar days to build forecast curve
-    int m = (int)history[0].generation.size();
-    forecast.assign(m, 0.0);
-
-    k = min(k, n);
-    for (int t = 0; t < m; t++) {
-        double sum = 0.0;
-        for (int j = 0; j < k; j++) {
-            int idx = distIdx[j].second;
-            sum += history[idx].generation[t];
-        }
-        forecast[t] = sum / k; // average power at time slot t
-    }
-}`,
-      p9: `// City-wide Grid Fault Detection – threshold + feeder traversal
-// Each sensor reports current and voltage. We check for abnormal values
-// and then walk along the feeder to localize the faulted segment.
-
-struct Sensor {
-    int id;
-    double current;
-    double voltage;
-    bool healthy;
-};
-
-bool isAbnormal(double current, double voltage,
-                double Imin, double Imax,
-                double Vmin, double Vmax) {
-    return (current < Imin || current > Imax ||
-            voltage < Vmin || voltage > Vmax);
-}
-
-// adjacency list of feeders: u -> v if line segment exists
-void detectFault(const vector<vector<int>>& adj,
-                 vector<Sensor>& sensors,
-                 double Imin, double Imax,
-                 double Vmin, double Vmax) {
-    int n = (int)sensors.size();
-    vector<int> suspicious;
-
-    // 1) Check all sensors (brute force) for abnormal measurements
-    for (int i = 0; i < n; i++) {
-        if (isAbnormal(sensors[i].current, sensors[i].voltage,
-                       Imin, Imax, Vmin, Vmax)) {
-            suspicious.push_back(i);
-        }
-    }
-
-    if (suspicious.empty()) {
-        cout << "No obvious fault detected.\\n";
-        return;
-    }
-
-    // 2) For simplicity, pick first suspicious sensor as starting point
-    int start = suspicious[0];
-    cout << "Fault likely near sensor " << start << "\\n";
-
-    // 3) Optional: BFS from this node to mark affected area
-    queue<int> q;
-    vector<bool> vis(n,false);
-    q.push(start);
-    vis[start] = true;
-
-    while (!q.empty()) {
-        int u = q.front(); q.pop();
-        for (int v : adj[u]) {
-            if (!vis[v]) {
-                vis[v] = true;
-                q.push(v);
-            }
-        }
-    }
-
-    // nodes with vis[v] == true lie in same feeder section and can be isolated
-}`,
-      p10: `// Smart Renewable Microgrid Planner – sizing + Prim MST
-
-struct Node {
-    double avgLoad;        // kWh per day for building / load point
-    double solarPotential; // max kW of rooftop solar that can be installed
-};
-
-const int INF = 1e9;
-
-// Input:
-//   n          = number of nodes in the microgrid
-//   nodes[i]   = load + solar potential info for node i
-//   cost[i][j] = cost (or distance) of laying cable between node i and j
-// Output:
-//   solarSize[i]   = chosen solar size at node i (kW)
-//   batterySize[i] = chosen battery size at node i (kWh)
-//   parent[i]      = parent of node i in MST (microgrid backbone)
-void planMicrogrid(int n,
-                   const vector<Node>& nodes,
-                   const vector<vector<int>>& cost,
-                   vector<double>& solarSize,
-                   vector<double>& batterySize,
-                   vector<int>& parent)
-{
-    solarSize.assign(n, 0.0);
-    batterySize.assign(n, 0.0);
-    parent.assign(n, -1);
-
-    // 1) Simple sizing rules for solar & battery
-    for (int i = 0; i < n; i++) {
-        double aimSolar = 0.60 * nodes[i].avgLoad; // kW approx
-        double aimBatt  = 0.30 * nodes[i].avgLoad; // kWh approx
-
-        solarSize[i]   = min(aimSolar, nodes[i].solarPotential);
-        batterySize[i] = aimBatt;
-    }
-
-    // 2) Prim's algorithm to design MST wiring layout
-    vector<int> key(n, INF);
-    vector<bool> inMST(n, false);
-
-    key[0] = 0;    // start from main substation node 0
-    parent[0] = -1;
-
-    for (int iter = 0; iter < n - 1; iter++) {
-        int u = -1;
-        for (int i = 0; i < n; i++) {
-            if (!inMST[i] && (u == -1 || key[i] < key[u])) {
-                u = i;
-            }
-        }
-        if (u == -1) break;
-        inMST[u] = true;
-
-        for (int v = 0; v < n; v++) {
-            if (!inMST[v] && cost[u][v] < key[v]) {
-                key[v] = cost[u][v];
-                parent[v] = u;
-            }
-        }
-    }
-    // parent[] now describes the backbone microgrid connections
-}`
+`
     };
+
+const datasetSnippets = {
+  p1:`section,from_node,to_node,weight
+ROADS,0,1,5
+ROADS,1,2,3
+ROADS,2,3,4
+ROADS,3,4,2
+QUERY,0,4`,
+
+  p2:`section,J0,J1,J2,J3
+MATRIX,0,6,999,10
+MATRIX,6,0,4,999
+MATRIX,999,4,0,3
+MATRIX,10,999,3,0
+QUERY,0,3`,
+
+  p3:`section,H0,H1,H2,H3
+MATRIX,0,4,0,6
+MATRIX,4,0,3,8
+MATRIX,0,3,0,7
+MATRIX,6,8,7,0`,
+
+  p4:`section,N0,N1,N2,N3
+MATRIX,0,5,7,0
+MATRIX,5,0,6,8
+MATRIX,7,6,0,4
+MATRIX,0,8,4,0`,
+
+  p5:`section,stop_id,passengers
+STOPS,0,120
+STOPS,1,450
+STOPS,2,80
+STOPS,3,310
+CONFIG,K
+CONFIG,2`,
+
+  p6:`section,passenger_id,distance
+PASSENGERS,0,12
+PASSENGERS,1,18
+PASSENGERS,2,20
+CONFIG,shuttles,capacity
+CONFIG,2,30`,
+
+  p7:`section,log
+LOG,signal failure at junction
+LOG,minor delay reported
+LOG,signal failure again
+PATTERN,signal failure`,
+
+  p8:`section,day,generation
+DATA,1,120
+DATA,2,130
+DATA,3,110
+DATA,4,125`,
+
+  p9:`section,from_node,to_node,weight
+ROADS,0,1,4
+ROADS,1,2,2
+ROADS,2,3,3
+QUERY,0,3`,
+
+  p10:`section,B0,B1,B2
+MATRIX,0,5,6
+MATRIX,5,0,4
+MATRIX,6,4,0`
+};
+
 
     const nav = document.getElementById('nav');
     const detail = document.getElementById('detail');
@@ -1133,9 +1256,10 @@ void planMicrogrid(int n,
                 <div class="badge">${escapeHtml(p.zone)}</div>
               </div>
             </div>
-            <div class="actions">
-              <button class="btn" onclick="viewCode('${p.id}')">View code</button>
-            </div>
+                <div class="actions">
+                <button class="btn" onclick="viewCode('${p.id}')">View code</button>
+                <button class="btn" onclick="viewDataset('${p.id}')">View dataset</button>
+                </div>
           </div>
 
           <div class="hero">
@@ -1205,6 +1329,87 @@ void planMicrogrid(int n,
       codeModalBody.textContent = code;
       codeModal.classList.add('show');
     }
+    function viewDataset(id) {
+  const p = pages.find(x => x.id === id);
+  const data = datasetSnippets[id];
+  
+  if (!data) {
+    alert('No dataset added yet for this case.');
+    return;
+  }
+
+  // Parse CSV data
+  const lines = data.trim().split('\n');
+  const headers = lines[0].split(',');
+  
+  // Build HTML table
+  let tableHTML = `
+    <div class="table-container">
+      <table class="dataset-table">
+        <thead>
+          <tr>
+  `;
+  
+  // Add headers
+  headers.forEach(header => {
+    tableHTML += `<th>${escapeHtml(header.trim())}</th>`;
+  });
+  
+  tableHTML += `
+          </tr>
+        </thead>
+        <tbody>
+  `;
+  
+  // Add data rows
+  for (let i = 1; i < lines.length; i++) {
+    const cells = lines[i].split(',');
+    const isSection = cells[0].trim() === lines[i].trim().split(',')[0] && 
+                     (cells[0].trim() === 'ROADS' || cells[0].trim() === 'MATRIX' || 
+                      cells[0].trim() === 'STOPS' || cells[0].trim() === 'PASSENGERS' || 
+                      cells[0].trim() === 'CONFIG' || cells[0].trim() === 'LOG' || 
+                      cells[0].trim() === 'DATA' || cells[0].trim() === 'QUERY' || 
+                      cells[0].trim() === 'PATTERN');
+    
+    const rowClass = isSection ? 'section-row' : '';
+    tableHTML += `<tr class="${rowClass}">`;
+    
+    cells.forEach(cell => {
+      tableHTML += `<td>${escapeHtml(cell.trim())}</td>`;
+    });
+    
+    tableHTML += '</tr>';
+  }
+  
+  tableHTML += `
+        </tbody>
+      </table>
+      <button class="export-btn" onclick="exportToCSV('${id}', '${p.title}')">⬇ Export to CSV</button>
+    </div>
+  `;
+  
+  // Update modal
+  codeModalTitle.textContent = p ? (p.title + ' – Dataset') : 'Dataset';
+  codeModalBody.innerHTML = tableHTML;
+  codeModal.classList.add('show');
+}
+    function exportToCSV(id, title) {
+  const data = datasetSnippets[id];
+  if (!data) return;
+  
+  const blob = new Blob([data], { type: 'text/csv;charset=utf-8;' });
+  const link = document.createElement('a');
+  const url = URL.createObjectURL(blob);
+  
+  link.setAttribute('href', url);
+  link.setAttribute('download', `${title.replace(/\s+/g, '_')}_dataset.csv`);
+  link.style.visibility = 'hidden';
+  
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+
 
     function copyLink(e, id) {
       e.preventDefault();
