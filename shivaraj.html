@@ -505,6 +505,8 @@
     in Dijkstra's algorithm changing this condition along with min value will give the longest path
     between two point through other paths.`,
     algos: ['Dijkstra', 'Longest Dijkstra(modified Dijkstra)'],
+    datasetLink: 'https://github.com/shivuas/Surajvali_city.github.io/tree/main/shivaraj/case1/p1.csv',
+
     sdgs: [
       'SDG 4 – Quality Education',
       'SDG 9 – Industry, Innovation and Infrastructure',
@@ -595,6 +597,8 @@
     The method here is first create a cheapest spanning tree using Kruskal's algorithm, then taking the edges which were neglected by kruskal's algorithm and adding them back in same order until all the nodes have atleast 1 edge connected to it. 
     By this way we can reduce the weight of cables used overall and also reduce dependecy of one edge on other single edge.`,
     algos: ["Kruskal's algorithm", 'Graph algorithms'],
+    datasetLink: 'https://github.com/shivuas/Surajvali_city.github.io/tree/main/shivaraj/case2/p2.csv',
+
     sdgs: [
       'SDG 7 – Affordable and Clean Energy',
       'SDG 9 – Industry, Innovation and Infrastructure',
@@ -725,6 +729,8 @@
     Rabin karp algorithm uses hashing technique and have to compute modulus which is not efficient for large book or library, but it can lead to collision and false match. and has time complexity O(n)= N*M.
     The best among these three is KMP algorithm, this is different from BFSS as BFSS will transverse through each character one by one, KMP checks the first character and if it doesn't matches then it will shift by K-pi(K-1) places and check again.
     It has time complexity O(n)=N always where N is the length of pattern.`,
+    datasetLink: 'https://github.com/shivuas/Surajvali_city.github.io/tree/main/shivaraj/case3/p3.csv',
+
     algos: [' (KMP)'],
     sdgs: [
       'SDG 4 – Quality Education',
@@ -822,6 +828,8 @@
     To solve this we can use Graph structure instead of tree structure, where a single corner or node is connected to more than one edge or pipe.
     By this way if one edge or pipe get's blocked or burst, we can still run water through alternate pipes or edges.`,
     algos: ['Graph algorithms'],
+    datasetLink: 'https://github.com/shivuas/Surajvali_city.github.io/tree/main/shivaraj/case4/p4.csv',
+
     sdgs: [
       'SDG 3 – Good Health and Well-being',
       'SDG 6 – Clean Water and Sanitation',
@@ -931,6 +939,8 @@
     If the direct length is less than back tracking length then we go directly to child node instead of back tracking to parent node.
     4. When we visit all nodes then again using Dijkstra to reach back to starting point (school/University).`,
     algos: ['DFS(Graph)', 'Dijkstra', 'Kruskal'],
+    datasetLink: 'https://github.com/shivuas/Surajvali_city.github.io/tree/main/shivaraj/case5/p5.csv',
+
     sdgs: [
       'SDG 3 – Good Health and Well-being',
       'SDG 11 – Sustainable Cities and Communities',
@@ -1120,6 +1130,8 @@
     Normal students go in a normal queue.
     Staff / disabled / emergency tokens go into a priority queue so they can be handled earlier without breaking the system.`,
     algos: ['Queue','Priority Queue (Heap)'],
+    datasetLink: 'https://github.com/shivuas/Surajvali_city.github.io/tree/main/shivaraj/case6/p6.csv',
+
     sdgs: [
       'SDG 3 – Good Health and Well-being',
       'SDG 8 – Decent Work and Economic Growth',
@@ -1280,6 +1292,8 @@
     Why BFS over DFS? Let's imagine a situation where fire broke out on floor 5 and there are emergencies exits on floor 3, 6, 15, and people are on floor - 12
     if a smart device uses DFS it may suggest exit from floor 6 as it search in depth first manner, but in the given case the nearest emergency exit at floor 15, but if the device uses BFS
     it will suggest exit from floor 15 as it search in Layer by layer manner. Hence BFS if better solution for this problem.`,
+    datasetLink: 'https://github.com/shivuas/Surajvali_city.github.io/tree/main/shivaraj/case7/p7.csv',
+
     algos: ['BFS'],
     sdgs: [
       'SDG 3 – Good Health and Well-being',
@@ -1407,6 +1421,8 @@
     Use priority levels to decide which meeting gets a room when multiple clash
     Track each room’s next free time using a min-heap
     This eliminates double-booking and maximizes room usage.`,
+  datasetLink: 'https://github.com/shivuas/Surajvali_city.github.io/tree/main/shivaraj/case8/p8.csv',
+
     algos: ['Min-Heap'],
     sdgs: [
       'SDG 8 – Decent Work and Economic Growth',
@@ -1528,6 +1544,8 @@
     After covering all stops, use Dijkstra again to return to the origin
     This produces a cost-efficient shuttle path.`,
     algos: ['Kruskal','DFS','Dijkstra'],
+  datasetLink: 'https://github.com/shivuas/Surajvali_city.github.io/tree/main/shivaraj/case9/p9.csv',
+
     sdgs: [
       'SDG 8 – Decent Work and Economic Growth',
       'SDG 11 – Sustainable Cities and Communities',
@@ -1739,6 +1757,8 @@
     Continuously monitor system load and redistribute jobs
     Servers with least load receive tasks first, maintaining temperature and performance stability.`,
     algos: ['Min-Heap Priority Queue'],
+  datasetLink: 'https://github.com/shivuas/Surajvali_city.github.io/tree/main/shivaraj/case10/p10.csv',
+
     sdgs: [
       'SDG 7 – Affordable and Clean Energy',
       'SDG 9 – Industry, Innovation and Infrastructure',
@@ -1965,6 +1985,13 @@
       </div>
       <div class="actions">
         <button class="btn" onclick="viewCode('${p.id}')">View code</button>
+        ${p.datasetLink ? `
+    <button class="btn"
+       onclick="${p.datasetLink}"
+       rel="noopener noreferrer"
+       style="text-decoration:none">
+       View dataset
+    </button>
       </div>
     </div>
 
