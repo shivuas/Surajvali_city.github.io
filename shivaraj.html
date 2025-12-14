@@ -600,21 +600,25 @@
       'SDG 9 – Industry, Innovation and Infrastructure',
       'SDG 11 – Sustainable Cities and Communities'
     ],
-    codeSnippet: `// KRUSKAL's algorithm:
+    codeSnippet: `
+    #include <iostream>
+    using namespace std;
+    
+    // ---------------- KRUSKAL ----------------
     
     struct Edge {
-    int u, v, w;
+        int u, v, w;
     };
-
+    
     int parent[1000], rnk[1000];
-
+    
     void makeSet(int n) {
         for (int i = 0; i < n; i++) {
             parent[i] = i;
             rnk[i] = 0;
         }
     }
-
+    
     int findSet(int x) {
         if (parent[x] != x)
             parent[x] = findSet(parent[x]);
@@ -626,16 +630,16 @@
         b = findSet(b);
         if (a == b) return false;
     
-        if (rnk[a] < rnk[b]) swap(a, b);
+        if (rnk[a] < rnk[b]) {
+            int temp = a; a = b; b = temp;
+        }
         parent[b] = a;
         if (rnk[a] == rnk[b]) rnk[a]++;
         return true;
     }
-
-    // edges[] → input
-    // mst[] → output MST edges
+    
     int kruskal(int n, Edge edges[], int m, Edge mst[]) {
-        // Simple bubble sort (since no vector or STL)
+        // Bubble sort edges by weight
         for (int i = 0; i < m; i++) {
             for (int j = i + 1; j < m; j++) {
                 if (edges[j].w < edges[i].w) {
@@ -645,7 +649,7 @@
                 }
             }
         }
-
+    
         makeSet(n);
         int mstCount = 0;
     
@@ -655,22 +659,55 @@
             }
         }
     
-        return mstCount; // how many edges added
+        return mstCount;
     }
-
-
-
-DFS Algorithm:
-
-  void dfs(int node, int n, int adj[100][100], int visited[]) {
-      visited[node] = 1;
-  
-      for (int j = 0; j < n; j++) {
-          if (adj[node][j] == 1 && !visited[j]) {
-              dfs(j, n, adj, visited);
-          }
-      }
-  }
+    
+    // ---------------- DFS ----------------
+    
+    void dfs(int node, int n, int adj[100][100], int visited[]) {
+        visited[node] = 1;
+        cout << node << " ";
+    
+        for (int j = 0; j < n; j++) {
+            if (adj[node][j] == 1 && !visited[j]) {
+                dfs(j, n, adj, visited);
+            }
+        }
+    }
+    
+    // ---------------- MAIN ----------------
+    
+    int main() {
+        int n, m;
+        cin >> n >> m;   // number of nodes and edges
+    
+        Edge edges[1000];
+        Edge mst[1000];
+    
+        // Read edges
+        for (int i = 0; i < m; i++) {
+            cin >> edges[i].u >> edges[i].v >> edges[i].w;
+        }
+    
+        // Run Kruskal
+        int mstEdges = kruskal(n, edges, m, mst);
+    
+        // Build adjacency matrix from MST
+        int adj[100][100] = {0};
+        for (int i = 0; i < mstEdges; i++) {
+            int u = mst[i].u;
+            int v = mst[i].v;
+            adj[u][v] = 1;
+            adj[v][u] = 1;
+        }
+    
+        // DFS
+        int visited[100] = {0};
+        cout << "DFS Traversal from node 0:\n";
+        dfs(0, n, adj, visited);
+    
+        return 0;
+    }
 
 `
   },
@@ -695,63 +732,81 @@ DFS Algorithm:
       'SDG 10 – Reduced Inequalities'
     ],
     codeSnippet: `
-    Knuth-Morris-Pratt Algorithm:
-
-    KMP Search:
+    #include <iostream>
+    #include <cstring>
+    #include <cstdio>
+    using namespace std;
     
-        void KMPSearch(char pat[], char txt[]) {
-              int m = strlen(pat);
-              int n = strlen(txt);
-          
-              int lps[1000];  // adjust size as needed
-              buildLPS(pat, m, lps);
-          
-              int i = 0; // index for txt
-              int j = 0; // index for pat
-          
-              while (i < n) {
-                  if (pat[j] == txt[i]) {
-                      i++;
-                      j++;
-                  }
-          
-                  if (j == m) {
-                      printf("Pattern found at index %d ", i - j);
-                      j = lps[j - 1];
-                  }
-          
-                  else if (i < n && pat[j] != txt[i]) {
-                      if (j != 0)
-                          j = lps[j - 1];
-                      else
-                          i++;
-                  }
-              }
-          }
-
-
-   LMS Search:
-       void buildLPS(char pat[], int m, int lps[]) {
-              int len = 0;      // length of previous longest prefix suffix
-              lps[0] = 0;       // first value always 0
-          
-              int i = 1;
-              while (i < m) {
-                  if (pat[i] == pat[len]) {
-                      len++;
-                      lps[i] = len;
-                      i++;
-                  } else {
-                      if (len != 0) {
-                          len = lps[len - 1];   // fallback
-                      } else {
-                          lps[i] = 0;
-                          i++;
-                      }
-                  }
-              }
-          }
-
+    // ---------------- LPS (Longest Prefix Suffix) ----------------
+    
+    void buildLPS(char pat[], int m, int lps[]) {
+        int len = 0;      // length of previous longest prefix suffix
+        lps[0] = 0;       // first value always 0
+    
+        int i = 1;
+        while (i < m) {
+            if (pat[i] == pat[len]) {
+                len++;
+                lps[i] = len;
+                i++;
+            } else {
+                if (len != 0) {
+                    len = lps[len - 1];   // fallback
+                } else {
+                    lps[i] = 0;
+                    i++;
+                }
+            }
+        }
+    }
+    
+    // ---------------- KMP SEARCH ----------------
+    
+    void KMPSearch(char pat[], char txt[]) {
+        int m = strlen(pat);
+        int n = strlen(txt);
+    
+        int lps[1000];
+        buildLPS(pat, m, lps);
+    
+        int i = 0; // index for txt
+        int j = 0; // index for pat
+    
+        while (i < n) {
+            if (pat[j] == txt[i]) {
+                i++;
+                j++;
+            }
+    
+            if (j == m) {
+                printf("Pattern found at index %d\n", i - j);
+                j = lps[j - 1];
+            }
+            else if (i < n && pat[j] != txt[i]) {
+                if (j != 0)
+                    j = lps[j - 1];
+                else
+                    i++;
+            }
+        }
+    }
+    
+    // ---------------- MAIN ----------------
+    
+    int main() {
+        char text[1000];
+        char pattern[1000];
+    
+        cout << "Enter text: ";
+        cin >> text;
+    
+        cout << "Enter pattern: ";
+        cin >> pattern;
+    
+        KMPSearch(pattern, text);
+    
+        return 0;
+    }
 
     `
   },
