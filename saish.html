@@ -504,6 +504,7 @@ Why these fit: Rabin–Karp is fast for matching short patterns in streaming dat
 `,
     algos: ['Rabin_Karp Alogoritms', 'Tree-based Spatial Index(QuadTree)','Graph Algorithms (BFS)','Lookup table','Arrays'
 ],
+     datasetLink: 'https://github.com/shivuas/Surajvali_city.github.io/tree/main/saish/case1',
     sdgs: [
       
       'SDG 13– Climate Action',
@@ -751,6 +752,7 @@ int main() {
 Why these fit: Dijkstra computes realistic road-time distances on weighted graphs (essential for true arrival ETA). Sorting gives a clear movement priority; heap/queue supports scheduling limited vehicles.
 `,
     algos: ["Dijkstra's algorithm",'Merge sort','Heap(priority queue)'],
+    datasetLink: 'https://github.com/shivuas/Surajvali_city.github.io/tree/main/saish/case2',
     sdgs: [
       'SDG 9 – Industry, Innovation and Infrastructure',
       'SDG 12 – Responsible Consumption & Production',
@@ -952,6 +954,7 @@ Why these fit: Dijkstra gives real-world travel time (not straight-line); Merge 
     algos: ['Array list','Graph','Dijkstra',
 'Heap(priority queue)',
 'Merge sort','Hash Tables'],
+    datasetLink: 'https://github.com/shivuas/Surajvali_city.github.io/tree/main/saish/case3',
     sdgs: [
       'SDG 8 – Decent Work and Economic Growth',
       'SDG 11 – Sustainable Cities and Communities',
@@ -1158,6 +1161,7 @@ This greedy algorithm ensures the worst-case distance from any locality to a bin
 'Graph as Adjancency List'
 ,'Dijkstra',
 'Greedy Algorithm'],
+    datasetLink: 'https://github.com/shivuas/Surajvali_city.github.io/tree/main/saish/case4',
     sdgs: [
       'SDG 6 – Clean Water and Sanitation',
       'SDG 3 – Good Health and Well-Being',
@@ -1305,6 +1309,7 @@ Why these fit: Kruskal + DSU yields a minimum total pipe length (reduces materia
 'Kruskal',
 'Dijkstra',
 'MST'],
+    datasetLink: 'https://github.com/shivuas/Surajvali_city.github.io/tree/main/saish/case5',
     sdgs: [
       'SDG 11 – Sustainable Cities and Communities',
       'SDG 13 – Climate Action',
@@ -1507,6 +1512,7 @@ Why these fit: Dijkstra yields realistic driving time inside the premises; hash 
 'Min heap',
 'Dijkstra Algo',
 'Arrays'],
+    datasetLink: 'https://github.com/shivuas/Surajvali_city.github.io/tree/main/saish/case6',
     sdgs: [
       'SDG 13 – Climate Action',
       'SDG 9 – Industry, Innovation, and Infrastructure ',
@@ -1643,6 +1649,7 @@ int main() {
     problem: `In many residential areas, CCTV cameras are placed without proper planning, leading to blind spots, wasted cameras, and high wiring cost. Critical locations like entrances, parking, and staircases may not be fully covered, reducing security effectiveness. The challenge is to place the minimum number of cameras so that all important spots are monitored while keeping installation and cabling cost low.`,
     solution: `We store camera spots and critical locations using simple arrays and structures for quick access. A Greedy Set-Cover method is used to choose the fewest cameras because it always picks the one covering the most uncovered points. A basic sorting algorithm helps rank these choices. For wiring, we apply Kruskal’s MST since it finds the minimum cable layout, with Union-Find ensuring efficient cycle checks. If real road distances are needed, Dijkstra provides accurate wiring paths. This keeps coverage complete while reducing both camera count and cabling cost.`,
     algos: ['Arrays','Greedy Algorithm','Merge Sort','Graph Algorithms','Kruskal','Dijkstra'],
+    datasetLink: 'https://github.com/shivuas/Surajvali_city.github.io/tree/main/saish/case7',
     sdgs: [
       'SDG 9 – Industry, Innovation and Infrastructure',
       'SDG 11 – Sustainable Cities and Communities',
@@ -1920,6 +1927,11 @@ int main() {
       </div>
       <div class="actions">
         <button class="btn" onclick="viewCode('${p.id}')">View code</button>
+        <button class="btn"
+  onclick="window.open('${p.datasetLink}', '_blank')">
+  View dataset
+</button>
+        
       </div>
     </div>
 
