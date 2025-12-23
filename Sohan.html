@@ -1121,69 +1121,669 @@ int main(){
     };
 
 const datasetSnippets = {
-  p1:`section,from_node,to_node,weight
-ROADS,0,1,5
-ROADS,1,2,3
-ROADS,2,3,4
-ROADS,3,4,2
-QUERY,0,4`,
+  p1:`RouteID,FromStop,ToStop,DistanceKm,CurrentTravelTimeMin,TrafficLevel,BusID
+R001,StopA,StopB,2.1,6,Medium,BUS101
+R002,StopB,StopC,1.8,5,Low,BUS102
+R003,StopC,StopD,2.5,8,High,BUS103
+R004,StopA,StopC,3.2,9,Medium,BUS104
+R005,StopB,StopD,4.1,12,High,BUS105
+R006,StopD,StopE,2.0,6,Low,BUS101
+R007,StopC,StopE,3.6,11,High,BUS102
+R008,StopE,StopF,1.9,5,Low,BUS106
+R009,StopF,StopG,2.7,7,Medium,BUS107
+R010,StopG,StopH,3.3,10,High,BUS108
 
-  p2:`section,J0,J1,J2,J3
-MATRIX,0,6,999,10
-MATRIX,6,0,4,999
-MATRIX,999,4,0,3
-MATRIX,10,999,3,0
-QUERY,0,3`,
+R011,StopH,StopI,2.4,7,Medium,BUS109
+R012,StopI,StopJ,1.6,4,Low,BUS110
+R013,StopJ,StopK,2.8,8,Medium,BUS111
+R014,StopK,StopL,3.5,11,High,BUS112
+R015,StopL,StopM,1.7,5,Low,BUS113
+R016,StopM,StopN,2.9,9,Medium,BUS114
+R017,StopN,StopO,3.8,12,High,BUS115
+R018,StopO,StopP,2.2,6,Low,BUS116
+R019,StopP,StopQ,3.1,9,Medium,BUS117
+R020,StopQ,StopR,4.0,13,High,BUS118
 
-  p3:`section,H0,H1,H2,H3
-MATRIX,0,4,0,6
-MATRIX,4,0,3,8
-MATRIX,0,3,0,7
-MATRIX,6,8,7,0`,
+R021,StopR,StopS,2.6,8,Medium,BUS119
+R022,StopS,StopT,1.5,4,Low,BUS120
+R023,StopT,StopU,2.3,6,Low,BUS121
+R024,StopU,StopV,3.7,11,High,BUS122
+R025,StopV,StopW,2.9,9,Medium,BUS123
+R026,StopW,StopX,1.8,5,Low,BUS124
+R027,StopX,StopY,3.4,10,High,BUS125
+R028,StopY,StopZ,2.1,6,Medium,BUS126
+R029,StopZ,StopA,4.2,14,High,BUS127
+R030,StopB,StopF,5.0,15,High,BUS128
 
-  p4:`section,N0,N1,N2,N3
-MATRIX,0,5,7,0
-MATRIX,5,0,6,8
-MATRIX,7,6,0,4
-MATRIX,0,8,4,0`,
+R031,StopC,StopG,4.6,14,High,BUS129
+R032,StopD,StopH,5.1,16,High,BUS130
+R033,StopE,StopI,4.3,13,Medium,BUS131
+R034,StopF,StopJ,3.9,12,Medium,BUS132
+R035,StopG,StopK,4.7,15,High,BUS133
+R036,StopH,StopL,5.3,17,High,BUS134
+R037,StopI,StopM,3.2,9,Medium,BUS135
+R038,StopJ,StopN,4.8,14,High,BUS136
+R039,StopK,StopO,5.5,18,High,BUS137
+R040,StopL,StopP,3.6,11,Medium,BUS138
 
-  p5:`section,stop_id,passengers
-STOPS,0,120
-STOPS,1,450
-STOPS,2,80
-STOPS,3,310
-CONFIG,K
-CONFIG,2`,
+R041,StopM,StopQ,4.1,12,Medium,BUS139
+R042,StopN,StopR,5.0,15,High,BUS140
+R043,StopO,StopS,3.4,10,Medium,BUS141
+R044,StopP,StopT,4.2,13,High,BUS142
+R045,StopQ,StopU,2.8,8,Low,BUS143
+R046,StopR,StopV,5.6,17,High,BUS144
+R047,StopS,StopW,3.1,9,Medium,BUS145
+R048,StopT,StopX,4.4,13,High,BUS146
+R049,StopU,StopY,3.7,11,Medium,BUS147
+R050,StopV,StopZ,5.2,16,High,BUS148
 
-  p6:`section,passenger_id,distance
-PASSENGERS,0,12
-PASSENGERS,1,18
-PASSENGERS,2,20
-CONFIG,shuttles,capacity
-CONFIG,2,30`,
+R051,StopW,StopA,4.0,12,Medium,BUS149
+R052,StopX,StopB,3.3,10,Medium,BUS150
+R053,StopY,StopC,4.8,14,High,BUS151
+R054,StopZ,StopD,5.1,15,High,BUS152
+R055,StopA,StopE,3.9,11,Medium,BUS153
+R056,StopB,StopG,4.5,13,High,BUS154
+R057,StopC,StopH,5.4,17,High,BUS155
+R058,StopD,StopI,4.7,14,High,BUS156
+R059,StopE,StopJ,3.6,10,Medium,BUS157
+R060,StopF,StopK,5.8,18,High,BUS158
+`,
 
-  p7:`section,log
-LOG,signal failure at junction
-LOG,minor delay reported
-LOG,signal failure again
-PATTERN,signal failure`,
+  p2:`RoadID,FromJunction,ToJunction,DistanceKm,AvgTravelTimeMin,SignalPriorityEnabled
+J001,JunctionA,JunctionB,2.0,4,1
+J002,JunctionB,JunctionC,1.5,3,1
+J003,JunctionC,JunctionD,2.8,6,0
+J004,JunctionD,JunctionE,3.2,7,0
+J005,JunctionE,JunctionF,1.9,4,1
+J006,JunctionF,JunctionG,2.4,5,1
+J007,JunctionG,JunctionH,3.1,7,0
+J008,JunctionH,JunctionI,2.6,6,0
+J009,JunctionI,JunctionJ,1.8,4,1
+J010,JunctionJ,JunctionK,3.5,8,0
 
-  p8:`section,day,generation
-DATA,1,120
-DATA,2,130
-DATA,3,110
-DATA,4,125`,
+J011,JunctionK,JunctionL,2.2,5,1
+J012,JunctionL,JunctionM,1.7,4,1
+J013,JunctionM,JunctionN,2.9,6,0
+J014,JunctionN,JunctionO,3.6,8,0
+J015,JunctionO,JunctionP,2.1,5,1
+J016,JunctionP,JunctionQ,2.7,6,1
+J017,JunctionQ,JunctionR,3.4,7,0
+J018,JunctionR,JunctionS,1.6,4,1
+J019,JunctionS,JunctionT,2.5,6,0
+J020,JunctionT,JunctionU,3.8,8,0
 
-  p9:`section,from_node,to_node,weight
-ROADS,0,1,4
-ROADS,1,2,2
-ROADS,2,3,3
-QUERY,0,3`,
+J021,JunctionU,JunctionV,2.3,5,1
+J022,JunctionV,JunctionW,1.9,4,1
+J023,JunctionW,JunctionX,3.0,7,0
+J024,JunctionX,JunctionY,2.6,6,0
+J025,JunctionY,JunctionZ,1.8,4,1
+J026,JunctionZ,JunctionA,3.9,9,0
+J027,JunctionA,JunctionC,3.1,7,0
+J028,JunctionB,JunctionD,2.7,6,1
+J029,JunctionC,JunctionE,3.4,7,0
+J030,JunctionD,JunctionF,2.0,5,1
 
-  p10:`section,B0,B1,B2
-MATRIX,0,5,6
-MATRIX,5,0,4
-MATRIX,6,4,0`
+J031,JunctionE,JunctionG,3.6,8,0
+J032,JunctionF,JunctionH,2.9,6,0
+J033,JunctionG,JunctionI,3.3,7,0
+J034,JunctionH,JunctionJ,2.4,5,1
+J035,JunctionI,JunctionK,3.7,8,0
+J036,JunctionJ,JunctionL,2.8,6,0
+J037,JunctionK,JunctionM,1.9,4,1
+J038,JunctionL,JunctionN,3.2,7,0
+J039,JunctionM,JunctionO,2.5,6,0
+J040,JunctionN,JunctionP,3.4,7,0
+
+J041,JunctionO,JunctionQ,2.6,6,0
+J042,JunctionP,JunctionR,3.0,7,0
+J043,JunctionQ,JunctionS,1.8,4,1
+J044,JunctionR,JunctionT,2.9,6,0
+J045,JunctionS,JunctionU,3.1,7,0
+J046,JunctionT,JunctionV,2.2,5,1
+J047,JunctionU,JunctionW,3.5,8,0
+J048,JunctionV,JunctionX,2.7,6,0
+J049,JunctionW,JunctionY,3.3,7,0
+J050,JunctionX,JunctionZ,2.0,5,1
+
+J051,JunctionY,JunctionA,3.8,8,0
+J052,JunctionZ,JunctionB,2.9,6,0
+J053,JunctionC,JunctionF,4.0,9,0
+J054,JunctionD,JunctionG,3.6,8,0
+J055,JunctionE,JunctionH,4.2,9,0
+J056,JunctionF,JunctionI,3.5,8,0
+J057,JunctionG,JunctionJ,4.1,9,0
+J058,JunctionH,JunctionK,3.8,8,0
+J059,JunctionI,JunctionL,3.4,7,0
+J060,JunctionJ,JunctionM,4.0,9,0
+`,
+
+  p3:`LinkID,FromHub,ToHub,DistanceKm,EstimatedCostLakhs
+L001,BusStandA,RailwayStationA,3.2,45
+L002,RailwayStationA,MetroStationA,2.1,32
+L003,MetroStationA,AirportA,8.5,120
+L004,BusStandA,MetroStationA,2.8,40
+L005,RailwayStationA,AirportA,9.0,130
+L006,BusStandB,RailwayStationB,3.5,48
+L007,RailwayStationB,MetroStationB,2.4,35
+L008,MetroStationB,AirportB,7.8,110
+L009,BusStandB,MetroStationB,3.0,42
+L010,RailwayStationB,AirportB,8.6,125
+
+L011,BusStandC,RailwayStationC,3.1,44
+L012,RailwayStationC,MetroStationC,2.2,33
+L013,MetroStationC,AirportC,8.2,118
+L014,BusStandC,MetroStationC,2.9,41
+L015,RailwayStationC,AirportC,9.3,132
+L016,BusStandD,RailwayStationD,3.6,50
+L017,RailwayStationD,MetroStationD,2.5,36
+L018,MetroStationD,AirportD,7.9,112
+L019,BusStandD,MetroStationD,3.3,45
+L020,RailwayStationD,AirportD,8.8,128
+
+L021,BusStandE,RailwayStationE,3.0,43
+L022,RailwayStationE,MetroStationE,2.0,31
+L023,MetroStationE,AirportE,8.1,116
+L024,BusStandE,MetroStationE,2.7,39
+L025,RailwayStationE,AirportE,9.1,129
+L026,BusStandF,RailwayStationF,3.4,47
+L027,RailwayStationF,MetroStationF,2.3,34
+L028,MetroStationF,AirportF,8.4,119
+L029,BusStandF,MetroStationF,3.1,43
+L030,RailwayStationF,AirportF,8.9,127
+
+L031,BusStandG,RailwayStationG,3.7,51
+L032,RailwayStationG,MetroStationG,2.6,37
+L033,MetroStationG,AirportG,8.0,114
+L034,BusStandG,MetroStationG,3.4,46
+L035,RailwayStationG,AirportG,9.4,134
+L036,BusStandH,RailwayStationH,3.2,45
+L037,RailwayStationH,MetroStationH,2.1,32
+L038,MetroStationH,AirportH,7.7,108
+L039,BusStandH,MetroStationH,2.9,41
+L040,RailwayStationH,AirportH,8.5,123
+
+L041,BusStandI,RailwayStationI,3.5,49
+L042,RailwayStationI,MetroStationI,2.4,35
+L043,MetroStationI,AirportI,8.3,117
+L044,BusStandI,MetroStationI,3.2,44
+L045,RailwayStationI,AirportI,9.2,131
+L046,BusStandJ,RailwayStationJ,3.1,44
+L047,RailwayStationJ,MetroStationJ,2.0,31
+L048,MetroStationJ,AirportJ,7.6,106
+L049,BusStandJ,MetroStationJ,2.8,40
+L050,RailwayStationJ,AirportJ,8.4,121
+
+L051,MetroStationA,MetroStationB,6.5,95
+L052,MetroStationB,MetroStationC,6.2,92
+L053,MetroStationC,MetroStationD,6.8,98
+L054,MetroStationD,MetroStationE,6.0,90
+L055,MetroStationE,MetroStationF,6.4,94
+L056,MetroStationF,MetroStationG,6.7,97
+L057,MetroStationG,MetroStationH,6.1,91
+L058,MetroStationH,MetroStationI,6.3,93
+L059,MetroStationI,MetroStationJ,6.6,96
+L060,BusStandA,BusStandB,5.5,80
+`,
+
+  p4:`LineID,FromNode,ToNode,CableLengthKm,InstallationCostLakhs
+P001,SubstationA,AreaA,1.8,22
+P002,SubstationA,AreaB,2.4,30
+P003,SubstationA,AreaC,3.1,38
+P004,AreaA,AreaB,1.2,15
+P005,AreaB,AreaC,1.5,18
+P006,AreaC,AreaD,2.0,25
+P007,AreaD,AreaE,1.7,21
+P008,AreaE,AreaF,2.3,28
+P009,AreaF,AreaG,1.9,24
+P010,AreaG,AreaH,2.6,32
+
+P011,SubstationB,AreaI,2.1,26
+P012,SubstationB,AreaJ,2.8,35
+P013,SubstationB,AreaK,3.4,42
+P014,AreaI,AreaJ,1.4,17
+P015,AreaJ,AreaK,1.6,19
+P016,AreaK,AreaL,2.2,27
+P017,AreaL,AreaM,1.9,23
+P018,AreaM,AreaN,2.5,31
+P019,AreaN,AreaO,2.0,26
+P020,AreaO,AreaP,2.7,34
+
+P021,SubstationC,AreaQ,1.9,24
+P022,SubstationC,AreaR,2.6,33
+P023,SubstationC,AreaS,3.2,40
+P024,AreaQ,AreaR,1.3,16
+P025,AreaR,AreaS,1.7,21
+P026,AreaS,AreaT,2.4,30
+P027,AreaT,AreaU,1.8,22
+P028,AreaU,AreaV,2.6,33
+P029,AreaV,AreaW,2.1,27
+P030,AreaW,AreaX,2.9,36
+
+P031,SubstationD,AreaY,2.2,28
+P032,SubstationD,AreaZ,2.9,37
+P033,AreaY,AreaZ,1.5,19
+P034,AreaZ,AreaAA,2.3,29
+P035,AreaAA,AreaAB,1.8,22
+P036,AreaAB,AreaAC,2.6,33
+P037,AreaAC,AreaAD,2.0,26
+P038,AreaAD,AreaAE,2.7,34
+P039,AreaAE,AreaAF,2.1,27
+P040,AreaAF,AreaAG,2.8,35
+
+P041,SubstationE,AreaAH,1.7,21
+P042,SubstationE,AreaAI,2.5,31
+P043,AreaAH,AreaAI,1.3,16
+P044,AreaAI,AreaAJ,2.0,26
+P045,AreaAJ,AreaAK,1.6,20
+P046,AreaAK,AreaAL,2.4,30
+P047,AreaAL,AreaAM,1.9,24
+P048,AreaAM,AreaAN,2.6,33
+P049,AreaAN,AreaAO,2.2,28
+P050,AreaAO,AreaAP,2.9,36
+
+P051,AreaA,AreaI,3.5,45
+P052,AreaC,AreaJ,3.8,48
+P053,AreaF,AreaM,4.0,50
+P054,AreaH,AreaQ,4.2,52
+P055,AreaK,AreaR,3.6,46
+P056,AreaN,AreaT,3.9,49
+P057,AreaP,AreaV,4.1,51
+P058,AreaS,AreaY,3.7,47
+P059,AreaW,AreaAH,4.3,54
+P060,AreaZ,AreaAJ,3.8,48
+`,
+
+  p5:`StopID,StopName,Zone,AvgDailyPassengers,ExistingShelter
+S001,StopA,North,420,No
+S002,StopB,North,180,Yes
+S003,StopC,North,350,No
+S004,StopD,North,260,No
+S005,StopE,North,510,Yes
+S006,StopF,East,290,No
+S007,StopG,East,470,No
+S008,StopH,East,150,Yes
+S009,StopI,East,380,No
+S010,StopJ,East,560,No
+
+S011,StopK,South,410,Yes
+S012,StopL,South,230,No
+S013,StopM,South,490,No
+S014,StopN,South,270,No
+S015,StopO,South,620,Yes
+S016,StopP,West,340,No
+S017,StopQ,West,210,Yes
+S018,StopR,West,460,No
+S019,StopS,West,300,No
+S020,StopT,West,540,No
+
+S021,StopU,Central,680,Yes
+S022,StopV,Central,590,No
+S023,StopW,Central,720,No
+S024,StopX,Central,310,Yes
+S025,StopY,Central,450,No
+S026,StopZ,North,390,No
+S027,StopAA,North,250,Yes
+S028,StopAB,North,530,No
+S029,StopAC,North,610,No
+S030,StopAD,North,280,No
+
+S031,StopAE,East,470,Yes
+S032,StopAF,East,360,No
+S033,StopAG,East,520,No
+S034,StopAH,East,190,Yes
+S035,StopAI,East,430,No
+S036,StopAJ,South,580,No
+S037,StopAK,South,340,Yes
+S038,StopAL,South,490,No
+S039,StopAM,South,260,No
+S040,StopAN,South,610,No
+
+S041,StopAO,West,320,No
+S042,StopAP,West,470,Yes
+S043,StopAQ,West,540,No
+S044,StopAR,West,290,No
+S045,StopAS,West,410,No
+S046,StopAT,Central,760,Yes
+S047,StopAU,Central,630,No
+S048,StopAV,Central,350,No
+S049,StopAW,Central,520,No
+S050,StopAX,Central,280,Yes
+
+S051,StopAY,North,450,No
+S052,StopAZ,North,600,No
+S053,StopBA,East,390,No
+S054,StopBB,East,480,No
+S055,StopBC,South,570,No
+S056,StopBD,South,310,Yes
+S057,StopBE,West,430,No
+S058,StopBF,West,650,No
+S059,StopBG,Central,700,No
+S060,StopBH,Central,360,No
+`,
+
+  p6:`PassengerID,HomeZone,PickupPoint,WorkStartTime,WorkEndTime,DistanceKm,AssignedShuttle
+P001,North,StopA,09:00,17:00,4.2,
+P002,North,StopA,09:00,17:00,3.8,
+P003,North,StopB,08:30,16:30,5.1,
+P004,North,StopB,09:00,18:00,6.0,
+P005,North,StopC,10:00,19:00,4.5,
+P006,East,StopD,09:00,17:00,3.9,
+P007,East,StopD,08:30,16:30,4.7,
+P008,East,StopE,09:00,17:00,6.2,
+P009,East,StopE,10:00,19:00,5.8,
+P010,East,StopF,09:00,18:00,7.0,
+
+P011,South,StopG,08:00,16:00,4.1,
+P012,South,StopG,08:30,16:30,3.6,
+P013,South,StopH,09:00,17:00,5.4,
+P014,South,StopH,10:00,18:00,6.3,
+P015,South,StopI,09:00,17:00,4.9,
+P016,West,StopJ,08:00,16:00,5.7,
+P017,West,StopJ,08:30,16:30,6.1,
+P018,West,StopK,09:00,17:00,4.4,
+P019,West,StopK,10:00,19:00,6.8,
+P020,West,StopL,09:00,18:00,7.2,
+
+P021,Central,StopM,09:00,17:00,2.8,
+P022,Central,StopM,08:30,16:30,3.1,
+P023,Central,StopN,09:00,17:00,3.6,
+P024,Central,StopN,10:00,19:00,4.2,
+P025,Central,StopO,09:00,18:00,3.9,
+P026,North,StopC,08:00,16:00,5.0,
+P027,North,StopA,08:30,16:30,4.6,
+P028,North,StopB,10:00,19:00,6.7,
+P029,North,StopC,09:00,17:00,5.3,
+P030,North,StopD,09:00,18:00,6.9,
+
+P031,East,StopE,08:00,16:00,5.4,
+P032,East,StopF,08:30,16:30,6.2,
+P033,East,StopF,09:00,17:00,6.8,
+P034,East,StopG,10:00,19:00,7.1,
+P035,East,StopH,09:00,18:00,5.9,
+P036,South,StopI,08:00,16:00,4.8,
+P037,South,StopJ,08:30,16:30,5.2,
+P038,South,StopJ,09:00,17:00,5.7,
+P039,South,StopK,10:00,19:00,6.4,
+P040,South,StopL,09:00,18:00,6.9,
+
+P041,West,StopM,08:00,16:00,4.3,
+P042,West,StopM,08:30,16:30,4.9,
+P043,West,StopN,09:00,17:00,5.5,
+P044,West,StopN,10:00,19:00,6.2,
+P045,West,StopO,09:00,18:00,5.8,
+P046,Central,StopP,08:00,16:00,3.0,
+P047,Central,StopP,08:30,16:30,3.4,
+P048,Central,StopQ,09:00,17:00,3.9,
+P049,Central,StopQ,10:00,19:00,4.6,
+P050,Central,StopR,09:00,18:00,4.1,
+
+P051,North,StopE,08:00,16:00,6.0,
+P052,North,StopF,08:30,16:30,6.5,
+P053,East,StopG,09:00,17:00,7.3,
+P054,East,StopH,10:00,19:00,7.8,
+P055,South,StopI,09:00,18:00,5.6,
+P056,South,StopJ,08:00,16:00,5.9,
+P057,West,StopK,08:30,16:30,6.1,
+P058,West,StopL,09:00,17:00,6.7,
+P059,Central,StopR,10:00,19:00,4.8,
+P060,Central,StopS,09:00,18:00,5.0
+`,
+
+  p7:`LogID,Timestamp,Location,SourceSystem,LogMessage
+L001,2025-03-01 08:12,StopA,Bus,"Delay due to signal failure near junction"
+L002,2025-03-01 08:25,JunctionB,SignalCtrl,"Signal failure detected at junction"
+L003,2025-03-01 09:05,StopC,Bus,"Minor delay caused by traffic congestion"
+L004,2025-03-01 09:40,DepotA,Maintenance,"Brake overheating reported on bus BUS102"
+L005,2025-03-01 10:10,JunctionC,SignalCtrl,"Signal failure causing red light stuck"
+L006,2025-03-01 10:45,StopD,Bus,"Bus delayed due to brake overheating alert"
+L007,2025-03-01 11:20,StopE,Bus,"Smooth operation, no incidents reported"
+L008,2025-03-01 11:55,DepotB,Maintenance,"Brake overheating issue resolved"
+L009,2025-03-01 12:30,JunctionA,SignalCtrl,"Temporary signal failure fixed"
+L010,2025-03-01 13:05,StopF,Bus,"Delay due to signal failure at junction"
+
+L011,2025-03-02 08:10,StopA,Bus,"Repeated delay caused by signal failure"
+L012,2025-03-02 08:42,JunctionB,SignalCtrl,"Signal failure detected again"
+L013,2025-03-02 09:15,StopC,Bus,"Brake overheating warning displayed"
+L014,2025-03-02 09:50,DepotA,Maintenance,"Inspection scheduled for brake overheating"
+L015,2025-03-02 10:25,JunctionC,SignalCtrl,"Signal operating normally"
+L016,2025-03-02 11:00,StopD,Bus,"Unexpected delay due to brake overheating"
+L017,2025-03-02 11:35,StopE,Bus,"Delay due to signal failure"
+L018,2025-03-02 12:05,DepotB,Maintenance,"Brake overheating issue confirmed"
+L019,2025-03-02 12:40,JunctionA,SignalCtrl,"Signal failure reported by sensors"
+L020,2025-03-02 13:15,StopF,Bus,"Delay resolved after signal reset"
+
+L021,2025-03-03 08:05,StopA,Bus,"Delay due to heavy traffic"
+L022,2025-03-03 08:30,JunctionB,SignalCtrl,"Signal failure causing queue buildup"
+L023,2025-03-03 09:00,StopC,Bus,"Brake overheating detected mid-route"
+L024,2025-03-03 09:35,DepotA,Maintenance,"Emergency check for brake overheating"
+L025,2025-03-03 10:10,JunctionC,SignalCtrl,"Signal restored after failure"
+L026,2025-03-03 10:45,StopD,Bus,"Delay due to signal failure ahead"
+L027,2025-03-03 11:15,StopE,Bus,"Normal service resumed"
+L028,2025-03-03 11:50,DepotB,Maintenance,"Brake overheating prevented by cooling"
+L029,2025-03-03 12:25,JunctionA,SignalCtrl,"Signal failure detected at noon"
+L030,2025-03-03 13:00,StopF,Bus,"Delay caused by brake overheating"
+
+L031,2025-03-04 08:20,StopA,Bus,"Signal failure caused short delay"
+L032,2025-03-04 08:55,JunctionB,SignalCtrl,"Signal functioning within limits"
+L033,2025-03-04 09:30,StopC,Bus,"Brake overheating warning cleared"
+L034,2025-03-04 10:05,DepotA,Maintenance,"Brake overheating issue monitored"
+L035,2025-03-04 10:40,JunctionC,SignalCtrl,"Unexpected signal failure detected"
+L036,2025-03-04 11:15,StopD,Bus,"Delay due to signal failure"
+L037,2025-03-04 11:45,StopE,Bus,"Minor delay due to congestion"
+L038,2025-03-04 12:20,DepotB,Maintenance,"Brake overheating issue logged"
+L039,2025-03-04 12:55,JunctionA,SignalCtrl,"Signal failure under investigation"
+L040,2025-03-04 13:30,StopF,Bus,"Delay resolved quickly"
+
+L041,2025-03-05 08:00,StopA,Bus,"Brake overheating detected early morning"
+L042,2025-03-05 08:35,JunctionB,SignalCtrl,"Signal failure alert triggered"
+L043,2025-03-05 09:10,StopC,Bus,"Delay due to signal failure"
+L044,2025-03-05 09:45,DepotA,Maintenance,"Brake overheating inspection ongoing"
+L045,2025-03-05 10:20,JunctionC,SignalCtrl,"Signal restored successfully"
+`,
+
+  p8:`RecordID,Date,Hour,SolarIrradianceWm2,TemperatureC,CloudCoverPct,WindSpeedMs,SolarGenerationMW,WindGenerationMW
+R001,2025-01-01,06,120,18,20,3.2,12.5,8.1
+R002,2025-01-01,07,240,19,18,3.5,25.8,8.6
+R003,2025-01-01,08,380,21,15,3.8,41.2,9.0
+R004,2025-01-01,09,520,23,12,4.1,58.9,9.5
+R005,2025-01-01,10,650,25,10,4.3,72.4,10.1
+R006,2025-01-01,11,780,27,8,4.6,85.6,10.8
+R007,2025-01-01,12,850,29,6,4.8,92.3,11.2
+R008,2025-01-01,13,820,30,7,5.0,89.5,11.9
+R009,2025-01-01,14,740,31,9,5.2,81.0,12.4
+R010,2025-01-01,15,600,30,12,5.4,66.2,12.9
+
+R011,2025-01-02,06,110,17,25,3.0,11.8,7.9
+R012,2025-01-02,07,220,18,22,3.3,24.1,8.3
+R013,2025-01-02,08,360,20,18,3.6,39.4,8.8
+R014,2025-01-02,09,500,22,15,3.9,56.3,9.2
+R015,2025-01-02,10,630,24,12,4.1,70.1,9.8
+R016,2025-01-02,11,760,26,10,4.4,83.0,10.4
+R017,2025-01-02,12,830,28,8,4.7,90.6,11.0
+R018,2025-01-02,13,800,29,9,4.9,87.2,11.5
+R019,2025-01-02,14,720,30,11,5.1,78.9,12.0
+R020,2025-01-02,15,580,29,14,5.3,64.0,12.6
+
+R021,2025-01-03,06,90,16,40,2.8,9.6,7.5
+R022,2025-01-03,07,180,17,38,3.1,20.4,7.9
+R023,2025-01-03,08,300,19,35,3.4,33.7,8.4
+R024,2025-01-03,09,420,21,30,3.7,48.1,8.9
+R025,2025-01-03,10,540,23,28,4.0,61.8,9.5
+R026,2025-01-03,11,660,25,25,4.3,74.2,10.0
+R027,2025-01-03,12,720,27,22,4.6,80.5,10.6
+R028,2025-01-03,13,700,28,24,4.8,77.9,11.2
+R029,2025-01-03,14,640,29,26,5.0,70.8,11.8
+R030,2025-01-03,15,520,28,30,5.2,57.4,12.3
+
+R031,2025-01-04,06,130,19,15,3.6,13.9,8.4
+R032,2025-01-04,07,260,20,14,3.9,27.6,8.9
+R033,2025-01-04,08,410,22,12,4.2,44.8,9.3
+R034,2025-01-04,09,560,24,10,4.5,61.7,9.8
+R035,2025-01-04,10,690,26,9,4.8,75.3,10.4
+R036,2025-01-04,11,820,28,7,5.1,88.9,11.1
+R037,2025-01-04,12,890,30,6,5.3,95.6,11.7
+R038,2025-01-04,13,860,31,7,5.5,92.8,12.3
+R039,2025-01-04,14,780,32,8,5.7,85.1,12.9
+R040,2025-01-04,15,640,31,11,5.9,69.3,13.4
+
+R041,2025-01-05,06,100,18,28,3.2,10.7,8.0
+R042,2025-01-05,07,210,19,26,3.5,22.9,8.5
+R043,2025-01-05,08,340,21,24,3.8,36.8,9.0
+R044,2025-01-05,09,480,23,20,4.1,52.4,9.6
+R045,2025-01-05,10,610,25,18,4.4,67.1,10.2
+R046,2025-01-05,11,740,27,15,4.7,80.2,10.9
+R047,2025-01-05,12,810,29,13,5.0,87.6,11.5
+R048,2025-01-05,13,790,30,14,5.2,84.9,12.1
+R049,2025-01-05,14,710,31,16,5.4,76.8,12.7
+R050,2025-01-05,15,570,30,18,5.6,62.5,13.2
+
+R051,2025-01-06,06,115,18,22,3.4,12.2,8.3
+R052,2025-01-06,07,235,19,20,3.7,25.3,8.7
+R053,2025-01-06,08,375,21,18,4.0,40.6,9.2
+R054,2025-01-06,09,515,23,15,4.3,57.8,9.7
+R055,2025-01-06,10,645,25,13,4.6,71.9,10.3
+R056,2025-01-06,11,770,27,10,4.9,84.7,10.9
+R057,2025-01-06,12,840,29,9,5.2,91.8,11.6
+R058,2025-01-06,13,815,30,10,5.4,88.6,12.2
+R059,2025-01-06,14,735,31,12,5.6,80.4,12.8
+R060,2025-01-06,15,595,30,15,5.8,65.8,13.3
+`,
+
+  p9:`RecordID,NodeID,NodeType,VoltageKV,CurrentA,TemperatureC,Status,ConnectedTo
+G001,SubstationA,Substation,33.0,420,45,Normal,Feeder1
+G002,Feeder1,Feeder,32.8,415,47,Normal,TransformerA
+G003,TransformerA,Transformer,11.1,210,52,Normal,AreaA
+G004,AreaA,Load,10.9,180,55,Normal,AreaB
+G005,AreaB,Load,10.7,175,58,Normal,AreaC
+G006,AreaC,Load,10.5,190,61,Warning,AreaD
+G007,AreaD,Load,9.8,205,72,Fault,AreaE
+G008,AreaE,Load,0.0,0,30,Isolated,None
+G009,Feeder2,Feeder,33.1,430,46,Normal,TransformerB
+G010,TransformerB,Transformer,11.0,215,50,Normal,AreaF
+
+G011,AreaF,Load,10.8,185,54,Normal,AreaG
+G012,AreaG,Load,10.6,190,57,Normal,AreaH
+G013,AreaH,Load,10.4,195,60,Warning,AreaI
+G014,AreaI,Load,9.7,210,73,Fault,AreaJ
+G015,AreaJ,Load,0.0,0,28,Isolated,None
+G016,Feeder3,Feeder,32.9,425,48,Normal,TransformerC
+G017,TransformerC,Transformer,11.2,205,51,Normal,AreaK
+G018,AreaK,Load,10.9,175,53,Normal,AreaL
+G019,AreaL,Load,10.6,180,56,Normal,AreaM
+G020,AreaM,Load,10.3,195,59,Warning,AreaN
+
+G021,AreaN,Load,9.9,215,71,Fault,AreaO
+G022,AreaO,Load,0.0,0,27,Isolated,None
+G023,Feeder4,Feeder,33.2,435,47,Normal,TransformerD
+G024,TransformerD,Transformer,11.1,220,49,Normal,AreaP
+G025,AreaP,Load,10.8,185,52,Normal,AreaQ
+G026,AreaQ,Load,10.6,190,55,Normal,AreaR
+G027,AreaR,Load,10.4,200,58,Normal,AreaS
+G028,AreaS,Load,10.1,210,61,Warning,AreaT
+G029,AreaT,Load,9.6,225,74,Fault,AreaU
+G030,AreaU,Load,0.0,0,26,Isolated,None
+
+G031,Feeder5,Feeder,33.0,420,46,Normal,TransformerE
+G032,TransformerE,Transformer,11.0,210,50,Normal,AreaV
+G033,AreaV,Load,10.9,175,53,Normal,AreaW
+G034,AreaW,Load,10.7,180,56,Normal,AreaX
+G035,AreaX,Load,10.5,195,59,Normal,AreaY
+G036,AreaY,Load,10.2,205,62,Warning,AreaZ
+G037,AreaZ,Load,9.8,220,73,Fault,AreaAA
+G038,AreaAA,Load,0.0,0,25,Isolated,None
+G039,Feeder6,Feeder,33.3,440,48,Normal,TransformerF
+G040,TransformerF,Transformer,11.3,225,49,Normal,AreaAB
+
+G041,AreaAB,Load,10.9,185,52,Normal,AreaAC
+G042,AreaAC,Load,10.6,190,55,Normal,AreaAD
+G043,AreaAD,Load,10.3,200,58,Normal,AreaAE
+G044,AreaAE,Load,10.0,215,61,Warning,AreaAF
+G045,AreaAF,Load,9.5,230,75,Fault,AreaAG
+G046,AreaAG,Load,0.0,0,24,Isolated,None
+G047,Feeder7,Feeder,32.7,410,47,Normal,TransformerG
+G048,TransformerG,Transformer,10.9,205,51,Normal,AreaAH
+G049,AreaAH,Load,10.7,180,54,Normal,AreaAI
+G050,AreaAI,Load,10.4,195,57,Normal,AreaAJ
+
+G051,AreaAJ,Load,10.1,205,60,Warning,AreaAK
+G052,AreaAK,Load,9.7,220,72,Fault,AreaAL
+G053,AreaAL,Load,0.0,0,26,Isolated,None
+G054,Feeder8,Feeder,33.1,430,46,Normal,TransformerH
+G055,TransformerH,Transformer,11.2,215,49,Normal,AreaAM
+G056,AreaAM,Load,10.9,180,52,Normal,AreaAN
+G057,AreaAN,Load,10.6,190,55,Normal,AreaAO
+G058,AreaAO,Load,10.3,200,58,Normal,AreaAP
+G059,AreaAP,Load,10.0,215,61,Warning,AreaAQ
+G060,AreaAQ,Load,9.6,225,74,Fault,AreaAR
+`,
+
+  p10:`NodeID,NodeType,AvgDailyLoadKWh,RooftopSolarKW,BatteryCapacityKWh,CableCostPerKmLakhs,ConnectedTo
+M001,Substation,0,0,0,12,BuildingA
+M002,BuildingA,120,30,80,10,BuildingB
+M003,BuildingB,95,25,60,10,BuildingC
+M004,BuildingC,140,35,90,11,BuildingD
+M005,BuildingD,110,28,70,10,BuildingE
+M006,BuildingE,160,40,100,12,BuildingF
+M007,BuildingF,90,22,55,9,BuildingG
+M008,BuildingG,130,32,85,11,BuildingH
+M009,BuildingH,105,26,65,10,BuildingI
+M010,BuildingI,150,38,95,12,BuildingJ
+
+M011,BuildingJ,170,42,110,13,BuildingK
+M012,BuildingK,100,24,60,9,BuildingL
+M013,BuildingL,135,33,88,11,BuildingM
+M014,BuildingM,115,29,72,10,BuildingN
+M015,BuildingN,155,39,98,12,BuildingO
+M016,BuildingO,125,31,80,11,BuildingP
+M017,BuildingP,145,36,92,12,BuildingQ
+M018,BuildingQ,98,23,58,9,BuildingR
+M019,BuildingR,165,41,105,13,BuildingS
+M020,BuildingS,120,30,75,10,BuildingT
+
+M021,BuildingT,140,34,90,11,BuildingU
+M022,BuildingU,110,27,70,10,BuildingV
+M023,BuildingV,160,40,100,12,BuildingW
+M024,BuildingW,130,32,85,11,BuildingX
+M025,BuildingX,95,24,60,9,BuildingY
+M026,BuildingY,150,38,95,12,BuildingZ
+M027,BuildingZ,170,42,110,13,BuildingAA
+M028,BuildingAA,105,26,65,10,BuildingAB
+M029,BuildingAB,135,33,88,11,BuildingAC
+M030,BuildingAC,115,29,72,10,BuildingAD
+
+M031,BuildingAD,155,39,98,12,BuildingAE
+M032,BuildingAE,125,31,80,11,BuildingAF
+M033,BuildingAF,145,36,92,12,BuildingAG
+M034,BuildingAG,98,23,58,9,BuildingAH
+M035,BuildingAH,165,41,105,13,BuildingAI
+M036,BuildingAI,120,30,75,10,BuildingAJ
+M037,BuildingAJ,140,34,90,11,BuildingAK
+M038,BuildingAK,110,27,70,10,BuildingAL
+M039,BuildingAL,160,40,100,12,BuildingAM
+M040,BuildingAM,130,32,85,11,BuildingAN
+
+M041,BuildingAN,95,24,60,9,BuildingAO
+M042,BuildingAO,150,38,95,12,BuildingAP
+M043,BuildingAP,170,42,110,13,BuildingAQ
+M044,BuildingAQ,105,26,65,10,BuildingAR
+M045,BuildingAR,135,33,88,11,BuildingAS
+M046,BuildingAS,115,29,72,10,BuildingAT
+M047,BuildingAT,155,39,98,12,BuildingAU
+M048,BuildingAU,125,31,80,11,BuildingAV
+M049,BuildingAV,145,36,92,12,BuildingAW
+M050,BuildingAW,98,23,58,9,BuildingAX
+
+M051,BuildingAX,165,41,105,13,BuildingAY
+M052,BuildingAY,120,30,75,10,BuildingAZ
+M053,BuildingAZ,140,34,90,11,BuildingBA
+M054,BuildingBA,110,27,70,10,BuildingBB
+M055,BuildingBB,160,40,100,12,BuildingBC
+M056,BuildingBC,130,32,85,11,BuildingBD
+M057,BuildingBD,95,24,60,9,BuildingBE
+M058,BuildingBE,150,38,95,12,BuildingBF
+M059,BuildingBF,170,42,110,13,BuildingBG
+M060,BuildingBG,145,36,92,12,Substation
+`
 };
 
 
